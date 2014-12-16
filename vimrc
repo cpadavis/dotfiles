@@ -2,51 +2,11 @@
 " ==========================================================
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
-" Pep8 - http://pypi.python.org/pypi/pep8
-" Pyflakes
-" Ack
-" Rake & Ruby for command-t
-" nose, django-nose
 
 " ==========================================================
 " Plugins included
 " ==========================================================
-" Pathogen
-"     Better Management of VIM plugins
-"
-" GunDo
-"     Visual Undo in vim with diff's to check the differences
-"
-" Pytest
-"     Runs your Python tests in Vim.
-"
-" Commant-T
-"     Allows easy search and opening of files within a given path
-"
-" Snipmate
-"     Configurable snippets to avoid re-typing common comands
-"
-" PyFlakes
-"     Underlines and displays errors with Python on-the-fly
-"
-" Fugitive
-"    Interface with git from vim
-"
-" Git
-"    Syntax highlighting for git config files
-"
-" Pydoc
-"    Opens up pydoc within vim
-"
-" Surround
-"    Allows you to surround text with open/close tags
-"
-" Py.test
-"    Run py.test test's from within vim
-"
-" MakeGreen
-"    Generic test runner that works with nose
-"
+
 " ==========================================================
 " Shortcuts
 " ==========================================================
@@ -132,19 +92,9 @@ inoremap <C-k> <Esc>D<Esc>a
 " Open NerdTree
 map <leader>n :NERDTreeToggle<CR>
 
-" Run command-t file search
-map <leader>f :CommandT<CR>
-" Ack searching
-nmap <leader>a <Esc>:Ack!
 
 " Load the Gundo window
 map <leader>g :GundoToggle<CR>
-
-" Jump to the definition of whatever the cursor is on
-map <leader>j :RopeGotoDefinition<CR>
-
-" Rename whatever the cursor is on (including references to it)
-map <leader>r :RopeRename<CR>
 
 function! ESlac()
     " :e scp://cpd@ki-ls.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/a:name
@@ -192,8 +142,6 @@ set vb t_vb=
 set wildignore+=*.o,*.obj,.git,*.pyc
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
-
-set grepprg=ack         " replace the default grep program with ack
 
 
 " Set working directory
@@ -371,12 +319,6 @@ nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 nmap <leader>c :Calendar<CR>
-
-" ==========================================================
-" Session stuff
-" ==========================================================
-let g:session_autosave = 'no'
-let g:session_autoload = 'no'
 
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
