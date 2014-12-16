@@ -1,0 +1,13 @@
+[user]
+	name = cpadavis
+	email = chris.pa.davis@gmail.com
+[gui]
+	recentrepo = /Users/cpd/Dropbox/secret-adventure
+[credential]
+	helper = osxkeychain
+[push]
+    default = simple
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
