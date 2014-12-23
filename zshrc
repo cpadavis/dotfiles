@@ -135,6 +135,12 @@ function check() {
     lacheckE | mvim -p --servername LACHECK - ;
     pylintE | mvim -p --servername PYLINT - ;
 }
+function checksave() {
+    grep -n "TODO" **/* > TODO.log ;
+    git diff HEAD > GITDIFF.log ;
+    lacheckE > LATEXERR.log ;
+    pylintE > PYERR.log ;
+}
 
 function slacvim(){ mvim scp://cpd@ki-ls${2}.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/${1} ;}
 
