@@ -226,6 +226,7 @@ if has("gui_running")
     " Remove toolbar
     set guioptions-=T
     set lines=60 columns=85
+    set cursorline
     if has("gui_macvim")
         set guifont=Menlo:h12.00
         """ Full screen options
@@ -241,9 +242,11 @@ else
     " se t_co=256
     " let g:solarized_termcolors=256
     colorscheme solarized "default
-    set nocursorline
+    "set nocursorline
+    set colorcolumn=80
+    set cursorline
     set background=light
-    set lines=60 columns=85
+    "set lines=60 columns=85
 endif
 call togglebg#map("<F6>")
 
