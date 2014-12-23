@@ -55,3 +55,6 @@ docs/_build/
 
 # ignore the history files
 history.sqlite
+
+# ignore json
+*.json
