@@ -218,23 +218,23 @@ set incsearch               " Incrementally search while typing a /regex
 
 """" Display
 syntax enable
+set mouse=a
 if has("gui_running")
     colorscheme solarized
     set background=light
-    " Remove menu bar
-    set guioptions-=m
-    " Remove toolbar
-    set guioptions-=T
     set lines=60 columns=85
     if has("gui_macvim")
         set guifont=Menlo:h12.00
         """ Full screen options
-        " Set it so you only maximize vertically, not also horizontally
-        set fuoptions=maxvert
+        set fuoptions=maxvert,maxhorz,background:Normal
         set colorcolumn=80
         "elseif os == 'Linux'
     else
         set guifont=DejaVu\ Sans\ Mono\ 10.00
+        " Remove menu bar
+        set guioptions-=m
+        " Remove toolbar
+        set guioptions-=T
 
     endif
 else
@@ -291,6 +291,13 @@ let wiki_personal.nested_syntaxes = vimwiki_nested_syntaxes
 let wiki_personal.syntax = 'default'
 
 let g:vimwiki_list = [wiki, wiki_clusterz, wiki_personal]
+
+" vimwiki keybindings
+
+" nmap <Leader>wf <Plug>VimwikiFollowLink
+" nmap <Leader>we <Plug>VimwikiSplitLink
+" nmap <Leader>wv <Plug>VimwikiVSplitLink
+nmap <Leader>wf <Plug>VimwikiTabnewLink
 
 " snipmate
 imap <leader><tab> <Plug>snipmateShow
