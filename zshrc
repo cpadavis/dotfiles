@@ -123,7 +123,7 @@ fi
 
 alias thisroot=". bin/thisroot.sh"
 
-alias gitypo='grep -n "TODO" **/* | mvim -; git diff | mvim -; git commit -am "typos and minor bugs"; git push origin master'
+alias gitypo='checksave | git commit -am "typoes and minor bugs"; git push origin master'
 function check() {
 #    SERVERNAME= ;
 #    grep -n "TODO" **/* | mvim -p --servername ${SERVERNAME} - ;
