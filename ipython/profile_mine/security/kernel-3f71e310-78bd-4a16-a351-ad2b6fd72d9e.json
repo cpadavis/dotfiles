@@ -1,8 +1,0 @@
-{
-  "stdin_port": 55515, 
-  "ip": "127.0.0.1", 
-  "hb_port": 55516, 
-  "key": "0c271884-fe8b-44e7-b71f-6d8ae949624d", 
-  "shell_port": 55513, 
-  "iopub_port": 55514
-}
