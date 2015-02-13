@@ -49,6 +49,7 @@ alias iconsole='ipython console --profile=nbserver --existing'
 
 if [ -z "$SSH_CONNECTION" ]; then
     alias notebook="ipython notebook --profile=nbserver"
+    alias cs231n="ipython notebook --profile=cs231n"
 else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
     alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP}"
@@ -61,6 +62,14 @@ fi
 alias ls='ls -hFa --color'
 alias dua='du -ah --max-depth=1 | sort -nr'
 alias ltex='xelatex -file-line-error -interaction=nonstopmode *.tex'
+
+function CompileLatex()
+{
+    xelatex -file-line-error -interaction=nonstopmode ${1}.tex
+    bibtex8 ${1}.aux
+    xelatex -file-line-error -interaction=nonstopmode ${1}.tex
+    xelatex -file-line-error -interaction=nonstopmode ${1}.tex
+}
 
 # tmux sharing
 

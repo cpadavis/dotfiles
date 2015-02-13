@@ -269,6 +269,15 @@ nnoremap <leader>S :call RemoveWS()<CR>
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" rope. NOTE: if installing to new computer, go to ropevim directory and
+" python setup.py install it!
+" nmap <leader>j :RopeGotoDefinition<CR>
+" one day I will get ropevim installed!
+
+" tagbar
+" nmap <leader>l :Tagbar<CR>
+" this one is also broken on mac
+
 " vimwiki
 let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql': 'sql'}
 let wiki = {}
