@@ -46,7 +46,9 @@ bindkey . rationalise-dot
 alias number="echo $(ls -1 --file-type | grep -v '/$' | wc -l)"
 alias pylab='ipython --pylab --profile=nbserver'
 alias iconsole='ipython console --profile=nbserver --existing'
-
+alias bjobl="bjobs -l | less"
+# TODO: this does not work!
+alias bjobr='bjobs | awk '\''{if($3 != "PEND") print ;}'\'' | less'
 if [ -z "$SSH_CONNECTION" ]; then
     alias notebook="ipython notebook --profile=nbserver"
     alias cs231n="ipython notebook --profile=cs231n"
