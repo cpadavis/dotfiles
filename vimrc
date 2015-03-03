@@ -336,8 +336,8 @@ nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR
 " Calendar stuff
 " ==========================================================
 let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-nmap <leader>c :Calendar<CR>
+let g:calendar_google_task = 0
+nmap <leader>c :tab Calendar<CR>
 
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
