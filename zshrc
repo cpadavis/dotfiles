@@ -206,6 +206,12 @@ function pylintA() {
 # every time a directory changes; zsh checks if chpwd is defined and runs it
 function chpwd(){ ls; }
 
+# markdown macro
+function markdown() {
+    # don't call the .md, just the name before that
+    perl ~/.dotfiles/Markdown.pl ${1}.md > ${1}.html ;
+}
+
 function tmx() {
     #
     # Modified TMUX start script from:
