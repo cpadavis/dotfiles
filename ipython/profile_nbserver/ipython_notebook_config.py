@@ -419,6 +419,7 @@ c.NotebookManager.save_script = True
 
 # The directory to use for notebooks.
 #c.NotebookManager.notebook_dir = '/Users/cpd/.ipython/notebooks'
+# CPD 3. March 2015: NotebookManager -> NotebookApp
 from os import path
-c.NotebookManager.notebook_dir = path.expandvars('$IPYTHON_NOTEBOOK_DIR')
+c.NotebookApp.notebook_dir = path.expandvars('$IPYTHON_NOTEBOOK_DIR')
 #c.NotebookManager.notebook_dir = '$$IPYTHON_NOTEBOOK_DIR'
