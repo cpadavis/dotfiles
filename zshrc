@@ -82,7 +82,7 @@ alias tmuxk="tmux kill-session -t tmuxs"
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@carver.nersc.gov'
 function slac(){ ssh -Y cpd@ki-ls${1:=10}.slac.stanford.edu ;}
-alias rye='ssh -Y cpd@ry01.stanford.edu'
+alias rye='ssh -Y cpd@rye01.stanford.edu'
 
 alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
 
