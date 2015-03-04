@@ -17,7 +17,24 @@ c = get_config()
 # Execute the given command string.  c.InteractiveShellApp.code_to_run = ''
 
 # lines of code to run at IPython startup.
-c.InteractiveShellApp.exec_lines = ['from astropy.io import fits', 'import pandas as pd']
+c.InteractiveShellApp.exec_lines = [
+    "%matplotlib",
+    "%load_ext Cython",
+    "%load_ext autoreload",
+    "%autoreload 2",
+    "from __future__ import print_function, division",
+    'import numpy as np',
+    'import matplotlib.pyplot as plt',
+    'from astropy.io import fits',
+    'import pandas as pd',
+    "import matplotlib",
+    "palette = matplotlib.cm.gray_r",
+    "palette.set_bad(color='b', alpha=0.5)",
+    "palette.set_over(color='r', alpha=0.5)",
+    "palette.set_under(color='g', alpha=0.5)",
+    "matplotlib.cm.register_cmap(name='my_map', cmap=palette)",
+    "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
+    'print("Importing numpy, matplotlib.pyplot, fits, and pandas! Also setting the default colormap to no interpolation and lower origin and gray.")']
 
 
 
@@ -155,7 +172,7 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 # forces a full reload of modules whose code may have changed, which the default
 # reload() function does not.  When deep_reload is off, IPython will use the
 # normal reload(), but deep_reload will still be available as dreload().
-c.TerminalInteractiveShell.deep_reload = True
+# c.TerminalInteractiveShell.deep_reload = True
 
 # Make IPython automatically call any callable object even if you didn't type
 # explicit parentheses. For example, 'str 43' becomes 'str(43)' automatically.
