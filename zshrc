@@ -129,6 +129,17 @@ elif [ $CPD_NAME = 'KILS' ]; then
 else
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
+    function tmuxs
+    {
+        tmux start-server
+        tmux new-session -d -s tmuxs -n notebook
+        tmux new-window -t tmuxs:2 -n workadirk
+
+        tmux send-keys -t tmuxs:1 "notebook &" C-m
+
+        tmux select-window -t tmuxs:2
+        tmux attach-session -t tmuxs
+    }
 fi
 
 alias thisroot=". bin/thisroot.sh"
