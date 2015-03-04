@@ -116,23 +116,8 @@ c.NotebookApp.open_browser = False
 
 # lines of code to run at IPython startup.
 # c.IPKernelApp.exec_lines = []
-c.IPKernelApp.exec_lines = [
-    "%pylab inline",
-    "%load_ext cythonmagic",
-    "# %%cython --annotate",
-    "%load_ext autoreload",
-    "%autoreload 2",
-    "%connect_info  # display the connection info",
-    "#plt.xkcd()",
-    "from __future__ import print_function, division",
-    "import matplotlib",
-    "palette = matplotlib.cm.gray_r",
-    "palette.set_bad(color='b', alpha=0.5)",
-    "palette.set_over(color='r', alpha=0.5)",
-    "palette.set_under(color='g', alpha=0.5)",
-    "matplotlib.cm.register_cmap(name='my_map', cmap=palette)",
-    "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')"
-    ]
+# c.IPKernelApp.exec_lines = []
+
 # The importstring for the OutStream factory
 # c.IPKernelApp.outstream_class = 'IPython.zmq.iostream.OutStream'
 
