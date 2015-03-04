@@ -133,12 +133,8 @@ else
     function tmuxs
     {
         tmux start-server
-        tmux new-session -d -s tmuxs -n notebook
-        tmux new-window -t tmuxs:2 -n workadirk
+        tmux new-session -d -s tmuxs -n workadir
 
-        tmux send-keys -t tmuxs:1 "notebook &" C-m
-
-        tmux select-window -t tmuxs:2
         tmux attach-session -t tmuxs
     }
 fi
