@@ -116,7 +116,7 @@ c.NotebookApp.open_browser = False
 
 # lines of code to run at IPython startup.
 # c.IPKernelApp.exec_lines = []
-# c.IPKernelApp.exec_lines = []
+c.IPKernelApp.exec_lines = ["%matplotlib inline"]
 
 # The importstring for the OutStream factory
 # c.IPKernelApp.outstream_class = 'IPython.zmq.iostream.OutStream'

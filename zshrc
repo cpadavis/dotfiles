@@ -50,7 +50,6 @@ alias bjobl="bjobs -l | less"
 alias bjobr='bjobs | awk '\''{if($3 != "PEND") print ;}'\'' | less'
 if [ -z "$SSH_CONNECTION" ]; then
     alias notebook="ipython notebook --profile=nbserver"
-    alias cs231n="ipython notebook --profile=cs231n"
 else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
     alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP}"
