@@ -30,6 +30,13 @@ fu! SplitScroll()
     :set scrollbind
 endfu
 
+" z= loads up alternatives for spelling but is awful to type
+" so let's rebind it
+nmap <leader>z z=
+
+" also enable spelling highlighting. I know it breaks my 'syntax' for <leader>s
+nmap <leader>sp :set spell!<CR>
+
 nmap <leader>sb :call SplitScroll()<CR>
 
 " set vsplit to double the size of your window
