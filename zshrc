@@ -269,3 +269,6 @@ function tmx() {
         tmux kill-session -t $session_id
     fi
 }
+
+PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
