@@ -1,6 +1,7 @@
 # Configuration file for ipython-notebook.
 
 c = get_config()
+c.NotebookApp.password = u'sha1:0e146849b634:d74216e0146e100998abc9c88a5228ad64534d6c'
 
 #------------------------------------------------------------------------------
 # NotebookApp configuration
