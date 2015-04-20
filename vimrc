@@ -333,7 +333,6 @@ nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
 " control whether you want to see both warnings and errors or only errors
-nmap <Leader>sq :let g:syntastic_quiet_warnings=!g:syntastic_quiet_warnings<CR>
 nmap <Leader>sl :let g:syntastic_python_checkers=['pylint']<CR> :SyntasticCheck<CR>
 nmap <Leader>sf :let g:syntastic_python_checkers=['flake8']<CR> :SyntasticCheck<CR>
 nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR>
