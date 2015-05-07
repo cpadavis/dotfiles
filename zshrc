@@ -115,7 +115,7 @@ if [ $CPD_NAME = 'MAC' ]; then
     }
 elif [ $CPD_NAME = 'KILS' ]; then
 
-    export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/code/
+    export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
 
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
