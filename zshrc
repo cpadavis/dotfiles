@@ -52,7 +52,7 @@ if [ -z "$SSH_CONNECTION" ]; then
     alias notebook="ipython notebook --profile=nbserver"
 else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
-    alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP}"
+    alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
 fi
 
 # check if we have mvim else just stick to vim
@@ -80,13 +80,19 @@ alias tmuxk="tmux kill-session -t tmuxs"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@carver.nersc.gov'
-function slac(){ ssh -Y cpd@ki-ls${1:=10}.slac.stanford.edu ;}
+function slac(){ ssh -Y cpd@ki-ls${1:=9}.slac.stanford.edu ;}
 alias rye='ssh -Y cpd@rye01.stanford.edu'
 
 alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
 
 # some key difs between my mac and kils
 if [ $CPD_NAME = 'MAC' ]; then
+    PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
+    PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
+
+    export PROJECTS_DIR=/Users/cpd/Projects/
+
+
     alias pipi='sudo -E pip install'
     alias pipu='sudo -E pip install --upgrade'
     function tmuxs
@@ -108,6 +114,9 @@ if [ $CPD_NAME = 'MAC' ]; then
         ## tmux kill-session -t tmuxs
     }
 elif [ $CPD_NAME = 'KILS' ]; then
+
+    export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/code/
+
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
     function tmuxs
@@ -127,6 +136,9 @@ elif [ $CPD_NAME = 'KILS' ]; then
     function pdf() { xpdf -z page ${1} & ;}
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/DESDM/eups/packages/Linux64/psfex/3.17.0+0/bin/psfex ${1} -c /u/ec/roodman/Astrophysics/PSF/desdm-plus.psfex -OUTCAT_NAME ${2} ; }
 else
+
+    export PROJECTS_DIR=""
+
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
     function tmuxs
@@ -140,7 +152,7 @@ fi
 
 alias thisroot=". bin/thisroot.sh"
 
-alias gitypo='checksave | git commit -am "typoes and minor bugs"; git push origin master'
+alias gitypo='checksave; git commit -am "typoes and minor bugs"; git push origin master'
 function check() {
 #    SERVERNAME= ;
 #    grep -n "TODO" **/* | mvim -p --servername ${SERVERNAME} - ;
@@ -270,5 +282,17 @@ function tmx() {
     fi
 }
 
-PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
+# using the PROJECTS_DIR from above, define some variables
+export IPYTHON_NOTEBOOK_DIR=$PROJECTS_DIR
+# WavefrontPSF
+export PYTHONPATH=${PROJECTS_DIR}/WavefrontPSF/code:$PYTHONPATH
+# SpaceWarps
+export PATH=$PATH:${PROJECTS_DIR}/SpaceWarps/analysis
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
+# cluster-z
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
+# strongcnn
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
+# weak_sauce
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
+
