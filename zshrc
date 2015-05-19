@@ -80,7 +80,7 @@ alias tmuxk="tmux kill-session -t tmuxs"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@carver.nersc.gov'
-function slac(){ ssh -Y cpd@ki-ls${1:=9}.slac.stanford.edu ;}
+function slac(){ ssh -Y cpd@ki-ls${1:=09}.slac.stanford.edu ;}
 alias rye='ssh -Y cpd@rye01.stanford.edu'
 
 alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
@@ -90,7 +90,7 @@ if [ $CPD_NAME = 'MAC' ]; then
     PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
     PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
 
-    export PROJECTS_DIR=/Users/cpd/Projects/
+    export PROJECTS_DIR=/Users/cpd/Projects
 
 
     alias pipi='sudo -E pip install'
@@ -115,7 +115,7 @@ if [ $CPD_NAME = 'MAC' ]; then
     }
 elif [ $CPD_NAME = 'KILS' ]; then
 
-    export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/code/
+    export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/code
 
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
@@ -290,6 +290,7 @@ export PYTHONPATH=${PROJECTS_DIR}/WavefrontPSF/code:$PYTHONPATH
 export PATH=$PATH:${PROJECTS_DIR}/SpaceWarps/analysis
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
 # cluster-z
+export CLUSTERZ_DIR=${PROJECTS_DIR}/cluster-z
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
 # strongcnn
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
