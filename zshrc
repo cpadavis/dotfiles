@@ -138,7 +138,7 @@ elif [ $CPD_NAME = 'KILS' ]; then
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/DESDM/eups/packages/Linux64/psfex/3.17.0+0/bin/psfex ${1} -c /u/ec/roodman/Astrophysics/PSF/desdm-plus.psfex -OUTCAT_NAME ${2} ; }
 else
 
-    export PROJECTS_DIR=""
+    export PROJECTS_DIR=~/Projects
 
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
