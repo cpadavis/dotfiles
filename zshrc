@@ -83,7 +83,8 @@ alias nersc='ssh -Y cpd@carver.nersc.gov'
 function slac(){ ssh -Y cpd@ki-ls${1:=09}.slac.stanford.edu ;}
 alias rye='ssh -Y cpd@rye01.stanford.edu'
 
-alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
+alias trivialAccess='echo "You should use easyaccess!"'
+# alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
 
 # some key difs between my mac and kils
 if [ $CPD_NAME = 'MAC' ]; then
@@ -297,3 +298,5 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 # weak_sauce
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 
+# caffe
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
