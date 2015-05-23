@@ -82,6 +82,7 @@ alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@carver.nersc.gov'
 function slac(){ ssh -Y cpd@ki-ls${1:=09}.slac.stanford.edu ;}
 alias rye='ssh -Y cpd@rye01.stanford.edu'
+alias sherlock='ssh -X cpd@sherlock.stanford.edu'
 
 alias trivialAccess='echo "You should use easyaccess!"'
 # alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
