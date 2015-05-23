@@ -250,7 +250,7 @@ else
     " let g:solarized_termcolors=256
     colorscheme solarized "default
     "set nocursorline
-    set colorcolumn=80
+    " set colorcolumn=80
     set cursorline
     set background=light
     "set lines=60 columns=85
