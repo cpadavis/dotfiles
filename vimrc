@@ -249,13 +249,35 @@ else
     " se t_co=256
     " let g:solarized_termcolors=256
     colorscheme solarized "default
+    set background=light
     "set nocursorline
     " set colorcolumn=80
     set cursorline
-    set background=light
     "set lines=60 columns=85
 endif
-call togglebg#map("<F6>")
+function! SwitchLucius()
+    if g:colors_name == 'lucius'
+        if g:lucius_style == 'dark'
+            LuciusLight
+        elseif g:lucius_style == 'light'
+            LuciusDark
+        endif
+    elseif g:colors_name == 'solarized'
+        let &background = ( &background == "dark"? "light" : "dark" )
+    endif
+endfunction
+function! ChangeColorScheme()
+    if g:colors_name == 'solarized'
+        colorscheme lucius
+        LuciusLight
+    elseif g:colors_name == 'lucius'
+        colorscheme solarized
+        set background=light
+        "call togglebg#map("<F5>")
+    endif
+endfunction
+map <F5> :call SwitchLucius()<CR>
+nnoremap <leader>C :call ChangeColorScheme()<CR>
 
 " Paste from clipboard
 map <leader>p "+p
