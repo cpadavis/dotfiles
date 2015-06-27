@@ -19,6 +19,9 @@ command! W :w
 
 " bind jk to esc
 imap jk <esc>
+" also set it so you need to type jk quickly to get to esc
+set ttimeout
+set ttimeoutlen=100
 set timeoutlen=500
 
 fu! SplitScroll()
@@ -163,8 +166,14 @@ nnoremap <leader>. :lcd %:p:h<CR>
 """ Insert completion
 " don't select first item, follow typing in autocomplete
 set completeopt=menu,preview
+set complete-=i
 set pumheight=6             " Keep a small completion window
 
+"""
+" did you know <c-a> and <c-x> increment numbers?
+" with octal, 0s in front of numbers indicate octal instead of base10. disable
+" that!
+set nrformats-=octal
 
 """ Moving Around/Editing
 set cursorline              " have a line indicate the cursor location
@@ -172,6 +181,7 @@ set ruler                   " show the cursor position all the time
 set nostartofline           " Avoid moving cursor to BOL when jumping around
 set virtualedit=block       " Let cursor move past the last char in <C-v> mode
 set scrolloff=3             " Keep 3 context lines above and below the cursor
+set sidescrolloff=5         " keep 5 context columns to right and left of cursor
 set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
 set showmatch               " Briefly jump to a paren once it's balanced
 " set nowrap                  " don't wrap text
@@ -217,6 +227,10 @@ set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,trail:-,precedes:<,extends:>
 set list
+
+set display+=lastline
+set encodie=utf-8
+set autoread " reload file if changed
 
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
