@@ -62,6 +62,8 @@ nmap <leader>rs :set lines=60 columns=85<CR>
 let g:pep8_map='<leader>8'
 
 " Toggle the tasklist
+" and add other notes
+let g:tlTokenList = ["NOTE", "FIXME", "TODO", "XXX", "WARNING", "ERROR"]
 map <leader>td <Plug>TaskList
 
 " Make h and l go to beginning and end of line
@@ -255,6 +257,7 @@ else
     set cursorline
     "set lines=60 columns=85
 endif
+" commands for changing the colors around
 function! SwitchLucius()
     if g:colors_name == 'lucius'
         if g:lucius_style == 'dark'
@@ -277,7 +280,8 @@ function! ChangeColorScheme()
     endif
 endfunction
 map <F5> :call SwitchLucius()<CR>
-nnoremap <leader>C :call ChangeColorScheme()<CR>
+nnoremap <leader>cS :call SwitchLucius()<CR>
+nnoremap <leader>cs :call ChangeColorScheme()<CR>
 
 " Paste from clipboard
 map <leader>p "+p
@@ -285,7 +289,8 @@ map <leader>p "+p
 " Quit window on <leader>q
 " Actually, no. leader q closes an active split screen
 " nnoremap <leader>q :q<CR>
-nnoremap <leader>q <c-w>q
+nnoremap <leader>q :bd<CR>
+"<c-w>q
 
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
@@ -365,7 +370,20 @@ nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR
 " ==========================================================
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
-nmap <leader>c :tab Calendar<CR>
+nmap <leader>ca :tab Calendar<CR>
+
+" ==========================================================
+" Powerline
+" ==========================================================
+set rtp+=~/.dotfiles/powerline/powerline/bindings/vim
+
+" ==========================================================
+" CtrlP
+" http://kien.github.io/ctrlp.vim/
+" ==========================================================
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+" f for find
+nmap <leader>f :CtrlPMixed<CR>
 
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
