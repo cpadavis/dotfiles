@@ -42,6 +42,9 @@ rationalise-dot() {
 zle -N rationalise-dot
 bindkey . rationalise-dot
 
+# powerline is slow, so let's not use it for now
+# . ~/.dotfiles/powerline/powerline/bindings/zsh/powerline.zsh
+
 # Aliases
 alias number="echo $(ls -1 --file-type | grep -v '/$' | wc -l)"
 alias pylab='ipython --profile=nbserver'
