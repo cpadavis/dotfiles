@@ -43,7 +43,6 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 
 # Aliases
-alias number="echo $(ls -1 --file-type | grep -v '/$' | wc -l)"
 alias pylab='ipython --profile=nbserver'
 alias iconsole='ipython console --profile=nbserver --existing'
 alias bjobl="bjobs -l | less"
@@ -80,7 +79,7 @@ alias tmuxk="tmux kill-session -t tmuxs"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@carver.nersc.gov'
-function slac(){ ssh -Y cpd@ki-ls${1:=09}.slac.stanford.edu ;}
+function slac(){ ssh -Y cpd@ki-ls${1:=10}.slac.stanford.edu ;}
 alias rye='ssh -Y cpd@rye01.stanford.edu'
 alias sherlock='ssh -X cpd@sherlock.stanford.edu'
 
@@ -103,14 +102,20 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux new-session -d -s tmuxs -n irssi
         tmux new-window -t tmuxs:2 -n nb
         tmux new-window -t tmuxs:3 -n slac
-        tmux new-window -t tmuxs:4 -n workadirk
+        tmux new-window -t tmuxs:4 -n sherlock
+        tmux new-window -t tmuxs:5 -n workadirk
 
         # send commands to windows
         tmux send-keys -t tmuxs:1 "irssi" C-m
         tmux send-keys -t tmuxs:2 "notebook &" C-m
+        tmux send-keys -t tmuxs:3 "kinit cpd@SLAC.STANFORD.EDU" C-m
+        tmux send-keys -t tmuxs:3 "DCaUwnFA2D." C-m
         tmux send-keys -t tmuxs:3 "slac" C-m
+        tmux send-keys -t tmuxs:4 "kinit cpd@stanford.edu" C-m
+        tmux send-keys -t tmuxs:4 "JFKwsoFt22nd!" C-m
+        tmux send-keys -t tmuxs:4 "sherlock" C-m
 
-        tmux select-window -t tmuxs:4
+        tmux select-window -t tmuxs:5
         tmux attach-session -t tmuxs
         ## # When we detach from it, kill the session
         ## tmux kill-session -t tmuxs

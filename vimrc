@@ -19,6 +19,9 @@ command! W :w
 
 " bind jk to esc
 imap jk <esc>
+" also set it so you need to type jk quickly to get to esc
+set ttimeout
+set ttimeoutlen=100
 set timeoutlen=500
 
 fu! SplitScroll()
@@ -62,6 +65,8 @@ nmap <leader>rs :set lines=60 columns=85<CR>
 let g:pep8_map='<leader>8'
 
 " Toggle the tasklist
+" and add other notes
+let g:tlTokenList = ["NOTE", "FIXME", "TODO", "XXX", "WARNING", "ERROR"]
 map <leader>td <Plug>TaskList
 
 " Make h and l go to beginning and end of line
@@ -161,8 +166,14 @@ nnoremap <leader>. :lcd %:p:h<CR>
 """ Insert completion
 " don't select first item, follow typing in autocomplete
 set completeopt=menu,preview
+set complete-=i
 set pumheight=6             " Keep a small completion window
 
+"""
+" did you know <c-a> and <c-x> increment numbers?
+" with octal, 0s in front of numbers indicate octal instead of base10. disable
+" that!
+set nrformats-=octal
 
 """ Moving Around/Editing
 set cursorline              " have a line indicate the cursor location
@@ -170,6 +181,7 @@ set ruler                   " show the cursor position all the time
 set nostartofline           " Avoid moving cursor to BOL when jumping around
 set virtualedit=block       " Let cursor move past the last char in <C-v> mode
 set scrolloff=3             " Keep 3 context lines above and below the cursor
+set sidescrolloff=5         " keep 5 context columns to right and left of cursor
 set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
 set showmatch               " Briefly jump to a paren once it's balanced
 " set nowrap                  " don't wrap text
@@ -216,6 +228,9 @@ set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 set listchars=tab:>-,trail:-,precedes:<,extends:>
 set list
 
+set display+=lastline
+set autoread " reload file if changed
+
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
@@ -232,11 +247,11 @@ if has("gui_running")
     set lines=60 columns=85
     set cursorline
     if has("gui_macvim")
-        set guifont=Menlo:h12.00
         """ Full screen options
         set fuoptions=maxvert,maxhorz,background:Normal
         set colorcolumn=80
         "elseif os == 'Linux'
+        set guifont=Menlo:h12.00
     else
         set guifont=DejaVu\ Sans\ Mono\ 10.00
         " Remove menu bar
@@ -246,16 +261,45 @@ if has("gui_running")
 
     endif
 else
+    set t_Co=256
+    set term=xterm-256color
     " se t_co=256
     " let g:solarized_termcolors=256
     colorscheme solarized "default
+    set background=light
     "set nocursorline
     " set colorcolumn=80
     set cursorline
-    set background=light
     "set lines=60 columns=85
 endif
-call togglebg#map("<F6>")
+set encoding=utf-8
+set termencoding=utf-8
+
+" commands for changing the colors around
+function! SwitchLucius()
+    if g:colors_name == 'lucius'
+        if g:lucius_style == 'dark'
+            LuciusLight
+        elseif g:lucius_style == 'light'
+            LuciusDark
+        endif
+    elseif g:colors_name == 'solarized'
+        let &background = ( &background == "dark"? "light" : "dark" )
+    endif
+endfunction
+function! ChangeColorScheme()
+    if g:colors_name == 'solarized'
+        colorscheme lucius
+        LuciusLight
+    elseif g:colors_name == 'lucius'
+        colorscheme solarized
+        set background=light
+        "call togglebg#map("<F5>")
+    endif
+endfunction
+map <F5> :call SwitchLucius()<CR>
+nnoremap <leader>cS :call SwitchLucius()<CR>
+nnoremap <leader>cs :call ChangeColorScheme()<CR>
 
 " Paste from clipboard
 map <leader>p "+p
@@ -263,7 +307,8 @@ map <leader>p "+p
 " Quit window on <leader>q
 " Actually, no. leader q closes an active split screen
 " nnoremap <leader>q :q<CR>
-nnoremap <leader>q <c-w>q
+nnoremap <leader>q :bd<CR>
+"<c-w>q
 
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
@@ -343,7 +388,23 @@ nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR
 " ==========================================================
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
-nmap <leader>c :tab Calendar<CR>
+nmap <leader>ca :tab Calendar<CR>
+
+
+" ==========================================================
+" vim airline
+" ==========================================================
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" ==========================================================
+" CtrlP
+" http://kien.github.io/ctrlp.vim/
+" ==========================================================
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+" f for find
+nmap <leader>f :CtrlPMixed<CR>
 
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
