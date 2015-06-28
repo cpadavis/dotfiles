@@ -229,7 +229,6 @@ set listchars=tab:>-,trail:-,precedes:<,extends:>
 set list
 
 set display+=lastline
-set encodie=utf-8
 set autoread " reload file if changed
 
 """ Searching and Patterns
@@ -248,12 +247,16 @@ if has("gui_running")
     set lines=60 columns=85
     set cursorline
     if has("gui_macvim")
-        set guifont=Menlo:h12.00
         """ Full screen options
         set fuoptions=maxvert,maxhorz,background:Normal
         set colorcolumn=80
         "elseif os == 'Linux'
+        " set guifont=Menlo:h12.00
+        " use powerline font
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12.00
     else
+        " set guifont=DejaVu\ Sans\ Mono\ 10.00
+        " use powerline font
         set guifont=DejaVu\ Sans\ Mono\ 10.00
         " Remove menu bar
         set guioptions-=m
@@ -262,6 +265,8 @@ if has("gui_running")
 
     endif
 else
+    set t_Co=256
+    set term=xterm-256color
     " se t_co=256
     " let g:solarized_termcolors=256
     colorscheme solarized "default
@@ -271,6 +276,9 @@ else
     set cursorline
     "set lines=60 columns=85
 endif
+set encoding=utf-8
+set termencoding=utf-8
+
 " commands for changing the colors around
 function! SwitchLucius()
     if g:colors_name == 'lucius'
@@ -386,10 +394,10 @@ let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
 nmap <leader>ca :tab Calendar<CR>
 
+
 " ==========================================================
-" Powerline
+" vim airplane
 " ==========================================================
-set rtp+=~/.dotfiles/powerline/powerline/bindings/vim
 
 " ==========================================================
 " CtrlP
