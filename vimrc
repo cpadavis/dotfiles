@@ -277,24 +277,41 @@ set termencoding=utf-8
 
 " commands for changing the colors around
 function! SwitchLucius()
-    if g:colors_name == 'lucius'
-        if g:lucius_style == 'dark'
-            LuciusLight
-        elseif g:lucius_style == 'light'
-            LuciusDark
+    if exists("g:colors_name")
+        if g:colors_name == 'lucius'
+            if g:lucius_style == 'dark'
+                LuciusLight
+            elseif g:lucius_style == 'light'
+                LuciusDark
+            endif
+        elseif g:colors_name == 'solarized'
+            let &background = ( &background == "dark"? "light" : "dark" )
+        else
+            let &background = ( &background == "dark"? "light" : "dark" )
         endif
-    elseif g:colors_name == 'solarized'
-        let &background = ( &background == "dark"? "light" : "dark" )
+    else
+        " escape
+        colorscheme solarized
+        set background=light
     endif
 endfunction
 function! ChangeColorScheme()
-    if g:colors_name == 'solarized'
-        colorscheme lucius
-        LuciusLight
-    elseif g:colors_name == 'lucius'
+    if exists("g:colors_name")
+        if g:colors_name == 'solarized'
+            colorscheme lucius
+            LuciusLight
+        elseif g:colors_name == 'lucius'
+            colorscheme solarized
+            set background=light
+            "call togglebg#map("<F5>")
+        else
+            " escape!
+            colorscheme solarized
+            set background=light
+        endif
+    else
         colorscheme solarized
         set background=light
-        "call togglebg#map("<F5>")
     endif
 endfunction
 map <F5> :call SwitchLucius()<CR>
