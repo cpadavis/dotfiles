@@ -251,12 +251,8 @@ if has("gui_running")
         set fuoptions=maxvert,maxhorz,background:Normal
         set colorcolumn=80
         "elseif os == 'Linux'
-        " set guifont=Menlo:h12.00
-        " use powerline font
-        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12.00
+        set guifont=Menlo:h12.00
     else
-        " set guifont=DejaVu\ Sans\ Mono\ 10.00
-        " use powerline font
         set guifont=DejaVu\ Sans\ Mono\ 10.00
         " Remove menu bar
         set guioptions-=m
