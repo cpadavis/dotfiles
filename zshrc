@@ -137,6 +137,7 @@ elif [ $CPD_NAME = 'KILS' ]; then
     function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
     function pdf() { xpdf -z page ${1} & ;}
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/DESDM/eups/packages/Linux64/psfex/3.17.0+0/bin/psfex ${1} -c /u/ec/roodman/Astrophysics/PSF/desdm-plus.psfex -OUTCAT_NAME ${2} ; }
+
 else
 
     export PROJECTS_DIR=~/Projects
@@ -300,4 +301,4 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 
 # caffe
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
+# export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
