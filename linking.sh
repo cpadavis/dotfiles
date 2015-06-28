@@ -19,9 +19,5 @@ ln -s ~/.dotfiles/ipython ~/.ipython
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 # directory colors
 ln -s ~/.dotfiles/dircolors ~/.dircolors
-# powerline
-pipi --editable=./powerline
-ln -s ~/.dotfiles/powerline/scripts/powerline ~/.local/bin
-ln -s ~/.dotfiles/powerline_config ~/.config/powerline
 
 
