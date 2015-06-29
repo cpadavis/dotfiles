@@ -36,7 +36,6 @@ endfu
 " z= loads up alternatives for spelling but is awful to type
 " so let's rebind it
 nmap <leader>z z=
-
 " also enable spelling highlighting. I know it breaks my 'syntax' for <leader>s
 nmap <leader>sp :set spell!<CR>
 
@@ -60,9 +59,6 @@ nmap <leader>rs :set lines=60 columns=85<CR>
 
 " sudo write this
 " cmap W! w !sudo tee % >/dev/null
-
-" Run pep8
-let g:pep8_map='<leader>8'
 
 " Toggle the tasklist
 " and add other notes
@@ -108,20 +104,20 @@ map <leader>n :NERDTreeToggle<CR>
 " Load the Gundo window
 map <leader>g :GundoToggle<CR>
 
-function! ESlac()
-    " :e scp://cpd@ki-ls.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/a:name
-    :let name = input("What File? ")
-    :exe 'e scp://cpd@ki-ls.slac.stanford.edu/'. name
-endfunction
-map <Leader>sd :call ESlac()<CR>
-" call with e.g. :call ESlac('makedonuts/analyze.py')
-function! UpSlac()
-    ":!scp %:p cpd@ki-ls.slac.stanford.edu:/afs/slac.stanford.edu/u/ki/cpd/{a:name}
-    :let name = input("What Directory? ", "")
-    :exe '!scp %:p cpd@ki-ls.slac.stanford.edu:' . name . '/%'
-endfunction
-" call with e.g. :call UpSlac() and enter 'makedonuts'
-map <Leader>ss :call UpSlac()<CR>
+" function! ESlac()
+"     " :e scp://cpd@ki-ls.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/a:name
+"     :let name = input("What File? ")
+"     :exe 'e scp://cpd@ki-ls.slac.stanford.edu/'. name
+" endfunction
+" map <Leader>sd :call ESlac()<CR>
+" " call with e.g. :call ESlac('makedonuts/analyze.py')
+" function! UpSlac()
+"     ":!scp %:p cpd@ki-ls.slac.stanford.edu:/afs/slac.stanford.edu/u/ki/cpd/{a:name}
+"     :let name = input("What Directory? ", "")
+"     :exe '!scp %:p cpd@ki-ls.slac.stanford.edu:' . name . '/%'
+" endfunction
+" " call with e.g. :call UpSlac() and enter 'makedonuts'
+" map <Leader>ss :call UpSlac()<CR>
 
 " ==========================================================
 " Pathogen - Allows us to organize our vim plugins
@@ -165,7 +161,7 @@ nnoremap <leader>. :lcd %:p:h<CR>
 
 """ Insert completion
 " don't select first item, follow typing in autocomplete
-set completeopt=menu,preview
+set completeopt=menu,preview,menuone
 set complete-=i
 set pumheight=6             " Keep a small completion window
 
@@ -324,8 +320,10 @@ map <leader>p "+p
 " Quit window on <leader>q
 " Actually, no. leader q closes an active split screen
 " nnoremap <leader>q :q<CR>
-nnoremap <leader>q :bd<CR>
-"<c-w>q
+nnoremap <leader>qb :bd<CR>
+nnoremap <leader>qw <c-w>q
+" quit!
+nnoremap <leader>qq :q<CR>
 
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
@@ -341,16 +339,45 @@ nnoremap <leader>S :call RemoveWS()<CR>
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" rope. NOTE: if installing to new computer, go to ropevim directory and
-" python setup.py install it!
-" nmap <leader>j :RopeGotoDefinition<CR>
-" one day I will get ropevim installed!
 
-" tagbar
-" nmap <leader>l :Tagbar<CR>
+if has("python")
+  " let python figure out the path to pydoc
+  python << EOF
+import sys
+import vim
+vim.command("let s:pydoc_path=\'" + sys.prefix + "/lib/pydoc.py\'")
+EOF
+else
+  " manually set the path to pydoc
+  let s:pydoc_path = "/path/to/python/lib/pydoc.py"
+endif
+
+nnoremap <buffer> <leader>K :<C-u>let save_isk = &iskeyword \|
+    \ set iskeyword+=. \|
+    \ execute "Pyhelp " . expand("<cword>") \|
+    \ let &iskeyword = save_isk<CR>
+command! -nargs=1 -bar Pyhelp :call ShowPydoc(<f-args>)
+function! ShowPydoc(what)
+  " compose a tempfile path using the argument to the function
+  let path = $TEMP . '/' . a:what . '.pydoc'
+  let epath = shellescape(path)
+  let epydoc_path = shellescape(s:pydoc_path)
+  let ewhat = shellescape(a:what)
+  " run pydoc on the argument, and redirect the output to the tempfile
+  call system(epydoc_path . " " . ewhat . (stridx(&shellredir, '%s') == -1 ? (&shellredir.epath) : (substitute(&shellredir, '\V\C%s', '\=epath', ''))))
+  " open the tempfile in the preview window
+  execute "pedit" fnameescape(path)
+endfunction
+
+" ==========================================================
+" tagbar -- lets you see your functions. super useful!
+" ==========================================================
+nmap <leader>l :Tagbar<CR>
 " this one is also broken on mac
 
+" ==========================================================
 " vimwiki
+" ==========================================================
 let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql': 'sql'}
 let wiki = {}
 let wiki.path = '~/Dropbox/vimwiki/'
@@ -380,13 +407,19 @@ let g:vimwiki_list = [wiki, wiki_clusterz, wiki_personal]
 " nmap <Leader>wv <Plug>VimwikiVSplitLink
 nmap <Leader>wf <Plug>VimwikiTabnewLink
 
+" ==========================================================
 " snipmate
+" ==========================================================
 imap <leader><tab> <Plug>snipmateShow
 
-" set syntastic to passive
+
+" ==========================================================
+" Syntastic
+" ==========================================================
+" set syntastic to active
 let g:syntastic_mode_map = { 'mode': 'passive'}
 " let's use flake8. we can switch to pylint with leader sl
-let g:syntastic_python_checkers=['pep8']
+let g:syntastic_python_checkers=['pep8', 'flake8', 'pylint']
 " show warnings and errors
 let g:syntastic_quiet_messages= {'level': 'warnings'}
 " run syntastic tests
@@ -394,18 +427,57 @@ nmap <Leader>sc :SyntasticCheck<CR>
 nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
-" control whether you want to see both warnings and errors or only errors
-nmap <Leader>sl :let g:syntastic_python_checkers=['pylint']<CR> :SyntasticCheck<CR>
-nmap <Leader>sf :let g:syntastic_python_checkers=['flake8']<CR> :SyntasticCheck<CR>
-nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR>
+" " control whether you want to see both warnings and errors or only errors
+" nmap <Leader>sl :let g:syntastic_python_checkers=['pylint']<CR> :SyntasticCheck<CR>
+" nmap <Leader>sf :let g:syntastic_python_checkers=['flake8']<CR> :SyntasticCheck<CR>
+" nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR>
 
+" ==========================================================
+" Pymode
+" ==========================================================
+" disable pymode's lint checking since we have syntastic
+let g:pymode_trim_whitespaces = 1 " Trim unused white spaces on save 
+let g:pymode_options = 1
+let g:pymode_quickfix_minheight = 3
+let g:pymode_quickfix_maxheight = 6
+" turn off pymode linting
+let g:pymode_lint = 0
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint']
+let g:pymode_lint_cwindow = 1
+let g:pymode_lint_sort = ['E', 'C', 'I']  " Errors first 'E', after them 'C' and ...
+let g:pymode_doc = 1
+let g:pymode_doc_bind = '<leader>kk'
+let g:pymode_run_bind = '<leader>RR'
+" remap breakpoint to ipdb
+let g:pymode_breakpoint_bind = '<leader>bp'
+let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace() # BREAKPOINT'
+
+" I think these are superfluous
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+
+let g:pymode_rope_rename_bind = '<leader>rr'
+nmap <leader>rn :PymodeRopeNewProject<CR>
 
 " ==========================================================
 " Calendar stuff
 " ==========================================================
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
-nmap <leader>ca :tab Calendar<CR>
+nmap <leader>C :tab Calendar<CR>
+
+
+" ==========================================================
+" Fugitive
+" ==========================================================
+nnoremap <leader>Gs :Gstatus<CR>
+nnoremap <leader>Go :Gread<CR>
+nnoremap <leader>Gc :Gcommit<CR>
+nnoremap <leader>Gd :Gdiff<CR>
+nnoremap <leader>Gb :Gblame<CR>
+nnoremap <leader>GB :Gbrowse<CR>
+nnoremap <leader>Gp :Git! push<CR>
+nnoremap <leader>GP :Git! pull<CR>
 
 
 " ==========================================================
@@ -414,6 +486,18 @@ nmap <leader>ca :tab Calendar<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep = ' '
+let g:airline_left_alt_sep = '|'
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = '|'
+let g:airline_right_sep = ' '
+let g:airline_right_alt_sep = '|'
+
+" some buffer options
+set hidden " don't have to save between buffer switches
+nmap gb :bnext<CR>
+nmap gB :bprevious<CR>
+nmap <leader>bl :ls<CR>
 
 " ==========================================================
 " CtrlP
@@ -434,10 +518,11 @@ cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : '
 au BufRead *.js setl makeprg=jslint\ %
 
 " Use tab to scroll through autocomplete menus
-" autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
-" autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
+autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
+autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
 let g:acp_completeoptPreview=1
+let g:acp_enabledAtStartup = 0
 
 " ===========================================================
 " FileType specific changes
@@ -451,8 +536,6 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 " au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 " au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
-" run Flake8 check every time you write to a Python file
-" autocmd BufWritePost *.py call Flake8()
 
 " Add the virtualenv's site-packages to vim path
 " py << EOF
