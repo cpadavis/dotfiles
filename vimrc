@@ -1,4 +1,3 @@
-" https://github.com/sontek/dotfiles/
 " ==========================================================
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
