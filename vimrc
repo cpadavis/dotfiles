@@ -73,7 +73,10 @@ map <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloade
 
 " I have never actually used this in this manner...
 " open/close the quickfix window
-" nmap <leader>c :copen<CR>
+nmap <leader>cc :copen<CR>
+nmap <leader>cl :lopen<CR>
+nmap <leader>cC :cclose<CR>
+nmap <leader>cL :lclose<CR>
 " nmap <leader>cc :cclose<CR>
 
 " for when we forget to use sudo to open/edit a file
@@ -315,10 +318,11 @@ map <leader>p "+p
 " Quit window on <leader>q
 " Actually, no. leader q closes an active split screen
 " nnoremap <leader>q :q<CR>
-nnoremap <leader>qb :bd<CR>
+nnoremap <leader>qq :bd<CR>
 nnoremap <leader>qw <c-w>q
 " quit!
-nnoremap <leader>qq :q<CR>
+nnoremap <leader>qQ :q<CR>
+nnoremap <leader>qa :qa<CR>
 
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
@@ -334,35 +338,6 @@ nnoremap <leader>S :call RemoveWS()<CR>
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-
-if has("python")
-  " let python figure out the path to pydoc
-  python << EOF
-import sys
-import vim
-vim.command("let s:pydoc_path=\'" + sys.prefix + "/lib/pydoc.py\'")
-EOF
-else
-  " manually set the path to pydoc
-  let s:pydoc_path = "/path/to/python/lib/pydoc.py"
-endif
-
-nnoremap <buffer> <leader>K :<C-u>let save_isk = &iskeyword \|
-    \ set iskeyword+=. \|
-    \ execute "Pyhelp " . expand("<cword>") \|
-    \ let &iskeyword = save_isk<CR>
-command! -nargs=1 -bar Pyhelp :call ShowPydoc(<f-args>)
-function! ShowPydoc(what)
-  " compose a tempfile path using the argument to the function
-  let path = $TEMP . '/' . a:what . '.pydoc'
-  let epath = shellescape(path)
-  let epydoc_path = shellescape(s:pydoc_path)
-  let ewhat = shellescape(a:what)
-  " run pydoc on the argument, and redirect the output to the tempfile
-  call system(epydoc_path . " " . ewhat . (stridx(&shellredir, '%s') == -1 ? (&shellredir.epath) : (substitute(&shellredir, '\V\C%s', '\=epath', ''))))
-  " open the tempfile in the preview window
-  execute "pedit" fnameescape(path)
-endfunction
 
 " ==========================================================
 " tagbar -- lets you see your functions. super useful!
@@ -405,7 +380,7 @@ nmap <Leader>wf <Plug>VimwikiTabnewLink
 " ==========================================================
 " snipmate
 " ==========================================================
-imap <leader><tab> <Plug>snipmateShow
+imap <leader><tab> Esc:<Plug>snipmateShow<CR>
 
 
 " ==========================================================
@@ -413,19 +388,16 @@ imap <leader><tab> <Plug>snipmateShow
 " ==========================================================
 " set syntastic to active
 let g:syntastic_mode_map = { 'mode': 'passive'}
-" let's use flake8. we can switch to pylint with leader sl
-let g:syntastic_python_checkers=['pep8', 'flake8', 'pylint']
+" let's use flake8.
+" pylint is a little annoying in its ability to handle numpy
+let g:syntastic_python_checkers=['pep8', 'flake8'] " , 'pylint']
 " show warnings and errors
-let g:syntastic_quiet_messages= {'level': 'warnings'}
+let g:syntastic_quiet_messages= {} " 'level': 'warnings'}
 " run syntastic tests
 nmap <Leader>sc :SyntasticCheck<CR>
 nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
-" " control whether you want to see both warnings and errors or only errors
-" nmap <Leader>sl :let g:syntastic_python_checkers=['pylint']<CR> :SyntasticCheck<CR>
-" nmap <Leader>sf :let g:syntastic_python_checkers=['flake8']<CR> :SyntasticCheck<CR>
-" nmap <Leader>s8 :let g:syntastic_python_checkers=['pep8']<CR> :SyntasticCheck<CR>
 
 " ==========================================================
 " Pymode
@@ -436,13 +408,19 @@ let g:pymode_options = 1
 let g:pymode_quickfix_minheight = 3
 let g:pymode_quickfix_maxheight = 6
 " turn off pymode linting
-let g:pymode_lint = 0
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint']
+" no turn it on
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 0
+" pylint is a little annoying in its ability to handle numpy
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe'] " , 'pylint']
 let g:pymode_lint_cwindow = 1
 let g:pymode_lint_sort = ['E', 'C', 'I']  " Errors first 'E', after them 'C' and ...
-let g:pymode_doc = 1
-let g:pymode_doc_bind = '<leader>kk'
+nmap <leader>sC :PymodeLint<CR>
+
+let g:pymode_doc = 0
+let g:pymode_doc_bind = ''
 let g:pymode_run_bind = '<leader>RR'
+
 " remap breakpoint to ipdb
 let g:pymode_breakpoint_bind = '<leader>bp'
 let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace() # BREAKPOINT'
@@ -452,7 +430,9 @@ let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 
 let g:pymode_rope_rename_bind = '<leader>rr'
+let g:pymode_rope_show_doc_bind = '<leader>k'
 nmap <leader>rn :PymodeRopeNewProject<CR>
+nmap <leader>rN :PymodeRopeRegenerate<CR>
 
 " ==========================================================
 " Calendar stuff
@@ -467,11 +447,10 @@ nmap <leader>C :tab Calendar<CR>
 " ==========================================================
 nnoremap <leader>Gs :Gstatus<CR>
 nnoremap <leader>Go :Gread<CR>
-nnoremap <leader>Gc :Gcommit<CR>
+nnoremap <leader>Gc :Gcommit -a<CR>
 nnoremap <leader>Gd :Gdiff<CR>
 nnoremap <leader>Gb :Gblame<CR>
 nnoremap <leader>GB :Gbrowse<CR>
-nnoremap <leader>Ga :Gcommit -a<CR>
 nnoremap <leader>Gp :Git! push<CR>
 nnoremap <leader>GP :Git! pull<CR>
 
