@@ -235,6 +235,8 @@ set incsearch               " Incrementally search while typing a /regex
 """" Display
 syntax enable
 set mouse=a
+" vital for mouse working in terminal
+set ttymouse=xterm2
 if has("gui_running")
     colorscheme solarized
     set background=light
