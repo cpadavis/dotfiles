@@ -99,23 +99,29 @@ if [ $CPD_NAME = 'MAC' ]; then
     function tmuxs
     {
         tmux start-server
-        tmux new-session -d -s tmuxs -n irssi
-        tmux new-window -t tmuxs:2 -n nb
-        tmux new-window -t tmuxs:3 -n slac
-        tmux new-window -t tmuxs:4 -n sherlock
-        tmux new-window -t tmuxs:5 -n workadirk
+        tmux new-session -d -s tmuxs -n misc
+        # these ssh ones should not be for their own tmux that just gets
+        # confusing
+        tmux new-window -t tmuxs:2 -n slac
+        tmux new-window -t tmuxs:3 -n sherlock
+        tmux new-window -t tmuxs:4 -n workadirk
 
         # send commands to windows
         tmux send-keys -t tmuxs:1 "irssi" C-m
-        tmux send-keys -t tmuxs:2 "notebook &" C-m
-        tmux send-keys -t tmuxs:3 "kinit cpd@SLAC.STANFORD.EDU" C-m
-        tmux send-keys -t tmuxs:3 ${INNOC_SLAC} C-m
-        tmux send-keys -t tmuxs:3 "slac" C-m
-        tmux send-keys -t tmuxs:4 "kinit cpd@stanford.edu" C-m
-        tmux send-keys -t tmuxs:4 ${INNOC_SHERLOCK} C-m
-        tmux send-keys -t tmuxs:4 "sherlock" C-m
+        tmux split-window -v -t tmuxs:1
+        tmux select-pane -t 1
+        tmux send-keys -t tmuxs:1 "notebook &" C-m
+        tmux select-pane -t 0
+        tmux split-window -h -t tmuxs:1
+        tmux send-keys -t tmuxs:1 "ttytter" C-m
+        tmux send-keys -t tmuxs:2 "kinit cpd@SLAC.STANFORD.EDU" C-m
+        tmux send-keys -t tmuxs:2 ${INNOC_SLAC} C-m
+        tmux send-keys -t tmuxs:2 "slac" C-m
+        tmux send-keys -t tmuxs:3 "kinit cpd@stanford.edu" C-m
+        tmux send-keys -t tmuxs:3 ${INNOC_SHERLOCK} C-m
+        tmux send-keys -t tmuxs:3 "sherlock" C-m
 
-        tmux select-window -t tmuxs:5
+        tmux select-window -t tmuxs:4
         tmux attach-session -t tmuxs
         ## # When we detach from it, kill the session
         ## tmux kill-session -t tmuxs
@@ -130,11 +136,12 @@ elif [ $CPD_NAME = 'KILS' ]; then
     {
         tmux start-server
         tmux new-session -d -s tmuxs -n notebook
-        tmux new-window -t tmuxs:2 -n mongod
-        tmux new-window -t tmuxs:3 -n workadirk
+        tmux new-window -t tmuxs:2 -n workadirk
 
         tmux send-keys -t tmuxs:1 "notebook &" C-m
-        tmux send-keys -t tmuxs:2 "cd $SWAP/mongo/; mongod --dbpath . &" C-m
+        tmux split-window -v -t tmuxs:1
+        tmux select-pane -t 1
+        tmux send-keys -t tmuxs:1 "cd $SWAP/mongo/; mongod --dbpath . &" C-m
 
         tmux select-window -t tmuxs:3
         tmux attach-session -t tmuxs

@@ -313,7 +313,9 @@ nnoremap <leader>cS :call SwitchLucius()<CR>
 nnoremap <leader>cs :call ChangeColorScheme()<CR>
 
 " Paste from clipboard
-map <leader>p "+p
+map <leader>p "*p
+" yank to clipboard
+map <leader>y "*y
 
 " Quit window on <leader>q
 " Actually, no. leader q closes an active split screen
