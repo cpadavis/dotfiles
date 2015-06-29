@@ -159,11 +159,6 @@ nnoremap <leader>. :lcd %:p:h<CR>
 " first autocmd for the filetype here
 "autocmd FileType * setlocal colorcolumn=0
 
-""" Insert completion
-" don't select first item, follow typing in autocomplete
-set completeopt=menu,preview,menuone
-set complete-=i
-set pumheight=6             " Keep a small completion window
 
 """
 " did you know <c-a> and <c-x> increment numbers?
@@ -205,6 +200,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 set noautowrite             " Never write a file unless I request it.
 set noautowriteall          " NEVER.
 set noautoread              " Don't automatically re-read changed files.
+set noshowmode              " don't show the mode, vim-airline will do that for us
 set modeline                " Allow vim options to be embedded in files;
 set modelines=5             " they must be within the first or last 5 lines.
 set ffs=unix,dos,mac        " Try recognizing dos, unix, and mac line endings.
@@ -492,6 +488,7 @@ let g:airline#extensions#tabline#right_sep = ' '
 let g:airline#extensions#tabline#right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
+let g:airline#extensions#branch#enabled=1
 
 " some buffer options
 set hidden " don't have to save between buffer switches
@@ -517,12 +514,22 @@ cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : '
 " ==========================================================
 au BufRead *.js setl makeprg=jslint\ %
 
+" ==========================================================
+" ACP
+" ==========================================================
 " Use tab to scroll through autocomplete menus
 autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
 autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
-let g:acp_completeoptPreview=1
-let g:acp_enabledAtStartup = 0
+let g:acp_completeoptPreview=0
+let g:acp_enabledAtStartup=0
+
+""" Insert completion
+" don't select first item, follow typing in autocomplete
+set completeopt=menu,preview,menuone
+set complete=.,w,b,u,t,i " -=i if things get slow
+set pumheight=6             " Keep a small completion window
+
 
 " ===========================================================
 " FileType specific changes
