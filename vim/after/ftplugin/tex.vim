@@ -75,21 +75,3 @@ setl efm=%f:%l:\ %m
 ""     nnoremap <leader>ll :call CompileLatex()<CR>
 "" endif
 
-""" Plugin settings
-if exists(':Tabularize')
-    AddTabularPattern tex_table /&\|\\\\/
-    nnoremap <buffer> <silent> <leader>tt :Tabularize tex_table<CR>
-endif
-
-if exists('g:loaded_surround')
-    " vim-surround: q for `foo' and Q for ``foo''
-    let b:surround_{char2nr('q')} = "`\r'"
-    let b:surround_{char2nr('Q')} = "``\r''"
-    " for sets
-    let b:surround_{char2nr('s')} = "\\{ \r \\}"
-endif
-
-""
-"" taken from godlygeek's vimrc. Pretty nice way to handle folding.
-"" vim:fdm=expr
-"" vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-2)\:'='
