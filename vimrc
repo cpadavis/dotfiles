@@ -471,6 +471,7 @@ nnoremap <leader>Gc :Gcommit<CR>
 nnoremap <leader>Gd :Gdiff<CR>
 nnoremap <leader>Gb :Gblame<CR>
 nnoremap <leader>GB :Gbrowse<CR>
+nnoremap <leader>Ga :Gcommit -a<CR>
 nnoremap <leader>Gp :Git! push<CR>
 nnoremap <leader>GP :Git! pull<CR>
 
