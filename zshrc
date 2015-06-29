@@ -143,7 +143,7 @@ elif [ $CPD_NAME = 'KILS' ]; then
         tmux select-pane -t 1
         tmux send-keys -t tmuxs:1 "cd $SWAP/mongo/; mongod --dbpath . &" C-m
 
-        tmux select-window -t tmuxs:3
+        tmux select-window -t tmuxs:2
         tmux attach-session -t tmuxs
     }
     function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
