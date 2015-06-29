@@ -106,13 +106,13 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux new-window -t tmuxs:5 -n workadirk
 
         # send commands to windows
-        tmux send-keys -t tmuxs:1 "irssi" C-m
+        # tmux send-keys -t tmuxs:1 "irssi" C-m
         tmux send-keys -t tmuxs:2 "notebook &" C-m
         tmux send-keys -t tmuxs:3 "kinit cpd@SLAC.STANFORD.EDU" C-m
-        tmux send-keys -t tmuxs:3 "DCaUwnFA2D." C-m
+        tmux send-keys -t tmuxs:3 ${INNOC_SLAC} C-m
         tmux send-keys -t tmuxs:3 "slac" C-m
         tmux send-keys -t tmuxs:4 "kinit cpd@stanford.edu" C-m
-        tmux send-keys -t tmuxs:4 "JFKwsoFt22nd!" C-m
+        tmux send-keys -t tmuxs:4 ${INNOC_SHERLOCK} C-m
         tmux send-keys -t tmuxs:4 "sherlock" C-m
 
         tmux select-window -t tmuxs:5
