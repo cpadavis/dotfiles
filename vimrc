@@ -433,7 +433,6 @@ let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace() # BREAKPOINT'
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 
-" TODO: need to be able to turn this on for ki-ls...
 let g:pymode_rope = 1
 let g:pymode_rope_rename_bind = '<leader>rr'
 let g:pymode_rope_show_doc_bind = '<leader>k'
