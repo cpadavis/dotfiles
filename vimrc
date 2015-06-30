@@ -421,7 +421,7 @@ let g:pymode_lint_cwindow = 1
 let g:pymode_lint_sort = ['E', 'C', 'I']  " Errors first 'E', after them 'C' and ...
 nmap <leader>sC :PymodeLint<CR>
 
-let g:pymode_doc = 1
+let g:pymode_doc = 0
 let g:pymode_doc_bind = '<leader>K'
 let g:pymode_run_bind = '<leader>RR'
 
@@ -433,7 +433,7 @@ let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace() # BREAKPOINT'
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 let g:pymode_rope_rename_bind = '<leader>rr'
 let g:pymode_rope_show_doc_bind = '<leader>k'
 let g:pymode_rope_regenerate_on_write = 0
@@ -509,8 +509,21 @@ autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 let g:acp_completeoptPreview=1
 let g:acp_enabledAtStartup=1
 " :AcpDisable turns off AcP
-nmap <leader>sa :AcpEnable<CR>
-nmap <leader>sA :AcpDisable<CR>
+
+function! TurnOnAutoComplete()
+    :AcpEnable
+    set completeopt=menu,preview,menuone
+    set complete=.,w,b,u,t,i " -=i if things get slow
+endfunction
+function! TurnOffAutoComplete()
+    :AcpDisable
+    set completeopt=
+    set complete=
+endfunction
+" nmap <leader>sa :AcpEnable<CR>
+" nmap <leader>sA :AcpDisable<CR>
+nmap <leader>sa :call TurnOnAutoComplete()<CR>
+nmap <leader>sA :call TurnOffAutoComplete()<CR>
 
 """ Insert completion
 " don't select first item, follow typing in autocomplete
