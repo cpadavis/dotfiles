@@ -177,8 +177,8 @@ set scrolloff=3             " Keep 3 context lines above and below the cursor
 set sidescrolloff=5         " keep 5 context columns to right and left of cursor
 set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
 set showmatch               " Briefly jump to a paren once it's balanced
-" set nowrap                  " don't wrap text
-set wrap
+set nowrap                  " don't wrap text
+" set wrap
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 " set smartindent             " use smart indent if there is no indent file
@@ -201,7 +201,8 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 """" Reading/Writing
 set noautowrite             " Never write a file unless I request it.
 set noautowriteall          " NEVER.
-set noautoread              " Don't automatically re-read changed files.
+" set noautoread              " Don't automatically re-read changed files.
+set autoread " reload file if changed
 set noshowmode              " don't show the mode, vim-airline will do that for us
 set modeline                " Allow vim options to be embedded in files;
 set modelines=5             " they must be within the first or last 5 lines.
@@ -223,7 +224,6 @@ set listchars=tab:>-,trail:-,precedes:<,extends:>
 set list
 
 set display+=lastline
-set autoread " reload file if changed
 
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
@@ -315,9 +315,9 @@ nnoremap <leader>cS :call SwitchLucius()<CR>
 nnoremap <leader>cs :call ChangeColorScheme()<CR>
 
 " Paste from clipboard
-map <leader>p "*p
+map <leader>p "+p
 " yank to clipboard
-map <leader>y "*y
+map <leader>y "+y
 
 " Quit window on <leader>q
 " Actually, no. leader q closes an active split screen
@@ -421,8 +421,8 @@ let g:pymode_lint_cwindow = 1
 let g:pymode_lint_sort = ['E', 'C', 'I']  " Errors first 'E', after them 'C' and ...
 nmap <leader>sC :PymodeLint<CR>
 
-let g:pymode_doc = 0
-let g:pymode_doc_bind = ''
+let g:pymode_doc = 1
+let g:pymode_doc_bind = '<leader>K'
 let g:pymode_run_bind = '<leader>RR'
 
 " remap breakpoint to ipdb
@@ -433,8 +433,10 @@ let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace() # BREAKPOINT'
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 
+let g:pymode_rope = 1
 let g:pymode_rope_rename_bind = '<leader>rr'
 let g:pymode_rope_show_doc_bind = '<leader>k'
+let g:pymode_rope_regenerate_on_write = 0
 nmap <leader>rn :PymodeRopeNewProject<CR>
 nmap <leader>rN :PymodeRopeRegenerate<CR>
 
@@ -504,8 +506,11 @@ au BufRead *.js setl makeprg=jslint\ %
 autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
 autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
-let g:acp_completeoptPreview=0
-let g:acp_enabledAtStartup=0
+let g:acp_completeoptPreview=1
+let g:acp_enabledAtStartup=1
+" :AcpDisable turns off AcP
+nmap <leader>sa :AcpEnable<CR>
+nmap <leader>sA :AcpDisable<CR>
 
 """ Insert completion
 " don't select first item, follow typing in autocomplete
