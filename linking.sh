@@ -2,7 +2,7 @@
 
 cd ~/.dotfiles
 # init the vim submodules
-git submodule init
+git submodule update --init
 
 # vim
 ln -s ~/.dotfiles/vimrc ~/.vimrc

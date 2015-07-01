@@ -93,7 +93,6 @@ if [ $CPD_NAME = 'MAC' ]; then
 
     export PROJECTS_DIR=/Users/cpd/Projects
 
-
     alias pipi='sudo -E pip install'
     alias pipu='sudo -E pip install --upgrade'
     function tmuxs
