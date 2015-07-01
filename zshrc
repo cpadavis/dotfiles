@@ -59,7 +59,7 @@ if hash mvim 2>/dev/null; then
     alias vim='mvim -v'
 fi
 alias ls='ls -hFa --color'
-alias dua='du -ah --max-depth=1 | sort -nr'
+alias dua='du -h | sort -nr'
 alias ltex='xelatex -file-line-error -interaction=nonstopmode *.tex'
 
 function CompileLatex()
@@ -104,7 +104,8 @@ if [ $CPD_NAME = 'MAC' ]; then
         # confusing
         tmux new-window -t tmuxs:2 -n slac
         tmux new-window -t tmuxs:3 -n sherlock
-        tmux new-window -t tmuxs:4 -n workadirk
+        tmux new-window -t tmuxs:4 -n vimrc
+        tmux new-window -t tmuxs:5 -n workadirk
 
         # send commands to windows
         tmux send-keys -t tmuxs:1 "irssi" C-m
@@ -120,8 +121,9 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux send-keys -t tmuxs:3 "kinit cpd@stanford.edu" C-m
         tmux send-keys -t tmuxs:3 ${INNOC_SHERLOCK} C-m
         tmux send-keys -t tmuxs:3 "sherlock" C-m
+        tmux send-keys -t tmuxs:4 "vim ~/Dropbox/vimwiki/index.wiki" C-m
 
-        tmux select-window -t tmuxs:4
+        tmux select-window -t tmuxs:5
         tmux attach-session -t tmuxs
         ## # When we detach from it, kill the session
         ## tmux kill-session -t tmuxs

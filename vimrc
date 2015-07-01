@@ -506,9 +506,10 @@ au BufRead *.js setl makeprg=jslint\ %
 autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
 autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
-let g:acp_completeoptPreview=1
-let g:acp_enabledAtStartup=1
-" :AcpDisable turns off AcP
+let g:acp_completeoptPreview=0
+let g:acp_enabledAtStartup=0
+set completeopt=
+set complete=
 
 function! TurnOnAutoComplete()
     :AcpEnable
@@ -524,11 +525,6 @@ endfunction
 " nmap <leader>sA :AcpDisable<CR>
 nmap <leader>sa :call TurnOnAutoComplete()<CR>
 nmap <leader>sA :call TurnOffAutoComplete()<CR>
-
-""" Insert completion
-" don't select first item, follow typing in autocomplete
-set completeopt=menu,preview,menuone
-set complete=.,w,b,u,t,i " -=i if things get slow
 set pumheight=6             " Keep a small completion window
 
 
