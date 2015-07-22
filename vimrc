@@ -342,12 +342,16 @@ nnoremap <leader>S :call RemoveWS()<CR>
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" some buffer options
+set hidden " don't have to save between buffer switches
+nmap gb :bnext<CR>
+nmap gB :bprevious<CR>
+nmap <leader>bl :ls<CR>
 
 " ==========================================================
 " tagbar -- lets you see your functions. super useful!
 " ==========================================================
 nmap <leader>l :Tagbar<CR>
-" this one is also broken on mac
 
 " ==========================================================
 " vimwiki
@@ -382,12 +386,6 @@ let g:vimwiki_list = [wiki, wiki_clusterz, wiki_personal]
 nmap <Leader>wf <Plug>VimwikiTabnewLink
 
 " ==========================================================
-" snipmate
-" ==========================================================
-imap <leader><tab> Esc:<Plug>snipmateShow<CR>
-
-
-" ==========================================================
 " Syntastic
 " ==========================================================
 " set syntastic to active
@@ -403,42 +401,6 @@ nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
 
-" ==========================================================
-" Pymode
-" ==========================================================
-" disable pymode's lint checking since we have syntastic
-let g:pymode_trim_whitespaces = 1 " Trim unused white spaces on save 
-let g:pymode_options = 1
-let g:pymode_quickfix_minheight = 3
-let g:pymode_quickfix_maxheight = 6
-" turn off pymode linting
-" no turn it on
-let g:pymode_lint = 1
-let g:pymode_lint_on_write = 0
-" pylint is a little annoying in its ability to handle numpy
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe'] " , 'pylint']
-let g:pymode_lint_cwindow = 1
-let g:pymode_lint_sort = ['E', 'C', 'I']  " Errors first 'E', after them 'C' and ...
-nmap <leader>sC :PymodeLint<CR>
-
-let g:pymode_doc = 0
-let g:pymode_doc_bind = '<leader>K'
-let g:pymode_run_bind = '<leader>RR'
-
-" remap breakpoint to ipdb
-let g:pymode_breakpoint_bind = '<leader>bp'
-let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace() # BREAKPOINT'
-
-" I think these are superfluous
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-
-let g:pymode_rope = 0
-let g:pymode_rope_rename_bind = '<leader>rr'
-let g:pymode_rope_show_doc_bind = '<leader>k'
-let g:pymode_rope_regenerate_on_write = 0
-nmap <leader>rn :PymodeRopeNewProject<CR>
-nmap <leader>rN :PymodeRopeRegenerate<CR>
 
 " ==========================================================
 " Calendar stuff
@@ -475,11 +437,7 @@ let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
 let g:airline#extensions#branch#enabled=1
 
-" some buffer options
-set hidden " don't have to save between buffer switches
-nmap gb :bnext<CR>
-nmap gB :bprevious<CR>
-nmap <leader>bl :ls<CR>
+
 
 " ==========================================================
 " CtrlP
@@ -500,16 +458,25 @@ cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : '
 au BufRead *.js setl makeprg=jslint\ %
 
 " ==========================================================
+" Compete options
+" ==========================================================
+set completeopt=menu,preview,menuone
+set complete=.,w,b,u,t " -=i if things get slow
+
+
+" ==========================================================
 " ACP
 " ==========================================================
 " Use tab to scroll through autocomplete menus
 autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
 autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
-let g:acp_completeoptPreview=0
-let g:acp_enabledAtStartup=0
-set completeopt=
-set complete=
+let g:acp_completeoptPreview=1
+let g:acp_enabledAtStartup=1
+" let g:acp_completeoptPreview=0
+" let g:acp_enabledAtStartup=0
+" set completeopt=
+" set complete=
 
 function! TurnOnAutoComplete()
     :AcpEnable

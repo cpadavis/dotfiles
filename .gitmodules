@@ -1,9 +1,6 @@
 [submodule "vim/bundle/acp"]
 	path = vim/bundle/acp
 	url = https://github.com/vim-scripts/AutoComplPop.git
-[submodule "vim/bundle/adnan-snipmate"]
-	path = vim/bundle/adnan-snipmate
-	url = git://github.com/ajzafar/vim-snipmate.git
 [submodule "vim/bundle/calendar.vim"]
 	path = vim/bundle/calendar.vim
 	url = https://github.com/itchyny/calendar.vim
@@ -64,9 +61,6 @@
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule "vim/bundle/python-mode"]
-	path = vim/bundle/python-mode
-	url = https://github.com/klen/python-mode.git
-[submodule "vim/bundle/vim-snippets"]
-	path = vim/bundle/vim-snippets
-	url = https://github.com/honza/vim-snippets.git
+[submodule "vim/bundle/ack.vim"]
+	path = vim/bundle/ack.vim
+	url = https://github.com/mileszs/ack.vim.git

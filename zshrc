@@ -103,7 +103,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         # confusing
         tmux new-window -t tmuxs:2 -n slac
         tmux new-window -t tmuxs:3 -n sherlock
-        tmux new-window -t tmuxs:4 -n vimrc
+        tmux new-window -t tmuxs:4 -n vim
         tmux new-window -t tmuxs:5 -n workadirk
 
         # send commands to windows
