@@ -1,6 +1,3 @@
-[submodule "vim/bundle/acp"]
-	path = vim/bundle/acp
-	url = https://github.com/vim-scripts/AutoComplPop.git
 [submodule "vim/bundle/calendar.vim"]
 	path = vim/bundle/calendar.vim
 	url = https://github.com/itchyny/calendar.vim
@@ -64,3 +61,6 @@
 [submodule "vim/bundle/ack.vim"]
 	path = vim/bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+[submodule "vim/bundle/jedi-vim"]
+	path = vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
