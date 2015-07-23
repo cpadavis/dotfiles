@@ -58,6 +58,8 @@ history.sqlite
 history-corrupt.sqlite
 dhist
 
+# vim tags
+doc/tags
 
 # ignore json
 *.json
