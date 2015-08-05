@@ -2,6 +2,18 @@
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
 
+
+" ==========================================================
+" Shortcuts to windows that pop up on side
+" ==========================================================
+" <leader>td - Todo list
+" <leader>tb - Tagbar
+" <leader>n - nerdtree
+" <leader>g - gundo
+" <leader>cc - quickfix
+" <leader>cl - location list
+" K on word in command mode - help
+
 " ==========================================================
 " Plugins included
 " ==========================================================
@@ -351,7 +363,7 @@ nmap <leader>bl :ls<CR>
 " ==========================================================
 " tagbar -- lets you see your functions. super useful!
 " ==========================================================
-nmap <leader>l :Tagbar<CR>
+nmap <leader>tb :Tagbar<CR>
 
 " ==========================================================
 " vimwiki
@@ -392,9 +404,15 @@ nmap <Leader>wf <Plug>VimwikiTabnewLink
 let g:syntastic_mode_map = { 'mode': 'passive'}
 " let's use flake8.
 " pylint is a little annoying in its ability to handle numpy
-let g:syntastic_python_checkers=['pep8', 'flake8'] " , 'pylint']
+let g:syntastic_python_checkers=['flake8'] " , 'pylint']
+" aggregate errors
+
 " show warnings and errors
-let g:syntastic_quiet_messages= {} " 'level': 'warnings'}
+let g:syntastic_quiet_messages= {} " 'type': 'style'} 'level': 'warnings'}
+let g:syntastic_error_symbol = 'E>'
+let g:syntastic_style_error_symbol = 'S>'
+let g:syntastic_warning_symbol = 'W>'
+let g:syntastic_style_warning_symbol = 's>'
 " run syntastic tests
 nmap <Leader>sc :SyntasticCheck<CR>
 nmap <Leader>se :Errors<CR>

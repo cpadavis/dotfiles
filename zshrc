@@ -120,7 +120,15 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux send-keys -t tmuxs:3 "kinit cpd@stanford.edu" C-m
         tmux send-keys -t tmuxs:3 ${INNOC_SHERLOCK} C-m
         tmux send-keys -t tmuxs:3 "sherlock" C-m
-        tmux send-keys -t tmuxs:4 "vim ~/Dropbox/vimwiki/index.wiki" C-m
+        # open up vim windows
+        tmux send-keys -t tmuxs:4 "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
+        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
+        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
+        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
+        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
+        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
+        tmux send-keys -t tmuxs:4 ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
+        tmux send-keys -t tmuxs:4 ":set swapfile" C-m
 
         tmux select-window -t tmuxs:5
         tmux attach-session -t tmuxs
