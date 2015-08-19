@@ -53,6 +53,10 @@ else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
     alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
 fi
+alias kint='/usr/local/bin/kinit --afslog --renew'
+
+
+function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
@@ -80,6 +84,7 @@ alias tmuxk="tmux kill-session -t tmuxs"
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@carver.nersc.gov'
 function slac(){ ssh -Y cpd@ki-ls${1:=10}.slac.stanford.edu ;}
+function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
 alias rye='ssh -Y cpd@rye01.stanford.edu'
 alias sherlock='ssh -X cpd@sherlock.stanford.edu'
 

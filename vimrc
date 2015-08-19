@@ -252,7 +252,6 @@ set ttymouse=xterm2
 if has("gui_running")
     colorscheme solarized
     set background=light
-    set lines=60 columns=85
     set cursorline
     if has("gui_macvim")
         """ Full screen options
@@ -266,6 +265,8 @@ if has("gui_running")
         set guioptions-=m
         " Remove toolbar
         set guioptions-=T
+    set lines=60
+    set columns=85
 
     endif
 else
