@@ -53,7 +53,10 @@ else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
     alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
 fi
-alias kint='/usr/local/bin/kinit --afslog --renew'
+
+# http://kipac.stanford.edu/collab/computing/docs/afs
+alias kint='/usr/local/bin/kinit --afslog --renewable'
+alias kren='/usr/local/bin/kinit --afslog --renew'
 
 
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
