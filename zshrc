@@ -58,6 +58,8 @@ fi
 alias kint='/usr/local/bin/kinit --afslog --renewable'
 alias kren='/usr/local/bin/kinit --afslog --renew'
 
+# kick off other terminals
+alias detach='tmux detach -a'
 
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 
@@ -103,6 +105,21 @@ if [ $CPD_NAME = 'MAC' ]; then
 
     alias pipi='sudo -E pip install'
     alias pipu='sudo -E pip install --upgrade'
+
+    function tmux_vim
+    {
+        tmux send-keys -t ${1:=tmuxs:4} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":set swapfile" C-m
+        tmux send-keys -t ${1:=tmuxs:4} ":b1" C-m
+    }
+
     function tmuxs
     {
         tmux start-server
@@ -129,14 +146,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux send-keys -t tmuxs:3 ${INNOC_SHERLOCK} C-m
         tmux send-keys -t tmuxs:3 "sherlock" C-m
         # open up vim windows
-        tmux send-keys -t tmuxs:4 "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
-        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
-        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
-        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
-        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
-        tmux send-keys -t tmuxs:4 ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
-        tmux send-keys -t tmuxs:4 ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
-        tmux send-keys -t tmuxs:4 ":set swapfile" C-m
+        tmux_vim
 
         tmux select-window -t tmuxs:5
         tmux attach-session -t tmuxs
@@ -328,6 +338,8 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 # weak_sauce
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
+# learnpsf
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
 
 # caffe
 # export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python

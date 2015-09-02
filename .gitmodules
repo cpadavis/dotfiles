@@ -64,3 +64,6 @@
 [submodule "vim/bundle/jedi-vim"]
 	path = vim/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "vim/bundle/taglist.vim"]
+	path = vim/bundle/taglist.vim
+	url = https://github.com/vim-scripts/taglist.vim

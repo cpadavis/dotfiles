@@ -8,10 +8,13 @@
 " ==========================================================
 " <leader>td - Todo list
 " <leader>tb - Tagbar
+" <leader>tl - Taglist
 " <leader>n - nerdtree
 " <leader>g - gundo
+" <leader>f - ctrlp
 " <leader>cc - quickfix
 " <leader>cl - location list
+" <leader>C - Calendar
 " K on word in command mode - help
 
 " ==========================================================
@@ -189,8 +192,8 @@ set scrolloff=3             " Keep 3 context lines above and below the cursor
 set sidescrolloff=5         " keep 5 context columns to right and left of cursor
 set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
 set showmatch               " Briefly jump to a paren once it's balanced
-set nowrap                  " don't wrap text
-" set wrap
+" set nowrap                  " don't wrap text
+set wrap
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 " set smartindent             " use smart indent if there is no indent file
@@ -285,7 +288,7 @@ set encoding=utf-8
 set termencoding=utf-8
 
 " commands for changing the colors around
-function! SwitchLucius()
+function! ChangeColorScheme()
     if exists("g:colors_name")
         if g:colors_name == 'lucius'
             if g:lucius_style == 'dark'
@@ -304,7 +307,7 @@ function! SwitchLucius()
         set background=light
     endif
 endfunction
-function! ChangeColorScheme()
+function! SwitchLucius()
     if exists("g:colors_name")
         if g:colors_name == 'solarized'
             colorscheme lucius
@@ -323,7 +326,8 @@ function! ChangeColorScheme()
         set background=light
     endif
 endfunction
-map <F5> :call SwitchLucius()<CR>
+map <F5> :call ChangeColorScheme()<CR>
+map <S-F5> :call SwitchLucius()<CR>
 nnoremap <leader>cS :call SwitchLucius()<CR>
 nnoremap <leader>cs :call ChangeColorScheme()<CR>
 
@@ -363,6 +367,11 @@ nmap <leader>bl :ls<CR>
 
 " ==========================================================
 " tagbar -- lets you see your functions. super useful!
+" ==========================================================
+nmap <leader>tb :Tagbar<CR>
+
+" ==========================================================
+" taglist -- make tags in your file for notes!
 " ==========================================================
 nmap <leader>tb :Tagbar<CR>
 
