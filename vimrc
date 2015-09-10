@@ -418,13 +418,22 @@ let g:syntastic_python_checkers=['flake8'] " , 'pylint']
 " aggregate errors
 
 " show warnings and errors
-let g:syntastic_quiet_messages= {} " 'type': 'style'} 'level': 'warnings'}
 let g:syntastic_error_symbol = 'E>'
 let g:syntastic_style_error_symbol = 'S>'
 let g:syntastic_warning_symbol = 'W>'
 let g:syntastic_style_warning_symbol = 's>'
 " run syntastic tests
-nmap <Leader>sc :SyntasticCheck<CR>
+function! SynCheckStyle()
+    let g:syntastic_quiet_messages= {} " 'type': 'style'} 'level': 'warnings'}
+    call SyntasticCheck()
+endfunction
+function! SynCheckNoStyle()
+    let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
+    call SyntasticCheck()
+endfunction
+"nmap <Leader>sc :SyntasticCheck<CR>
+nmap <Leader>sc :call SynCheckStyle()<CR>
+nmap <Leader>sC :call SynCheckNoStyle()<CR>
 nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
