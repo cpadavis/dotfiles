@@ -6,9 +6,8 @@
 " ==========================================================
 " Shortcuts to windows that pop up on side
 " ==========================================================
-" <leader>td - Todo list
+" <leader>td - Todo tasklist
 " <leader>tb - Tagbar
-" <leader>tl - Taglist
 " <leader>n - nerdtree
 " <leader>g - gundo
 " <leader>f - ctrlp
@@ -371,11 +370,6 @@ nmap <leader>bl :ls<CR>
 nmap <leader>tb :Tagbar<CR>
 
 " ==========================================================
-" taglist -- make tags in your file for notes!
-" ==========================================================
-nmap <leader>tb :Tagbar<CR>
-
-" ==========================================================
 " vimwiki
 " ==========================================================
 let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql': 'sql'}
@@ -473,7 +467,9 @@ let g:airline#extensions#tabline#right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
 let g:airline#extensions#branch#enabled=1
-
+" add buffer number
+" add time
+" show whether I am off the git trail?
 
 
 " ==========================================================
@@ -517,7 +513,6 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>jr"
-
 
 " ===========================================================
 " FileType specific changes
