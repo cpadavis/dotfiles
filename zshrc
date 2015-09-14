@@ -30,6 +30,9 @@ eval "$(dircolors $d)"
 autoload -U colors && colors
 PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
 
+# and now we will ignore that and source promptline
+source ~/.dotfiles/promptline.sh
+
 # method for quick change directories. Add this to your ~/.zshrc, then just
 # enter “cd …./dir”
 rationalise-dot() {

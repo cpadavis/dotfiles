@@ -311,9 +311,11 @@ function! SwitchLucius()
         if g:colors_name == 'solarized'
             colorscheme lucius
             LuciusLight
+            AirlineTheme lucius
         elseif g:colors_name == 'lucius'
             colorscheme solarized
             set background=light
+            AirlineTheme solarized
             "call togglebg#map("<F5>")
         else
             " escape!
@@ -368,6 +370,11 @@ nmap <leader>bl :ls<CR>
 " tagbar -- lets you see your functions. super useful!
 " ==========================================================
 nmap <leader>tb :Tagbar<CR>
+
+" ==========================================================
+" Ack shortcut to encourage me to use it!
+" ==========================================================
+nmap <leader>A :Ack 
 
 " ==========================================================
 " vimwiki
@@ -467,9 +474,26 @@ let g:airline#extensions#tabline#right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
 let g:airline#extensions#branch#enabled=1
-" add buffer number
-" add time
-" show whether I am off the git trail?
+
+" ==========================================================
+" tmuxline
+" ==========================================================
+let g:tmuxline_powerline_separators = 0
+
+" ==========================================================
+" promptline
+" ==========================================================
+" really only needed to get you going
+let g:promptline_theme = 'airline'
+let g:promptline_powerline_symbols = 0
+" sections (a, b, c, x, y, z, warn) are optional
+let g:promptline_preset = {
+        \'a' : [ promptline#slices#user() ],
+        \'b' : [ promptline#slices#cwd() ],
+        \'x' : [ promptline#slices#jobs() ],
+        \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
+        \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
+        \'warn' : [ promptline#slices#last_exit_code() ]}
 
 
 " ==========================================================
