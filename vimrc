@@ -374,7 +374,7 @@ nmap <leader>tb :Tagbar<CR>
 " ==========================================================
 " Ack shortcut to encourage me to use it!
 " ==========================================================
-nmap <leader>A :Ack 
+nmap <leader>A :Ack
 
 " ==========================================================
 " vimwiki
@@ -478,12 +478,16 @@ let g:airline#extensions#branch#enabled=1
 " ==========================================================
 " tmuxline
 " ==========================================================
+" :TmuxlineSnapshot ~/.dotfiles/tmuxline.conf
 let g:tmuxline_powerline_separators = 0
+let g:tmuxline_theme = 'airline'
+let g:tmuxline_preset = 'powerline'
+let g:airline#extensions#tmuxline#enabled = 1
 
 " ==========================================================
 " promptline
 " ==========================================================
-" really only needed to get you going
+" :PromptlineSnapshot ~/.dotfiles/promptline.sh
 let g:promptline_theme = 'airline'
 let g:promptline_powerline_symbols = 0
 " sections (a, b, c, x, y, z, warn) are optional
@@ -562,7 +566,7 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 "     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
 "     execfile(activate_this, dict(__file__=activate_this))
 " EOF
-" 
+"
 " " Load up virtualenv's vimrc if it exists
 " if filereadable($VIRTUAL_ENV . '/.vimrc')
 "     source $VIRTUAL_ENV/.vimrc
