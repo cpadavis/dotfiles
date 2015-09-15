@@ -1,4 +1,4 @@
-" ==========================================================
+ ==========================================================
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
 
@@ -482,7 +482,7 @@ let g:airline#extensions#branch#enabled=1
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_theme = 'airline'
 let g:tmuxline_preset = 'powerline'
-let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tmuxline#enabled = 0
 
 " ==========================================================
 " promptline
