@@ -34,7 +34,8 @@ c.InteractiveShellApp.exec_lines = [
     "palette.set_over(color='m', alpha=0.75)",
     "palette.set_under(color='c', alpha=0.75)",
     "matplotlib.cm.register_cmap(name='my_map', cmap=palette)",
-    "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
+    # "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
+    "matplotlib.rc('image', interpolation='none', cmap = 'my_map')",
     # "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
     "%matplotlib",
     'print("Importing numpy, matplotlib.pyplot, fits, and pandas! Also setting the default colormap to no interpolation and lower origin and RdBu_r with bad, over, under color settings.")']
