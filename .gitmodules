@@ -61,3 +61,6 @@
 [submodule "vim/bundle/promptline.vim"]
 	path = vim/bundle/promptline.vim
 	url = https://github.com/edkolev/promptline.vim.git
+[submodule "vim/bundle/vim-bbye"]
+	path = vim/bundle/vim-bbye
+	url = https://github.com/moll/vim-bbye.git

@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/Users/cpd/SWAP/SpaceWarps/analysis/swap'
 let g:netrw_dirhist_2='/Users/cpd/.irssi'
 let g:netrw_dirhist_3='/Users/cpd/Dropbox/cluster-z/.git'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/Users/cpd/.irssi'
 let g:netrw_dirhist_5='/Users/cpd/.dotfiles/powerline_config/themes/ipython'
 let g:netrw_dirhist_6='/Users/cpd/.dotfiles/.git/modules/vim/bundle/Tagbar'
 let g:netrw_dirhist_7='/Users/cpd/.irssi'
+let g:netrw_dirhist_8='/Library/Frameworks/EPD64.framework/Versions/7.3/lib/python2.7/site-packages/scipy/ndimage'

@@ -110,29 +110,36 @@ if [ $CPD_NAME = 'MAC' ]; then
     alias pipi='sudo -E pip install'
     alias pipu='sudo -E pip install --upgrade'
 
-    function tmux_vim
+    function tmuxv
     {
-        tmux send-keys -t ${1:=tmuxs:4} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":set swapfile" C-m
-        tmux send-keys -t ${1:=tmuxs:4} ":b1" C-m
+        tmux send-keys -t ${1:=tmuxs:2} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":set swapfile" C-m
+        tmux send-keys -t ${1:=tmuxs:2} ":b1" C-m
+    }
+    function tmuxi
+    {
+        tmux send-keys -t ${1:=tmuxs} "kinit cpd@SLAC.STANFORD.EDU" C-m
+        tmux send-keys -t ${1:=tmuxs} ${INNOC_SLAC} C-m
+        tmux send-keys -t ${1:=tmuxs} "kinit cpd@stanford.edu" C-m
+        tmux send-keys -t ${1:=tmuxs} ${INNOC_SHERLOCK} C-m
     }
 
     function tmuxs
     {
         tmux start-server
         tmux new-session -d -s tmuxs -n misc
+        tmux new-window -t tmuxs:2 -n vim
         # these ssh ones should not be for their own tmux that just gets
         # confusing
-        tmux new-window -t tmuxs:2 -n slac
-        tmux new-window -t tmuxs:3 -n sherlock
-        tmux new-window -t tmuxs:4 -n vim
+        tmux new-window -t tmuxs:3 -n slac
+        tmux new-window -t tmuxs:4 -n sherlock
         tmux new-window -t tmuxs:5 -n workadirk
 
         # send commands to windows
@@ -143,14 +150,14 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux select-pane -t 0
         tmux split-window -h -t tmuxs:1
         tmux send-keys -t tmuxs:1 "ttytter" C-m
-        tmux send-keys -t tmuxs:2 "kinit cpd@SLAC.STANFORD.EDU" C-m
-        tmux send-keys -t tmuxs:2 ${INNOC_SLAC} C-m
-        tmux send-keys -t tmuxs:2 "slac" C-m
-        tmux send-keys -t tmuxs:3 "kinit cpd@stanford.edu" C-m
-        tmux send-keys -t tmuxs:3 ${INNOC_SHERLOCK} C-m
-        tmux send-keys -t tmuxs:3 "sherlock" C-m
         # open up vim windows
-        tmux_vim
+        tmuxv tmuxs:2
+        tmux send-keys -t tmuxs:3 "kinit cpd@SLAC.STANFORD.EDU" C-m
+        tmux send-keys -t tmuxs:3 ${INNOC_SLAC} C-m
+        tmux send-keys -t tmuxs:3 "slac" C-m
+        tmux send-keys -t tmuxs:4 "kinit cpd@stanford.edu" C-m
+        tmux send-keys -t tmuxs:4 ${INNOC_SHERLOCK} C-m
+        tmux send-keys -t tmuxs:4 "sherlock" C-m
 
         tmux select-window -t tmuxs:5
         tmux attach-session -t tmuxs

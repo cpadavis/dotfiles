@@ -1,4 +1,4 @@
- ==========================================================
+" ==========================================================
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
 
@@ -53,6 +53,9 @@ nmap <leader>z z=
 nmap <leader>sp :set spell!<CR>
 
 nmap <leader>sb :call SplitScroll()<CR>
+
+" redraw on command
+" nmap <leader>lr :redraw!<CR>
 
 " set vsplit to double the size of your window
 function! VSplit()
@@ -342,6 +345,8 @@ map <leader>y "+y
 " nnoremap <leader>q :q<CR>
 nnoremap <leader>qq :bd<CR>
 nnoremap <leader>qw <c-w>q
+" vim-bbye plugin
+nnoremap <leader>qb :Bdelete<CR>
 " quit!
 nnoremap <leader>qQ :q<CR>
 nnoremap <leader>qa :qa<CR>
@@ -375,6 +380,12 @@ nmap <leader>tb :Tagbar<CR>
 " Ack shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>A :Ack
+
+" ==========================================================
+" previewmarkdown command that I copied from the internet
+" it parses document and presents it as markdown in browser
+" ==========================================================
+nmap <leader>md :call PreviewMarkdown()<CR>
 
 " ==========================================================
 " vimwiki
