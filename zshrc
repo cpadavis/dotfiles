@@ -68,7 +68,7 @@ function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/p
 
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
-    alias vim='mvim -v'
+    alias vim='mvim -v --servername VIM'
 fi
 alias ls='ls -hFa --color'
 alias dua='du -h | sort -nr'
@@ -90,7 +90,7 @@ alias tmuxa="tmux attach-session -t tmuxs:1"
 alias tmuxk="tmux kill-session -t tmuxs"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
-alias nersc='ssh -Y cpd@carver.nersc.gov'
+alias nersc='ssh -Y cpd@hopper.nersc.gov'
 # function slac(){ ssh -Y cpd@ki-ls${1:=10}.slac.stanford.edu ;}
 function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;}
 function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
@@ -129,6 +129,8 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux send-keys -t ${1:=tmuxs} ${INNOC_SLAC} C-m
         tmux send-keys -t ${1:=tmuxs} "kinit cpd@stanford.edu" C-m
         tmux send-keys -t ${1:=tmuxs} ${INNOC_SHERLOCK} C-m
+        tmux send-keys -t ${1:=tmuxs} "kinit cpd@hopper.nersc.gov" C-m
+        tmux send-keys -t ${1:=tmuxs} ${INNOC_NERSC} C-m
     }
 
     function tmuxs

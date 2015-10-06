@@ -25,6 +25,7 @@
 " ==========================================================
 set nocompatible              " Don't be compatible with vi
 let mapleader=","             " change the leader to be a comma vs slash
+let maplocalleader=","             " change the leader to be a comma vs slash
 :noremap ' ,                  " this way we can keep ,'s funcitonality
 " :sunmap '                     " select mode
 " Seriously, guys. It's not like :W is bound to anything anyway.
@@ -55,7 +56,7 @@ nmap <leader>sp :set spell!<CR>
 nmap <leader>sb :call SplitScroll()<CR>
 
 " redraw on command
-" nmap <leader>lr :redraw!<CR>
+nmap <leader>lR :redraw!<CR>
 
 " set vsplit to double the size of your window
 function! VSplit()
@@ -524,10 +525,6 @@ nmap <leader>f :CtrlPMixed<CR>
 " ==========================================================
 cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : 'h'
 
-" ==========================================================
-" Javascript
-" ==========================================================
-au BufRead *.js setl makeprg=jslint\ %
 
 " ==========================================================
 " Compete options
@@ -553,12 +550,46 @@ let g:jedi#usages_command = "<leader>jn"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>jr"
 
+
+" ===========================================================
+" Handy Latex Bindings and vimtex
+" ============================================================
+function! CompileLatex()
+    :silent make! %
+    :silent !bibtex8 %:r
+    :silent make! %
+    :silent make! %
+    "silent Clean
+    :silent ! rm %:r.blg
+    :silent ! rm %:r.aux
+    :silent ! rm %:r.bbl
+    :silent ! rm %:r.bcf
+    :silent ! rm %:r.out
+    :silent ! rm %:r.run.xml
+    :silent ! rm %:r-blx.bib
+    :silent ! rm %:r.tdo
+    :silent ! rm %:r.toc
+
+    " :silent ! rm %:r.log
+endfunction
+
+nnoremap <silent> <leader>lL :call CompileLatex()<CR>
+nnoremap <silent> <leader>lO :! open %:r.pdf<CR><CR>
+nnoremap <silent> <leader>lF :silent make! %<CR>
+nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
+
+let g:vimtex_enabled = 1
+let g:tex_flavor = 'latex'
+
 " ===========================================================
 " FileType specific changes
 " ============================================================
 " Mako/HTML
 autocmd BufNewFile,BufRead *.mako,*.mak,*.jinja2 setlocal ft=html
 autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+" Javascript
+au BufRead *.js setl makeprg=jslint\ %
 
 " Python
 " au BufRead *.py compiler nose
