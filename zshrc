@@ -70,7 +70,7 @@ function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/p
 if hash mvim 2>/dev/null; then
     alias vim='mvim -v --servername VIM'
 fi
-alias ls='ls -hFa --color'
+alias ls='ls -hFaG'
 alias dua='du -h | sort -nr'
 alias ltex='xelatex -file-line-error -interaction=nonstopmode *.tex'
 
