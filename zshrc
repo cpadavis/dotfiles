@@ -69,8 +69,10 @@ function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/p
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
     alias vim='mvim -v --servername VIM'
+    alias ls='ls -hFaG'
+else
+    alias ls='ls -hFa --color'
 fi
-alias ls='ls -hFaG'
 alias dua='du -h | sort -nr'
 alias ltex='xelatex -file-line-error -interaction=nonstopmode *.tex'
 
@@ -140,9 +142,13 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux new-window -t tmuxs:2 -n vim
         # these ssh ones should not be for their own tmux that just gets
         # confusing
-        tmux new-window -t tmuxs:3 -n slac
-        tmux new-window -t tmuxs:4 -n sherlock
-        tmux new-window -t tmuxs:5 -n workadirk
+        # tmux new-window -t tmuxs:3 -n slac
+        # tmux new-window -t tmuxs:4 -n sherlock
+        # tmux new-window -t tmuxs:5 -n rye
+        # tmux new-window -t tmuxs:6 -n nersc
+        # tmux new-window -t tmuxs:7 -n workadirk
+        tmux new-window -t tmuxs:3 -n ssh
+        tmux new-window -t tmuxs:4 -n workadirk
 
         # send commands to windows
         tmux send-keys -t tmuxs:1 "irssi" C-m
@@ -153,15 +159,23 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux split-window -h -t tmuxs:1
         tmux send-keys -t tmuxs:1 "ttytter" C-m
         # open up vim windows
-        tmuxv tmuxs:2
-        tmux send-keys -t tmuxs:3 "kinit cpd@SLAC.STANFORD.EDU" C-m
-        tmux send-keys -t tmuxs:3 ${INNOC_SLAC} C-m
-        tmux send-keys -t tmuxs:3 "slac" C-m
-        tmux send-keys -t tmuxs:4 "kinit cpd@stanford.edu" C-m
-        tmux send-keys -t tmuxs:4 ${INNOC_SHERLOCK} C-m
-        tmux send-keys -t tmuxs:4 "sherlock" C-m
+        # tmuxv tmuxs:2
+        tmux send-keys -t tmuxs:2 "vim -S ~/journal_session.vim" C-m
+        # tmux send-keys -t tmuxs:3 "kinit cpd@SLAC.STANFORD.EDU" C-m
+        # tmux send-keys -t tmuxs:3 ${INNOC_SLAC} C-m
+        # tmux send-keys -t tmuxs:3 "slac" C-m
+        # tmux send-keys -t tmuxs:4 "kinit cpd@stanford.edu" C-m
+        # tmux send-keys -t tmuxs:4 ${INNOC_SHERLOCK} C-m
+        # tmux send-keys -t tmuxs:4 "sherlock" C-m
+        # tmux send-keys -t tmuxs:5 "kinit cpd@stanford.edu" C-m
+        # tmux send-keys -t tmuxs:5 ${INNOC_SHERLOCK} C-m
+        # tmux send-keys -t tmuxs:5 "rye" C-m
+        # tmux send-keys -t tmuxs:6 "kinit cpd@hopper.nersc.gov" C-m
+        # tmux send-keys -t tmuxs:6 ${INNOC_NERSC} C-m
+        # tmux send-keys -t tmuxs:6 "nersc" C-m
+        tmux send-keys -t tmuxs:3 "tmuxi tmuxs:3" C-m
 
-        tmux select-window -t tmuxs:5
+        tmux select-window -t tmuxs:4
         tmux attach-session -t tmuxs
         ## # When we detach from it, kill the session
         ## tmux kill-session -t tmuxs
