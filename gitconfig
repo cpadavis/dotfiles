@@ -4,7 +4,8 @@
 [gui]
 	recentrepo = /Users/cpd/Dropbox/secret-adventure
 [credential]
-	helper = osxkeychain
+	helper = cache
+	helper = cache
 [push]
     default = simple
 [diff]
