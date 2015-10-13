@@ -432,6 +432,8 @@ nmap <Leader>wf <Plug>VimwikiTabnewLink
 " set syntastic to active
 " let g:syntastic_mode_map = { 'mode': 'passive'}
 let g:syntastic_mode_map = { 'mode': 'active'}
+" also set syntastic to muffle style stuff unless I explicitly want it
+let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
 " let's use flake8.
 " pylint is a little annoying in its ability to handle numpy
 let g:syntastic_python_checkers=['flake8'] " , 'pylint']

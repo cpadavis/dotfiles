@@ -64,3 +64,9 @@
 [submodule "vim/bundle/vim-bbye"]
 	path = vim/bundle/vim-bbye
 	url = https://github.com/moll/vim-bbye.git
+[submodule "vim/bundle/vimtex"]
+	path = vim/bundle/vimtex
+	url = https://github.com/lervag/vimtex.git
+[submodule "vim/bundle/vim-obsession"]
+	path = vim/bundle/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
