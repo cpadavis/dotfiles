@@ -17,6 +17,12 @@
 " K on word in command mode - help
 
 " ==========================================================
+" Plugins but not yet made submodules
+" ==========================================================
+" vim-obsession - :Obsess to start a session
+" vimtex - super
+"
+" ==========================================================
 " Plugins included
 " ==========================================================
 
@@ -424,7 +430,8 @@ nmap <Leader>wf <Plug>VimwikiTabnewLink
 " Syntastic
 " ==========================================================
 " set syntastic to active
-let g:syntastic_mode_map = { 'mode': 'passive'}
+" let g:syntastic_mode_map = { 'mode': 'passive'}
+let g:syntastic_mode_map = { 'mode': 'active'}
 " let's use flake8.
 " pylint is a little annoying in its ability to handle numpy
 let g:syntastic_python_checkers=['flake8'] " , 'pylint']
@@ -529,9 +536,14 @@ cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : '
 " ==========================================================
 " Compete options
 " ==========================================================
-" set completeopt=menu,preview,menuone
+set completeopt=menu,preview,menuone,longest
 " set complete=.,w,b,u,t " -=i if things get slow
-" set pumheight=6             " Keep a small completion window
+set pumheight=6             " Keep a small completion window
+" load complete menu to C-space
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
+" also from leader leader or ,,
+inoremap <leader>, <C-x><C-o>
 
 " ==========================================================
 " Jedi
@@ -547,7 +559,7 @@ let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
-let g:jedi#completions_command = "<C-Space>"
+let g:jedi#completions_command = "<leader>jc"
 let g:jedi#rename_command = "<leader>jr"
 
 
@@ -580,6 +592,7 @@ nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 
 let g:vimtex_enabled = 1
 let g:tex_flavor = 'latex'
+let g:vimtex_quickfix_open_on_warning = 0
 
 " ===========================================================
 " FileType specific changes
