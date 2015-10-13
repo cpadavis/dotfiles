@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env zsh
 
 # Ensure that tmux windows are by default named after the shell, rather than
 # full path to the shell binary.
