@@ -161,7 +161,7 @@ call pathogen#helptags()
 syntax on                     " syntax highlighing
 " filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
-set number                    " Display line numbers
+" set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
 " set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
@@ -378,6 +378,13 @@ nmap gb :bnext<CR>
 nmap gB :bprevious<CR>
 nmap <leader>bl :ls<CR>
 
+" setglobal relativenumber
+autocmd WinEnter,FocusGained * :setlocal number relativenumber
+autocmd WinLeave,FocusLost   * :setlocal number norelativenumber
+
+autocmd InsertEnter * :setlocal number norelativenumber
+autocmd InsertLeave * :setlocal number relativenumber
+
 " ==========================================================
 " tagbar -- lets you see your functions. super useful!
 " ==========================================================
@@ -387,6 +394,11 @@ nmap <leader>tb :Tagbar<CR>
 " Ack shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>A :Ack
+
+" ==========================================================
+" Obsess shortcut to encourage me to use it!
+" ==========================================================
+nmap <leader>O :Obsess
 
 " ==========================================================
 " previewmarkdown command that I copied from the internet
@@ -509,16 +521,16 @@ let g:airline#extensions#tmuxline#enabled = 0
 " promptline
 " ==========================================================
 " :PromptlineSnapshot ~/.dotfiles/promptline.sh
-let g:promptline_theme = 'airline'
-let g:promptline_powerline_symbols = 0
+" let g:promptline_theme = 'airline'
+" let g:promptline_powerline_symbols = 0
 " sections (a, b, c, x, y, z, warn) are optional
-let g:promptline_preset = {
-        \'a' : [ promptline#slices#user() ],
-        \'b' : [ promptline#slices#cwd() ],
-        \'x' : [ promptline#slices#jobs() ],
-        \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
-        \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
-        \'warn' : [ promptline#slices#last_exit_code() ]}
+" let g:promptline_preset = {
+"         \'a' : [ promptline#slices#user() ],
+"         \'b' : [ promptline#slices#cwd() ],
+"         \'x' : [ promptline#slices#jobs() ],
+"         \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
+"         \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
+"         \'warn' : [ promptline#slices#last_exit_code() ]}
 
 
 " ==========================================================
@@ -605,6 +617,9 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 
 " Javascript
 au BufRead *.js setl makeprg=jslint\ %
+
+" Latex
+au BufRead *.tex setlocal spell
 
 " Python
 " au BufRead *.py compiler nose

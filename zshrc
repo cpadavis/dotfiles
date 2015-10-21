@@ -148,7 +148,6 @@ if [ $CPD_NAME = 'MAC' ]; then
         # tmux new-window -t tmuxs:6 -n nersc
         # tmux new-window -t tmuxs:7 -n workadirk
         tmux new-window -t tmuxs:3 -n ssh
-        tmux new-window -t tmuxs:4 -n workadirk
 
         # send commands to windows
         tmux send-keys -t tmuxs:1 "irssi" C-m
@@ -175,7 +174,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         # tmux send-keys -t tmuxs:6 "nersc" C-m
         tmux send-keys -t tmuxs:3 "tmuxi tmuxs:3" C-m
 
-        tmux select-window -t tmuxs:4
+        tmux select-window -t tmuxs:2
         tmux attach-session -t tmuxs
         ## # When we detach from it, kill the session
         ## tmux kill-session -t tmuxs
@@ -202,6 +201,7 @@ elif [ $CPD_NAME = 'KILS' ]; then
     }
     function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
     alias gopen='gnome-open'
+    alias pdf='evince'
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/DESDM/eups/packages/Linux64/psfex/3.17.0+0/bin/psfex ${1} -c /u/ec/roodman/Astrophysics/PSF/desdm-plus.psfex -OUTCAT_NAME ${2} ; }
 
 else
@@ -367,6 +367,8 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 # learnpsf
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
+# osprey
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.11-intel-2.7
 
 # caffe
 # export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
