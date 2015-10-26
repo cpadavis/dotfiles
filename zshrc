@@ -46,6 +46,7 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 
 # Aliases
+# alias python='/Library/Frameworks/EPD64.framework/Versions/Current/bin/python'
 alias pylab='ipython --profile=nbserver'
 alias iconsole='ipython console --profile=nbserver --existing'
 alias bjobl="bjobs -l | less"
@@ -107,6 +108,21 @@ if [ $CPD_NAME = 'MAC' ]; then
     PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
     PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
 
+    function desdb() { scriptname=$1; shift; /Library/Frameworks/EPD64.framework/Versions/Current/bin/python /usr/local/bin/${scriptname} "$@"; }
+    # DESDB Functions (* indicates prepend desdb command):
+    # des-fits2table*
+    # des-query*
+    # des-red-expnames*
+    # des-sync-coadd
+    # des-sync-red
+    # get-coadd-info-by-release*
+    # get-coadd-info-by-run*
+    # get-coadd-srclist*
+    # get-coadd-srcruns-by-release*
+    # get-coadd-srcruns-by-run*
+    # get-red-info-by-release*
+    # get-release-filelist*
+    # get-release-runs*
     export PROJECTS_DIR=/Users/cpd/Projects
 
     alias pipi='sudo -E pip install'

@@ -19,12 +19,39 @@
 " ==========================================================
 " Plugins but not yet made submodules
 " ==========================================================
-" vim-obsession - :Obsess to start a session
-" vimtex - super
-"
+" previewmarkdown
+" swift.vim
+" vim-javascript
+
 " ==========================================================
 " Plugins included
 " ==========================================================
+" Tagbar
+" ack.vim
+" calendar.vim
+" ctrlp.vim
+" fugitive
+" gundo
+" jedi-vim
+" markdown
+" misc
+" nerdtree
+" netrw.vim
+" promptline.vim
+" syntastic
+" tasklist
+" tlib
+" tmuxline.vim
+" vim-addon-mw-utils
+" vim-airline
+" vim-bbye
+" vim-colors-solarized
+" vim-commentary
+" vim-ipython
+" vim-obsession
+" vimtex
+" vimwiki
+
 
 " ==========================================================
 " Shortcuts
@@ -161,7 +188,8 @@ call pathogen#helptags()
 syntax on                     " syntax highlighing
 " filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
-" set number                    " Display line numbers
+set number norelativenumber                  " Display line numbers
+" set number relativenumber                  " Display relative line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
 " set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
@@ -379,6 +407,7 @@ nmap gB :bprevious<CR>
 nmap <leader>bl :ls<CR>
 
 " setglobal relativenumber
+
 autocmd WinEnter,FocusGained * :setlocal number relativenumber
 autocmd WinLeave,FocusLost   * :setlocal number norelativenumber
 
@@ -399,6 +428,19 @@ nmap <leader>A :Ack
 " Obsess shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>O :Obsess
+
+" ==========================================================
+" vim-ipython
+" ==========================================================
+nmap <leader>Ii :IPython<CR>
+nmap <leader>Id <Plug>(IPython-OpenPyDoc)
+nmap <leader>Is <Plug>(IPython-UpdateShell)
+nmap <leader>Ir <Plut>(IPython-Runline)
+nmap <leader>IR <Plut>(IPython-Runlines)
+" I don't like the default ipy bindings
+let g:ipy_perform_mappings=0
+" only load ipython-based completion for current buffer
+let g:ipy_completefunc = 'local'
 
 " ==========================================================
 " previewmarkdown command that I copied from the internet
