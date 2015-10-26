@@ -1,0 +1,11 @@
+pane	tmuxs	1	:misc	0	:-	0	:/Users/cpd	0	irssi	:-zsh
+pane	tmuxs	1	:misc	0	:-	1	:/Users/cpd	1	perl5.18	:-zsh
+pane	tmuxs	1	:misc	0	:-	2	:/Users/cpd	0	zsh	:-zsh
+pane	tmuxs	2	:vim	0	:	0	:/Users/cpd	1	Vim	:-zsh
+pane	tmuxs	3	:ssh	0	:	0	:/Users/cpd	1	zsh	:-zsh
+pane	tmuxs	4	:zsh	1	:*	0	:/Users/cpd/.dotfiles	1	zsh	:-zsh
+window	tmuxs	1	0	:-	9deb,204x61,0,0[204x30,0,0{102x30,0,0,0,101x30,103,0,4},204x30,0,31,3]
+window	tmuxs	2	0	:	b49e,204x61,0,0,1
+window	tmuxs	3	0	:	b49f,204x61,0,0,2
+window	tmuxs	4	1	:*	b4a2,204x61,0,0,5
+state	tmuxs	
