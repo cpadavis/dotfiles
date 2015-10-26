@@ -47,7 +47,6 @@
 " vim-bbye
 " vim-colors-solarized
 " vim-commentary
-" vim-ipython
 " vim-obsession
 " vimtex
 " vimwiki
@@ -428,19 +427,6 @@ nmap <leader>A :Ack
 " Obsess shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>O :Obsess
-
-" ==========================================================
-" vim-ipython
-" ==========================================================
-nmap <leader>Ii :IPython<CR>
-nmap <leader>Id <Plug>(IPython-OpenPyDoc)
-nmap <leader>Is <Plug>(IPython-UpdateShell)
-nmap <leader>Ir <Plut>(IPython-Runline)
-nmap <leader>IR <Plut>(IPython-Runlines)
-" I don't like the default ipy bindings
-let g:ipy_perform_mappings=0
-" only load ipython-based completion for current buffer
-let g:ipy_completefunc = 'local'
 
 " ==========================================================
 " previewmarkdown command that I copied from the internet

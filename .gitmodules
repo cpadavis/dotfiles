@@ -70,9 +70,6 @@
 [submodule "vim/bundle/vim-obsession"]
 	path = vim/bundle/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
-[submodule "vim/bundle/vim-ipython"]
-	path = vim/bundle/vim-ipython
-	url = https://github.com/ivanov/vim-ipython.git
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
