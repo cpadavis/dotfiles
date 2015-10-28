@@ -61,5 +61,8 @@ dhist
 # vim tags
 doc/tags
 
+# ignore tmux resurrect
+tmux/resurrect
+
 # ignore json
 *.json

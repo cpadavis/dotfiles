@@ -316,7 +316,7 @@ else
     colorscheme solarized "default
     set background=light
     "set nocursorline
-    " set colorcolumn=80
+    set colorcolumn=80
     set cursorline
     "set lines=60 columns=85
 endif

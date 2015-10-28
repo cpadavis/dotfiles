@@ -46,7 +46,6 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 
 # Aliases
-# alias python='/Library/Frameworks/EPD64.framework/Versions/Current/bin/python'
 alias pylab='ipython --profile=nbserver'
 alias iconsole='ipython console --profile=nbserver --existing'
 alias bjobl="bjobs -l | less"
@@ -123,8 +122,10 @@ if [ $CPD_NAME = 'MAC' ]; then
     # get-red-info-by-release*
     # get-release-filelist*
     # get-release-runs*
+    export CPD=/Users/cpd/
     export PROJECTS_DIR=/Users/cpd/Projects
 
+    alias mypython='/Library/Frameworks/EPD64.framework/Versions/Current/bin/python'
     alias pipi='sudo -E pip install'
     alias pipu='sudo -E pip install --upgrade'
 
@@ -207,10 +208,10 @@ elif [ $CPD_NAME = 'KILS' ]; then
         tmux new-session -d -s tmuxs -n notebook
         tmux new-window -t tmuxs:2 -n workadirk
 
-        tmux send-keys -t tmuxs:1 "notebook &" C-m
+        tmux send-keys -t tmuxs:1 "notebook" C-m
         tmux split-window -v -t tmuxs:1
         tmux select-pane -t 1
-        tmux send-keys -t tmuxs:1 "cd $SWAP/mongo/; mongod --dbpath . &" C-m
+        tmux send-keys -t tmuxs:1 "cd $SWAP/mongo/; mongod --dbpath ." C-m
 
         tmux select-window -t tmuxs:2
         tmux attach-session -t tmuxs
