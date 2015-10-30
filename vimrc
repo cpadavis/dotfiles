@@ -261,13 +261,16 @@ set ffs=unix,dos,mac        " Try recognizing dos, unix, and mac line endings.
 
 """" Messages, Info, Status
 set ls=2                    " allways show status line
+set laststatus=2            " Always show statusline, even if only 1 window.
 set vb t_vb=                " Disable all bells.  I hate ringing/flashing.
 set confirm                 " Y-N-C prompt if closing with unsaved changes.
 set showcmd                 " Show incomplete normal mode commands as I type.
 set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
 set ruler                   " Show some info, even without statuslines.
-set laststatus=2            " Always show statusline, even if only 1 window.
+" note to self: I have no idea what this does
+" [line,vertical percent,modified] filename readonly,help,preview flags,
+" OS, (how?!), fugitive status line
 set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
@@ -525,17 +528,34 @@ nnoremap <leader>GP :Git! pull<CR>
 " ==========================================================
 " vim airline
 " ==========================================================
+" note that this overrides statusline customized above!
+let g:airline_left_sep = ' '
+let g:airline_left_alt_sep = '|'
+let g:airline_right_sep = ' '
+let g:airline_right_alt_sep = '|'
+
+" move filetype from section_x to section_y; remove the encoding since I never
+" actually use that
+let g:airline_section_x='%{airline#util#wrap(airline#extensions#tagbar#currenttag(),0)}'
+let g:airline_section_y='%{airline#util#wrap(airline#parts#filetype(),0)}'
+" add buffer number in front of percentage
+let g:airline_section_z='%3n : %p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v'
+
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep = ' '
-let g:airline_left_alt_sep = '|'
 let g:airline#extensions#tabline#right_sep = ' '
 let g:airline#extensions#tabline#right_alt_sep = '|'
-let g:airline_right_sep = ' '
-let g:airline_right_alt_sep = '|'
-let g:airline#extensions#branch#enabled=1
-
+" show buffer number
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 " ==========================================================
 " tmuxline
 " ==========================================================
@@ -581,7 +601,7 @@ cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : '
 set completeopt=menu,preview,menuone,longest
 " set complete=.,w,b,u,t " -=i if things get slow
 set pumheight=6             " Keep a small completion window
-" load complete menu to C-space
+" load complete menu to C-space. This doesn't work?
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-Space>
 " also from leader leader or ,,

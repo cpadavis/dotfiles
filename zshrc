@@ -73,6 +73,7 @@ if hash mvim 2>/dev/null; then
 else
     alias ls='ls -hFa --color'
 fi
+alias vims='vim -S Session.vim'
 alias dua='du -h | sort -nr'
 alias ltex='xelatex -file-line-error -interaction=nonstopmode *.tex'
 
