@@ -428,7 +428,11 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 # learnpsf
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
 # osprey
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.11-intel-2.7
+if [ $CPD_NAME = 'MAC' ]; then
+    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.11-intel-2.7;
+elif [ $CPD_NAME = 'KILS' ]; then
+    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.linux-x86_64-2.7;
+fi
 
 # caffe
 # export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
