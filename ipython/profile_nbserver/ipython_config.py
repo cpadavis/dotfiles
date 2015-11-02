@@ -23,10 +23,11 @@ c.InteractiveShellApp.exec_lines = [
     "%autoreload 2",
     "from __future__ import print_function, division",
     'import numpy as np',
-    'import matplotlib.pyplot as plt',
     'from astropy.io import fits',
     'import pandas as pd',
 
+    "%matplotlib qt4",
+    'import matplotlib.pyplot as plt',
     "import matplotlib",
     # "palette = matplotlib.cm.gray_r",
     "palette = matplotlib.cm.RdBu_r",
@@ -37,7 +38,6 @@ c.InteractiveShellApp.exec_lines = [
     # "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
     "matplotlib.rc('image', interpolation='none', cmap = 'my_map')",
     # "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
-    "%matplotlib",
     'print("Importing numpy, matplotlib.pyplot, fits, and pandas! Also setting the default colormap to no interpolation and lower origin and RdBu_r with bad, over, under color settings.")']
 
 
