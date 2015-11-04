@@ -588,6 +588,7 @@ let g:airline#extensions#tmuxline#enabled = 0
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 " f for find
 nmap <leader>f :CtrlPMixed<CR>
+nmap <leader>F :CtrlPBuffer<CR>
 
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
