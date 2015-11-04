@@ -1,5 +1,5 @@
 # Configuration file for ipython.
-
+import os
 c = get_config()
 
 #------------------------------------------------------------------------------
@@ -24,9 +24,12 @@ c.InteractiveShellApp.exec_lines = [
     "from __future__ import print_function, division",
     'import numpy as np',
     'from astropy.io import fits',
-    'import pandas as pd',
+    'import pandas as pd',]
 
-    "%matplotlib qt4",
+cpd_computer = os.getenv('CPD_NAME', 'NONE')
+if cpd_computer == 'MAC':
+    c.InteractiveShellApp.exec_lines = ["%matplotlib qt4"]
+c.InteractiveShellApp.exec_lines = [
     'import matplotlib.pyplot as plt',
     "import matplotlib",
     # "palette = matplotlib.cm.gray_r",
