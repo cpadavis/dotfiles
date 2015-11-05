@@ -19,6 +19,6 @@ ln -s ~/.dotfiles/ipython ~/.ipython
 # git
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 # directory colors
-ln -s ~/.dotfiles/dircolors-solarized/dircolors.256dark ~/.dircolors
+ln -s ~/.dotfiles/dircolors-solarized/dircolors.ansi-universal ~/.dircolors
 
 
