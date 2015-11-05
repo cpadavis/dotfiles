@@ -24,11 +24,17 @@ bindkey -M vicmd -s ",l" "$"
 
 #parses .dircolors and makes env var for GNU ls
 d=~/.dircolors
-eval "$(dircolors $d)"
+if [ $CPD_NAME = 'MAC' ]; then
+    eval "$(gdircolors $d)";
+    alias ls='gls -hFa --color'
+else
+    eval "$(dircolors $d)";
+    alias ls='ls -hFa --color'
+fi
 
 # change prompt colors
-autoload -U colors && colors
-PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
+# autoload -U colors && colors
+# PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
 
 # and now we will ignore that and source promptline
 source ~/.dotfiles/promptline.sh
@@ -69,9 +75,7 @@ function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/p
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
     alias vim='mvim -v --servername VIM'
-    alias ls='ls -hFaG'
 else
-    alias ls='ls -hFa --color'
 fi
 alias vims='vim -S Session.vim'
 alias dua='du -h | sort -nr'
@@ -215,13 +219,17 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/SpaceWarps/analysis" C-m
         tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
         tmux split-window -t tmuxs:7
-        tmux select-pane -t 1
-        tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
-        tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
+        # tmux select-pane -t 1
+        tmux send-keys -t tmuxs:7.1 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
+        tmux send-keys -t tmuxs:7.1 "vim -S Session.vim" C-m
         # weak_sauce
         tmux new-window -t tmuxs:8 -n weak_sauce
         tmux send-keys -t tmuxs:8 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
         tmux send-keys -t tmuxs:8 "vim -S Session.vim" C-m
+        tmux split-window -t tmuxs:8
+        # tmux select-pane -t 1
+        tmux send-keys -t tmuxs:8.1 "cd /Users/cpd/Projects/weak_sauce/doc" C-m
+        tmux send-keys -t tmuxs:8.1 "vim -S Session.vim" C-m
         # strongcnn
         tmux new-window -t tmuxs:9 -n strongcnn
         tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/strongcnn" C-m
@@ -231,8 +239,8 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux send-keys -t tmuxs:10 "cd /Users/cpd/Projects/osprey/osprey" C-m
         tmux send-keys -t tmuxs:10 "vim -S Session.vim" C-m
         tmux split-window -t tmuxs:10
-        tmux select-pane -t 1
-        tmux send-keys -t tmuxs:10 "cd /Users/cpd/Projects/osprey" C-m
+        # tmux select-pane -t 1
+        tmux send-keys -t tmuxs:10.1 "cd /Users/cpd/Projects/osprey" C-m
 
         tmux select-window -t tmuxs:2
         tmux attach-session -t tmuxs

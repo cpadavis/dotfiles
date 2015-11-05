@@ -17,19 +17,20 @@ c = get_config()
 # Execute the given command string.  c.InteractiveShellApp.code_to_run = ''
 
 # lines of code to run at IPython startup.
-c.InteractiveShellApp.exec_lines = [
+cpd_computer = os.getenv('CPD_NAME', 'NONE')
+if cpd_computer == 'MAC':
+    print('setting ipython terminal app gui to qt')
+    c.TerminalIPythonApp.gui = 'qt'
+
+activate_lines = [
     "%load_ext Cython",
     "%load_ext autoreload",
     "%autoreload 2",
     "from __future__ import print_function, division",
     'import numpy as np',
     'from astropy.io import fits',
-    'import pandas as pd',]
-
-cpd_computer = os.getenv('CPD_NAME', 'NONE')
-if cpd_computer == 'MAC':
-    c.InteractiveShellApp.exec_lines = ["%matplotlib qt4"]
-c.InteractiveShellApp.exec_lines = [
+    'import fitsio',
+    'import pandas as pd',
     'import matplotlib.pyplot as plt',
     "import matplotlib",
     # "palette = matplotlib.cm.gray_r",
@@ -41,8 +42,9 @@ c.InteractiveShellApp.exec_lines = [
     # "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
     "matplotlib.rc('image', interpolation='none', cmap = 'my_map')",
     # "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
-    'print("Importing numpy, matplotlib.pyplot, fits, and pandas! Also setting the default colormap to no interpolation and lower origin and RdBu_r with bad, over, under color settings.")']
+    'print("Importing numpy, matplotlib.pyplot, fits, fitsio, and pandas! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
 
+c.InteractiveShellApp.exec_lines = activate_lines
 
 
 # If true, an 'import *' is done from numpy and pylab, when using pylab
