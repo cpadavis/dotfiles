@@ -129,8 +129,8 @@ if [ $CPD_NAME = 'MAC' ]; then
     export PROJECTS_DIR=/Users/cpd/Projects
 
     alias mypython='/Library/Frameworks/EPD64.framework/Versions/Current/bin/python'
-    alias pipi='sudo -E pip install'
-    alias pipu='sudo -E pip install --upgrade'
+    alias pipi='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install'
+    alias pipu='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install --upgrade'
 
     function tmuxv
     {
@@ -174,7 +174,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux new-window -t tmuxs:3 -n ssh
 
         # send commands to windows
-        tmux send-keys -t tmuxs:1 "irssi" C-m
+        tmux send-keys -t tmuxs:1 "TERM=screen-256color irssi" C-m
         tmux split-window -v -t tmuxs:1
         tmux select-pane -t 1
         tmux send-keys -t tmuxs:1 "notebook" C-m
@@ -216,7 +216,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux new-window -t tmuxs:7 -n SWAP
         tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/SpaceWarps/analysis" C-m
         tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
-        tmux split-window -t tmuxs:7
+        tmux split-window -v -t tmuxs:7
         # tmux select-pane -t 1
         tmux send-keys -t tmuxs:7.1 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
         tmux send-keys -t tmuxs:7.1 "vim -S Session.vim" C-m
@@ -224,7 +224,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux new-window -t tmuxs:8 -n weak_sauce
         tmux send-keys -t tmuxs:8 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
         tmux send-keys -t tmuxs:8 "vim -S Session.vim" C-m
-        tmux split-window -t tmuxs:8
+        tmux split-window -v -t tmuxs:8
         # tmux select-pane -t 1
         tmux send-keys -t tmuxs:8.1 "cd /Users/cpd/Projects/weak_sauce/doc" C-m
         tmux send-keys -t tmuxs:8.1 "vim -S Session.vim" C-m
@@ -236,7 +236,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux new-window -t tmuxs:10 -n osprey
         tmux send-keys -t tmuxs:10 "cd /Users/cpd/Projects/osprey/osprey" C-m
         tmux send-keys -t tmuxs:10 "vim -S Session.vim" C-m
-        tmux split-window -t tmuxs:10
+        tmux split-window -v -t tmuxs:10
         # tmux select-pane -t 1
         tmux send-keys -t tmuxs:10.1 "cd /Users/cpd/Projects/osprey" C-m
 
