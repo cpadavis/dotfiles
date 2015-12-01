@@ -314,6 +314,7 @@ if has("gui_running")
 else
     " set t_Co=256
     " set term=xterm-256color
+    set term=screen-256color
     " se t_co=256
     " let g:solarized_termcolors=256
     colorscheme solarized "default

@@ -54,8 +54,6 @@ bindkey . rationalise-dot
 # Aliases
 alias pylab='ipython --profile=nbserver'
 alias iconsole='ipython console --profile=nbserver --existing'
-alias bjobl="bjobs -l | less"
-alias bjobr='bjobs | awk '\''{if($3 != "PEND") print ;}'\'' | less'
 if [ -z "$SSH_CONNECTION" ]; then
     alias notebook="ipython notebook --profile=nbserver"
 else
@@ -251,6 +249,12 @@ elif [ $CPD_NAME = 'KILS' ]; then
 
     export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
 
+    alias bjob="bjobs -w | less"
+    alias bjobl="bjobs -l | less"
+    # alias bjobr='bjobs | awk '\''{if($3 != "PEND") print ;}'\'' | less'
+    alias bjobr="bjobs -wr | less"
+    alias bjobrl="bjobs -rl | less"
+    alias bjoblr=bjobrl
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
     function tmuxs
@@ -429,6 +433,7 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
 # cluster-z
 export CLUSTERZ_DIR=${PROJECTS_DIR}/cluster-z
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/  # temp for refactor
 # strongcnn
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 # weak_sauce
