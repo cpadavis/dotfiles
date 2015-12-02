@@ -28,7 +28,7 @@ if [ $CPD_NAME = 'MAC' ]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
 else
-    eval "$(dircolors $d)";
+    eval "$(dircolors -b $d)";
     alias ls='ls -hFa --color'
 fi
 
