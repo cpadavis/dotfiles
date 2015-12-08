@@ -24,11 +24,11 @@ bindkey -M vicmd -s ",l" "$"
 
 #parses .dircolors and makes env var for GNU ls
 d=~/.dircolors
-if [ $CPD_NAME = 'MAC' ]; then
+if [[ $CPD_NAME == 'MAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
 else
-    eval "$(dircolors $d)";
+    eval "$(dircolors -b $d)";
     alias ls='ls -hFa --color'
 fi
 
@@ -114,7 +114,7 @@ alias trivialAccess='echo "You should use easyaccess!"'
 # alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
 
 # some key difs between my mac and kils
-if [ $CPD_NAME = 'MAC' ]; then
+if [[ $CPD_NAME == 'MAC' ]]; then
     PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
     PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
 
@@ -254,7 +254,7 @@ if [ $CPD_NAME = 'MAC' ]; then
         ## # When we detach from it, kill the session
         ## tmux kill-session -t tmuxs
     }
-elif [ $CPD_NAME = 'KILS' ]; then
+elif [[ $CPD_NAME == 'KILS' ]]; then
 
     export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
 
@@ -450,9 +450,9 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 # learnpsf
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
 # osprey
-if [ $CPD_NAME = 'MAC' ]; then
+if [[ $CPD_NAME == 'MAC' ]]; then
     export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.11-intel-2.7;
-elif [ $CPD_NAME = 'KILS' ]; then
+elif [[ $CPD_NAME == 'KILS' ]]; then
     export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.linux-x86_64-2.7;
 fi
 
