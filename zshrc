@@ -53,12 +53,19 @@ bindkey . rationalise-dot
 
 # Aliases
 alias pylab='ipython --profile=nbserver'
-alias iconsole='ipython console --profile=nbserver --existing'
 if [ -z "$SSH_CONNECTION" ]; then
-    alias notebook="ipython notebook --profile=nbserver"
+    if [ $CPD_NAME = 'MAC' ]; then
+        # thanks jupyter for removing profiles
+        alias notebook="ipython notebook"
+        alias iconsole='ipython console --existing'
+    else
+        alias notebook="ipython notebook --profile=nbserver"
+        alias iconsole='ipython console --profile=nbserver --existing'
+    fi
 else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
     alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
+    alias iconsole='ipython console --profile=nbserver --existing'
 fi
 
 # http://kipac.stanford.edu/collab/computing/docs/afs
@@ -99,7 +106,8 @@ alias nersc='ssh -Y cpd@hopper.nersc.gov'
 function slac(){ ssh -Y cpd@ki-ls${1:=08}.slac.stanford.edu ;}
 # function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;}
 function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
-alias rye='ssh -Y cpd@rye01.stanford.edu'
+function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
+function corn(){ ssh -Y -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ;}
 alias sherlock='kinit cpd@stanford.edu; ssh -X cpd@sherlock.stanford.edu'
 
 alias trivialAccess='echo "You should use easyaccess!"'
@@ -110,7 +118,12 @@ if [ $CPD_NAME = 'MAC' ]; then
     PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
     PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
 
-    function desdb() { scriptname=$1; shift; /Library/Frameworks/EPD64.framework/Versions/Current/bin/python /usr/local/bin/${scriptname} "$@"; }
+    # alias mypython='/Library/Frameworks/EPD64.framework/Versions/Current/bin/python'
+    # alias pipi='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install'
+    # alias pipu='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install --upgrade'
+    alias pipi='pip install'
+    alias pipu='pip install --upgrade'
+    function desdb() { scriptname=$1; shift; python /usr/local/bin/${scriptname} "$@"; }
     # DESDB Functions (* indicates prepend desdb command):
     # des-fits2table*
     # des-query*
@@ -128,9 +141,6 @@ if [ $CPD_NAME = 'MAC' ]; then
     export CPD=/Users/cpd/
     export PROJECTS_DIR=/Users/cpd/Projects
 
-    alias mypython='/Library/Frameworks/EPD64.framework/Versions/Current/bin/python'
-    alias pipi='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install'
-    alias pipu='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install --upgrade'
 
     function tmuxv
     {
@@ -201,11 +211,10 @@ if [ $CPD_NAME = 'MAC' ]; then
         tmux send-keys -t tmuxs:3 "tmuxi tmuxs:3" C-m
 
         # clusterz figures
-        tmux new-window -t tmuxs:4 -n cluster-z_figures
-        tmux send-keys -t tmuxs:4 "cd /Users/cpd/Projects/cluster-z/code" C-m
-        tmux send-keys -t tmuxs:4 "vim -S Session_Figures.vim" C-m
-        # clusterz refactor
-        tmux new-window -t tmuxs:5 -n cluster-z_refactor
+        tmux new-window -t tmuxs:4 -n LearnPSF
+        tmux send-keys -t tmuxs:4 "cd /Users/cpd/Projects/LearnPSF" C-m
+        # clusterz
+        tmux new-window -t tmuxs:5 -n cluster-z
         tmux send-keys -t tmuxs:5 "cd /Users/cpd/Projects/cluster-z/refactor" C-m
         tmux send-keys -t tmuxs:5 "vim -S Session.vim" C-m
         # wavefrontpsf refactor
@@ -440,8 +449,6 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 # learnpsf
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
-# kmeans_radec
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/kmeans_radec/kmeans_radec
 # osprey
 if [ $CPD_NAME = 'MAC' ]; then
     export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.11-intel-2.7;
@@ -450,4 +457,11 @@ elif [ $CPD_NAME = 'KILS' ]; then
 fi
 
 # caffe
-# export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
+
+# miniconda
+if [ $CPD_NAME = 'MAC' ]; then
+    export PATH="/Users/cpd/miniconda2/bin:$PATH";
+    # activate cpd environment
+    source activate cpd;
+fi

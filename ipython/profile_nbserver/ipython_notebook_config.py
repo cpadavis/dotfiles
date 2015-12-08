@@ -2,6 +2,25 @@
 
 c = get_config()
 c.NotebookApp.password = u'sha1:0e146849b634:d74216e0146e100998abc9c88a5228ad64534d6c'
+# c.IPKernelApp.exec_lines = ["%pylab", "%matplotlib inline"]
+
+#------------------------------------------------------------------------------
+# NotebookManager configuration
+#------------------------------------------------------------------------------
+
+# Automatically create a Python script when saving the notebook.
+# 
+# For easier use of import, %run and %loadpy across notebooks, a <notebook-
+# name>.py script will be created next to any <notebook-name>.ipynb on each
+# save.  This can also be set with the short `--script` flag.
+c.NotebookManager.save_script = True
+
+# The directory to use for notebooks.
+#c.NotebookManager.notebook_dir = '/Users/cpd/.ipython/notebooks'
+# CPD 3. March 2015: NotebookManager -> NotebookApp
+from os import path
+c.NotebookApp.notebook_dir = path.expandvars('$IPYTHON_NOTEBOOK_DIR')
+#c.NotebookManager.notebook_dir = '$$IPYTHON_NOTEBOOK_DIR'
 
 #------------------------------------------------------------------------------
 # NotebookApp configuration
@@ -117,7 +136,6 @@ c.NotebookApp.open_browser = False
 
 # lines of code to run at IPython startup.
 # c.IPKernelApp.exec_lines = []
-c.IPKernelApp.exec_lines = ["%matplotlib inline"]
 
 # The importstring for the OutStream factory
 # c.IPKernelApp.outstream_class = 'IPython.zmq.iostream.OutStream'
@@ -392,20 +410,3 @@ c.IPKernelApp.exec_lines = ["%matplotlib inline"]
 # Delay (in seconds) before sending first heartbeat.
 # c.MappingKernelManager.first_beat = 5.0
 
-#------------------------------------------------------------------------------
-# NotebookManager configuration
-#------------------------------------------------------------------------------
-
-# Automatically create a Python script when saving the notebook.
-# 
-# For easier use of import, %run and %loadpy across notebooks, a <notebook-
-# name>.py script will be created next to any <notebook-name>.ipynb on each
-# save.  This can also be set with the short `--script` flag.
-c.NotebookManager.save_script = True
-
-# The directory to use for notebooks.
-#c.NotebookManager.notebook_dir = '/Users/cpd/.ipython/notebooks'
-# CPD 3. March 2015: NotebookManager -> NotebookApp
-from os import path
-c.NotebookApp.notebook_dir = path.expandvars('$IPYTHON_NOTEBOOK_DIR')
-#c.NotebookManager.notebook_dir = '$$IPYTHON_NOTEBOOK_DIR'

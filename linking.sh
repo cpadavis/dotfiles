@@ -16,6 +16,7 @@ ln -s ~/.dotfiles/tmux ~/.tmux
 ln -s ~/.dotfiles/irssi ~/.irssi
 # ipython
 ln -s ~/.dotfiles/ipython ~/.ipython
+ln -s ~/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 # git
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 # directory colors

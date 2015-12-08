@@ -7,31 +7,32 @@ c = get_config()
 #------------------------------------------------------------------------------
 
 # A Mixin for applications that start InteractiveShell instances.
-# 
+#
 # Provides configurables for loading extensions and executing files as part of
 # configuring a Shell environment.
-# 
+#
 # Provides init_extensions() and init_code() methods, to be called after
 # init_shell(), which must be implemented by subclasses.
 
 # Execute the given command string.  c.InteractiveShellApp.code_to_run = ''
 
 # lines of code to run at IPython startup.
-cpd_computer = os.getenv('CPD_NAME', 'NONE')
-if cpd_computer == 'MAC':
-    print('setting ipython terminal app gui to qt')
-    c.TerminalIPythonApp.gui = 'qt'
+# cpd_computer = os.getenv('CPD_NAME', 'NONE')
+# if cpd_computer == 'MAC':
+#     print('setting ipython terminal app gui to qt')
+#     c.TerminalIPythonApp.gui = 'qt'
 
 activate_lines = [
     "%load_ext Cython",
     "%load_ext autoreload",
-    "%autoreload 2",
+    "%autoreload 1",
     "from __future__ import print_function, division",
     'import numpy as np',
+    'import matplotlib.pyplot as plt',
+    'plt.ion()',  # turn on interactive mode
     'from astropy.io import fits',
     'import fitsio',
     'import pandas as pd',
-    'import matplotlib.pyplot as plt',
     "import matplotlib",
     # "palette = matplotlib.cm.gray_r",
     "palette = matplotlib.cm.RdBu_r",
@@ -42,10 +43,12 @@ activate_lines = [
     # "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
     "matplotlib.rc('image', interpolation='none', cmap = 'my_map')",
     # "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
-    'print("Importing numpy, matplotlib.pyplot, fits, fitsio, and pandas! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
+    'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, fits, fitsio, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
 
 c.InteractiveShellApp.exec_lines = activate_lines
 
+c.TerminalIPythonApp.verbose_crash = True # False
+c.TerminalInteractiveShell.colors = 'LightBG'
 
 # If true, an 'import *' is done from numpy and pylab, when using pylab
 # c.InteractiveShellApp.pylab_import_all = True
@@ -92,7 +95,7 @@ c.InteractiveShellApp.exec_lines = activate_lines
 
 # Create a massive crash report when IPython encounters what may be an internal
 # error.  The default is to append a short message to the usual traceback
-c.TerminalIPythonApp.verbose_crash = True # False
+# c.TerminalIPythonApp.verbose_crash = True # False
 
 # If a command or file is given via the command-line, e.g. 'ipython foo.py
 # c.TerminalIPythonApp.force_interact = False
@@ -147,7 +150,7 @@ c.TerminalIPythonApp.verbose_crash = True # False
 # color codes, this capability can be turned off.
 # c.TerminalInteractiveShell.color_info = True
 
-# 
+#
 # c.TerminalInteractiveShell.history_length = 10000
 
 # Don't call post-execute functions that have failed in the past.
@@ -157,18 +160,18 @@ c.TerminalIPythonApp.verbose_crash = True # False
 # c.TerminalInteractiveShell.show_rewritten_input = True
 
 # Set the color scheme (NoColor, Linux, or LightBG).
-c.TerminalInteractiveShell.colors = 'LightBG'
+# c.TerminalInteractiveShell.colors = 'LightBG'
 
 # Autoindent IPython code entered interactively.
 # c.TerminalInteractiveShell.autoindent = True
 
-# 
+#
 # c.TerminalInteractiveShell.separate_in = '\n'
 
 # Deprecated, use PromptManager.in2_template
 # c.TerminalInteractiveShell.prompt_in2 = '   .\\D.: '
 
-# 
+#
 # c.TerminalInteractiveShell.separate_out = ''
 
 # Deprecated, use PromptManager.in_template
@@ -209,19 +212,19 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 # The part of the banner to be printed before the profile
 # c.TerminalInteractiveShell.banner1 = 'Python 2.7.3 |EPD 7.3-2 (64-bit)| (default, Apr 12 2012, 11:14:05) \nType "copyright", "credits" or "license" for more information.\n\nIPython 0.12.1 -- An enhanced Interactive Python.\n?         -> Introduction and overview of IPython\'s features.\n%quickref -> Quick reference.\nhelp      -> Python\'s own help system.\nobject?   -> Details about \'object\', use \'object??\' for extra details.\n'
 
-# 
+#
 # c.TerminalInteractiveShell.readline_parse_and_bind = ['tab: complete', '"\\C-l": clear-screen', 'set show-all-if-ambiguous on', '"\\C-o": tab-insert', '"\\C-r": reverse-search-history', '"\\C-s": forward-search-history', '"\\C-p": history-search-backward', '"\\C-n": history-search-forward', '"\\e[A": history-search-backward', '"\\e[B": history-search-forward', '"\\C-k": kill-line', '"\\C-u": unix-line-discard']
 
 # The part of the banner to be printed after the profile
 # c.TerminalInteractiveShell.banner2 = ''
 
-# 
+#
 # c.TerminalInteractiveShell.separate_out2 = ''
 
-# 
+#
 # c.TerminalInteractiveShell.wildcards_case_sensitive = True
 
-# 
+#
 # c.TerminalInteractiveShell.debug = False
 
 # Set to confirm when you try to exit IPython with an EOF (Control-D in Unix,
@@ -229,10 +232,10 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 # direct exit without any confirmation.
 # c.TerminalInteractiveShell.confirm_exit = True
 
-# 
+#
 # c.TerminalInteractiveShell.ipython_dir = ''
 
-# 
+#
 # c.TerminalInteractiveShell.readline_remove_delims = '-/~'
 
 # Start logging to the default log file.
@@ -250,22 +253,22 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 # Save multi-line entries as one entry in readline history
 # c.TerminalInteractiveShell.multiline_history = True
 
-# 
+#
 # c.TerminalInteractiveShell.readline_use = True
 
 # Start logging to the given file in append mode.
 # c.TerminalInteractiveShell.logappend = ''
 
-# 
+#
 # c.TerminalInteractiveShell.xmode = 'Context'
 
-# 
+#
 # c.TerminalInteractiveShell.quiet = False
 
 # Enable auto setting the terminal title.
 # c.TerminalInteractiveShell.term_title = False
 
-# 
+#
 # c.TerminalInteractiveShell.object_info_string_level = 0
 
 # Deprecated, use PromptManager.out_template
@@ -300,7 +303,7 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 # Input prompt.  '\#' will be transformed to the prompt number
 # c.PromptManager.in_template = 'In [\\#]: '
 
-# 
+#
 # c.PromptManager.color_scheme = 'Linux'
 
 #------------------------------------------------------------------------------
@@ -308,10 +311,10 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 #------------------------------------------------------------------------------
 
 # An object to manage the profile directory and its resources.
-# 
+#
 # The profile directory is used by all IPython applications, to manage
 # configuration, logging and security.
-# 
+#
 # This object knows how to find, create and manage these directories. This
 # should be used by any code that wants to handle profiles.
 
@@ -324,12 +327,12 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 #------------------------------------------------------------------------------
 
 # The default pretty-printer.
-# 
+#
 # This uses :mod:`IPython.lib.pretty` to compute the format data of the object.
 # If the object cannot be pretty printed, :func:`repr` is used. See the
 # documentation of :mod:`IPython.lib.pretty` for details on how to write pretty
 # printers.  Here is a simple example::
-# 
+#
 #     def dtype_pprinter(obj, p, cycle):
 #         if cycle:
 #             return p.text('dtype(...)')
@@ -347,28 +350,28 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 
 # PlainTextFormatter will inherit config from: BaseFormatter
 
-# 
+#
 # c.PlainTextFormatter.type_printers = {}
 
-# 
+#
 # c.PlainTextFormatter.newline = '\n'
 
-# 
+#
 # c.PlainTextFormatter.float_precision = ''
 
-# 
+#
 # c.PlainTextFormatter.verbose = False
 
-# 
+#
 # c.PlainTextFormatter.deferred_printers = {}
 
-# 
+#
 # c.PlainTextFormatter.pprint = True
 
-# 
+#
 # c.PlainTextFormatter.max_width = 79
 
-# 
+#
 # c.PlainTextFormatter.singleton_printers = {}
 
 #------------------------------------------------------------------------------
@@ -380,24 +383,24 @@ c.TerminalInteractiveShell.colors = 'LightBG'
 # IPCompleter will inherit config from: Completer
 
 # Instruct the completer to omit private method names
-# 
+#
 # Specifically, when completing on ``object.<tab>``.
-# 
+#
 # When 2 [default]: all names that start with '_' will be excluded.
-# 
+#
 # When 1: all 'magic' names (``__foo__``) will be excluded.
-# 
+#
 # When 0: nothing will be excluded.
 # c.IPCompleter.omit__names = 2
 
 # Whether to merge completion results into a single list
-# 
+#
 # If False, only the completion results from the first non-empty completer will
 # be returned.
 # c.IPCompleter.merge_completions = True
 
 # Activate greedy completion
-# 
+#
 # This will enable completion on elements of lists, results of function calls,
 # etc., but can be unsafe because the code is actually evaluated on TAB.
 # c.IPCompleter.greedy = False
