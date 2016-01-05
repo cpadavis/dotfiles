@@ -102,11 +102,12 @@ alias tmuxa="tmux attach-session -t tmuxs:1"
 alias tmuxk="tmux kill-session -t tmuxs"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
-alias nersc='ssh -Y cpd@hopper.nersc.gov'
-function slac(){ ssh -Y cpd@ki-ls${1:=08}.slac.stanford.edu ;}
-# function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;}
-function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
-function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
+alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
+# function slac(){ ssh -Y cpd@ki-ls${1:=08}.slac.stanford.edu ;}
+function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;}
+# function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
+# function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
+function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ;}
 function corn(){ ssh -Y -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ;}
 alias sherlock='kinit cpd@stanford.edu; ssh -X cpd@sherlock.stanford.edu'
 
@@ -161,8 +162,8 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t ${1:=tmuxs} ${INNOC_SLAC} C-m
         tmux send-keys -t ${1:=tmuxs} "kinit cpd@stanford.edu" C-m
         tmux send-keys -t ${1:=tmuxs} ${INNOC_SHERLOCK} C-m
-        tmux send-keys -t ${1:=tmuxs} "kinit cpd@hopper.nersc.gov" C-m
-        tmux send-keys -t ${1:=tmuxs} ${INNOC_NERSC} C-m
+        # tmux send-keys -t ${1:=tmuxs} "kinit cpd@hopper.nersc.gov" C-m
+        # tmux send-keys -t ${1:=tmuxs} ${INNOC_NERSC} C-m
     }
 
     function tmuxss
@@ -173,86 +174,104 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     {
         tmux start-server
         tmux new-session -d -s tmuxs -n misc
-        tmux new-window -t tmuxs:2 -n vim
-        # these ssh ones should not be for their own tmux that just gets
-        # confusing
-        # tmux new-window -t tmuxs:3 -n slac
-        # tmux new-window -t tmuxs:4 -n sherlock
-        # tmux new-window -t tmuxs:5 -n rye
-        # tmux new-window -t tmuxs:6 -n nersc
-        # tmux new-window -t tmuxs:7 -n workadirk
-        tmux new-window -t tmuxs:3 -n ssh
 
         # send commands to windows
-        tmux send-keys -t tmuxs:1 "TERM=screen-256color irssi" C-m
-        tmux split-window -v -t tmuxs:1
-        tmux select-pane -t 1
+        # tmux send-keys -t tmuxs:1 "TERM=screen-256color irssi" C-m
+        # tmux split-window -v -t tmuxs:1
+        # tmux select-pane -t 1
+        # tmux send-keys -t tmuxs:1 "ttytter" #C-m
+        # tmux split-window -t tmuxs:1
         tmux send-keys -t tmuxs:1 "notebook" C-m
         tmux split-window -h -t tmuxs:1
-        tmux send-keys -t tmuxs:1 "ttytter" C-m
-        tmux select-pane -t 0
-        tmux split-window -h -t tmuxs:1
-        tmux send-keys -t tmuxs:1 "easyaccess" C-m
-        # open up vim windows
-        # tmuxv tmuxs:2
-        tmux send-keys -t tmuxs:2 "vim -S ~/journal_session.vim" C-m
-        # tmux send-keys -t tmuxs:3 "kinit cpd@SLAC.STANFORD.EDU" C-m
-        # tmux send-keys -t tmuxs:3 ${INNOC_SLAC} C-m
-        # tmux send-keys -t tmuxs:3 "slac" C-m
-        # tmux send-keys -t tmuxs:4 "kinit cpd@stanford.edu" C-m
-        # tmux send-keys -t tmuxs:4 ${INNOC_SHERLOCK} C-m
-        # tmux send-keys -t tmuxs:4 "sherlock" C-m
-        # tmux send-keys -t tmuxs:5 "kinit cpd@stanford.edu" C-m
-        # tmux send-keys -t tmuxs:5 ${INNOC_SHERLOCK} C-m
-        # tmux send-keys -t tmuxs:5 "rye" C-m
-        # tmux send-keys -t tmuxs:6 "kinit cpd@hopper.nersc.gov" C-m
-        # tmux send-keys -t tmuxs:6 ${INNOC_NERSC} C-m
-        # tmux send-keys -t tmuxs:6 "nersc" C-m
-        tmux send-keys -t tmuxs:3 "tmuxi tmuxs:3" C-m
+        tmux send-keys -t tmuxs:1 "easyaccess" #C-m
 
-        # clusterz figures
+        # open up vim windows
+        tmux new-window -t tmuxs:2 -n vim
+        tmux send-keys -t tmuxs:2 "cd /Users/cpd/Dropbox/vimwiki/" C-m
+        tmux send-keys -t tmuxs:2 "vim -S Session.vim" C-m
+
+        # # ssh
+        # tmux new-window -t tmuxs:3 -n ssh
+        # tmux send-keys -t tmuxs:3 "tmuxi tmuxs:3" C-m
+
+        # blog
+        tmux new-window -t tmuxs:3 -n blog
+        tmux send-keys -t tmuxs:3 "cd /Users/cpd/Projects/cpadavis.github.io" C-m
+        tmux send-keys -t tmuxs:3 "cd content" C-m
+        tmux send-keys -t tmuxs:3 "vim -S Session.vim" C-m
+
+        # LearnPSF
         tmux new-window -t tmuxs:4 -n LearnPSF
         tmux send-keys -t tmuxs:4 "cd /Users/cpd/Projects/LearnPSF" C-m
+
         # clusterz
         tmux new-window -t tmuxs:5 -n cluster-z
-        tmux send-keys -t tmuxs:5 "cd /Users/cpd/Projects/cluster-z/refactor" C-m
+        tmux send-keys -t tmuxs:5 "cd /Users/cpd/Projects/cluster-z/code/clusterz" C-m
         tmux send-keys -t tmuxs:5 "vim -S Session.vim" C-m
-        # wavefrontpsf refactor
+        tmux split-window -h -t tmuxs:5
+        tmux send-keys -t tmuxs:5.1 "cd /Users/cpd/Projects/cluster-z/doc" C-m
+        tmux send-keys -t tmuxs:5.1 "vim -S Session.vim" C-m
+
+        # wavefrontpsf
         tmux new-window -t tmuxs:6 -n WavefrontPSF
-        tmux send-keys -t tmuxs:6 "cd /Users/cpd/Projects/WavefrontPSF/code/downloading_images" C-m
+        tmux send-keys -t tmuxs:6 "cd /Users/cpd/Projects/WavefrontPSF/code/" C-m
         tmux send-keys -t tmuxs:6 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:6
+        tmux send-keys -t tmuxs:6.1 "cd /Users/cpd/Projects/WavefrontPSF/docs/WavefrontPSF/" C-m
+        tmux send-keys -t tmuxs:6.1 "vim -S Session.vim" C-m
+
         # swap
         tmux new-window -t tmuxs:7 -n SWAP
         tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/SpaceWarps/analysis" C-m
         tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
-        tmux split-window -v -t tmuxs:7
-        # tmux select-pane -t 1
+        tmux split-window -h -t tmuxs:7
         tmux send-keys -t tmuxs:7.1 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
         tmux send-keys -t tmuxs:7.1 "vim -S Session.vim" C-m
+
         # weak_sauce
         tmux new-window -t tmuxs:8 -n weak_sauce
         tmux send-keys -t tmuxs:8 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
         tmux send-keys -t tmuxs:8 "vim -S Session.vim" C-m
-        tmux split-window -v -t tmuxs:8
-        # tmux select-pane -t 1
+        tmux split-window -h -t tmuxs:8
         tmux send-keys -t tmuxs:8.1 "cd /Users/cpd/Projects/weak_sauce/doc" C-m
         tmux send-keys -t tmuxs:8.1 "vim -S Session.vim" C-m
         # strongcnn
         tmux new-window -t tmuxs:9 -n strongcnn
         tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/strongcnn" C-m
         tmux send-keys -t tmuxs:9 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:9
+        tmux send-keys -t tmuxs:9.1 "cd /Users/cpd/Projects/strongcnn/doc/Paper" C-m
+        tmux send-keys -t tmuxs:9.1 "vim -S Session.vim" C-m
+
         # osprey
         tmux new-window -t tmuxs:10 -n osprey
         tmux send-keys -t tmuxs:10 "cd /Users/cpd/Projects/osprey/osprey" C-m
         tmux send-keys -t tmuxs:10 "vim -S Session.vim" C-m
-        tmux split-window -v -t tmuxs:10
-        # tmux select-pane -t 1
+        tmux split-window -h -t tmuxs:10
         tmux send-keys -t tmuxs:10.1 "cd /Users/cpd/Projects/osprey" C-m
 
+        # nerd-a-music
+        tmux new-window -t tmuxs:11 -n nerd-a-music
+        tmux send-keys -t tmuxs:11 "cd /Users/cpd/Projects/nerd-a-music" C-m
+
+        # marmpy
+        tmux new-window -t tmuxs:12 -n marmpy
+        tmux send-keys -t tmuxs:12 "cd /Users/cpd/Projects/marmpy/pysrc" C-m
+        tmux send-keys -t tmuxs:12 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:12
+        tmux send-keys -t tmuxs:12.1 "cd /Users/cpd/Projects/marmpy/doc" C-m
+        tmux send-keys -t tmuxs:12.1 "vim -S Session.vim" C-m
+
+        # thesis proposal and oral slides
+        tmux new-window -t tmuxs:13 -n thesis
+        tmux send-keys -t tmuxs:13 "cd /Users/cpd/dropbox/derp-ninja/Articles/cpd2016JanThesisProposal" C-m
+        tmux send-keys -t tmuxs:13 "vim -S Session.vim" C-m
+
+        # go to the vim journal window
         tmux select-window -t tmuxs:2
         tmux attach-session -t tmuxs
-        ## # When we detach from it, kill the session
-        ## tmux kill-session -t tmuxs
+        # When we detach from it, kill the session
+        tmux kill-session -t tmuxs
     }
 elif [[ $CPD_NAME == 'KILS' ]]; then
 
@@ -423,8 +442,8 @@ function tmx() {
         tmux new-session -d -t $base_session -s $session_id
         # Create a new window in that session
         #tmux new-window
-        # focus session on irssi window
-        tmux select-window -t $session_id:1
+        # focus session on vim journal window
+        tmux select-window -t $session_id:2
         # Attach to the new session
         tmux attach-session -t $session_id
         # When we detach from it, kill the session
@@ -442,7 +461,6 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
 # cluster-z
 export CLUSTERZ_DIR=${PROJECTS_DIR}/cluster-z
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/  # temp for refactor
 # strongcnn
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 # weak_sauce
