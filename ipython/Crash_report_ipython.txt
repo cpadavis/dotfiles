@@ -1,0 +1,531 @@
+***************************************************************************
+
+IPython post-mortem report
+
+{'commit_hash': u'f534027',
+ 'commit_source': 'installation',
+ 'default_encoding': 'UTF-8',
+ 'ipython_path': '/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/IPython',
+ 'ipython_version': '4.0.0',
+ 'os_name': 'posix',
+ 'platform': 'Darwin-15.0.0-x86_64-i386-64bit',
+ 'sys_executable': '/Users/cpd/miniconda2/envs/cpd/bin/python',
+ 'sys_platform': 'darwin',
+ 'sys_version': '2.7.10 |Anaconda 2.4.0 (x86_64)| (default, Oct 19 2015, 18:31:17) \n[GCC 4.2.1 (Apple Inc. build 5577)]'}
+
+***************************************************************************
+
+
+
+***************************************************************************
+
+Crash traceback:
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+ValueError         Python 2.7.10: /Users/cpd/miniconda2/envs/cpd/bin/python
+                                                   Thu Dec 10 11:58:25 2015
+A problem occurred executing Python code.  Here is the sequence of function
+calls leading up to the error, with the most recent (innermost) call last.
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/artist.pyc in draw_wrapper(artist=<matplotlib.figure.Figure object>, renderer=<matplotlib.backends.backend_macosx.RendererMac object>, *args=(), **kwargs={})
+     46 
+     47         if artist.get_agg_filter() is not None:
+     48             renderer.start_filter()
+     49 
+     50     def after(artist, renderer):
+     51 
+     52         if artist.get_agg_filter() is not None:
+     53             renderer.stop_filter(artist.get_agg_filter())
+     54 
+     55         if artist.get_rasterized():
+     56             renderer.stop_rasterizing()
+     57 
+     58     # the axes class has a second argument inframe for its draw method.
+     59     def draw_wrapper(artist, renderer, *args, **kwargs):
+     60         before(artist, renderer)
+---> 61         draw(artist, renderer, *args, **kwargs)
+        global draw = undefined
+        artist = <matplotlib.figure.Figure object at 0x10f821750>
+        renderer = <matplotlib.backends.backend_macosx.RendererMac object at 0x10f5e0e10>
+        args = ()
+        kwargs = {}
+     62         after(artist, renderer)
+     63 
+     64     # "safe wrapping" to exactly replicate anything we haven't overridden above
+     65     draw_wrapper.__name__ = draw.__name__
+     66     draw_wrapper.__dict__ = draw.__dict__
+     67     draw_wrapper.__doc__ = draw.__doc__
+     68     draw_wrapper._supports_rasterization = True
+     69     return draw_wrapper
+     70 
+     71 
+     72 def _stale_axes_callback(self, val):
+     73     if self.axes:
+     74         self.axes.stale = val
+     75 
+     76 
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/figure.pyc in draw(self=<matplotlib.figure.Figure object>, renderer=<matplotlib.backends.backend_macosx.RendererMac object>)
+   1118 
+   1119         # render the axes
+   1120         for a in self.axes:
+   1121             dsu.append((a.get_zorder(), a, a.draw, [renderer]))
+   1122 
+   1123         # render the figure text
+   1124         for a in self.texts:
+   1125             dsu.append((a.get_zorder(), a, a.draw, [renderer]))
+   1126 
+   1127         for a in self.legends:
+   1128             dsu.append((a.get_zorder(), a, a.draw, [renderer]))
+   1129 
+   1130         dsu = [row for row in dsu if not row[1].get_animated()]
+   1131         dsu.sort(key=itemgetter(0))
+   1132         for zorder, a, func, args in dsu:
+-> 1133             func(*args)
+        func = <bound method AxesSubplot.draw of <matplotlib.axes._subplots.AxesSubplot object at 0x13ace3210>>
+        args = [<matplotlib.backends.backend_macosx.RendererMac object at 0x10f5e0e10>]
+   1134 
+   1135         renderer.close_group('figure')
+   1136         self.stale = False
+   1137 
+   1138         self._cachedRenderer = renderer
+   1139         self.canvas.draw_event(renderer)
+   1140 
+   1141     def draw_artist(self, a):
+   1142         """
+   1143         draw :class:`matplotlib.artist.Artist` instance *a* only --
+   1144         this is available only after the figure is drawn
+   1145         """
+   1146         if self._cachedRenderer is None:
+   1147             msg = ('draw_artist can only be used after an initial draw which'
+   1148                    ' caches the render')
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/artist.pyc in draw_wrapper(artist=<matplotlib.axes._subplots.AxesSubplot object>, renderer=<matplotlib.backends.backend_macosx.RendererMac object>, *args=(), **kwargs={})
+     46 
+     47         if artist.get_agg_filter() is not None:
+     48             renderer.start_filter()
+     49 
+     50     def after(artist, renderer):
+     51 
+     52         if artist.get_agg_filter() is not None:
+     53             renderer.stop_filter(artist.get_agg_filter())
+     54 
+     55         if artist.get_rasterized():
+     56             renderer.stop_rasterizing()
+     57 
+     58     # the axes class has a second argument inframe for its draw method.
+     59     def draw_wrapper(artist, renderer, *args, **kwargs):
+     60         before(artist, renderer)
+---> 61         draw(artist, renderer, *args, **kwargs)
+        global draw = undefined
+        artist = <matplotlib.axes._subplots.AxesSubplot object at 0x13ace3210>
+        renderer = <matplotlib.backends.backend_macosx.RendererMac object at 0x10f5e0e10>
+        args = ()
+        kwargs = {}
+     62         after(artist, renderer)
+     63 
+     64     # "safe wrapping" to exactly replicate anything we haven't overridden above
+     65     draw_wrapper.__name__ = draw.__name__
+     66     draw_wrapper.__dict__ = draw.__dict__
+     67     draw_wrapper.__doc__ = draw.__doc__
+     68     draw_wrapper._supports_rasterization = True
+     69     return draw_wrapper
+     70 
+     71 
+     72 def _stale_axes_callback(self, val):
+     73     if self.axes:
+     74         self.axes.stale = val
+     75 
+     76 
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/axes/_base.pyc in draw(self=<matplotlib.axes._subplots.AxesSubplot object>, renderer=<matplotlib.backends.backend_macosx.RendererMac object>, inframe=False)
+   2289             gc = renderer.new_gc()
+   2290             gc.set_clip_rectangle(self.bbox)
+   2291             gc.set_clip_path(mtransforms.TransformedPath(
+   2292                 self.patch.get_path(),
+   2293                 self.patch.get_transform()))
+   2294 
+   2295             renderer.draw_image(gc, round(l), round(b), im)
+   2296             gc.restore()
+   2297 
+   2298         if dsu_rasterized:
+   2299             for zorder, a in dsu_rasterized:
+   2300                 a.draw(renderer)
+   2301             renderer.stop_rasterizing()
+   2302 
+   2303         for zorder, a in dsu:
+-> 2304             a.draw(renderer)
+        a.draw = <bound method QuadMesh.draw of <matplotlib.collections.QuadMesh object at 0x13ae14710>>
+        renderer = <matplotlib.backends.backend_macosx.RendererMac object at 0x10f5e0e10>
+   2305 
+   2306         renderer.close_group('axes')
+   2307         self._cachedRenderer = renderer
+   2308         self.stale = False
+   2309 
+   2310     def draw_artist(self, a):
+   2311         """
+   2312         This method can only be used after an initial draw which
+   2313         caches the renderer.  It is used to efficiently update Axes
+   2314         data (axis ticks, labels, etc are not updated)
+   2315         """
+   2316         if self._cachedRenderer is None:
+   2317             msg = ('draw_artist can only be used after an initial draw which'
+   2318                    ' caches the render')
+   2319             raise AttributeError(msg)
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/artist.pyc in draw_wrapper(artist=<matplotlib.collections.QuadMesh object>, renderer=<matplotlib.backends.backend_macosx.RendererMac object>, *args=(), **kwargs={})
+     46 
+     47         if artist.get_agg_filter() is not None:
+     48             renderer.start_filter()
+     49 
+     50     def after(artist, renderer):
+     51 
+     52         if artist.get_agg_filter() is not None:
+     53             renderer.stop_filter(artist.get_agg_filter())
+     54 
+     55         if artist.get_rasterized():
+     56             renderer.stop_rasterizing()
+     57 
+     58     # the axes class has a second argument inframe for its draw method.
+     59     def draw_wrapper(artist, renderer, *args, **kwargs):
+     60         before(artist, renderer)
+---> 61         draw(artist, renderer, *args, **kwargs)
+        global draw = undefined
+        artist = <matplotlib.collections.QuadMesh object at 0x13ae14710>
+        renderer = <matplotlib.backends.backend_macosx.RendererMac object at 0x10f5e0e10>
+        args = ()
+        kwargs = {}
+     62         after(artist, renderer)
+     63 
+     64     # "safe wrapping" to exactly replicate anything we haven't overridden above
+     65     draw_wrapper.__name__ = draw.__name__
+     66     draw_wrapper.__dict__ = draw.__dict__
+     67     draw_wrapper.__doc__ = draw.__doc__
+     68     draw_wrapper._supports_rasterization = True
+     69     return draw_wrapper
+     70 
+     71 
+     72 def _stale_axes_callback(self, val):
+     73     if self.axes:
+     74         self.axes.stale = val
+     75 
+     76 
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/collections.pyc in draw(self=<matplotlib.collections.QuadMesh object>, renderer=<matplotlib.backends.backend_macosx.RendererMac object>)
+   1832             return
+   1833         renderer.open_group(self.__class__.__name__, self.get_gid())
+   1834         transform = self.get_transform()
+   1835         transOffset = self.get_offset_transform()
+   1836         offsets = self._offsets
+   1837 
+   1838         if self.have_units():
+   1839             if len(self._offsets):
+   1840                 xs = self.convert_xunits(self._offsets[:, 0])
+   1841                 ys = self.convert_yunits(self._offsets[:, 1])
+   1842                 offsets = list(zip(xs, ys))
+   1843 
+   1844         offsets = np.asarray(offsets, np.float_)
+   1845         offsets.shape = (-1, 2)                 # Make it Nx2
+   1846 
+-> 1847         self.update_scalarmappable()
+        self.update_scalarmappable = <bound method QuadMesh.update_scalarmappable of <matplotlib.collections.QuadMesh object at 0x13ae14710>>
+   1848 
+   1849         if not transform.is_affine:
+   1850             coordinates = self._coordinates.reshape(
+   1851                 (self._coordinates.shape[0] *
+   1852                  self._coordinates.shape[1],
+   1853                  2))
+   1854             coordinates = transform.transform(coordinates)
+   1855             coordinates = coordinates.reshape(self._coordinates.shape)
+   1856             transform = transforms.IdentityTransform()
+   1857         else:
+   1858             coordinates = self._coordinates
+   1859 
+   1860         if not transOffset.is_affine:
+   1861             offsets = transOffset.transform_non_affine(offsets)
+   1862             transOffset = transOffset.get_affine()
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/collections.pyc in update_scalarmappable(self=<matplotlib.collections.QuadMesh object>)
+    698         return self._linestyles
+    699     get_dashes = get_linestyle = get_linestyles
+    700 
+    701     def update_scalarmappable(self):
+    702         """
+    703         If the scalar mappable array is not none, update colors
+    704         from scalar data
+    705         """
+    706         if self._A is None:
+    707             return
+    708         if self._A.ndim > 1:
+    709             raise ValueError('Collections can only map rank 1 arrays')
+    710         if not self.check_update("array"):
+    711             return
+    712         if self._is_filled:
+--> 713             self._facecolors = self.to_rgba(self._A, self._alpha)
+        self._facecolors = array([[ 0.,  0.,  1.,  1.]])
+        self.to_rgba = <bound method QuadMesh.to_rgba of <matplotlib.collections.QuadMesh object at 0x13ae14710>>
+        self._A = array([-0.09960938, -0.09882813, -0.09804688, -0.09726562, -0.09648438,
+       -0.09570312, -0.09492188, -0.09414063, -0.09335937, -0.09257813,
+       -0.09179688, -0.09101563, -0.09023438, -0.08945312, -0.08867188,
+       -0.08789062, -0.08710938, -0.08632813, -0.08554687, -0.08476563,
+       -0.08398438, -0.08320313, -0.08242188, -0.08164062, -0.08085938,
+       -0.08007812, -0.07929688, -0.07851563, -0.07773437, -0.07695313,
+       -0.07617188, -0.07539063, -0.07460938, -0.07382812, -0.07304688,
+       -0.07226562, -0.07148438, -0.07070313, -0.06992187, -0.06914063,
+       -0.06835938, -0.06757813, -0.06679688, -0.06601562, -0.06523438,
+       -0.06445312, -0.06367188, -0.06289063, -0.06210938, -0.06132813,
+       -0.06054688, -0.05976563, -0.05898438, -0.05820313, -0.05742188,
+       -0.05664062, -0.05585938, -0.05507813, -0.05429688, -0.05351563,
+       -0.05273438, -0.05195313, -0.05117188, -0.05039063, -0.04960938,
+       -0.04882812, -0.04804688, -0.04726563, -0.04648438, -0.04570313,
+       -0.04492188, -0.04414063, -0.04335938, -0.04257813, -0.04179688,
+       -0.04101562, -0.04023438, -0.03945313, -0.03867188, -0.03789063,
+       -0.03710938, -0.03632813, -0.03554687, -0.03476563, -0.03398438,
+       -0.03320313, -0.03242188, -0.03164062, -0.03085938, -0.03007813,
+       -0.02929688, -0.02851563, -0.02773437, -0.02695313, -0.02617188,
+       -0.02539062, -0.02460937, -0.02382812, -0.02304688, -0.02226563,
+       -0.02148438, -0.02070312, -0.01992187, -0.01914063, -0.01835938,
+       -0.01757812, -0.01679687, -0.01601562, -0.01523438, -0.01445313,
+       -0.01367188, -0.01289062, -0.01210937, -0.01132813, -0.01054688,
+       -0.00976562, -0.00898437, -0.00820312, -0.00742188, -0.00664063,
+       -0.00585938, -0.00507812, -0.00429687, -0.00351563, -0.00273438,
+       -0.00195312, -0.00117187, -0.00039062,  0.00039062,  0.00117187,
+        0.00195312,  0.00273438,  0.00351563,  0.00429687,  0.00507812,
+        0.00585938,  0.00664063,  0.00742188,  0.00820312,  0.00898437,
+        0.00976562,  0.01054688,  0.01132813,  0.01210937,  0.01289062,
+        0.01367188,  0.01445313,  0.01523438,  0.01601562,  0.01679687,
+        0.01757812,  0.01835938,  0.01914063,  0.01992187,  0.02070312,
+        0.02148438,  0.02226563,  0.02304688,  0.02382812,  0.02460937,
+        0.02539062,  0.02617187,  0.02695312,  0.02773438,  0.02851563,
+        0.02929688,  0.03007812,  0.03085937,  0.03164063,  0.03242188,
+        0.03320312,  0.03398437,  0.03476562,  0.03554688,  0.03632813,
+        0.03710938,  0.03789062,  0.03867187,  0.03945313,  0.04023438,
+        0.04101562,  0.04179687,  0.04257812,  0.04335938,  0.04414063,
+        0.04492188,  0.04570312,  0.04648437,  0.04726563,  0.04804688,
+        0.04882812,  0.04960938,  0.05039063,  0.05117188,  0.05195313,
+        0.05273438,  0.05351563,  0.05429688,  0.05507813,  0.05585938,
+        0.05664062,  0.05742188,  0.05820313,  0.05898438,  0.05976563,
+        0.06054688,  0.06132813,  0.06210938,  0.06289063,  0.06367188,
+        0.06445312,  0.06523438,  0.06601563,  0.06679688,  0.06757813,
+        0.06835938,  0.06914063,  0.06992188,  0.07070313,  0.07148438,
+        0.07226562,  0.07304688,  0.07382813,  0.07460938,  0.07539063,
+        0.07617188,  0.07695313,  0.07773438,  0.07851563,  0.07929688,
+        0.08007812,  0.08085938,  0.08164063,  0.08242188,  0.08320313,
+        0.08398438,  0.08476563,  0.08554688,  0.08632813,  0.08710938,
+        0.08789062,  0.08867188,  0.08945313,  0.09023438,  0.09101563,
+        0.09179688,  0.09257813,  0.09335938,  0.09414063,  0.09492188,
+        0.09570312,  0.09648438,  0.09726563,  0.09804688,  0.09882813,
+        0.09960938])
+        self._alpha = None
+    714         elif self._is_stroked:
+    715             self._edgecolors = self.to_rgba(self._A, self._alpha)
+    716         self.stale = True
+    717 
+    718     def get_fill(self):
+    719         'return whether fill is set'
+    720         return self._is_filled
+    721 
+    722     def update_from(self, other):
+    723         'copy properties from other to self'
+    724 
+    725         artist.Artist.update_from(self, other)
+    726         self._antialiaseds = other._antialiaseds
+    727         self._edgecolors_original = other._edgecolors_original
+    728         self._edgecolors = other._edgecolors
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/cm.pyc in to_rgba(self=<matplotlib.collections.QuadMesh object>, x=masked_array(data = [ 0.00195313  0.00585937  0....        mask = False,
+       fill_value = 1e+20)
+, alpha=None, bytes=False)
+    247                     xx = x
+    248                 else:
+    249                     raise ValueError("third dimension must be 3 or 4")
+    250                 if bytes and xx.dtype != np.uint8:
+    251                     xx = (xx * 255).astype(np.uint8)
+    252                 if not bytes and xx.dtype == np.uint8:
+    253                     xx = xx.astype(float) / 255
+    254                 return xx
+    255         except AttributeError:
+    256             # e.g., x is not an ndarray; so try mapping it
+    257             pass
+    258 
+    259         # This is the normal case, mapping a scalar array:
+    260         x = ma.asarray(x)
+    261         x = self.norm(x)
+--> 262         x = self.cmap(x, alpha=alpha, bytes=bytes)
+        x = masked_array(data = [ 0.00195313  0.00585937  0.00976562  0.01367188  0.01757812  0.02148438
+  0.02539062  0.02929688  0.03320313  0.03710937  0.04101563  0.04492187
+  0.04882812  0.05273438  0.05664062  0.06054688  0.06445312  0.06835938
+  0.07226563  0.07617187  0.08007813  0.08398437  0.08789062  0.09179688
+  0.09570312  0.09960938  0.10351562  0.10742188  0.11132813  0.11523437
+  0.11914063  0.12304687  0.12695312  0.13085938  0.13476562  0.13867188
+  0.14257812  0.14648438  0.15039063  0.15429687  0.15820313  0.16210938
+  0.16601562  0.16992188  0.17382812  0.17773438  0.18164062  0.18554688
+  0.18945312  0.19335938  0.19726563  0.20117188  0.20507812  0.20898438
+  0.21289062  0.21679688  0.22070312  0.22460938  0.22851562  0.23242188
+  0.23632813  0.24023438  0.24414062  0.24804688  0.25195312  0.25585938
+  0.25976562  0.26367188  0.26757812  0.27148438  0.27539062  0.27929688
+  0.28320312  0.28710938  0.29101562  0.29492188  0.29882812  0.30273438
+  0.30664062  0.31054688  0.31445312  0.31835938  0.32226562  0.32617188
+  0.33007812  0.33398438  0.33789062  0.34179688  0.34570313  0.34960937
+  0.35351562  0.35742188  0.36132812  0.36523438  0.36914062  0.37304688
+  0.37695313  0.38085938  0.38476563  0.38867187  0.39257812  0.39648438
+  0.40039062  0.40429688  0.40820312  0.41210938  0.41601563  0.41992188
+  0.42382813  0.42773437  0.43164062  0.43554688  0.43945312  0.44335938
+  0.44726562  0.45117188  0.45507813  0.45898438  0.46289063  0.46679687
+  0.47070312  0.47460938  0.47851562  0.48242188  0.48632812  0.49023438
+  0.49414063  0.49804688  0.50195312  0.50585937  0.50976562  0.51367188
+  0.51757812  0.52148438  0.52539062  0.52929688  0.53320312  0.53710938
+  0.54101562  0.54492187  0.54882812  0.55273438  0.55664062  0.56054688
+  0.56445312  0.56835938  0.57226562  0.57617188  0.58007812  0.58398437
+  0.58789062  0.59179688  0.59570312  0.59960938  0.60351562  0.60742188
+  0.61132812  0.61523438  0.61914062  0.62304687  0.62695312  0.63085937
+  0.63476562  0.63867188  0.64257813  0.64648438  0.65039062  0.65429688
+  0.65820312  0.66210938  0.66601562  0.66992187  0.67382812  0.67773438
+  0.68164063  0.68554688  0.68945312  0.69335938  0.69726562  0.70117188
+  0.70507812  0.70898437  0.71289062  0.71679688  0.72070313  0.72460938
+  0.72851562  0.73242188  0.73632812  0.74023438  0.74414062  0.74804688
+  0.75195312  0.75585938  0.75976563  0.76367188  0.76757812  0.77148438
+  0.77539062  0.77929688  0.78320312  0.78710938  0.79101562  0.79492188
+  0.79882813  0.80273438  0.80664062  0.81054688  0.81445312  0.81835938
+  0.82226562  0.82617188  0.83007812  0.83398438  0.83789063  0.84179688
+  0.84570312  0.84960938  0.85351562  0.85742188  0.86132812  0.86523438
+  0.86914062  0.87304688  0.87695313  0.88085938  0.88476562  0.88867188
+  0.89257812  0.89648438  0.90039062  0.90429688  0.90820312  0.91210938
+  0.91601563  0.91992188  0.92382812  0.92773438  0.93164062  0.93554688
+  0.93945312  0.94335938  0.94726562  0.95117188  0.95507813  0.95898438
+  0.96289062  0.96679688  0.97070312  0.97460938  0.97851562  0.98242188
+  0.98632812  0.99023438  0.99414063  0.99804688],
+             mask = False,
+       fill_value = 1e+20)
+
+        self.cmap = <matplotlib.colors.LinearSegmentedColormap object at 0x119dd7f90>
+        alpha = None
+        bytes = False
+    263         return x
+    264 
+    265     def set_array(self, A):
+    266         'Set the image array from numpy array *A*'
+    267         self._A = A
+    268         self.update_dict['array'] = True
+    269 
+    270     def get_array(self):
+    271         'Return the array'
+    272         return self._A
+    273 
+    274     def get_cmap(self):
+    275         'return the colormap'
+    276         return self.cmap
+    277 
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/colors.pyc in __call__(self=<matplotlib.colors.LinearSegmentedColormap object>, X=masked_array(data = [ 0.00195313  0.00585937  0....        mask = False,
+       fill_value = 1e+20)
+, alpha=None, bytes=False)
+    535         alpha : float, None
+    536             Alpha must be a scalar between 0 and 1, or None.
+    537         bytes : bool
+    538             If False (default), the returned RGBA values will be floats in the
+    539             interval ``[0, 1]`` otherwise they will be uint8s in the interval
+    540             ``[0, 255]``.
+    541 
+    542         Returns
+    543         -------
+    544         Tuple of RGBA values if X is scalar, othewise an array of
+    545         RGBA values with a shape of ``X.shape + (4, )``.
+    546 
+    547         """
+    548         # See class docstring for arg/kwarg documentation.
+    549         if not self._isinit:
+--> 550             self._init()
+        self._init = <bound method LinearSegmentedColormap._init of <matplotlib.colors.LinearSegmentedColormap object at 0x119dd7f90>>
+    551         mask_bad = None
+    552         if not cbook.iterable(X):
+    553             vtype = 'scalar'
+    554             xa = np.array([X])
+    555         else:
+    556             vtype = 'array'
+    557             xma = ma.array(X, copy=True)  # Copy here to avoid side effects.
+    558             mask_bad = xma.mask           # Mask will be used below.
+    559             xa = xma.filled()             # Fill to avoid infs, etc.
+    560             del xma
+    561 
+    562         # Calculations with native byteorder are faster, and avoid a
+    563         # bug that otherwise can occur with putmask when the last
+    564         # argument is a numpy scalar.
+    565         if not xa.dtype.isnative:
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/colors.pyc in _init(self=<matplotlib.colors.LinearSegmentedColormap object>)
+    717                Static method; factory function for generating a
+    718                smoothly-varying LinearSegmentedColormap.
+    719 
+    720                :func:`makeMappingArray`
+    721                For information about making a mapping array.
+    722         """
+    723         # True only if all colors in map are identical; needed for contouring.
+    724         self.monochrome = False
+    725         Colormap.__init__(self, name, N)
+    726         self._segmentdata = segmentdata
+    727         self._gamma = gamma
+    728 
+    729     def _init(self):
+    730         self._lut = np.ones((self.N + 3, 4), np.float)
+    731         self._lut[:-3, 0] = makeMappingArray(
+--> 732             self.N, self._segmentdata['red'], self._gamma)
+        self.N = 256
+        self._segmentdata = {'blue': [(nan, 0.3803921639919281, 0.3803921639919281), (nan, 0.39192618984802097, 0.39192618984802097), (nan, 0.40346021570411383, 0.40346021570411383), (nan, 0.4149942415602067, 0.4149942415602067), (nan, 0.42652826741629957, 0.42652826741629957), (nan, 0.43806229327239243, 0.43806229327239243), (nan, 0.4495963191284853, 0.4495963191284853), (nan, 0.46113034498457817, 0.46113034498457817), (nan, 0.47266437084067103, 0.47266437084067103), (nan, 0.4841983966967639, 0.4841983966967639), (nan, 0.49573242255285677, 0.49573242255285677), (nan, 0.50726644840894963, 0.50726644840894963), (nan, 0.5188004742650425, 0.5188004742650425), (nan, 0.53033450012113537, 0.53033450012113537), (nan, 0.54186852597722823, 0.54186852597722823), (nan, 0.5534025518333211, 0.5534025518333211), (nan, 0.56493657768941397, 0.56493657768941397), (nan, 0.57647060354550683, 0.57647060354550683), (nan, 0.5880046294015997, 0.5880046294015997), (nan, 0.59953865525769257, 0.59953865525769257), (nan, 0.61107268111378543, 0.61107268111378543), (nan, 0.6226067069698783, 0.6226067069698783), (nan, 0.63414073282597117, 0.63414073282597117), (nan, 0.64567475868206403, 0.64567475868206403), (nan, 0.6572087845381569, 0.6572087845381569), (nan, 0.66874281039424988, 0.66874281039424988), (nan, 0.67627837377436029, 0.67627837377436029), (nan, 0.67981547467848835, 0.67981547467848835), (nan, 0.68335257558261653, 0.68335257558261653), (nan, 0.68688967648674459, 0.68688967648674459), (nan, 0.69042677739087277, 0.69042677739087277), (nan, 0.69396387829500084, 0.69396387829500084), (nan, 0.69750097919912901, 0.69750097919912901), (nan, 0.70103808010325708, 0.70103808010325708), (nan, 0.70457518100738525, 0.70457518100738525), (nan, 0.70811228191151343, 0.70811228191151343), (nan, 0.71164938281564161, 0.71164938281564161), (nan, 0.71518648371976967, 0.71518648371976967), (nan, 0.71872358462389785, 0.71872358462389785), (nan, 0.72226068552802591, 0.72226068552802591), (nan, 0.72579778643215409, 0.72579778643215409), (nan, 0.72933488733628216, 0.72933488733628216), (nan, 0.73287198824041033, 0.73287198824041033), (nan, 0.73640908914453851, 0.73640908914453851), (nan, 0.73994619004866657, 0.73994619004866657), (nan, 0.74348329095279475, 0.74348329095279475), (nan, 0.74702039185692293, 0.74702039185692293), (nan, 0.75055749276105099, 0.75055749276105099), (nan, 0.75409459366517917, 0.75409459366517917), (nan, 0.75763169456930723, 0.75763169456930723), (nan, 0.76116879547343541, 0.76116879547343541), (nan, 0.76470589637756359, 0.76470589637756359), (nan, 0.76885814526501828, 0.76885814526501828), (nan, 0.77301039415247297, 0.77301039415247297), (nan, 0.77716264303992777, 0.77716264303992777), (nan, 0.78131489192738257, 0.78131489192738257), (nan, 0.78546714081483737, 0.78546714081483737), (nan, 0.78961938970229206, 0.78961938970229206), (nan, 0.79377163858974686, 0.79377163858974686), (nan, 0.79792388747720155, 0.79792388747720155), (nan, 0.80207613636465636, 0.80207613636465636), (nan, 0.80622838525211105, 0.80622838525211105), (nan, 0.81038063413956585, 0.81038063413956585), (nan, 0.81453288302702065, 0.81453288302702065), (nan, 0.81868513191447534, 0.81868513191447534), (nan, 0.82283738080193014, 0.82283738080193014), (nan, 0.82698962968938483, 0.82698962968938483), (nan, 0.83114187857683963, 0.83114187857683963), (nan, 0.83529412746429443, 0.83529412746429443), (nan, 0.83944637635174923, 0.83944637635174923), (nan, 0.84359862523920393, 0.84359862523920393), (nan, 0.84775087412665873, 0.84775087412665873), (nan, 0.85190312301411342, 0.85190312301411342), (nan, 0.85605537190156822, 0.85605537190156822), (nan, 0.86020762078902291, 0.86020762078902291), (nan, 0.86435986967647771, 0.86435986967647771), (nan, 0.86851211856393251, 0.86851211856393251), (nan, 0.87197232597014485, 0.87197232597014485), (nan, 0.8747404918951146, 0.8747404918951146), (nan, 0.87750865782008447, 0.87750865782008447), (nan, 0.88027682374505434, 0.88027682374505434), (nan, 0.88304498967002421, 0.88304498967002421), (nan, 0.88581315559499396, 0.88581315559499396), (nan, 0.88858132151996383, 0.88858132151996383), (nan, 0.8913494874449337, 0.8913494874449337), (nan, 0.89411765336990356, 0.89411765336990356), (nan, 0.89688581929487343, 0.89688581929487343), (nan, 0.89965398521984319, 0.89965398521984319), (nan, 0.90242215114481306, 0.90242215114481306), (nan, 0.90519031706978292, 0.90519031706978292), (nan, 0.90795848299475268, 0.90795848299475268), (nan, 0.91072664891972255, 0.91072664891972255), (nan, 0.91349481484469242, 0.91349481484469242), (nan, 0.91626298076966228, 0.91626298076966228), (nan, 0.91903114669463215, 0.91903114669463215), (nan, 0.92179931261960202, 0.92179931261960202), (nan, 0.92456747854457177, 0.92456747854457177), (nan, 0.92733564446954164, 0.92733564446954164), (nan, 0.9301038103945114, 0.9301038103945114), (nan, 0.93287197631948138, 0.93287197631948138), (nan, 0.93564014224445113, 0.93564014224445113), (nan, 0.938408308169421, 0.938408308169421), (nan, 0.94117647409439087, 0.94117647409439087), (nan, 0.94225298306521243, 0.94225298306521243), (nan, 0.94332949203603411, 0.94332949203603411), (nan, 0.94440600100685568, 0.94440600100685568), (nan, 0.94548250997767724, 0.94548250997767724), (nan, 0.94655901894849892, 0.94655901894849892), (nan, 0.94763552791932049, 0.94763552791932049), (nan, 0.94871203689014205, 0.94871203689014205), (nan, 0.94978854586096373, 0.94978854586096373), (nan, 0.95086505483178529, 0.95086505483178529), (nan, 0.95194156380260697, 0.95194156380260697), (nan, 0.95301807277342854, 0.95301807277342854), (nan, 0.9540945817442501, 0.9540945817442501), (nan, 0.95517109071507178, 0.95517109071507178), (nan, 0.95624759968589335, 0.95624759968589335), (nan, 0.95732410865671491, 0.95732410865671491), (nan, 0.95840061762753659, 0.95840061762753659), (nan, 0.95947712659835815, 0.95947712659835815), (nan, 0.96055363556917972, 0.96055363556917972), (nan, 0.9616301445400014, 0.9616301445400014), (nan, 0.96270665351082296, 0.96270665351082296), (nan, 0.96378316248164453, 0.96378316248164453), (nan, 0.96485967145246621, 0.96485967145246621), (nan, 0.96593618042328777, 0.96593618042328777), (nan, 0.96701268939410934, 0.96701268939410934), (nan, 0.96808919836493101, 0.96808919836493101), (nan, 0.96493656495038205, 0.96493656495038205), (nan, 0.95755478915046244, 0.95755478915046244), (nan, 0.95017301335054283, 0.95017301335054283), (nan, 0.94279123755062333, 0.94279123755062333), (nan, 0.93540946175070394, 0.93540946175070394), (nan, 0.92802768595078411, 0.92802768595078411), (nan, 0.9206459101508645, 0.9206459101508645), (nan, 0.913264134350945, 0.913264134350945), (nan, 0.90588235855102539, 0.90588235855102539), (nan, 0.89850058275110578, 0.89850058275110578), (nan, 0.89111880695118628, 0.89111880695118628), (nan, 0.88373703115126667, 0.88373703115126667), (nan, 0.87635525535134706, 0.87635525535134706), (nan, 0.86897347955142745, 0.86897347955142745), (nan, 0.86159170375150795, 0.86159170375150795), (nan, 0.85420992795158834, 0.85420992795158834), (nan, 0.84682815215166873, 0.84682815215166873), (nan, 0.83944637635174923, 0.83944637635174923), (nan, 0.83206460055182963, 0.83206460055182963), (nan, 0.82468282475191002, 0.82468282475191002), (nan, 0.81730104895199063, 0.81730104895199063), (nan, 0.80991927315207091, 0.80991927315207091), (nan, 0.8025374973521513, 0.8025374973521513), (nan, 0.7951557215522318, 0.7951557215522318), (nan, 0.78777394575231219, 0.78777394575231219), (nan, 0.78039216995239258, 0.78039216995239258), (nan, 0.76978086724000816, 0.76978086724000816), (nan, 0.75916956452762374, 0.75916956452762374), (nan, 0.74855826181523943, 0.74855826181523943), (nan, 0.73794695910285502, 0.73794695910285502), (nan, 0.7273356563904706, 0.7273356563904706), (nan, 0.71672435367808618, 0.71672435367808618), (nan, 0.70611305096570187, 0.70611305096570187), (nan, 0.69550174825331745, 0.69550174825331745), (nan, 0.68489044554093303, 0.68489044554093303), (nan, 0.67427914282854862, 0.67427914282854862), (nan, 0.66366784011616453, 0.66366784011616453), (nan, 0.65305653740377989, 0.65305653740377989), (nan, 0.64244523469139547, 0.64244523469139547), (nan, 0.63183393197901105, 0.63183393197901105), (nan, 0.62122262926662675, 0.62122262926662675), (nan, 0.61061132655424233, 0.61061132655424233), (nan, 0.60000002384185791, 0.60000002384185791), (nan, 0.58938872112947349, 0.58938872112947349), (nan, 0.57877741841708907, 0.57877741841708907), (nan, 0.56816611570470477, 0.56816611570470477), (nan, 0.55755481299232035, 0.55755481299232035), (nan, 0.54694351027993593, 0.54694351027993593), (nan, 0.53633220756755151, 0.53633220756755151), (nan, 0.5257209048551672, 0.5257209048551672), (nan, 0.51510960214278279, 0.51510960214278279), (nan, 0.50572859481269239, 0.50572859481269239), (nan, 0.49757788286489624, 0.49757788286489624), (nan, 0.48942717091709959, 0.48942717091709959), (nan, 0.48127645896930321, 0.48127645896930321), (nan, 0.47312574702150678, 0.47312574702150678), (nan, 0.46497503507371041, 0.46497503507371041), (nan, 0.45682432312591403, 0.45682432312591403), (nan, 0.44867361117811766, 0.44867361117811766), (nan, 0.44052289923032129, 0.44052289923032129), (nan, 0.43237218728252486, 0.43237218728252486), (nan, 0.42422147533472848, 0.42422147533472848), (nan, 0.41607076338693205, 0.41607076338693205), (nan, 0.40792005143913568, 0.40792005143913568), (nan, 0.3997693394913393, 0.3997693394913393), (nan, 0.39161862754354293, 0.39161862754354293), (nan, 0.38346791559574656, 0.38346791559574656), (nan, 0.37531720364795007, 0.37531720364795007), (nan, 0.36716649170015392, 0.36716649170015392), (nan, 0.35901577975235732, 0.35901577975235732), (nan, 0.35086506780456095, 0.35086506780456095), (nan, 0.34271435585676457, 0.34271435585676457), (nan, 0.33456364390896814, 0.33456364390896814), (nan, 0.32641293196117177, 0.32641293196117177), (nan, 0.3182622200133754, 0.3182622200133754), (nan, 0.31011150806557897, 0.31011150806557897), (nan, 0.30196079611778259, 0.30196079611778259), (nan, 0.29673203767514694, 0.29673203767514694), (nan, 0.29150327923251135, 0.29150327923251135), (nan, 0.2862745207898757, 0.2862745207898757), (nan, 0.2810457623472401, 0.2810457623472401), (nan, 0.27581700390460445, 0.27581700390460445), (nan, 0.2705882454619688, 0.2705882454619688), (nan, 0.26535948701933321, 0.26535948701933321), (nan, 0.26013072857669772, 0.26013072857669772), (nan, 0.25490197013406191, 0.25490197013406191), (nan, 0.24967321169142631, 0.24967321169142631), (nan, 0.24444445324879066, 0.24444445324879066), (nan, 0.23921569480615504, 0.23921569480615504), (nan, 0.23398693636351942, 0.23398693636351942), (nan, 0.22875817792088377, 0.22875817792088377), (nan, 0.22352941947824814, 0.22352941947824814), (nan, 0.21830066103561252, 0.21830066103561252), (nan, 0.2130719025929769, 0.2130719025929769), (nan, 0.20784314415034125, 0.20784314415034125), (nan, 0.20261438570770562, 0.20261438570770562), (nan, 0.19738562726507, 0.19738562726507), (nan, 0.19215686882243438, 0.19215686882243438), (nan, 0.18692811037979873, 0.18692811037979873), (nan, 0.18169935193716311, 0.18169935193716311), (nan, 0.17647059349452762, 0.17647059349452762), (nan, 0.17124183505189186, 0.17124183505189186), (nan, 0.16770473370949426, 0.16770473370949426), (nan, 0.16585928946733475, 0.16585928946733475), (nan, 0.16401384522517523, 0.16401384522517523), (nan, 0.16216840098301569, 0.16216840098301569), (nan, 0.16032295674085617, 0.16032295674085617), (nan, 0.15847751249869665, 0.15847751249869665), (nan, 0.15663206825653711, 0.15663206825653711), (nan, 0.15478662401437759, 0.15478662401437759), (nan, 0.15294117977221808, 0.15294117977221808), (nan, 0.15109573553005853, 0.15109573553005853), (nan, 0.14925029128789902, 0.14925029128789902), (nan, 0.1474048470457395, 0.1474048470457395), (nan, 0.14555940280357996, 0.14555940280357996), (nan, 0.14371395856142044, 0.14371395856142044), (nan, 0.14186851431926098, 0.14186851431926098), (nan, 0.14002307007710138, 0.14002307007710138), (nan, 0.13817762583494186, 0.13817762583494186), (nan, 0.13633218159278235, 0.13633218159278235), (nan, 0.1344867373506228, 0.1344867373506228), (nan, 0.13264129310846329, 0.13264129310846329), (nan, 0.13079584886630374, 0.13079584886630374), (nan, 0.12895040462414423, 0.12895040462414423), (nan, 0.12710496038198471, 0.12710496038198471), (nan, 0.12525951613982519, 0.12525951613982519), (nan, 0.12341407189766565, 0.12341407189766565), (nan, 0.12156862765550613, 0.12156862765550613), (1.0, 0.12156862765550613, 0.12156862765550613)], 'alpha': [(nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (nan, 1.0, 1.0), (1.0, 1.0, 1.0)], 'green': [(nan, 0.18823529779911041, 0.18823529779911041), (nan, 0.19653979615837922, 0.19653979615837922), (nan, 0.20484429451764799, 0.20484429451764799), (nan, 0.21314879287691679, 0.21314879287691679), (nan, 0.22145329123618557, 0.22145329123618557), (nan, 0.22975778959545434, 0.22975778959545434), (nan, 0.23806228795472315, 0.23806228795472315), (nan, 0.24636678631399195, 0.24636678631399195), (nan, 0.25467128467326072, 0.25467128467326072), (nan, 0.2629757830325295, 0.2629757830325295), (nan, 0.27128028139179827, 0.27128028139179827), (nan, 0.2795847797510671, 0.2795847797510671), (nan, 0.28788927811033588, 0.28788927811033588), (nan, 0.29619377646960465, 0.29619377646960465), (nan, 0.30449827482887348, 0.30449827482887348), (nan, 0.31280277318814226, 0.31280277318814226), (nan, 0.32110727154741103, 0.32110727154741103), (nan, 0.32941176990667986, 0.32941176990667986), (nan, 0.33771626826594858, 0.33771626826594858), (nan, 0.34602076662521741, 0.34602076662521741), (nan, 0.35432526498448619, 0.35432526498448619), (nan, 0.36262976334375496, 0.36262976334375496), (nan, 0.37093426170302379, 0.37093426170302379), (nan, 0.37923876006229257, 0.37923876006229257), (nan, 0.38754325842156134, 0.38754325842156134), (nan, 0.39584775678083017, 0.39584775678083017), (nan, 0.4034602139510361, 0.4034602139510361), (nan, 0.41038062993217922, 0.41038062993217922), (nan, 0.41730104591332234, 0.41730104591332234), (nan, 0.42422146189446547, 0.42422146189446547), (nan, 0.43114187787560859, 0.43114187787560859), (nan, 0.43806229385675177, 0.43806229385675177), (nan, 0.4449827098378949, 0.4449827098378949), (nan, 0.45190312581903797, 0.45190312581903797), (nan, 0.45882354180018114, 0.45882354180018114), (nan, 0.46574395778132427, 0.46574395778132427), (nan, 0.47266437376246739, 0.47266437376246739), (nan, 0.47958478974361046, 0.47958478974361046), (nan, 0.48650520572475364, 0.48650520572475364), (nan, 0.49342562170589677, 0.49342562170589677), (nan, 0.50034603768703989, 0.50034603768703989), (nan, 0.50726645366818301, 0.50726645366818301), (nan, 0.51418686964932614, 0.51418686964932614), (nan, 0.52110728563046926, 0.52110728563046926), (nan, 0.52802770161161239, 0.52802770161161239), (nan, 0.53494811759275551, 0.53494811759275551), (nan, 0.54186853357389864, 0.54186853357389864), (nan, 0.54878894955504187, 0.54878894955504187), (nan, 0.555709365536185, 0.555709365536185), (nan, 0.56262978151732801, 0.56262978151732801), (nan, 0.56955019749847124, 0.56955019749847124), (nan, 0.57647061347961437, 0.57647061347961437), (nan, 0.58415996327119724, 0.58415996327119724), (nan, 0.5918493130627801, 0.5918493130627801), (nan, 0.59953866285436297, 0.59953866285436297), (nan, 0.60722801264594595, 0.60722801264594595), (nan, 0.61491736243752881, 0.61491736243752881), (nan, 0.62260671222911157, 0.62260671222911157), (nan, 0.63029606202069455, 0.63029606202069455), (nan, 0.63798541181227741, 0.63798541181227741), (nan, 0.64567476160386028, 0.64567476160386028), (nan, 0.65336411139544315, 0.65336411139544315), (nan, 0.66105346118702613, 0.66105346118702613), (nan, 0.66874281097860899, 0.66874281097860899), (nan, 0.67643216077019186, 0.67643216077019186), (nan, 0.68412151056177473, 0.68412151056177473), (nan, 0.69181086035335748, 0.69181086035335748), (nan, 0.69950021014494057, 0.69950021014494057), (nan, 0.70718955993652344, 0.70718955993652344), (nan, 0.7148789097281063, 0.7148789097281063), (nan, 0.72256825951968917, 0.72256825951968917), (nan, 0.73025760931127204, 0.73025760931127204), (nan, 0.7379469591028549, 0.7379469591028549), (nan, 0.74563630889443777, 0.74563630889443777), (nan, 0.75332565868602064, 0.75332565868602064), (nan, 0.76101500847760362, 0.76101500847760362), (nan, 0.76870435826918648, 0.76870435826918648), (nan, 0.77500962509828453, 0.77500962509828453), (nan, 0.77993080896489753, 0.77993080896489753), (nan, 0.78485199283151064, 0.78485199283151064), (nan, 0.78977317669812364, 0.78977317669812364), (nan, 0.79469436056473675, 0.79469436056473675), (nan, 0.79961554443134963, 0.79961554443134963), (nan, 0.80453672829796286, 0.80453672829796286), (nan, 0.80945791216457585, 0.80945791216457585), (nan, 0.81437909603118896, 0.81437909603118896), (nan, 0.81930027989780196, 0.81930027989780196), (nan, 0.82422146376441507, 0.82422146376441507), (nan, 0.82914264763102807, 0.82914264763102807), (nan, 0.83406383149764118, 0.83406383149764118), (nan, 0.83898501536425418, 0.83898501536425418), (nan, 0.84390619923086718, 0.84390619923086718), (nan, 0.84882738309748029, 0.84882738309748029), (nan, 0.8537485669640934, 0.8537485669640934), (nan, 0.8586697508307064, 0.8586697508307064), (nan, 0.8635909346973194, 0.8635909346973194), (nan, 0.86851211856393251, 0.86851211856393251), (nan, 0.87343330243054562, 0.87343330243054562), (nan, 0.87835448629715851, 0.87835448629715851), (nan, 0.88327567016377162, 0.88327567016377162), (nan, 0.88819685403038473, 0.88819685403038473), (nan, 0.89311803789699784, 0.89311803789699784), (nan, 0.89803922176361084, 0.89803922176361084), (nan, 0.90080738768858071, 0.90080738768858071), (nan, 0.90357555361355057, 0.90357555361355057), (nan, 0.90634371953852033, 0.90634371953852033), (nan, 0.9091118854634902, 0.9091118854634902), (nan, 0.91188005138846007, 0.91188005138846007), (nan, 0.91464821731342993, 0.91464821731342993), (nan, 0.91741638323839969, 0.91741638323839969), (nan, 0.92018454916336956, 0.92018454916336956), (nan, 0.92295271508833943, 0.92295271508833943), (nan, 0.92572088101330929, 0.92572088101330929), (nan, 0.92848904693827905, 0.92848904693827905), (nan, 0.93125721286324892, 0.93125721286324892), (nan, 0.93402537878821879, 0.93402537878821879), (nan, 0.93679354471318865, 0.93679354471318865), (nan, 0.93956171063815841, 0.93956171063815841), (nan, 0.94232987656312828, 0.94232987656312828), (nan, 0.94509804248809814, 0.94509804248809814), (nan, 0.94786620841306801, 0.94786620841306801), (nan, 0.95063437433803788, 0.95063437433803788), (nan, 0.95340254026300764, 0.95340254026300764), (nan, 0.9561707061879775, 0.9561707061879775), (nan, 0.95893887211294737, 0.95893887211294737), (nan, 0.96170703803791724, 0.96170703803791724), (nan, 0.964475203962887, 0.964475203962887), (nan, 0.96724336988785686, 0.96724336988785686), (nan, 0.96647443490869855, 0.96647443490869855), (nan, 0.96216839902541218, 0.96216839902541218), (nan, 0.95786236314212569, 0.95786236314212569), (nan, 0.95355632725883932, 0.95355632725883932), (nan, 0.94925029137555306, 0.94925029137555306), (nan, 0.94494425549226646, 0.94494425549226646), (nan, 0.94063821960898009, 0.94063821960898009), (nan, 0.9363321837256936, 0.9363321837256936), (nan, 0.93202614784240723, 0.93202614784240723), (nan, 0.92772011195912085, 0.92772011195912085), (nan, 0.92341407607583437, 0.92341407607583437), (nan, 0.91910804019254799, 0.91910804019254799), (nan, 0.91480200430926151, 0.91480200430926151), (nan, 0.91049596842597513, 0.91049596842597513), (nan, 0.90618993254268876, 0.90618993254268876), (nan, 0.90188389665940227, 0.90188389665940227), (nan, 0.8975778607761159, 0.8975778607761159), (nan, 0.89327182489282941, 0.89327182489282941), (nan, 0.88896578900954304, 0.88896578900954304), (nan, 0.88465975312625655, 0.88465975312625655), (nan, 0.88035371724297029, 0.88035371724297029), (nan, 0.87604768135968381, 0.87604768135968381), (nan, 0.87174164547639732, 0.87174164547639732), (nan, 0.86743560959311095, 0.86743560959311095), (nan, 0.86312957370982446, 0.86312957370982446), (nan, 0.85882353782653809, 0.85882353782653809), (nan, 0.85051904005162859, 0.85051904005162859), (nan, 0.84221454227671899, 0.84221454227671899), (nan, 0.8339100445018095, 0.8339100445018095), (nan, 0.82560554672690001, 0.82560554672690001), (nan, 0.81730104895199052, 0.81730104895199052), (nan, 0.80899655117708091, 0.80899655117708091), (nan, 0.80069205340217142, 0.80069205340217142), (nan, 0.79238755562726193, 0.79238755562726193), (nan, 0.78408305785235233, 0.78408305785235233), (nan, 0.77577856007744284, 0.77577856007744284), (nan, 0.76747406230253357, 0.76747406230253357), (nan, 0.75916956452762374, 0.75916956452762374), (nan, 0.75086506675271425, 0.75086506675271425), (nan, 0.74256056897780476, 0.74256056897780476), (nan, 0.73425607120289516, 0.73425607120289516), (nan, 0.72595157342798566, 0.72595157342798566), (nan, 0.71764707565307617, 0.71764707565307617), (nan, 0.70934257787816657, 0.70934257787816657), (nan, 0.70103808010325719, 0.70103808010325719), (nan, 0.69273358232834759, 0.69273358232834759), (nan, 0.68442908455343809, 0.68442908455343809), (nan, 0.6761245867785286, 0.6761245867785286), (nan, 0.667820089003619, 0.667820089003619), (nan, 0.65951559122870951, 0.65951559122870951), (nan, 0.65121109345380002, 0.65121109345380002), (nan, 0.64175319262579378, 0.64175319262579378), (nan, 0.63114188874469113, 0.63114188874469113), (nan, 0.62053058486358792, 0.62053058486358792), (nan, 0.60991928098248505, 0.60991928098248505), (nan, 0.59930797710138206, 0.59930797710138206), (nan, 0.58869667322027919, 0.58869667322027919), (nan, 0.57808536933917631, 0.57808536933917631), (nan, 0.56747406545807333, 0.56747406545807333), (nan, 0.55686276157697046, 0.55686276157697046), (nan, 0.54625145769586747, 0.54625145769586747), (nan, 0.5356401538147646, 0.5356401538147646), (nan, 0.52502884993366172, 0.52502884993366172), (nan, 0.51441754605255874, 0.51441754605255874), (nan, 0.50380624217145586, 0.50380624217145586), (nan, 0.49319493829035288, 0.49319493829035288), (nan, 0.48258363440925001, 0.48258363440925001), (nan, 0.47197233052814708, 0.47197233052814708), (nan, 0.46136102664704448, 0.46136102664704448), (nan, 0.45074972276594127, 0.45074972276594127), (nan, 0.44013841888483834, 0.44013841888483834), (nan, 0.42952711500373542, 0.42952711500373542), (nan, 0.41891581112263249, 0.41891581112263249), (nan, 0.40830450724152956, 0.40830450724152956), (nan, 0.39769320336042668, 0.39769320336042668), (nan, 0.38708189947932375, 0.38708189947932375), (nan, 0.37647059559822083, 0.37647059559822083), (nan, 0.36539793102180257, 0.36539793102180257), (nan, 0.35432526644538431, 0.35432526644538431), (nan, 0.34325260186896606, 0.34325260186896606), (nan, 0.3321799372925478, 0.3321799372925478), (nan, 0.32110727271612954, 0.32110727271612954), (nan, 0.31003460813971129, 0.31003460813971129), (nan, 0.29896194356329298, 0.29896194356329298), (nan, 0.28788927898687505, 0.28788927898687505), (nan, 0.27681661441045646, 0.27681661441045646), (nan, 0.26574394983403826, 0.26574394983403826), (nan, 0.25467128525761995, 0.25467128525761995), (nan, 0.24359862068120172, 0.24359862068120172), (nan, 0.23252595610478347, 0.23252595610478347), (nan, 0.22145329152836518, 0.22145329152836518), (nan, 0.21038062695194693, 0.21038062695194693), (nan, 0.19930796237552867, 0.19930796237552867), (nan, 0.18823529779911041, 0.18823529779911041), (nan, 0.17716263322269213, 0.17716263322269213), (nan, 0.1660899686462739, 0.1660899686462739), (nan, 0.15501730406985564, 0.15501730406985564), (nan, 0.14394463949343739, 0.14394463949343739), (nan, 0.1328719749170191, 0.1328719749170191), (nan, 0.12179931034060087, 0.12179931034060087), (nan, 0.1107266457641829, 0.1107266457641829), (nan, 0.099653981187764362, 0.099653981187764362), (nan, 0.092272204803485497, 0.092272204803485497), (nan, 0.088581316611346078, 0.088581316611346078), (nan, 0.084890428419206659, 0.084890428419206659), (nan, 0.081199540227067241, 0.081199540227067241), (nan, 0.077508652034927822, 0.077508652034927822), (nan, 0.073817763842788403, 0.073817763842788403), (nan, 0.070126875650648984, 0.070126875650648984), (nan, 0.066435987458509552, 0.066435987458509552), (nan, 0.062745099266370147, 0.062745099266370147), (nan, 0.059054211074230714, 0.059054211074230714), (nan, 0.055363322882091302, 0.055363322882091302), (nan, 0.051672434689951877, 0.051672434689951877), (nan, 0.047981546497812458, 0.047981546497812458), (nan, 0.044290658305673039, 0.044290658305673039), (nan, 0.040599770113533724, 0.040599770113533724), (nan, 0.036908881921394202, 0.036908881921394202), (nan, 0.033217993729254776, 0.033217993729254776), (nan, 0.029527105537115364, 0.029527105537115364), (nan, 0.025836217344975945, 0.025836217344975945), (nan, 0.022145329152836526, 0.022145329152836526), (nan, 0.018454440960697094, 0.018454440960697094), (nan, 0.014763552768557675, 0.014763552768557675), (nan, 0.011072664576418256, 0.011072664576418256), (nan, 0.0073817763842788514, 0.0073817763842788514), (nan, 0.0036908881921394188, 0.0036908881921394188), (nan, 0.0, 0.0), (1.0, 0.0, 0.0)], 'red': [(nan, 0.019607843831181526, 0.019607843831181526), (nan, 0.023913880225782301, 0.023913880225782301), (nan, 0.028219916620383079, 0.028219916620383079), (nan, 0.032525953014983851, 0.032525953014983851), (nan, 0.036831989409584633, 0.036831989409584633), (nan, 0.041138025804185407, 0.041138025804185407), (nan, 0.045444062198786175, 0.045444062198786175), (nan, 0.049750098593386957, 0.049750098593386957), (nan, 0.054056134987987739, 0.054056134987987739), (nan, 0.058362171382588507, 0.058362171382588507), (nan, 0.062668207777189289, 0.062668207777189289), (nan, 0.066974244171790071, 0.066974244171790071), (nan, 0.071280280566390825, 0.071280280566390825), (nan, 0.07558631696099162, 0.07558631696099162), (nan, 0.079892353355592388, 0.079892353355592388), (nan, 0.084198389750193156, 0.084198389750193156), (nan, 0.088504426144793952, 0.088504426144793952), (nan, 0.09281046253939472, 0.09281046253939472), (nan, 0.097116498933995488, 0.097116498933995488), (nan, 0.10142253532859627, 0.10142253532859627), (nan, 0.10572857172319704, 0.10572857172319704), (nan, 0.11003460811779782, 0.11003460811779782), (nan, 0.1143406445123986, 0.1143406445123986), (nan, 0.11864668090699937, 0.11864668090699937), (nan, 0.12295271730160014, 0.12295271730160014), (nan, 0.12725875369620093, 0.12725875369620093), (nan, 0.13202615111481913, 0.13202615111481913), (nan, 0.13725490955745476, 0.13725490955745476), (nan, 0.14248366800009041, 0.14248366800009041), (nan, 0.14771242644272603, 0.14771242644272603), (nan, 0.15294118488536165, 0.15294118488536165), (nan, 0.15816994332799728, 0.15816994332799728), (nan, 0.16339870177063293, 0.16339870177063293), (nan, 0.16862746021326852, 0.16862746021326852), (nan, 0.17385621865590417, 0.17385621865590417), (nan, 0.17908497709853982, 0.17908497709853982), (nan, 0.18431373554117544, 0.18431373554117544), (nan, 0.18954249398381104, 0.18954249398381104), (nan, 0.19477125242644672, 0.19477125242644672), (nan, 0.20000001086908234, 0.20000001086908234), (nan, 0.20522876931171796, 0.20522876931171796), (nan, 0.21045752775435356, 0.21045752775435356), (nan, 0.21568628619698924, 0.21568628619698924), (nan, 0.22091504463962486, 0.22091504463962486), (nan, 0.22614380308226051, 0.22614380308226051), (nan, 0.2313725615248961, 0.2313725615248961), (nan, 0.23660131996753175, 0.23660131996753175), (nan, 0.2418300784101674, 0.2418300784101674), (nan, 0.24705883685280303, 0.24705883685280303), (nan, 0.25228759529543865, 0.25228759529543865), (nan, 0.2575163537380743, 0.2575163537380743), (nan, 0.26274511218071001, 0.26274511218071001), (nan, 0.2748942860201295, 0.2748942860201295), (nan, 0.28704345985954888, 0.28704345985954888), (nan, 0.29919263369896848, 0.29919263369896848), (nan, 0.31134180753838792, 0.31134180753838792), (nan, 0.32349098137780741, 0.32349098137780741), (nan, 0.33564015521722679, 0.33564015521722679), (nan, 0.34778932905664639, 0.34778932905664639), (nan, 0.35993850289606588, 0.35993850289606588), (nan, 0.37208767673548537, 0.37208767673548537), (nan, 0.38423685057490475, 0.38423685057490475), (nan, 0.39638602441432436, 0.39638602441432436), (nan, 0.40853519825374379, 0.40853519825374379), (nan, 0.42068437209316328, 0.42068437209316328), (nan, 0.43283354593258272, 0.43283354593258272), (nan, 0.4449827197720021, 0.4449827197720021), (nan, 0.4571318936114217, 0.4571318936114217), (nan, 0.46928106745084119, 0.46928106745084119), (nan, 0.48143024129026069, 0.48143024129026069), (nan, 0.49357941512968018, 0.49357941512968018), (nan, 0.50572858896909967, 0.50572858896909967), (nan, 0.51787776280851916, 0.51787776280851916), (nan, 0.53002693664793865, 0.53002693664793865), (nan, 0.54217611048735792, 0.54217611048735792), (nan, 0.55432528432677763, 0.55432528432677763), (nan, 0.56647445816619713, 0.56647445816619713), (nan, 0.57739333545460403, 0.57739333545460403), (nan, 0.58708191619199857, 0.58708191619199857), (nan, 0.59677049692939299, 0.59677049692939299), (nan, 0.60645907766678742, 0.60645907766678742), (nan, 0.61614765840418184, 0.61614765840418184), (nan, 0.62583623914157616, 0.62583623914157616), (nan, 0.6355248198789708, 0.6355248198789708), (nan, 0.64521340061636523, 0.64521340061636523), (nan, 0.65490198135375965, 0.65490198135375965), (nan, 0.66459056209115408, 0.66459056209115408), (nan, 0.67427914282854862, 0.67427914282854862), (nan, 0.68396772356594304, 0.68396772356594304), (nan, 0.69365630430333747, 0.69365630430333747), (nan, 0.70334488504073178, 0.70334488504073178), (nan, 0.71303346577812632, 0.71303346577812632), (nan, 0.72272204651552086, 0.72272204651552086), (nan, 0.73241062725291528, 0.73241062725291528), (nan, 0.74209920799030971, 0.74209920799030971), (nan, 0.75178778872770424, 0.75178778872770424), (nan, 0.76147636946509856, 0.76147636946509856), (nan, 0.77116495020249309, 0.77116495020249309), (nan, 0.78085353093988741, 0.78085353093988741), (nan, 0.79054211167728194, 0.79054211167728194), (nan, 0.80023069241467648, 0.80023069241467648), (nan, 0.80991927315207091, 0.80991927315207091), (nan, 0.81960785388946533, 0.81960785388946533), (nan, 0.82545175973106832, 0.82545175973106832), (nan, 0.83129566557267132, 0.83129566557267132), (nan, 0.83713957141427431, 0.83713957141427431), (nan, 0.8429834772558773, 0.8429834772558773), (nan, 0.84882738309748029, 0.84882738309748029), (nan, 0.85467128893908328, 0.85467128893908328), (nan, 0.86051519478068628, 0.86051519478068628), (nan, 0.86635910062228927, 0.86635910062228927), (nan, 0.87220300646389237, 0.87220300646389237), (nan, 0.87804691230549536, 0.87804691230549536), (nan, 0.88389081814709836, 0.88389081814709836), (nan, 0.88973472398870124, 0.88973472398870124), (nan, 0.89557862983030434, 0.89557862983030434), (nan, 0.90142253567190733, 0.90142253567190733), (nan, 0.90726644151351032, 0.90726644151351032), (nan, 0.91311034735511332, 0.91311034735511332), (nan, 0.91895425319671631, 0.91895425319671631), (nan, 0.9247981590383193, 0.9247981590383193), (nan, 0.93064206487992229, 0.93064206487992229), (nan, 0.93648597072152517, 0.93648597072152517), (nan, 0.94232987656312828, 0.94232987656312828), (nan, 0.94817378240473127, 0.94817378240473127), (nan, 0.95401768824633426, 0.95401768824633426), (nan, 0.95986159408793736, 0.95986159408793736), (nan, 0.96570549992954025, 0.96570549992954025), (nan, 0.96908881383783674, 0.96908881383783674), (nan, 0.97001153581282673, 0.97001153581282673), (nan, 0.97093425778781661, 0.97093425778781661), (nan, 0.97185697976280661, 0.97185697976280661), (nan, 0.97277970173779649, 0.97277970173779649), (nan, 0.97370242371278648, 0.97370242371278648), (nan, 0.97462514568777647, 0.97462514568777647), (nan, 0.97554786766276635, 0.97554786766276635), (nan, 0.97647058963775635, 0.97647058963775635), (nan, 0.97739331161274634, 0.97739331161274634), (nan, 0.97831603358773622, 0.97831603358773622), (nan, 0.97923875556272622, 0.97923875556272622), (nan, 0.9801614775377161, 0.9801614775377161), (nan, 0.98108419951270609, 0.98108419951270609), (nan, 0.98200692148769608, 0.98200692148769608), (nan, 0.98292964346268596, 0.98292964346268596), (nan, 0.98385236543767596, 0.98385236543767596), (nan, 0.98477508741266584, 0.98477508741266584), (nan, 0.98569780938765583, 0.98569780938765583), (nan, 0.98662053136264571, 0.98662053136264571), (nan, 0.98754325333763571, 0.98754325333763571), (nan, 0.9884659753126257, 0.9884659753126257), (nan, 0.98938869728761558, 0.98938869728761558), (nan, 0.99031141926260557, 0.99031141926260557), (nan, 0.99123414123759546, 0.99123414123759546), (nan, 0.99215686321258545, 0.99215686321258545), (nan, 0.99077278025010052, 0.99077278025010052), (nan, 0.98938869728761558, 0.98938869728761558), (nan, 0.98800461432513065, 0.98800461432513065), (nan, 0.98662053136264571, 0.98662053136264571), (nan, 0.98523644840016089, 0.98523644840016089), (nan, 0.98385236543767596, 0.98385236543767596), (nan, 0.98246828247519102, 0.98246828247519102), (nan, 0.98108419951270609, 0.98108419951270609), (nan, 0.97970011655022116, 0.97970011655022116), (nan, 0.97831603358773622, 0.97831603358773622), (nan, 0.9769319506252514, 0.9769319506252514), (nan, 0.97554786766276635, 0.97554786766276635), (nan, 0.97416378470028153, 0.97416378470028153), (nan, 0.9727797017377966, 0.9727797017377966), (nan, 0.97139561877531166, 0.97139561877531166), (nan, 0.97001153581282673, 0.97001153581282673), (nan, 0.9686274528503418, 0.9686274528503418), (nan, 0.96724336988785686, 0.96724336988785686), (nan, 0.96585928692537193, 0.96585928692537193), (nan, 0.964475203962887, 0.964475203962887), (nan, 0.96309112100040206, 0.96309112100040206), (nan, 0.96170703803791724, 0.96170703803791724), (nan, 0.96032295507543231, 0.96032295507543231), (nan, 0.95893887211294737, 0.95893887211294737), (nan, 0.95755478915046244, 0.95755478915046244), (nan, 0.95455594273174516, 0.95455594273174516), (nan, 0.94994233285679552, 0.94994233285679552), (nan, 0.94532872298184567, 0.94532872298184567), (nan, 0.94071511310689593, 0.94071511310689593), (nan, 0.93610150323194619, 0.93610150323194619), (nan, 0.93148789335699644, 0.93148789335699644), (nan, 0.9268742834820467, 0.9268742834820467), (nan, 0.92226067360709696, 0.92226067360709696), (nan, 0.91764706373214722, 0.91764706373214722), (nan, 0.91303345385719747, 0.91303345385719747), (nan, 0.90841984398224773, 0.90841984398224773), (nan, 0.90380623410729799, 0.90380623410729799), (nan, 0.89919262423234825, 0.89919262423234825), (nan, 0.89457901435739851, 0.89457901435739851), (nan, 0.88996540448244876, 0.88996540448244876), (nan, 0.88535179460749913, 0.88535179460749913), (nan, 0.88073818473254928, 0.88073818473254928), (nan, 0.87612457485759976, 0.87612457485759976), (nan, 0.8715109649826499, 0.8715109649826499), (nan, 0.86689735510770016, 0.86689735510770016), (nan, 0.86228374523275042, 0.86228374523275042), (nan, 0.85767013535780068, 0.85767013535780068), (nan, 0.85305652548285094, 0.85305652548285094), (nan, 0.84844291560790119, 0.84844291560790119), (nan, 0.84382930573295145, 0.84382930573295145), (nan, 0.83921569585800171, 0.83921569585800171), (nan, 0.83367936400806197, 0.83367936400806197), (nan, 0.82814303215812235, 0.82814303215812235), (nan, 0.82260670030818261, 0.82260670030818261), (nan, 0.81707036845824299, 0.81707036845824299), (nan, 0.81153403660830326, 0.81153403660830326), (nan, 0.80599770475836363, 0.80599770475836363), (nan, 0.8004613729084239, 0.8004613729084239), (nan, 0.79492504105848438, 0.79492504105848438), (nan, 0.78938870920854454, 0.78938870920854454), (nan, 0.78385237735860491, 0.78385237735860491), (nan, 0.77831604550866518, 0.77831604550866518), (nan, 0.77277971365872555, 0.77277971365872555), (nan, 0.76724338180878582, 0.76724338180878582), (nan, 0.76170704995884608, 0.76170704995884608), (nan, 0.75617071810890646, 0.75617071810890646), (nan, 0.75063438625896683, 0.75063438625896683), (nan, 0.7450980544090271, 0.7450980544090271), (nan, 0.73956172255908736, 0.73956172255908736), (nan, 0.73402539070914774, 0.73402539070914774), (nan, 0.72848905885920801, 0.72848905885920801), (nan, 0.72295272700926838, 0.72295272700926838), (nan, 0.71741639515932865, 0.71741639515932865), (nan, 0.71188006330938902, 0.71188006330938902), (nan, 0.70634373145944951, 0.70634373145944951), (nan, 0.70080739960950966, 0.70080739960950966), (nan, 0.69227222075649342, 0.69227222075649342), (nan, 0.68073819490040055, 0.68073819490040055), (nan, 0.66920416904430768, 0.66920416904430768), (nan, 0.65767014318821482, 0.65767014318821482), (nan, 0.64613611733212195, 0.64613611733212195), (nan, 0.63460209147602908, 0.63460209147602908), (nan, 0.62306806561993622, 0.62306806561993622), (nan, 0.61153403976384335, 0.61153403976384335), (nan, 0.60000001390775048, 0.60000001390775048), (nan, 0.58846598805165762, 0.58846598805165762), (nan, 0.57693196219556475, 0.57693196219556475), (nan, 0.56539793633947188, 0.56539793633947188), (nan, 0.55386391048337902, 0.55386391048337902), (nan, 0.54232988462728615, 0.54232988462728615), (nan, 0.53079585877119362, 0.53079585877119362), (nan, 0.51926183291510042, 0.51926183291510042), (nan, 0.50772780705900755, 0.50772780705900755), (nan, 0.49619378120291469, 0.49619378120291469), (nan, 0.48465975534682182, 0.48465975534682182), (nan, 0.47312572949072895, 0.47312572949072895), (nan, 0.46159170363463609, 0.46159170363463609), (nan, 0.45005767777854322, 0.45005767777854322), (nan, 0.43852365192245035, 0.43852365192245035), (nan, 0.42698962606635749, 0.42698962606635749), (nan, 0.41545560021026462, 0.41545560021026462), (nan, 0.40392157435417175, 0.40392157435417175), (1.0, 0.40392157435417175, 0.40392157435417175)]}
+        self._gamma = 1.0
+    733         self._lut[:-3, 1] = makeMappingArray(
+    734             self.N, self._segmentdata['green'], self._gamma)
+    735         self._lut[:-3, 2] = makeMappingArray(
+    736             self.N, self._segmentdata['blue'], self._gamma)
+    737         if 'alpha' in self._segmentdata:
+    738             self._lut[:-3, 3] = makeMappingArray(
+    739                 self.N, self._segmentdata['alpha'], 1)
+    740         self._isinit = True
+    741         self._set_extremes()
+    742 
+    743     def set_gamma(self, gamma):
+    744         """
+    745         Set a new gamma value and regenerate color map.
+    746         """
+    747         self._gamma = gamma
+
+/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/matplotlib/colors.pyc in makeMappingArray(N=256, data=[(nan, 0.019607843831181526, 0.019607843831181526), (nan, 0.023913880225782301, 0.023913880225782301), (nan, 0.028219916620383079, 0.028219916620383079), (nan, 0.032525953014983851, 0.032525953014983851), (nan, 0.036831989409584633, 0.036831989409584633), (nan, 0.041138025804185407, 0.041138025804185407), (nan, 0.045444062198786175, 0.045444062198786175), (nan, 0.049750098593386957, 0.049750098593386957), (nan, 0.054056134987987739, 0.054056134987987739), (nan, 0.058362171382588507, 0.058362171382588507), (nan, 0.062668207777189289, 0.062668207777189289), (nan, 0.066974244171790071, 0.066974244171790071), (nan, 0.071280280566390825, 0.071280280566390825), (nan, 0.07558631696099162, 0.07558631696099162), (nan, 0.079892353355592388, 0.079892353355592388), (nan, 0.084198389750193156, 0.084198389750193156), (nan, 0.088504426144793952, 0.088504426144793952), (nan, 0.09281046253939472, 0.09281046253939472), (nan, 0.097116498933995488, 0.097116498933995488), (nan, 0.10142253532859627, 0.10142253532859627), ...], gamma=1.0)
+    454 
+    455     try:
+    456         adata = np.array(data)
+    457     except:
+    458         raise TypeError("data must be convertable to an array")
+    459     shape = adata.shape
+    460     if len(shape) != 2 or shape[1] != 3:
+    461         raise ValueError("data must be nx3 format")
+    462 
+    463     x = adata[:, 0]
+    464     y0 = adata[:, 1]
+    465     y1 = adata[:, 2]
+    466 
+    467     if x[0] != 0. or x[-1] != 1.0:
+    468         raise ValueError(
+--> 469             "data mapping points must start with x=0. and end with x=1")
+    470     if np.sometrue(np.sort(x) - x):
+    471         raise ValueError(
+    472             "data mapping points must have x in increasing order")
+    473     # begin generation of lookup table
+    474     x = x * (N - 1)
+    475     lut = np.zeros((N,), np.float)
+    476     xind = (N - 1) * np.linspace(0, 1, N) ** gamma
+    477     ind = np.searchsorted(x, xind)[1:-1]
+    478 
+    479     distance = (xind[1:-1] - x[ind - 1]) / (x[ind] - x[ind - 1])
+    480     lut[1:-1] = distance * (y0[ind] - y1[ind - 1]) + y1[ind - 1]
+    481     lut[0] = y1[0]
+    482     lut[-1] = y0[-1]
+    483     # ensure that the lut is confined to values between 0 and 1 by clipping it
+    484     return np.clip(lut, 0.0, 1.0)
+
+ValueError: data mapping points must start with x=0. and end with x=1
+
+***************************************************************************
+
+History of session input:get_ipython().magic(u'run plot_jamie_results.py')get_ipython().magic(u'run plot_jamie_results.py')get_ipython().magic(u'run plot_jamie_results.py')get_ipython().magic(u'run plot_jamie_results.py')get_ipython().magic(u'run plot_jamie_results.py')get_ipython().magic(u'run plot_jamie_results.py')get_ipython().magic(u'run plot_jamie_results.py')get_ipython().magic(u'run plot_jamie_results.py')
+*** Last line of input (may not be in above history):
+get_ipython().magic(u'run plot_jamie_results.py')
