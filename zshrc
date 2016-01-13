@@ -113,7 +113,7 @@ alias sherlock='kinit cpd@stanford.edu; ssh -X cpd@sherlock.stanford.edu'
 alias trivialAccess='echo "You should use easyaccess!"'
 # alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
 
-function promptline()
+function tmuxline()
 {
     # changes my promptline configs in case solarized looks like poop
     # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
@@ -121,6 +121,14 @@ function promptline()
     # <leader>cS and <leader>cs
     tmux source ~/.dotfiles/tmuxline_${1:=LuciusLight}.conf
     tmux send-keys "source ~/.dotfiles/promptline_${1:=LuciusLight}.sh" C-m
+}
+function promptline()
+{
+    # changes my promptline configs in case solarized looks like poop
+    # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
+    # note: still have to change the vim settings from within vim via
+    # <leader>cS and <leader>cs
+    source ~/.dotfiles/promptline_${1:=LuciusLight}.sh
 }
 
 # some key difs between my mac and kils
