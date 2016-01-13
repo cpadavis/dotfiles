@@ -66,3 +66,7 @@ tmux/resurrect
 
 # ignore json
 *.json
+
+# ipython security
+ipython/*/security
+ipython/Crash_report_ipython.txt
