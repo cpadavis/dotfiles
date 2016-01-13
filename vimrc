@@ -570,16 +570,16 @@ let g:airline#extensions#tmuxline#enabled = 0
 " promptline
 " ==========================================================
 " " :PromptlineSnapshot ~/.dotfiles/promptline.sh
-" let g:promptline_theme = 'airline'
-" let g:promptline_powerline_symbols = 0
-" " sections (a, b, c, x, y, z, warn) are optional
-" let g:promptline_preset = {
-"         \'a' : [ promptline#slices#user() ],
-"         \'b' : [ promptline#slices#cwd() ],
-"         \'x' : [ promptline#slices#jobs() ],
-"         \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
-"         \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
-"         \'warn' : [ promptline#slices#last_exit_code() ]}
+let g:promptline_theme = 'airline'
+let g:promptline_powerline_symbols = 0
+" sections (a, b, c, x, y, z, warn) are optional
+let g:promptline_preset = {
+        \'a' : [ promptline#slices#user() ],
+        \'b' : [ promptline#slices#cwd() ],
+        \'x' : [ promptline#slices#jobs() ],
+        \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
+        \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
+        \'warn' : [ promptline#slices#last_exit_code() ]}
 " !rm ~/.dotfiles/promptline.sh
 " PromptlineSnapshot ~/.dotfiles/promptline.sh
 
