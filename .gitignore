@@ -68,5 +68,6 @@ tmux/resurrect
 *.json
 
 # ipython security
-ipython/*/security
+ipython/profile*/security
+ipython/profile_nbserver/security
 ipython/Crash_report_ipython.txt
