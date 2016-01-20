@@ -58,14 +58,23 @@ if [ -z "$SSH_CONNECTION" ]; then
         # thanks jupyter for removing profiles
         alias notebook="ipython notebook"
         alias iconsole='ipython console --existing'
+    elif [ $CPD_NAME = 'KILS' ]; then
+        # thanks jupyter for removing profiles
+        alias notebook="ipython notebook"
+        alias iconsole='ipython console --existing'
     else
         alias notebook="ipython notebook --profile=nbserver"
         alias iconsole='ipython console --profile=nbserver --existing'
     fi
 else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
-    alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
-    alias iconsole='ipython console --profile=nbserver --existing'
+    if [ $CPD_NAME = 'KILS' ]; then
+        alias notebook="ipython notebook --ip=${IPYNOTEBOOKIP} --port=8008"
+        alias iconsole='ipython console --existing'
+    else
+        alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
+        alias iconsole='ipython console --profile=nbserver --existing'
+    fi
 fi
 
 # http://kipac.stanford.edu/collab/computing/docs/afs
@@ -301,8 +310,8 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     alias bjobr="bjobs -wr | less"
     alias bjobrl="bjobs -rl | less"
     alias bjoblr=bjobrl
-    alias pipi="pip install --user"
-    alias pipu="pip install --user --upgrade"
+    alias pipi="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user"
+    alias pipu="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user --upgrade"
     function tmuxs
     {
         tmux start-server
