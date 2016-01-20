@@ -99,7 +99,6 @@ function CompileLatex()
 #alias tmuxs="tmux new-session -s tmuxs"
 
 alias tmuxa="tmux attach-session -t tmuxs:1"
-alias tmuxk="tmux kill-session -t tmuxs"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
@@ -419,6 +418,14 @@ function markdown() {
     perl ~/.dotfiles/Markdown.pl ${1}.md > ${1}.html ;
 }
 
+function tmuxk() {
+    # Kill defunct sessions first
+    old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+    for old_session_id in ${old_sessions[*]}; do
+        tmux kill-session -t $old_session_id ;
+    done
+}
+
 function tmx() {
     #
     # Modified TMUX start script from:
@@ -447,7 +454,7 @@ function tmx() {
     base_session=tmuxs
     if [[ -z "$TMUX" ]]; then
         # Kill defunct sessions first
-        old_sessions=$(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:)
+        old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
         for old_session_id in $old_sessions; do
             tmux kill-session -t $old_session_id
         done
