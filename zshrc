@@ -112,7 +112,6 @@ alias tmuxa="tmux attach-session -t tmuxs:1"
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
 # function slac(){ ssh -Y cpd@ki-ls${1:=08}.slac.stanford.edu ;}
-function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;}
 # function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
 # function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
 function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ;}
@@ -168,6 +167,11 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     export CPD=/Users/cpd/
     export PROJECTS_DIR=/Users/cpd/Projects
 
+    function slac(){
+        tmux send-keys "kinit cpd@SLAC.STANFORD.EDU" C-m ;
+        tmux send-keys ${INNOC_SLAC} C-m ;
+        ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
+    }
 
     function tmuxv
     {
@@ -334,6 +338,7 @@ else
 
     export PROJECTS_DIR=~/Projects
 
+    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
     function tmuxs
