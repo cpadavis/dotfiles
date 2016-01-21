@@ -4,8 +4,25 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt appendhistory extendedglob nomatch notify
-unsetopt autocd beep
+
+# type directory name to auto cd there ie /bin instead of /bin
+setopt autocd
+# do not overwrite history, append
+setopt append_history
+# gives more options for ls. see ls *(<tab>
+setopt extendedglob
+# give an error if there is no match for a pattern
+setopt nomatch
+# report status of background jobs immediately
+setopt notify
+# spelling corrections
+setopt correct
+# do not clobber automatically. overwrite with !
+setopt noclobber
+# Killer: share history between multiple shells
+setopt SHARE_HISTORY
+# beeping is annoying
+unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -139,6 +156,18 @@ function promptline()
     source ~/.dotfiles/promptline_${1:=LuciusLight}.sh
 }
 
+# URL encode something and print it.
+function url-encode; {
+
+                echo "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
+                }
+
+# Search google for the given keywords.
+# export VIEW=/usr/bin/elinks
+function google; { elinks "http://www.google.com/search?q=`url-encode "${(j: :)@}"`" ;}
+
+
+
 # some key difs between my mac and kils
 if [[ $CPD_NAME == 'MAC' ]]; then
     PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
@@ -168,9 +197,13 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     export PROJECTS_DIR=/Users/cpd/Projects
 
     function slac(){
-        tmux send-keys "kinit cpd@SLAC.STANFORD.EDU" C-m ;
-        tmux send-keys ${INNOC_SLAC} C-m ;
-        ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
+        if [ -z "$TMUX" ]; then
+            ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
+        else
+            tmux send-keys "kinit cpd@SLAC.STANFORD.EDU" C-m ;
+            tmux send-keys ${INNOC_SLAC} C-m ;
+            ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
+        fi
     }
 
     function tmuxv
@@ -306,6 +339,8 @@ if [[ $CPD_NAME == 'MAC' ]]; then
 elif [[ $CPD_NAME == 'KILS' ]]; then
 
     export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
+
+    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
 
     alias bjob="bjobs -w | less"
     alias bjobl="bjobs -l | less"
