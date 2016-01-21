@@ -22,13 +22,22 @@ function __promptline_ps1 {
   slice_prefix="${a_bg}${sep}${a_fg}${a_bg}${space}" slice_suffix="$space${a_sep_fg}" slice_joiner="${a_fg}${a_bg}${alt_sep}${space}" slice_empty_prefix="${a_fg}${a_bg}${space}"
   [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
   # section "a" slices
-  __promptline_wrapper "Il meglio è l'inimico del bene" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-  __promptline_wrapper "$(if [[ -n ${ZSH_VERSION-} ]]; then print %n; elif [[ -n ${FISH_VERSION-} ]]; then printf "%s" "$USER"; else printf "%s" \\u; fi )" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+  if [[ $KEYMAP = vicmd ]]; then
+    __promptline_wrapper "$(print NORMAL)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+  else
+    __promptline_wrapper "$(print INSERT)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+  fi
 
   # section "b" header
   slice_prefix="${b_bg}${sep}${b_fg}${b_bg}${space}" slice_suffix="$space${b_sep_fg}" slice_joiner="${b_fg}${b_bg}${alt_sep}${space}" slice_empty_prefix="${b_fg}${b_bg}${space}"
   [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
   # section "b" slices
+  __promptline_wrapper "$(if [[ -n ${ZSH_VERSION-} ]]; then print %n; elif [[ -n ${FISH_VERSION-} ]]; then printf "%s" "$USER"; else printf "%s" \\u; fi )" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+
+  # section "c" header
+  slice_prefix="${c_bg}${sep}${c_fg}${c_bg}${space}" slice_suffix="$space${c_sep_fg}" slice_joiner="${c_fg}${c_bg}${alt_sep}${space}" slice_empty_prefix="${c_fg}${c_bg}${space}"
+  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
+  # section "c" slices
   __promptline_wrapper "$(__promptline_cwd)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
 
   # section "x" header
@@ -110,13 +119,22 @@ function __promptline_left_prompt {
   slice_prefix="${a_bg}${sep}${a_fg}${a_bg}${space}" slice_suffix="$space${a_sep_fg}" slice_joiner="${a_fg}${a_bg}${alt_sep}${space}" slice_empty_prefix="${a_fg}${a_bg}${space}"
   [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
   # section "a" slices
-  __promptline_wrapper "Il meglio è l'inimico del bene" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-  __promptline_wrapper "$(if [[ -n ${ZSH_VERSION-} ]]; then print %n; elif [[ -n ${FISH_VERSION-} ]]; then printf "%s" "$USER"; else printf "%s" \\u; fi )" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+  if [[ $KEYMAP = vicmd ]]; then
+    __promptline_wrapper "$(print NORMAL)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+  else
+    __promptline_wrapper "$(print INSERT)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+  fi
 
   # section "b" header
   slice_prefix="${b_bg}${sep}${b_fg}${b_bg}${space}" slice_suffix="$space${b_sep_fg}" slice_joiner="${b_fg}${b_bg}${alt_sep}${space}" slice_empty_prefix="${b_fg}${b_bg}${space}"
   [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
   # section "b" slices
+  __promptline_wrapper "$(if [[ -n ${ZSH_VERSION-} ]]; then print %n; elif [[ -n ${FISH_VERSION-} ]]; then printf "%s" "$USER"; else printf "%s" \\u; fi )" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
+
+  # section "c" header
+  slice_prefix="${c_bg}${sep}${c_fg}${c_bg}${space}" slice_suffix="$space${c_sep_fg}" slice_joiner="${c_fg}${c_bg}${alt_sep}${space}" slice_empty_prefix="${c_fg}${c_bg}${space}"
+  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
+  # section "c" slices
   __promptline_wrapper "$(__promptline_cwd)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
 
   # close sections
@@ -247,24 +265,33 @@ function __promptline {
   local alt_rsep="|"
   local reset="${wrap}0${end_wrap}"
   local reset_bg="${wrap}49${end_wrap}"
-  local a_fg="${wrap}38;5;7${end_wrap}"
-  local a_bg="${wrap}48;5;11${end_wrap}"
-  local a_sep_fg="${wrap}38;5;11${end_wrap}"
+  if [[ $KEYMAP = vicmd ]]; then
+    local a_fg="${wrap}38;5;15${end_wrap}"
+    local a_bg="${wrap}48;5;14${end_wrap}"
+    local a_sep_fg="${wrap}38;5;14${end_wrap}"
+  else
+    local a_fg="${wrap}38;5;15${end_wrap}"
+    local a_bg="${wrap}48;5;136${end_wrap}"
+    local a_sep_fg="${wrap}38;5;136${end_wrap}"
+  fi
   local b_fg="${wrap}38;5;7${end_wrap}"
-  local b_bg="${wrap}48;5;14${end_wrap}"
-  local b_sep_fg="${wrap}38;5;14${end_wrap}"
+  local b_bg="${wrap}48;5;11${end_wrap}"
+  local b_sep_fg="${wrap}38;5;11${end_wrap}"
+  local c_fg="${wrap}38;5;10${end_wrap}"
+  local c_bg="${wrap}48;5;0${end_wrap}"
+  local c_sep_fg="${wrap}38;5;0${end_wrap}"
   local warn_fg="${wrap}38;5;15${end_wrap}"
   local warn_bg="${wrap}48;5;9${end_wrap}"
   local warn_sep_fg="${wrap}38;5;9${end_wrap}"
-  local x_fg="${wrap}38;5;14${end_wrap}"
-  local x_bg="${wrap}48;5;7${end_wrap}"
-  local x_sep_fg="${wrap}38;5;7${end_wrap}"
+  local x_fg="${wrap}38;5;10${end_wrap}"
+  local x_bg="${wrap}48;5;0${end_wrap}"
+  local x_sep_fg="${wrap}38;5;0${end_wrap}"
   local y_fg="${wrap}38;5;7${end_wrap}"
-  local y_bg="${wrap}48;5;14${end_wrap}"
-  local y_sep_fg="${wrap}38;5;14${end_wrap}"
-  local z_fg="${wrap}38;5;7${end_wrap}"
-  local z_bg="${wrap}48;5;11${end_wrap}"
-  local z_sep_fg="${wrap}38;5;11${end_wrap}"
+  local y_bg="${wrap}48;5;11${end_wrap}"
+  local y_sep_fg="${wrap}38;5;11${end_wrap}"
+  local z_fg="${wrap}38;5;15${end_wrap}"
+  local z_bg="${wrap}48;5;14${end_wrap}"
+  local z_sep_fg="${wrap}38;5;14${end_wrap}"
   if [[ -n ${ZSH_VERSION-} ]]; then
     PROMPT="$(__promptline_left_prompt)"
     RPROMPT="$(__promptline_right_prompt)"
@@ -290,3 +317,21 @@ else
     PROMPT_COMMAND='__promptline;'$'\n'"$PROMPT_COMMAND"
   fi
 fi
+
+# zle-keymap-select() {
+#   # __promptline
+#   # () { return $__prompt_status }
+#   zle reset-prompt
+#   zle -R
+# }
+# zle-line-init() {
+#   typeset -g __prompt_status="$?"
+# }
+
+function zle-line-init zle-keymap-select {
+    __promptline
+    zle reset-prompt
+    zle -R
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
