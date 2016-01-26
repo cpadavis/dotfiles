@@ -71,3 +71,7 @@ tmux/resurrect
 ipython/profile*/security
 ipython/profile_nbserver/security
 ipython/Crash_report_ipython.txt
+
+# some links that we can config based on computer
+promptline.sh
+tmuxline.conf
