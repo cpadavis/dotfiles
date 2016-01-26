@@ -124,7 +124,7 @@ function CompileLatex()
 
 #alias tmuxs="tmux new-session -s tmuxs"
 
-alias tmuxa="tmux attach-session -t tmuxs:1"
+alias tmuxa="tmux -u attach-session -t tmuxs:1"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
@@ -165,6 +165,7 @@ function url-encode; {
 # Search google for the given keywords.
 # export VIEW=/usr/bin/elinks
 function google; { elinks "http://www.google.com/search?q=`url-encode "${(j: :)@}"`" ;}
+function wiki; { elinks "http://www.wikipedia.org/search?q=`url-encode "${(j: :)@}"`" ;}
 
 
 
@@ -200,7 +201,7 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         if [ -z "$TMUX" ]; then
             ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
         else
-            tmux send-keys "kinit cpd@SLAC.STANFORD.EDU" C-m ;
+            tmux send-keys "kinit --afslog --renewable cpd@SLAC.STANFORD.EDU" C-m ;
             tmux send-keys ${INNOC_SLAC} C-m ;
             ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
         fi
@@ -208,16 +209,16 @@ if [[ $CPD_NAME == 'MAC' ]]; then
 
     function tmuxv
     {
-        tmux send-keys -t ${1:=tmuxs:2} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":set swapfile" C-m
-        tmux send-keys -t ${1:=tmuxs:2} ":b1" C-m
+        tmux send-keys -t ${1:=tmuxs:0} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":set swapfile" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":b1" C-m
     }
     function tmuxi
     {
@@ -236,7 +237,11 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     function tmuxs
     {
         tmux start-server
-        tmux new-session -d -s tmuxs -n misc
+        tmux new-session -d -s tmuxs -n vim
+
+        # open up vim windows
+        tmux send-keys -t tmuxs:0 "cd /Users/cpd/Dropbox/vimwiki/" C-m
+        tmux send-keys -t tmuxs:0 "vim -S Session.vim" C-m
 
         # send commands to windows
         # tmux send-keys -t tmuxs:1 "TERM=screen-256color irssi" C-m
@@ -244,23 +249,19 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         # tmux select-pane -t 1
         # tmux send-keys -t tmuxs:1 "ttytter" #C-m
         # tmux split-window -t tmuxs:1
+        tmux new-window -t tmuxs:1 -n notebook
         tmux send-keys -t tmuxs:1 "notebook" C-m
         tmux split-window -h -t tmuxs:1
         tmux send-keys -t tmuxs:1 "easyaccess" #C-m
 
-        # open up vim windows
-        tmux new-window -t tmuxs:2 -n vim
-        tmux send-keys -t tmuxs:2 "cd /Users/cpd/Dropbox/vimwiki/" C-m
-        tmux send-keys -t tmuxs:2 "vim -S Session.vim" C-m
-
-        # # ssh
-        # tmux new-window -t tmuxs:3 -n ssh
-        # tmux send-keys -t tmuxs:3 "tmuxi tmuxs:3" C-m
+        # ssh
+        tmux new-window -t tmuxs:2 -n ssh
+        tmux send-keys -t tmuxs:2 "tmuxi tmuxs:2" C-m
 
         # blog
         tmux new-window -t tmuxs:3 -n blog
         tmux send-keys -t tmuxs:3 "cd /Users/cpd/Projects/cpadavis.github.io" C-m
-        tmux send-keys -t tmuxs:3 "cd content" C-m
+        tmux send-keys -t tmuxs:3 "cd content/derivations" C-m
         tmux send-keys -t tmuxs:3 "vim -S Session.vim" C-m
 
         # LearnPSF
@@ -331,7 +332,7 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs:13 "vim -S Session.vim" C-m
 
         # go to the vim journal window
-        tmux select-window -t tmuxs:2
+        tmux select-window -t tmuxs:0
         tmux attach-session -t tmuxs
         # When we detach from it, kill the session
         tmux kill-session -t tmuxs

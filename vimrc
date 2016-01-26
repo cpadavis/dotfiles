@@ -103,7 +103,7 @@ endfunction
 nmap <leader>sh :call HSplit(15)<CR>
 
 " resize back to defaults
-nmap <leader>rs :set lines=60 columns=85<CR>
+nmap <leader>Rs :set lines=60 columns=85<CR>
 "<CR><C-w>l<C-f>:set scrollbind<CR>
 
 " sudo write this
@@ -127,6 +127,7 @@ nmap <leader>cc :copen<CR>
 nmap <leader>cl :lopen<CR>
 nmap <leader>cC :cclose<CR>
 nmap <leader>cL :lclose<CR>
+nmap <leader>cP :pclose<CR>
 " nmap <leader>cc :cclose<CR>
 
 " for when we forget to use sudo to open/edit a file
@@ -403,6 +404,9 @@ nnoremap <leader>S :call RemoveWS()<CR>
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" bind <leader>r to redo
+nmap <leader>r :redo<CR>
+
 " some buffer options
 set hidden " don't have to save between buffer switches
 nmap gb :bnext<CR>
@@ -421,6 +425,8 @@ autocmd InsertLeave * :setlocal number relativenumber
 " tagbar -- lets you see your functions. super useful!
 " ==========================================================
 nmap <leader>tb :Tagbar<CR>
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
 
 " ==========================================================
 " Ack shortcut to encourage me to use it!
