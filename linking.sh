@@ -21,5 +21,6 @@ ln -s ~/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ~/.jupyter
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 # directory colors
 ln -s ~/.dotfiles/dircolors-solarized/dircolors.ansi-universal ~/.dircolors
-
-
+# promptline and tmuxline defaults
+ln -s ~/.dotfiles/promptline_SolarizedLightVIM_inspirational.sh ~/.dotfiles/promptline.sh
+ln -s ~/.dotfiles/tmuxline_SolarizedLightVIM.conf ~/.dotfiles/tmuxline.conf
