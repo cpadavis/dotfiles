@@ -301,7 +301,7 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs:8.1 "vim -S Session.vim" C-m
         # strongcnn
         tmux new-window -t tmuxs:9 -n strongcnn
-        tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/strongcnn" C-m
+        tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/strongcnn/code/strong_theano_cnn" C-m
         tmux send-keys -t tmuxs:9 "vim -S Session.vim" C-m
         tmux split-window -h -t tmuxs:9
         tmux send-keys -t tmuxs:9.1 "cd /Users/cpd/Projects/strongcnn/doc/Paper" C-m
