@@ -2,6 +2,9 @@
 
 c = get_config()
 
+
+c.IPKernelApp.exec_lines = ["Making sure to plot inline", "%matplotlib inline"]
+
 #------------------------------------------------------------------------------
 # IPythonQtConsoleApp configuration
 #------------------------------------------------------------------------------
