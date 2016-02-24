@@ -17,10 +17,10 @@ c = get_config()
 # Execute the given command string.  c.InteractiveShellApp.code_to_run = ''
 
 # lines of code to run at IPython startup.
-# cpd_computer = os.getenv('CPD_NAME', 'NONE')
-# if cpd_computer == 'MAC':
-#     print('setting ipython terminal app gui to qt')
-#     c.TerminalIPythonApp.gui = 'qt'
+cpd_computer = os.getenv('CPD_NAME', 'NONE')
+if cpd_computer == 'MAC':
+    print('setting ipython terminal app gui to qt')
+    c.TerminalIPythonApp.gui = 'qt'
 
 activate_lines = [
     "%load_ext Cython",
