@@ -70,12 +70,12 @@ bindkey . rationalise-dot
 
 # Aliases
 alias pylab='ipython --profile=nbserver'
-if [ -z "$SSH_CONNECTION" ]; then
-    if [ $CPD_NAME = 'MAC' ]; then
-        # thanks jupyter for removing profiles
-        alias notebook="ipython notebook"
-        alias iconsole='ipython console --existing'
-    elif [ $CPD_NAME = 'KILS' ]; then
+if [ $CPD_NAME = 'MAC' ]; then
+    # thanks jupyter for removing profiles
+    alias notebook="ipython notebook"
+    alias iconsole='ipython console --existing'
+elif [ -z "$SSH_CONNECTION" ]; then
+    if [ $CPD_NAME = 'KILS' ]; then
         # thanks jupyter for removing profiles
         alias notebook="ipython notebook"
         alias iconsole='ipython console --existing'
@@ -201,6 +201,7 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         if [ -z "$TMUX" ]; then
             ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
         else
+            tmux send-keys "tmux attach" C-m ;
             tmux send-keys "kinit --afslog --renewable cpd@SLAC.STANFORD.EDU" C-m ;
             tmux send-keys ${INNOC_SLAC} C-m ;
             ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
@@ -263,73 +264,58 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs:3 "cd /Users/cpd/Projects/cpadavis.github.io" C-m
         tmux send-keys -t tmuxs:3 "cd content/derivations" C-m
         tmux send-keys -t tmuxs:3 "vim -S Session.vim" C-m
-
-        # LearnPSF
-        tmux new-window -t tmuxs:4 -n LearnPSF
-        tmux send-keys -t tmuxs:4 "cd /Users/cpd/Projects/LearnPSF" C-m
+        # thesis proposal and oral slides
+        tmux split-window -h -t tmuxs:3
+        tmux send-keys -t tmuxs:3 "cd /Users/cpd/Dropbox/derp-ninja/Articles/cpd2016JanThesisProposal" C-m
+        tmux send-keys -t tmuxs:3 "vim -S Session.vim" C-m
+        # thesis proposal and oral slides
+        tmux split-window -h -t tmuxs:3
+        tmux send-keys -t tmuxs:3 "cd /Users/cpd/Dropbox/derp-ninja/Articles/CV" C-m
+        tmux send-keys -t tmuxs:3 "vim CV_cpd.tex" C-m
 
         # clusterz
-        tmux new-window -t tmuxs:5 -n cluster-z
-        tmux send-keys -t tmuxs:5 "cd /Users/cpd/Projects/cluster-z/code/clusterz" C-m
-        tmux send-keys -t tmuxs:5 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:5
-        tmux send-keys -t tmuxs:5.1 "cd /Users/cpd/Projects/cluster-z/doc" C-m
-        tmux send-keys -t tmuxs:5.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs:4 -n cluster-z
+        tmux send-keys -t tmuxs:4 "cd /Users/cpd/Projects/cluster-z/code/clusterz" C-m
+        tmux send-keys -t tmuxs:4 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:4
+        tmux send-keys -t tmuxs:4.1 "cd /Users/cpd/Projects/cluster-z/doc" C-m
+        tmux send-keys -t tmuxs:4.1 "vim -S Session.vim" C-m
 
         # wavefrontpsf
-        tmux new-window -t tmuxs:6 -n WavefrontPSF
-        tmux send-keys -t tmuxs:6 "cd /Users/cpd/Projects/WavefrontPSF/code/" C-m
-        tmux send-keys -t tmuxs:6 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:6
-        tmux send-keys -t tmuxs:6.1 "cd /Users/cpd/Projects/WavefrontPSF/docs/WavefrontPSF/" C-m
-        tmux send-keys -t tmuxs:6.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs:5 -n WavefrontPSF
+        tmux send-keys -t tmuxs:5 "cd /Users/cpd/Projects/WavefrontPSF/code/" C-m
+        tmux send-keys -t tmuxs:5 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:5
+        tmux send-keys -t tmuxs:5.1 "cd /Users/cpd/Projects/WavefrontPSF/docs/WavefrontPSF/" C-m
+        tmux send-keys -t tmuxs:5.1 "vim -S Session.vim" C-m
 
         # swap
-        tmux new-window -t tmuxs:7 -n SWAP
-        tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/SpaceWarps/analysis" C-m
-        tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:7
-        tmux send-keys -t tmuxs:7.1 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
-        tmux send-keys -t tmuxs:7.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs:6 -n SWAP
+        tmux send-keys -t tmuxs:6 "cd /Users/cpd/Projects/SpaceWarps/analysis" C-m
+        tmux send-keys -t tmuxs:6 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:6
+        tmux send-keys -t tmuxs:6.1 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
+        tmux send-keys -t tmuxs:6.1 "vim -S Session.vim" C-m
 
         # weak_sauce
-        tmux new-window -t tmuxs:8 -n weak_sauce
-        tmux send-keys -t tmuxs:8 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
+        tmux new-window -t tmuxs:7 -n weak_sauce
+        tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
+        tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
+        # strongcnn
+        tmux new-window -t tmuxs:8 -n strongcnn
+        tmux send-keys -t tmuxs:8 "cd /Users/cpd/Projects/strongcnn/code/strong_theano_cnn" C-m
         tmux send-keys -t tmuxs:8 "vim -S Session.vim" C-m
         tmux split-window -h -t tmuxs:8
-        tmux send-keys -t tmuxs:8.1 "cd /Users/cpd/Projects/weak_sauce/doc" C-m
+        tmux send-keys -t tmuxs:8.1 "cd /Users/cpd/Projects/strongcnn/doc/Paper" C-m
         tmux send-keys -t tmuxs:8.1 "vim -S Session.vim" C-m
-        # strongcnn
-        tmux new-window -t tmuxs:9 -n strongcnn
-        tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/strongcnn/code/strong_theano_cnn" C-m
-        tmux send-keys -t tmuxs:9 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:9
-        tmux send-keys -t tmuxs:9.1 "cd /Users/cpd/Projects/strongcnn/doc/Paper" C-m
-        tmux send-keys -t tmuxs:9.1 "vim -S Session.vim" C-m
-
-        # osprey
-        tmux new-window -t tmuxs:10 -n osprey
-        tmux send-keys -t tmuxs:10 "cd /Users/cpd/Projects/osprey/osprey" C-m
-        tmux send-keys -t tmuxs:10 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:10
-        tmux send-keys -t tmuxs:10.1 "cd /Users/cpd/Projects/osprey" C-m
-
-        # nerd-a-music
-        tmux new-window -t tmuxs:11 -n nerd-a-music
-        tmux send-keys -t tmuxs:11 "cd /Users/cpd/Projects/nerd-a-music" C-m
 
         # marmpy
-        tmux new-window -t tmuxs:12 -n marmpy
-        tmux send-keys -t tmuxs:12 "cd /Users/cpd/Projects/marmpy/pysrc" C-m
-        tmux send-keys -t tmuxs:12 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:12
-        tmux send-keys -t tmuxs:12.1 "cd /Users/cpd/Projects/marmpy/doc" C-m
-        tmux send-keys -t tmuxs:12.1 "vim -S Session.vim" C-m
-
-        # thesis proposal and oral slides
-        tmux new-window -t tmuxs:13 -n thesis
-        tmux send-keys -t tmuxs:13 "cd /Users/cpd/dropbox/derp-ninja/Articles/cpd2016JanThesisProposal" C-m
-        tmux send-keys -t tmuxs:13 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs:9 -n marmpy
+        tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/marmpy/pysrc" C-m
+        tmux send-keys -t tmuxs:9 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:9
+        tmux send-keys -t tmuxs:9.1 "cd /Users/cpd/Projects/marmpy/doc" C-m
+        tmux send-keys -t tmuxs:9.1 "vim -S Session.vim" C-m
 
         # go to the vim journal window
         tmux select-window -t tmuxs:0
@@ -544,7 +530,7 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
 # osprey
 if [[ $CPD_NAME == 'MAC' ]]; then
-    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.11-intel-2.7;
+    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.5-x86_64-2.7;
 elif [[ $CPD_NAME == 'KILS' ]]; then
     export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.linux-x86_64-2.7;
 fi

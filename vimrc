@@ -428,10 +428,6 @@ nmap <leader>tb :Tagbar<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
-" ==========================================================
-" Ack shortcut to encourage me to use it!
-" ==========================================================
-nmap <leader>A :Ack
 
 " ==========================================================
 " Obsess shortcut to encourage me to use it!
@@ -516,6 +512,7 @@ nmap <Leader>si :SyntasticInfo<CR>
 " ==========================================================
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
+let g:calendar_time_zone = '-08:00'
 nmap <leader>C :tab Calendar<CR>
 
 
@@ -608,13 +605,28 @@ nmap <leader>f :CtrlPMixed<CR>
 nmap <leader>F :CtrlPBuffer<CR>
 
 " ==========================================================
+" Ack shortcut to encourage me to use it!
+" ==========================================================
+nmap <leader>A :Ack 
+
+
+" ==========================================================
+" Unite.vim
+" ==========================================================
+" let g:unite_source_grep_command = 'ack-grep'
+" let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+" let g:unite_source_grep_recursive_opt = ''
+" nmap <leader>a :Unite grep:$buffers::<C-r><C-w><CR>
+
+
+" ==========================================================
 " Remap help to a new tab instead of horizontal split
 " ==========================================================
 cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : 'h'
 
 
 " ==========================================================
-" Compete options
+" Complete options
 " ==========================================================
 set completeopt=menu,preview,menuone,longest
 " set complete=.,w,b,u,t " -=i if things get slow
@@ -641,7 +653,6 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
 let g:jedi#completions_command = "<leader>jc"
 let g:jedi#rename_command = "<leader>jr"
-
 
 " ===========================================================
 " Handy Latex Bindings and vimtex
