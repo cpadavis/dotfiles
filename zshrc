@@ -297,10 +297,10 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs:6.1 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
         tmux send-keys -t tmuxs:6.1 "vim -S Session.vim" C-m
 
-        # weak_sauce
-        tmux new-window -t tmuxs:7 -n weak_sauce
-        tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
-        tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
+        # # weak_sauce
+        # tmux new-window -t tmuxs:7 -n weak_sauce
+        # tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
+        # tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
         # strongcnn
         tmux new-window -t tmuxs:8 -n strongcnn
         tmux send-keys -t tmuxs:8 "cd /Users/cpd/Projects/strongcnn/code/strong_theano_cnn" C-m
@@ -310,12 +310,12 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs:8.1 "vim -S Session.vim" C-m
 
         # marmpy
-        tmux new-window -t tmuxs:9 -n marmpy
-        tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/marmpy/pysrc" C-m
-        tmux send-keys -t tmuxs:9 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:9
-        tmux send-keys -t tmuxs:9.1 "cd /Users/cpd/Projects/marmpy/doc" C-m
-        tmux send-keys -t tmuxs:9.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs:7 -n marmpy
+        tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/marmpy/pysrc" C-m
+        tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
+        tmux split-window -h -t tmuxs:7
+        tmux send-keys -t tmuxs:7.1 "cd /Users/cpd/Projects/marmpy/doc" C-m
+        tmux send-keys -t tmuxs:7.1 "vim -S Session.vim" C-m
 
         # go to the vim journal window
         tmux select-window -t tmuxs:0

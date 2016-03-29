@@ -513,8 +513,11 @@ nmap <Leader>si :SyntasticInfo<CR>
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
 let g:calendar_time_zone = '-08:00'
-nmap <leader>C :tab Calendar<CR>
-
+nmap <leader>Ct :tab Calendar<CR>
+nmap <leader>Cd :Calendar -position=topleft -width=40 -view=day<CR>
+nmap <leader>Cw :Calendar -position=topleft -width=40 -view=week<CR>
+nmap <leader>Cm :Calendar -position=topleft -width=40 -view=month<CR>
+nmap <leader>Cy :Calendar -position=topleft -width=40 -view=year<CR>
 
 " ==========================================================
 " Fugitive
@@ -560,6 +563,7 @@ let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
 let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
 " ==========================================================
 " tmuxline
 " ==========================================================
@@ -609,6 +613,11 @@ nmap <leader>F :CtrlPBuffer<CR>
 " ==========================================================
 nmap <leader>A :Ack 
 
+" ==========================================================
+" Linediff shortcut to encourage me to use it!
+" ==========================================================
+" reset linediff
+nmap <leader>Lr :LinediffReset<CR>
 
 " ==========================================================
 " Unite.vim
