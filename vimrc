@@ -328,6 +328,8 @@ endif
 set encoding=utf-8
 set termencoding=utf-8
 
+
+
 " commands for changing the colors around
 function! ChangeColorScheme()
     if exists("g:colors_name")
@@ -451,19 +453,13 @@ let wiki.syntax = 'default'
 "'markdown'
 "let wiki.ext = '.wiki'
 
-" cluster-z wiki
-let wiki_clusterz = {}
-let wiki_clusterz.path = '$CLUSTERZ_DIR/vimwiki/'
-let wiki_clusterz.nested_syntaxes = vimwiki_nested_syntaxes
-let wiki_clusterz.syntax = 'default'
-
 " protected-ish
 let wiki_personal = {}
 let wiki_personal.path = '~/Documents/vimwiki/'
 let wiki_personal.nested_syntaxes = vimwiki_nested_syntaxes
 let wiki_personal.syntax = 'default'
 
-let g:vimwiki_list = [wiki, wiki_clusterz, wiki_personal]
+let g:vimwiki_list = [wiki, wiki_personal]
 
 " vimwiki keybindings
 
@@ -471,6 +467,33 @@ let g:vimwiki_list = [wiki, wiki_clusterz, wiki_personal]
 " nmap <Leader>we <Plug>VimwikiSplitLink
 " nmap <Leader>wv <Plug>VimwikiVSplitLink
 nmap <Leader>wf <Plug>VimwikiTabnewLink
+
+" this function overrides the default and lets us use vfile to open things
+" within a vim session
+function! VimwikiLinkHandler(link) "{{{ Use Vim to open links with the
+  " 'vlocal:' or 'vfile:' schemes.  E.g.:
+  "   1) [[vfile:///~/Code/PythonProject/abc123.py]], and
+  "   2) [[vlocal:./|Wiki Home]]
+  let link = a:link
+  if link =~ "vlocal:" || link =~ "vfile:"
+    let link = link[1:]
+  else
+    return 0
+  endif
+  let [idx, scheme, path, subdir, lnk, ext, url] =
+       \ vimwiki#base#resolve_scheme(link, 0)
+  if g:vimwiki_debug
+    echom 'LinkHandler: idx='.idx.', scheme=[v]'.scheme.', path='.path.
+         \ ', subdir='.subdir.', lnk='.lnk.', ext='.ext.', url='.url
+  endif
+  if url == ''
+    echom 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    call vimwiki#base#edit_file('tabnew', url, [], 0)
+    return 1
+  endif
+endfunction " }}}
 
 " ==========================================================
 " Syntastic
@@ -627,6 +650,12 @@ nmap <leader>Lr :LinediffReset<CR>
 " let g:unite_source_grep_recursive_opt = ''
 " nmap <leader>a :Unite grep:$buffers::<C-r><C-w><CR>
 
+" ==========================================================
+" Rainbow Parentheses
+" ==========================================================
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+let rainbow_colors = ['DarkRed', 'DarkBlue', 'DarkYellow', 'DarkGreen']
+let g:rainbow_conf = {'ctermfgs': rainbow_colors}
 
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
