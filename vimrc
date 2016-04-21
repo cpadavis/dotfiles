@@ -628,8 +628,8 @@ let g:promptline_preset = {
 " ==========================================================
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 " f for find
-nmap <leader>f :CtrlPMixed<CR>
-nmap <leader>F :CtrlPBuffer<CR>
+nmap <leader>F :CtrlPMixed<CR>
+nmap <leader>f :CtrlPBuffer<CR>
 
 " ==========================================================
 " Ack shortcut to encourage me to use it!
@@ -654,9 +654,29 @@ nmap <leader>Lr :LinediffReset<CR>
 " Rainbow Parentheses
 " ==========================================================
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-let rainbow_colors = ['DarkRed', 'DarkBlue', 'DarkYellow', 'DarkGreen']
-let g:rainbow_conf = {'ctermfgs': rainbow_colors}
-
+" \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+let g:rainbow_conf = {
+\   'guifgs': ['darkred', 'darkblue', 'darkyellow', 'darkgreen'],
+\   'ctermfgs': ['DarkRed', 'DarkBlue', 'DarkYellow', 'DarkGreen'],
+\   'operators': '_,_',
+\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\   'separately': {
+\       '*': {},
+\       'tex': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\       },
+\       'lisp': {
+\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\       },
+\       'vim': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\       },
+\       'html': {
+\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\       },
+\       'css': 0,
+\   }
+\}
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
 " ==========================================================
