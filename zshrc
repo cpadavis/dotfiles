@@ -557,6 +557,12 @@ fi
 # caffe
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
 
+# bpz
+export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
+export PYTHONPATH=$PYTHONPATH:${BPZPATH}
+export NUMERIX=numpy
+alias bpz='python $BPZPATH/bpz.py'
+
 # miniconda
 if [ $CPD_NAME = 'MAC' ]; then
     export PATH="/Users/cpd/miniconda2/bin:$PATH";
