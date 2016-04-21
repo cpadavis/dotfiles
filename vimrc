@@ -328,6 +328,8 @@ endif
 set encoding=utf-8
 set termencoding=utf-8
 
+
+
 " commands for changing the colors around
 function! ChangeColorScheme()
     if exists("g:colors_name")
@@ -428,10 +430,6 @@ nmap <leader>tb :Tagbar<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
-" ==========================================================
-" Ack shortcut to encourage me to use it!
-" ==========================================================
-nmap <leader>A :Ack
 
 " ==========================================================
 " Obsess shortcut to encourage me to use it!
@@ -455,19 +453,13 @@ let wiki.syntax = 'default'
 "'markdown'
 "let wiki.ext = '.wiki'
 
-" cluster-z wiki
-let wiki_clusterz = {}
-let wiki_clusterz.path = '$CLUSTERZ_DIR/vimwiki/'
-let wiki_clusterz.nested_syntaxes = vimwiki_nested_syntaxes
-let wiki_clusterz.syntax = 'default'
-
 " protected-ish
 let wiki_personal = {}
 let wiki_personal.path = '~/Documents/vimwiki/'
 let wiki_personal.nested_syntaxes = vimwiki_nested_syntaxes
 let wiki_personal.syntax = 'default'
 
-let g:vimwiki_list = [wiki, wiki_clusterz, wiki_personal]
+let g:vimwiki_list = [wiki, wiki_personal]
 
 " vimwiki keybindings
 
@@ -475,6 +467,33 @@ let g:vimwiki_list = [wiki, wiki_clusterz, wiki_personal]
 " nmap <Leader>we <Plug>VimwikiSplitLink
 " nmap <Leader>wv <Plug>VimwikiVSplitLink
 nmap <Leader>wf <Plug>VimwikiTabnewLink
+
+" this function overrides the default and lets us use vfile to open things
+" within a vim session
+function! VimwikiLinkHandler(link) "{{{ Use Vim to open links with the
+  " 'vlocal:' or 'vfile:' schemes.  E.g.:
+  "   1) [[vfile:///~/Code/PythonProject/abc123.py]], and
+  "   2) [[vlocal:./|Wiki Home]]
+  let link = a:link
+  if link =~ "vlocal:" || link =~ "vfile:"
+    let link = link[1:]
+  else
+    return 0
+  endif
+  let [idx, scheme, path, subdir, lnk, ext, url] =
+       \ vimwiki#base#resolve_scheme(link, 0)
+  if g:vimwiki_debug
+    echom 'LinkHandler: idx='.idx.', scheme=[v]'.scheme.', path='.path.
+         \ ', subdir='.subdir.', lnk='.lnk.', ext='.ext.', url='.url
+  endif
+  if url == ''
+    echom 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    call vimwiki#base#edit_file('tabnew', url, [], 0)
+    return 1
+  endif
+endfunction " }}}
 
 " ==========================================================
 " Syntastic
@@ -516,8 +535,12 @@ nmap <Leader>si :SyntasticInfo<CR>
 " ==========================================================
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
-nmap <leader>C :tab Calendar<CR>
-
+let g:calendar_time_zone = '-08:00'
+nmap <leader>Ct :tab Calendar<CR>
+nmap <leader>Cd :Calendar -position=topleft -width=40 -view=day<CR>
+nmap <leader>Cw :Calendar -position=topleft -width=40 -view=week<CR>
+nmap <leader>Cm :Calendar -position=topleft -width=40 -view=month<CR>
+nmap <leader>Cy :Calendar -position=topleft -width=40 -view=year<CR>
 
 " ==========================================================
 " Fugitive
@@ -563,6 +586,7 @@ let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
 let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
 " ==========================================================
 " tmuxline
 " ==========================================================
@@ -604,9 +628,55 @@ let g:promptline_preset = {
 " ==========================================================
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 " f for find
-nmap <leader>f :CtrlPMixed<CR>
-nmap <leader>F :CtrlPBuffer<CR>
+nmap <leader>F :CtrlPMixed<CR>
+nmap <leader>f :CtrlPBuffer<CR>
 
+" ==========================================================
+" Ack shortcut to encourage me to use it!
+" ==========================================================
+nmap <leader>A :Ack 
+
+" ==========================================================
+" Linediff shortcut to encourage me to use it!
+" ==========================================================
+" reset linediff
+nmap <leader>Lr :LinediffReset<CR>
+
+" ==========================================================
+" Unite.vim
+" ==========================================================
+" let g:unite_source_grep_command = 'ack-grep'
+" let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+" let g:unite_source_grep_recursive_opt = ''
+" nmap <leader>a :Unite grep:$buffers::<C-r><C-w><CR>
+
+" ==========================================================
+" Rainbow Parentheses
+" ==========================================================
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+" \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+let g:rainbow_conf = {
+\   'guifgs': ['darkred', 'darkblue', 'darkyellow', 'darkgreen'],
+\   'ctermfgs': ['DarkRed', 'DarkBlue', 'DarkYellow', 'DarkGreen'],
+\   'operators': '_,_',
+\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\   'separately': {
+\       '*': {},
+\       'tex': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\       },
+\       'lisp': {
+\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\       },
+\       'vim': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\       },
+\       'html': {
+\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\       },
+\       'css': 0,
+\   }
+\}
 " ==========================================================
 " Remap help to a new tab instead of horizontal split
 " ==========================================================
@@ -614,7 +684,7 @@ cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : '
 
 
 " ==========================================================
-" Compete options
+" Complete options
 " ==========================================================
 set completeopt=menu,preview,menuone,longest
 " set complete=.,w,b,u,t " -=i if things get slow
@@ -641,7 +711,6 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
 let g:jedi#completions_command = "<leader>jc"
 let g:jedi#rename_command = "<leader>jr"
-
 
 " ===========================================================
 " Handy Latex Bindings and vimtex

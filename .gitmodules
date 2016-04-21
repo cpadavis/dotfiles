@@ -126,3 +126,9 @@
 	path = vim/bundle/vim-javascript
 	url = https://github.com/pangloss/vim-javascript
 	ignore = dirty
+[submodule "vim/bundle/linediff.vim"]
+	path = vim/bundle/linediff.vim
+	url = https://github.com/AndrewRadev/linediff.vim
+[submodule "vim/bundle/rainbow"]
+	path = vim/bundle/rainbow
+	url = https://github.com/luochen1990/rainbow.git

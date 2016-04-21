@@ -70,12 +70,12 @@ bindkey . rationalise-dot
 
 # Aliases
 alias pylab='ipython --profile=nbserver'
-if [ -z "$SSH_CONNECTION" ]; then
-    if [ $CPD_NAME = 'MAC' ]; then
-        # thanks jupyter for removing profiles
-        alias notebook="ipython notebook"
-        alias iconsole='ipython console --existing'
-    elif [ $CPD_NAME = 'KILS' ]; then
+if [ $CPD_NAME = 'MAC' ]; then
+    # thanks jupyter for removing profiles
+    alias notebook="ipython notebook"
+    alias iconsole='ipython console --existing'
+elif [ -z "$SSH_CONNECTION" ]; then
+    if [ $CPD_NAME = 'KILS' ]; then
         # thanks jupyter for removing profiles
         alias notebook="ipython notebook"
         alias iconsole='ipython console --existing'
@@ -201,6 +201,7 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         if [ -z "$TMUX" ]; then
             ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
         else
+            tmux send-keys "tmux attach" C-m ;
             tmux send-keys "kinit --afslog --renewable cpd@SLAC.STANFORD.EDU" C-m ;
             tmux send-keys ${INNOC_SLAC} C-m ;
             ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
@@ -216,7 +217,7 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
         tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
         tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Projects/cluster-z/vimwiki/index.wiki" C-m
+        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/cluster-z.wiki" C-m
         tmux send-keys -t ${1:=tmuxs:0} ":set swapfile" C-m
         tmux send-keys -t ${1:=tmuxs:0} ":b1" C-m
     }
@@ -244,92 +245,54 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs:0 "vim -S Session.vim" C-m
 
         # send commands to windows
-        # tmux send-keys -t tmuxs:1 "TERM=screen-256color irssi" C-m
-        # tmux split-window -v -t tmuxs:1
+        # tmux send-keys -t tmuxs "TERM=screen-256color irssi" C-m
+        # tmux split-window -v -t tmuxs
         # tmux select-pane -t 1
-        # tmux send-keys -t tmuxs:1 "ttytter" #C-m
-        # tmux split-window -t tmuxs:1
-        tmux new-window -t tmuxs:1 -n notebook
-        tmux send-keys -t tmuxs:1 "notebook" C-m
-        tmux split-window -h -t tmuxs:1
-        tmux send-keys -t tmuxs:1 "easyaccess" #C-m
+        # tmux send-keys -t tmuxs "ttytter" #C-m
+        # tmux split-window -t tmuxs
+        tmux new-window -t tmuxs -n notebook
+        tmux send-keys -t tmuxs "notebook" C-m
+        tmux split-window -h -t tmuxs
+        tmux send-keys -t tmuxs "easyaccess" #C-m
 
         # ssh
         tmux new-window -t tmuxs:2 -n ssh
         tmux send-keys -t tmuxs:2 "tmuxi tmuxs:2" C-m
 
-        # blog
-        tmux new-window -t tmuxs:3 -n blog
-        tmux send-keys -t tmuxs:3 "cd /Users/cpd/Projects/cpadavis.github.io" C-m
-        tmux send-keys -t tmuxs:3 "cd content/derivations" C-m
-        tmux send-keys -t tmuxs:3 "vim -S Session.vim" C-m
-
-        # LearnPSF
-        tmux new-window -t tmuxs:4 -n LearnPSF
-        tmux send-keys -t tmuxs:4 "cd /Users/cpd/Projects/LearnPSF" C-m
+        # # blog
+        # tmux new-window -t tmuxs -n blog
+        # tmux send-keys -t tmuxs "cd /Users/cpd/Projects/cpadavis.github.io" C-m
+        # tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # clusterz
-        tmux new-window -t tmuxs:5 -n cluster-z
-        tmux send-keys -t tmuxs:5 "cd /Users/cpd/Projects/cluster-z/code/clusterz" C-m
-        tmux send-keys -t tmuxs:5 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:5
-        tmux send-keys -t tmuxs:5.1 "cd /Users/cpd/Projects/cluster-z/doc" C-m
-        tmux send-keys -t tmuxs:5.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs -n cluster-z
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/cluster-z/" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # wavefrontpsf
-        tmux new-window -t tmuxs:6 -n WavefrontPSF
-        tmux send-keys -t tmuxs:6 "cd /Users/cpd/Projects/WavefrontPSF/code/" C-m
-        tmux send-keys -t tmuxs:6 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:6
-        tmux send-keys -t tmuxs:6.1 "cd /Users/cpd/Projects/WavefrontPSF/docs/WavefrontPSF/" C-m
-        tmux send-keys -t tmuxs:6.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs -n WavefrontPSF
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/WavefrontPSF/" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # swap
-        tmux new-window -t tmuxs:7 -n SWAP
-        tmux send-keys -t tmuxs:7 "cd /Users/cpd/Projects/SpaceWarps/analysis" C-m
-        tmux send-keys -t tmuxs:7 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:7
-        tmux send-keys -t tmuxs:7.1 "cd /Users/cpd/Projects/SpaceWarps/doc" C-m
-        tmux send-keys -t tmuxs:7.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs -n SWAP
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/SpaceWarps/" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # weak_sauce
-        tmux new-window -t tmuxs:8 -n weak_sauce
-        tmux send-keys -t tmuxs:8 "cd /Users/cpd/Projects/weak_sauce/code/weak_sauce" C-m
-        tmux send-keys -t tmuxs:8 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:8
-        tmux send-keys -t tmuxs:8.1 "cd /Users/cpd/Projects/weak_sauce/doc" C-m
-        tmux send-keys -t tmuxs:8.1 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs -n weak_sauce
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/weak_sauce/" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
         # strongcnn
-        tmux new-window -t tmuxs:9 -n strongcnn
-        tmux send-keys -t tmuxs:9 "cd /Users/cpd/Projects/strongcnn/code/strong_theano_cnn" C-m
-        tmux send-keys -t tmuxs:9 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:9
-        tmux send-keys -t tmuxs:9.1 "cd /Users/cpd/Projects/strongcnn/doc/Paper" C-m
-        tmux send-keys -t tmuxs:9.1 "vim -S Session.vim" C-m
-
-        # osprey
-        tmux new-window -t tmuxs:10 -n osprey
-        tmux send-keys -t tmuxs:10 "cd /Users/cpd/Projects/osprey/osprey" C-m
-        tmux send-keys -t tmuxs:10 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:10
-        tmux send-keys -t tmuxs:10.1 "cd /Users/cpd/Projects/osprey" C-m
-
-        # nerd-a-music
-        tmux new-window -t tmuxs:11 -n nerd-a-music
-        tmux send-keys -t tmuxs:11 "cd /Users/cpd/Projects/nerd-a-music" C-m
+        tmux new-window -t tmuxs -n strongcnn
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/strongcnn/" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # marmpy
-        tmux new-window -t tmuxs:12 -n marmpy
-        tmux send-keys -t tmuxs:12 "cd /Users/cpd/Projects/marmpy/pysrc" C-m
-        tmux send-keys -t tmuxs:12 "vim -S Session.vim" C-m
-        tmux split-window -h -t tmuxs:12
-        tmux send-keys -t tmuxs:12.1 "cd /Users/cpd/Projects/marmpy/doc" C-m
-        tmux send-keys -t tmuxs:12.1 "vim -S Session.vim" C-m
-
-        # thesis proposal and oral slides
-        tmux new-window -t tmuxs:13 -n thesis
-        tmux send-keys -t tmuxs:13 "cd /Users/cpd/dropbox/derp-ninja/Articles/cpd2016JanThesisProposal" C-m
-        tmux send-keys -t tmuxs:13 "vim -S Session.vim" C-m
+        tmux new-window -t tmuxs -n marmpy
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/marmpy/pysrc" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # go to the vim journal window
         tmux select-window -t tmuxs:0
@@ -388,25 +351,6 @@ fi
 
 alias thisroot=". bin/thisroot.sh"
 
-alias gitypo='checksave; git commit -am "typoes and minor bugs"; git push origin master'
-function check() {
-#    SERVERNAME= ;
-#    grep -n "TODO" **/* | mvim -p --servername ${SERVERNAME} - ;
-#    git diff HEAD | mvim -p --servername ${SERVERNAME} - ;
-#    pylintE | mvim -p --servername ${SERVERNAME} - ;
-#    lacheckE | mvim -p --servername ${SERVERNAME} - ;
-    grep -n "TODO" **/* | mvim -p --servername GREP - ;
-    git diff HEAD | mvim -p --servername GITDIFF - ;
-    lacheckE | mvim -p --servername LACHECK - ;
-    pylintE | mvim -p --servername PYLINT - ;
-}
-function checksave() {
-    grep -n "TODO" **/* > TODO.log ;
-    git diff HEAD > GITDIFF.log ;
-    lacheckE > LATEXERR.log ;
-    pylintE > PYERR.log ;
-}
-
 function slacvim(){ mvim scp://cpd@ki-ls${2}.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/${1} ;}
 
 function qtconsole() { ipython qtconsole ${1} ;}
@@ -430,34 +374,8 @@ function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 
 function upslac() { scp -r ${1} cpd@ki-ls${3}.slac.stanford.edu:${2} ;}
 function downslac() { scp -r cpd@ki-ls${3}.slac.stanford.edu:${1} ${2} ;}
+function downsherlock() { scp -r cpd@sherlock.stanford.edu:${1} ${2} ;}
 function upnersc() { scp -r ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
-
-function lacheckE() {
-    ARRAY=(**/*.tex) ;
-    for i in ${ARRAY[*]};
-    do
-        echo $i ;
-        lacheck $i ;
-    done
-}
-
-function pylintE() {
-    ARRAY=(**/*.py) ;
-    for i in ${ARRAY[*]};
-    do
-        echo $i ;
-        pylint -E $i ;
-    done
-}
-
-function pylintA() {
-    ARRAY=(**/*.py) ;
-    for i in ${ARRAY[*]};
-    do
-        echo $i ;
-        pylint $i ;
-    done
-}
 
 # every time a directory changes; zsh checks if chpwd is defined and runs it
 function chpwd(){ ls; }
@@ -544,7 +462,7 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
 # osprey
 if [[ $CPD_NAME == 'MAC' ]]; then
-    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.11-intel-2.7;
+    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.5-x86_64-2.7;
 elif [[ $CPD_NAME == 'KILS' ]]; then
     export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.linux-x86_64-2.7;
 fi
@@ -556,6 +474,12 @@ fi
 
 # caffe
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
+export PATH=$PATH:${PROJECTS_DIR}/caffe/build/tools
+
+# tensorflow
+
+# preliminize
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/preliminize
 
 # bpz
 export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
