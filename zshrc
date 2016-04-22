@@ -301,7 +301,6 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     }
 elif [[ $CPD_NAME == 'KILS' ]]; then
 
-    export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
 
     function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
 
