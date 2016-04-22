@@ -302,7 +302,6 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     }
 elif [[ $CPD_NAME == 'KILS' ]]; then
 
-    export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
 
     function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
 
@@ -446,46 +445,6 @@ function tmx() {
 
 # using the PROJECTS_DIR from above, define some variables
 export IPYTHON_NOTEBOOK_DIR=$PROJECTS_DIR
-# WavefrontPSF
-export PYTHONPATH=${PROJECTS_DIR}/WavefrontPSF/code:$PYTHONPATH
-# SpaceWarps
-export PATH=$PATH:${PROJECTS_DIR}/SpaceWarps/analysis
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
-# cluster-z
-export CLUSTERZ_DIR=${PROJECTS_DIR}/cluster-z
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
-# strongcnn
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
-# weak_sauce
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
-# learnpsf
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
-# osprey
-if [[ $CPD_NAME == 'MAC' ]]; then
-    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.macosx-10.5-x86_64-2.7;
-elif [[ $CPD_NAME == 'KILS' ]]; then
-    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/osprey/build/lib.linux-x86_64-2.7;
-fi
-
-# cosmosis
-if [[ $CPD_NAME == 'KILS' ]]; then
-    export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/;
-fi
-
-# caffe
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
-export PATH=$PATH:${PROJECTS_DIR}/caffe/build/tools
-
-# tensorflow
-
-# preliminize
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/preliminize
-
-# bpz
-export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
-export PYTHONPATH=$PYTHONPATH:${BPZPATH}
-export NUMERIX=numpy
-alias bpz='python $BPZPATH/bpz.py'
 
 # miniconda
 if [ $CPD_NAME = 'MAC' ]; then
