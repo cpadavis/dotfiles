@@ -54,7 +54,7 @@ fi
 # PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
 
 # and now we will ignore that and source promptline
-source ~/.dotfiles/promptline.sh
+source ~/.dotfiles/promptline/promptline.sh
 
 # method for quick change directories. Add this to your ~/.zshrc, then just
 # enter “cd …./dir”
@@ -144,8 +144,8 @@ function tmuxline()
     # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
     # note: still have to change the vim settings from within vim via
     # <leader>cS and <leader>cs
-    tmux source ~/.dotfiles/tmuxline_${1:=LuciusLight}.conf
-    tmux send-keys "source ~/.dotfiles/promptline_${1:=LuciusLight}.sh" C-m
+    tmux source ~/.dotfiles/tmuxline/tmuxline_${1:=LuciusLight}.conf
+    tmux send-keys "source ~/.dotfiles/promptline/promptline_${1:=LuciusLight}.sh" C-m
 }
 function promptline()
 {
@@ -153,7 +153,7 @@ function promptline()
     # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
     # note: still have to change the vim settings from within vim via
     # <leader>cS and <leader>cs
-    source ~/.dotfiles/promptline_${1:=LuciusLight}.sh
+    source ~/.dotfiles/promptline/promptline_${1:=LuciusLight}.sh
 }
 
 # URL encode something and print it.

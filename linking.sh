@@ -22,5 +22,5 @@ ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 # directory colors
 ln -s ~/.dotfiles/dircolors-solarized/dircolors.ansi-universal ~/.dircolors
 # promptline and tmuxline defaults
-ln -s ~/.dotfiles/promptline_SolarizedLightVIM_inspirational.sh ~/.dotfiles/promptline.sh
-ln -s ~/.dotfiles/tmuxline_SolarizedLightVIM.conf ~/.dotfiles/tmuxline.conf
+ln -s ~/.dotfiles/promptline/promptline_SolarizedLightVIM_inspirational.sh ~/.dotfiles/promptline/promptline.sh
+ln -s ~/.dotfiles/tmuxline/tmuxline_SolarizedLightVIM.conf ~/.dotfiles/tmuxline/tmuxline.conf

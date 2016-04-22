@@ -590,7 +590,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " ==========================================================
 " tmuxline
 " ==========================================================
-" :TmuxlineSnapshot ~/.dotfiles/tmuxline.conf
+" :TmuxlineSnapshot ~/.dotfiles/tmuxline/tmuxline.conf
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_theme = 'airline'
 let g:tmuxline_preset = 'powerline'
@@ -599,7 +599,7 @@ let g:airline#extensions#tmuxline#enabled = 0
 " ==========================================================
 " promptline
 " ==========================================================
-" :PromptlineSnapshot ~/.dotfiles/promptline.sh
+" :PromptlineSnapshot ~/.dotfiles/promptline/promptline.sh
 let g:promptline_theme = 'airline'
 let g:promptline_powerline_symbols = 0
 " sections (a, b, c, x, y, z, warn) are optional
@@ -619,8 +619,8 @@ let g:promptline_preset = {
 "         \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
 "         \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
 "         \'warn' : [ promptline#slices#last_exit_code() ]}
-" !rm ~/.dotfiles/promptline.sh
-" PromptlineSnapshot ~/.dotfiles/promptline.sh
+" !rm ~/.dotfiles/promptline/promptline.sh
+" PromptlineSnapshot ~/.dotfiles/promptline/promptline.sh
 
 " ==========================================================
 " CtrlP
