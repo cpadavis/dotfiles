@@ -255,13 +255,13 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs "easyaccess" C-m
 
         # ssh
-        tmux new-window -t tmuxs:2 -n ssh
-        tmux send-keys -t tmuxs:2 "tmuxi tmuxs:2" C-m
+        tmux new-window -t tmuxs -n ssh
+        tmux send-keys -t tmuxs "tmuxi tmuxs:2" C-m
 
-        # # blog
-        # tmux new-window -t tmuxs -n blog
-        # tmux send-keys -t tmuxs "cd /Users/cpd/Projects/cpadavis.github.io" C-m
-        # tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+        # blog
+        tmux new-window -t tmuxs -n blog
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/cpadavis.github.io" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # clusterz
         tmux new-window -t tmuxs -n cluster-z
@@ -283,14 +283,24 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         tmux send-keys -t tmuxs "cd /Users/cpd/Projects/weak_sauce/" C-m
         tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
-        # strongcnn
-        tmux new-window -t tmuxs -n strongcnn
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/strongcnn/" C-m
+        # billy
+        tmux new-window -t tmuxs -n billy
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/billy/" C-m
         tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # marmpy
         tmux new-window -t tmuxs -n marmpy
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/marmpy/pysrc" C-m
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/marmpy/" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+        # UCDavis slides
+        tmux new-window -t tmuxs -n UCDavis
+        tmux send-keys -t tmuxs "cd /Users/cpd/Dropbox/derp-ninja/Articles/cpd2016MayUCDavis/" C-m
+        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+        # piff
+        tmux new-window -t tmuxs -n Piff
+        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/DES/Piff/" C-m
         tmux send-keys -t tmuxs "vim -S Session.vim" C-m
 
         # go to the vim journal window
@@ -370,10 +380,16 @@ function slacbook() {
 function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 
 
-function upslac() { scp -r ${1} cpd@ki-ls${3}.slac.stanford.edu:${2} ;}
-function downslac() { scp -r cpd@ki-ls${3}.slac.stanford.edu:${1} ${2} ;}
-function downsherlock() { scp -r cpd@sherlock.stanford.edu:${1} ${2} ;}
-function upnersc() { scp -r ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
+
+# function upslac() { scp -r ${1} cpd@ki-ls${3}.slac.stanford.edu:${2} ;}
+# function downslac() { scp -r cpd@ki-ls${3}.slac.stanford.edu:${1} ${2} ;}
+# function downsherlock() { scp -r cpd@sherlock.stanford.edu:${1} ${2} ;}
+# function upnersc() { scp -r ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
+# universally better:
+function downslac() { rsync -rav ${@:3} cpd@ki-ls.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${1} ${2} ;}
+function upslac() { rsync -rav ${@:3} ${1} cpd@ki-ls.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${2} ;}
+function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:/home/cpd/${1} ${2} ;}
+function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
 
 # every time a directory changes; zsh checks if chpwd is defined and runs it
 function chpwd(){ ls; }

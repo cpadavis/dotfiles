@@ -38,6 +38,7 @@
 " nerdtree
 " netrw.vim
 " promptline.vim
+" rainbow
 " syntastic
 " tasklist
 " tlib
@@ -663,7 +664,7 @@ let g:rainbow_conf = {
 \   'separately': {
 \       '*': {},
 \       'tex': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/'],
 \       },
 \       'lisp': {
 \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
@@ -675,6 +676,7 @@ let g:rainbow_conf = {
 \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
 \       },
 \       'css': 0,
+\       'vimwiki': 0,
 \   }
 \}
 " ==========================================================
@@ -733,6 +735,8 @@ function! CompileLatex()
 
     " :silent ! rm %:r.log
 endfunction
+
+" let g:tex_fast = "M"
 
 nnoremap <silent> <leader>lL :call CompileLatex()<CR>
 nnoremap <silent> <leader>lO :! open %:r.pdf<CR><CR>
