@@ -325,15 +325,27 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     function tmuxs
     {
         tmux start-server
-        tmux new-session -d -s tmuxs -n notebook
-        tmux new-window -t tmuxs:2 -n workadirk
+        tmux new-session -d -s tmuxs -n vimwiki
+        # open up vim windows
+        tmux send-keys -t tmuxs:0 "cd ~/Dropbox/vimwiki/" C-m
+        tmux send-keys -t tmuxs:0 "vim -S Session.vim" C-m
 
-        tmux send-keys -t tmuxs:1 "notebook" C-m
-        tmux split-window -v -t tmuxs:1
-        tmux select-pane -t 1
-        tmux send-keys -t tmuxs:1 "cd $SWAP/mongo/; mongod --dbpath ." C-m
+        # send commands to windows
+        # tmux send-keys -t tmuxs "TERM=screen-256color irssi" C-m
+        # tmux split-window -v -t tmuxs
+        # tmux select-pane -t 1
+        # tmux send-keys -t tmuxs "ttytter" #C-m
+        # tmux split-window -t tmuxs
+        tmux new-window -t tmuxs -n notebook
+        tmux send-keys -t tmuxs "notebook"
+        tmux split-window -h -t tmuxs
+        tmux send-keys -t tmuxs "easyaccess"
 
-        tmux select-window -t tmuxs:2
+        tmux split-window -v -t tmuxs
+        tmux select-pane -t 2
+        tmux send-keys -t tmuxs "cd $SWAP/mongo/; mongod --dbpath ."
+
+        tmux select-window -t tmuxs:0
         tmux attach-session -t tmuxs
     }
     function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
