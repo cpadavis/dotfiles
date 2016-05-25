@@ -169,7 +169,170 @@ function wiki; { elinks "http://www.wikipedia.org/search?q=`url-encode "${(j: :)
 
 export PROJECTS_DIR=~/Projects
 
-function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
+
+function tmuxv
+{
+    tmux send-keys -t ${1:=tmuxs:0} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/cluster-z.wiki" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":set swapfile" C-m
+    tmux send-keys -t ${1:=tmuxs:0} ":b1" C-m
+}
+function tmuxi
+{
+    tmux send-keys -t ${1:=tmuxs} "kinit cpd@SLAC.STANFORD.EDU" C-m
+    tmux send-keys -t ${1:=tmuxs} ${INNOC_SLAC} C-m
+    tmux send-keys -t ${1:=tmuxs} "kinit cpd@stanford.edu" C-m
+    tmux send-keys -t ${1:=tmuxs} ${INNOC_SHERLOCK} C-m
+    # tmux send-keys -t ${1:=tmuxs} "kinit cpd@hopper.nersc.gov" C-m
+    # tmux send-keys -t ${1:=tmuxs} ${INNOC_NERSC} C-m
+}
+
+function tmuxss
+{
+    tmux new-session -s tmuxs
+}
+function tmuxs
+{
+    tmux start-server
+    tmux new-session -d -s tmuxs -n vim
+
+    # open up vim windows
+    tmux send-keys -t tmuxs:0 "cd /Users/cpd/Dropbox/vimwiki/" C-m
+    tmux send-keys -t tmuxs:0 "vim -S Session.vim" C-m
+
+    # send commands to windows
+    # tmux send-keys -t tmuxs "TERM=screen-256color irssi" C-m
+    # tmux split-window -v -t tmuxs
+    # tmux select-pane -t 1
+    # tmux send-keys -t tmuxs "ttytter" #C-m
+    # tmux split-window -t tmuxs
+    tmux new-window -t tmuxs -n notebook
+    tmux send-keys -t tmuxs "notebook" C-m
+    tmux split-window -h -t tmuxs
+    tmux send-keys -t tmuxs "easyaccess" C-m
+
+    # ssh
+    tmux new-window -t tmuxs -n ssh
+    tmux send-keys -t tmuxs "tmuxi tmuxs:2" C-m
+
+    # blog
+    tmux new-window -t tmuxs -n blog
+    tmux send-keys -t tmuxs "cd /Projects/cpadavis.github.io" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # clusterz
+    tmux new-window -t tmuxs -n cluster-z
+    tmux send-keys -t tmuxs "cd ~/Projects/cluster-z/" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # wavefrontpsf
+    tmux new-window -t tmuxs -n WavefrontPSF
+    tmux send-keys -t tmuxs "cd ~/Projects/WavefrontPSF/" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # swap
+    tmux new-window -t tmuxs -n SWAP
+    tmux send-keys -t tmuxs "cd ~/Projects/SpaceWarps/" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # weak_sauce
+    tmux new-window -t tmuxs -n weak_sauce
+    tmux send-keys -t tmuxs "cd ~/Projects/weak_sauce/" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # billy
+    tmux new-window -t tmuxs -n billy
+    tmux send-keys -t tmuxs "cd ~/Projects/billy/" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # marmpy
+    tmux new-window -t tmuxs -n marmpy
+    tmux send-keys -t tmuxs "cd ~/Projects/marmpy/" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # piff
+    tmux new-window -t tmuxs -n Piff
+    tmux send-keys -t tmuxs "cd ~/Projects/DES/Piff/" C-m
+    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
+
+    # go to the vim journal window
+    tmux select-window -t tmuxs:0
+    tmux attach-session -t tmuxs
+    # When we detach from it, kill the session
+    tmux kill-session -t tmuxs
+}
+
+
+# some key difs between my mac and kils
+if [[ $CPD_NAME == 'MAC' ]]; then
+    PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
+    PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
+
+    # alias mypython='/Library/Frameworks/EPD64.framework/Versions/Current/bin/python'
+    # alias pipi='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install'
+    # alias pipu='sudo -E /Library/Frameworks/EPD64.framework/Versions/Current/bin/pip install --upgrade'
+    alias pipi='pip install'
+    alias pipu='pip install --upgrade'
+    function desdb() { scriptname=$1; shift; python /usr/local/bin/${scriptname} "$@"; }
+    # DESDB Functions (* indicates prepend desdb command):
+    # des-fits2table*
+    # des-query*
+    # des-red-expnames*
+    # des-sync-coadd
+    # des-sync-red
+    # get-coadd-info-by-release*
+    # get-coadd-info-by-run*
+    # get-coadd-srclist*
+    # get-coadd-srcruns-by-release*
+    # get-coadd-srcruns-by-run*
+    # get-red-info-by-release*
+    # get-release-filelist*
+    # get-release-runs*
+    export CPD=/Users/cpd/
+
+    function slac(){
+        if [ -z "$TMUX" ]; then
+            ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
+        else
+            tmux send-keys "tmux attach" C-m ;
+            tmux send-keys "kinit --afslog --renewable cpd@SLAC.STANFORD.EDU" C-m ;
+            tmux send-keys ${INNOC_SLAC} C-m ;
+            ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
+        fi
+    }
+
+elif [[ $CPD_NAME == 'KILS' ]]; then
+
+
+    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
+
+    alias bjob="bjobs -w | less"
+    alias bjobl="bjobs -l | less"
+    # alias bjobr='bjobs | awk '\''{if($3 != "PEND") print ;}'\'' | less'
+    alias bjobr="bjobs -wr | less"
+    alias bjobrl="bjobs -rl | less"
+    alias bjoblr=bjobrl
+    alias pipi="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user"
+    alias pipu="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user --upgrade"
+    function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
+    alias gopen='gnome-open'
+    alias pdf='evince'
+    function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }
+
+else
+
+    export PROJECTS_DIR=~/Projects
+
+    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
+    alias pipi="pip install --user"
+    alias pipu="pip install --user --upgrade"
+fi
 
 alias thisroot=". bin/thisroot.sh"
 

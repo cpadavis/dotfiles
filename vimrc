@@ -315,9 +315,8 @@ if has("gui_running")
     endif
 else
     " set t_Co=256
-    " set term=xterm-256color
     " set term=screen-256color
-    " se t_co=256
+    set term=xterm-256color
     " let g:solarized_termcolors=256
     colorscheme solarized "default
     set background=light
@@ -738,13 +737,14 @@ endfunction
 
 " let g:tex_fast = "M"
 
+nnoremap <silent> <leader>lS :VimtexCompileSS!<CR>
 nnoremap <silent> <leader>lL :call CompileLatex()<CR>
 nnoremap <silent> <leader>lO :! open %:r.pdf<CR><CR>
 nnoremap <silent> <leader>lF :silent make! %<CR>
 nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 
 let g:vimtex_enabled = 1
-let g:tex_flavor = 'latex'
+let g:tex_flavor = 'latex'  " change to pdflatex?
 let g:vimtex_quickfix_open_on_warning = 0
 
 " ===========================================================
