@@ -363,8 +363,8 @@ function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 # function downsherlock() { scp -r cpd@sherlock.stanford.edu:${1} ${2} ;}
 # function upnersc() { scp -r ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
 # universally better:
-function downslac() { rsync -rav ${@:3} cpd@ki-ls.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${1} ${2} ;}
-function upslac() { rsync -rav ${@:3} ${1} cpd@ki-ls.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${2} ;}
+function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${1} ${2} ;}
+function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${2} ;}
 function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:/home/cpd/${1} ${2} ;}
 function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
 
