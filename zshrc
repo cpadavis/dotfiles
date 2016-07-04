@@ -44,6 +44,9 @@ d=~/.dircolors
 if [[ $CPD_NAME == 'MAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
+elif [[ $CPD_NAME == 'KILS' ]]; then
+    eval "$(dircolors $d)";
+    alias ls='ls -hFaG --color'
 else
     alias ls='ls -hFaG'
 fi
@@ -83,13 +86,7 @@ elif [ -z "$SSH_CONNECTION" ]; then
     fi
 else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
-    if [ $CPD_NAME = 'KILS' ]; then
-        alias notebook="ipython notebook --ip=${IPYNOTEBOOKIP} --port=8008"
-        alias iconsole='ipython console --existing'
-    else
-        alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
-        alias iconsole='ipython console --profile=nbserver --existing'
-    fi
+    alias notebook="jupyter notebook --ip=${IPYNOTEBOOKIP} --port=8008"
 fi
 
 # http://kipac.stanford.edu/collab/computing/docs/afs

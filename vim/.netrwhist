@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-package
 let g:netrw_dirhist_6='/nfs/slac/g/ki/ki18/des/cpd/photoz_buzzard_v1.1/DES_SV_20130322'
 let g:netrw_dirhist_7='/nfs/slac/g/ki/ki18/cpd/Projects/cluster-z/doc/paper'
 let g:netrw_dirhist_8='/Users/cpd/Projects/DES/Piff/tests/wavefront_test'
+let g:netrw_dirhist_9='/nfs/slac/g/ki/ki18/cpd/Projects/cluster-z/code/clustershift/production/des_buzzard_y1a1'

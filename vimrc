@@ -318,7 +318,8 @@ else
     set term=screen-256color
     " set term=xterm-256color
     " let g:solarized_termcolors=256
-    colorscheme solarized "default
+    " colorscheme solarized "default
+    colorscheme lucius "default
     set background=light
     "set nocursorline
     set colorcolumn=80
@@ -334,9 +335,13 @@ set termencoding=utf-8
 function! ChangeColorScheme()
     if exists("g:colors_name")
         if g:colors_name == 'lucius'
-            if g:lucius_style == 'dark'
-                LuciusLight
-            elseif g:lucius_style == 'light'
+            if exists("g:lucius_style")
+                if g:lucius_style == 'dark'
+                    LuciusLight
+                elseif g:lucius_style == 'light'
+                    LuciusDark
+                endif
+            else
                 LuciusDark
             endif
         elseif g:colors_name == 'solarized'
