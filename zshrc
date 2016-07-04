@@ -97,7 +97,8 @@ function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/p
 
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
-    alias vim='mvim -v --servername VIM'
+    # if we have mvim then we also want to set the colorscheme to solarized
+    alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
 else
 fi
 alias vims='vim -S Session.vim'
