@@ -112,7 +112,7 @@ nmap <leader>Rs :set lines=60 columns=85<CR>
 
 " Toggle the tasklist
 " and add other notes
-let g:tlTokenList = ["NOTE", "FIXME", "TODO", "XXX", "WARNING", "ERROR"]
+let g:tlTokenList = ["NOTE", "FIXME", "TODO", "XXX", "WARNING", "ERROR", "red{"]
 map <leader>td <Plug>TaskList
 
 " Make h and l go to beginning and end of line
