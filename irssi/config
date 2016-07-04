@@ -45,6 +45,16 @@ servers = (
     autoconnect = "yes";
   },
   {
+    address = "nerdgranja.com";
+    chatnet = "znc_nerdgranja";
+    port = "6670";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+    nick = "cristof";
+    autosendcmd = "/msg nickserv identify ibYK10O ;wait 2000";
+  },
+  {
     address = "irc.synirc.net";
     chatnet = "synirc";
     port = "6667";
@@ -123,13 +133,15 @@ chatnets = {
     max_whois = "30";
   };
   SILC = { type = "SILC"; };
-  nerdfarm = { type = "IRC"; nick = "Christopher"; };
-  nerdgranja = { type = "IRC"; nick = "Christopher"; };
+  nerdfarm = { type = "IRC"; nick = "CRISTOFER"; };
+  nerdgranja = { type = "IRC"; nick = "CRISTOFER"; };
+  znc_nerdgranja = { type = "IRC"; };
   synirc = { type = "IRC"; nick = "getao"; };
 };
 
 channels = (
-  { name = "#nerdfarm"; chatnet = "nerdgranja"; autojoin = "Yes"; },
+  { name = "#nerdfarm"; chatnet = "nerdgranja"; autojoin = "No"; },
+  { name = "#nerdfarm"; chatnet = "znc_nerdgranja"; autojoin = "Yes"; },
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
   { name = "silc"; chatnet = "silc"; autojoin = "No"; },
   { name = "#nerdfarm"; chatnet = "nerdfarm"; autojoin = "No"; },
@@ -329,6 +341,16 @@ windows = {
         chat_type = "IRC";
         name = "#nerdfarm";
         tag = "nerdgranja";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#nerdfarm";
+        tag = "znc_nerdgranja";
       }
     );
   };

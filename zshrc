@@ -54,7 +54,6 @@ fi
 
 # and now we will ignore that and source promptline
 source ~/.dotfiles/promptline/promptline.sh
-
 # method for quick change directories. Add this to your ~/.zshrc, then just
 # enter “cd …./dir”
 rationalise-dot() {
@@ -71,7 +70,7 @@ bindkey . rationalise-dot
 alias pylab='ipython --profile=nbserver'
 if [[ $CPD_NAME == 'MAC' ]]; then
     # thanks jupyter for removing profiles
-    alias notebook="ipython notebook"
+    alias notebook="jupyter notebook"
     alias iconsole='ipython console --existing'
 elif [ -z "$SSH_CONNECTION" ]; then
     if [[ $CPD_NAME == 'KILS' ]]; then
@@ -97,9 +96,6 @@ fi
 alias kint='/usr/local/bin/kinit --afslog --renewable'
 alias kren='/usr/local/bin/kinit --afslog --renew'
 
-# kick off other terminals
-alias detach='tmux detach -a'
-
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 
 # check if we have mvim else just stick to vim
@@ -119,14 +115,10 @@ function CompileLatex()
     xelatex -file-line-error -interaction=nonstopmode ${1}.tex
 }
 
-# tmux sharing
-
-#alias tmuxs="tmux new-session -s tmuxs"
-
-alias tmuxa="tmux -u attach-session -t tmuxs:1"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
+alias edison='ssh -Y cpd@edison.nersc.gov'  # NB: hopper is now shut down
 # function slac(){ ssh -Y cpd@ki-ls${1:=08}.slac.stanford.edu ;}
 # function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
 # function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
@@ -169,105 +161,7 @@ function wiki; { elinks "http://www.wikipedia.org/search?q=`url-encode "${(j: :)
 
 export PROJECTS_DIR=~/Projects
 
-
-function tmuxv
-{
-    tmux send-keys -t ${1:=tmuxs:0} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/cluster-z.wiki" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":set swapfile" C-m
-    tmux send-keys -t ${1:=tmuxs:0} ":b1" C-m
-}
-function tmuxi
-{
-    tmux send-keys -t ${1:=tmuxs} "kinit cpd@SLAC.STANFORD.EDU" C-m
-    tmux send-keys -t ${1:=tmuxs} ${INNOC_SLAC} C-m
-    tmux send-keys -t ${1:=tmuxs} "kinit cpd@stanford.edu" C-m
-    tmux send-keys -t ${1:=tmuxs} ${INNOC_SHERLOCK} C-m
-    # tmux send-keys -t ${1:=tmuxs} "kinit cpd@hopper.nersc.gov" C-m
-    # tmux send-keys -t ${1:=tmuxs} ${INNOC_NERSC} C-m
-}
-
-function tmuxss
-{
-    tmux new-session -s tmuxs
-}
-function tmuxs
-{
-    tmux start-server
-    tmux new-session -d -s tmuxs -n vim
-
-    # open up vim windows
-    tmux send-keys -t tmuxs:0 "cd /Users/cpd/Dropbox/vimwiki/" C-m
-    tmux send-keys -t tmuxs:0 "vim -S Session.vim" C-m
-
-    # send commands to windows
-    # tmux send-keys -t tmuxs "TERM=screen-256color irssi" C-m
-    # tmux split-window -v -t tmuxs
-    # tmux select-pane -t 1
-    # tmux send-keys -t tmuxs "ttytter" #C-m
-    # tmux split-window -t tmuxs
-    tmux new-window -t tmuxs -n notebook
-    tmux send-keys -t tmuxs "notebook" C-m
-    tmux split-window -h -t tmuxs
-    tmux send-keys -t tmuxs "easyaccess" C-m
-
-    # ssh
-    tmux new-window -t tmuxs -n ssh
-    tmux send-keys -t tmuxs "tmuxi tmuxs:2" C-m
-
-    # blog
-    tmux new-window -t tmuxs -n blog
-    tmux send-keys -t tmuxs "cd /Projects/cpadavis.github.io" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # clusterz
-    tmux new-window -t tmuxs -n cluster-z
-    tmux send-keys -t tmuxs "cd ~/Projects/cluster-z/" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # wavefrontpsf
-    tmux new-window -t tmuxs -n WavefrontPSF
-    tmux send-keys -t tmuxs "cd ~/Projects/WavefrontPSF/" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # swap
-    tmux new-window -t tmuxs -n SWAP
-    tmux send-keys -t tmuxs "cd ~/Projects/SpaceWarps/" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # weak_sauce
-    tmux new-window -t tmuxs -n weak_sauce
-    tmux send-keys -t tmuxs "cd ~/Projects/weak_sauce/" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # billy
-    tmux new-window -t tmuxs -n billy
-    tmux send-keys -t tmuxs "cd ~/Projects/billy/" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # marmpy
-    tmux new-window -t tmuxs -n marmpy
-    tmux send-keys -t tmuxs "cd ~/Projects/marmpy/" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # piff
-    tmux new-window -t tmuxs -n Piff
-    tmux send-keys -t tmuxs "cd ~/Projects/DES/Piff/" C-m
-    tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-    # go to the vim journal window
-    tmux select-window -t tmuxs:0
-    tmux attach-session -t tmuxs
-    # When we detach from it, kill the session
-    tmux kill-session -t tmuxs
-}
-
+alias irssi='TERM=screen-256color irssi'
 
 # some key difs between my mac and kils
 if [[ $CPD_NAME == 'MAC' ]]; then
@@ -373,6 +267,16 @@ function chpwd(){ ls; }
 
 # markdown macro
 
+function tmuxss
+{
+    tmux new-session -s tmuxs
+}
+# tmux sharing
+alias tmuxa="tmux -u attach-session -t tmuxs:1"
+
+# kick off other terminals
+alias detach='tmux detach -a'
+
 function tmuxk() {
     # Kill defunct sessions first
     old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
@@ -440,3 +344,5 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     # activate cpd environment
     source activate cpd;
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
