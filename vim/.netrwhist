@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/Users/cpd/.tmux'
 let g:netrw_dirhist_2='/nfs/slac/g/ki/ki18/des/cpd/cluster-z/run35__y1a1cctf'
 let g:netrw_dirhist_3='/nfs/slac/g/ki/ki18/des/cpd/jamierod_results'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/Users/cpd/.irssi'
 let g:netrw_dirhist_5='/Users/cpd/miniconda2/envs/cpd/lib/python2.7/site-packages/TreeCorr-3.2.3-py2.7-macosx-10.5-x86_64.egg/treecorr'
 let g:netrw_dirhist_6='/nfs/slac/g/ki/ki18/des/cpd/photoz_buzzard_v1.1/DES_SV_20130322'
 let g:netrw_dirhist_7='/nfs/slac/g/ki/ki18/cpd/Projects/cluster-z/doc/paper'
+let g:netrw_dirhist_8='/nfs/slac/g/ki/ki18/cpd/Projects/cluster-z/code/clustershift/production/des_buzzard_y1a1'

@@ -44,6 +44,9 @@ d=~/.dircolors
 if [[ $CPD_NAME == 'MAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
+elif [[ $CPD_NAME == 'KILS' ]]; then
+    eval "$(dircolors $d)";
+    alias ls='ls -hFaG --color'
 else
     alias ls='ls -hFaG'
 fi
@@ -69,28 +72,11 @@ bindkey . rationalise-dot
 
 # Aliases
 alias pylab='ipython --profile=nbserver'
-if [[ $CPD_NAME == 'MAC' ]]; then
-    # thanks jupyter for removing profiles
-    alias notebook="ipython notebook"
-    alias iconsole='ipython console --existing'
-elif [ -z "$SSH_CONNECTION" ]; then
-    if [[ $CPD_NAME == 'KILS' ]]; then
-        # thanks jupyter for removing profiles
-        alias notebook="ipython notebook"
-        alias iconsole='ipython console --existing'
-    else
-        alias notebook="ipython notebook --profile=nbserver"
-        alias iconsole='ipython console --profile=nbserver --existing'
-    fi
-else
+alias notebook="jupyter notebook"
+alias iconsole='ipython console --existing'
+if [ "$SSH_CONNECTION" ]; then
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
-    if [ $CPD_NAME = 'KILS' ]; then
-        alias notebook="ipython notebook --ip=${IPYNOTEBOOKIP} --port=8008"
-        alias iconsole='ipython console --existing'
-    else
-        alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
-        alias iconsole='ipython console --profile=nbserver --existing'
-    fi
+    alias notebook="jupyter notebook --ip=${IPYNOTEBOOKIP} --port=8008"
 fi
 
 # http://kipac.stanford.edu/collab/computing/docs/afs
@@ -440,3 +426,5 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     # activate cpd environment
     source activate cpd;
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

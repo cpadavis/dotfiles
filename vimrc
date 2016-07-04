@@ -315,10 +315,11 @@ if has("gui_running")
     endif
 else
     " set t_Co=256
-    " set term=screen-256color
-    set term=xterm-256color
+    set term=screen-256color
+    " set term=xterm-256color
     " let g:solarized_termcolors=256
-    colorscheme solarized "default
+    " colorscheme solarized "default
+    colorscheme lucius "default
     set background=light
     "set nocursorline
     set colorcolumn=80
