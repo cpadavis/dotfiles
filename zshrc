@@ -47,9 +47,11 @@ if [[ $CPD_NAME == 'MAC' ]]; then
 elif [[ $CPD_NAME == 'OLDMAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
+elif [[ $CPD_NAME == 'KILS' ]]; then
+    eval "$(dircolors $d)";
+    alias ls='ls -hFaG --color'
 else
-    eval "$(dircolors -b $d)";
-    alias ls='ls -hFa --color'
+    alias ls='ls -hFaG'
 fi
 
 # change prompt colors
@@ -58,7 +60,6 @@ fi
 
 # and now we will ignore that and source promptline
 source ~/.dotfiles/promptline/promptline.sh
-
 # method for quick change directories. Add this to your ~/.zshrc, then just
 # enter “cd …./dir”
 rationalise-dot() {
@@ -75,7 +76,7 @@ bindkey . rationalise-dot
 alias pylab='ipython --profile=nbserver'
 if [[ $CPD_NAME == 'MAC' ]]; then
     # thanks jupyter for removing profiles
-    alias notebook="ipython notebook"
+    alias notebook="jupyter notebook"
     alias iconsole='ipython console --existing'
 elif [ -z "$SSH_CONNECTION" ]; then
     if [[ $CPD_NAME == 'KILS' ]]; then
@@ -88,27 +89,19 @@ elif [ -z "$SSH_CONNECTION" ]; then
     fi
 else
     export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
-    if [[ $CPD_NAME == 'KILS' ]]; then
-        alias notebook="ipython notebook --ip=${IPYNOTEBOOKIP} --port=8008"
-        alias iconsole='ipython console --existing'
-    else
-        alias notebook="ipython notebook --profile=nbserver --ip=${IPYNOTEBOOKIP} --port=8008"
-        alias iconsole='ipython console --profile=nbserver --existing'
-    fi
+    alias notebook="jupyter notebook --ip=${IPYNOTEBOOKIP} --port=8008"
 fi
 
 # http://kipac.stanford.edu/collab/computing/docs/afs
 alias kint='/usr/local/bin/kinit --afslog --renewable'
 alias kren='/usr/local/bin/kinit --afslog --renew'
 
-# kick off other terminals
-alias detach='tmux detach -a'
-
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
-    alias vim='mvim -v --servername VIM'
+    # if we have mvim then we also want to set the colorscheme to solarized
+    alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
 else
 fi
 alias vims='vim -S Session.vim'
@@ -123,14 +116,10 @@ function CompileLatex()
     xelatex -file-line-error -interaction=nonstopmode ${1}.tex
 }
 
-# tmux sharing
-
-#alias tmuxs="tmux new-session -s tmuxs"
-
-alias tmuxa="tmux -u attach-session -t tmuxs:1"
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
+alias edison='ssh -Y cpd@edison.nersc.gov'  # NB: hopper is now shut down
 # function slac(){ ssh -Y cpd@ki-ls${1:=08}.slac.stanford.edu ;}
 # function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
 # function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
@@ -171,6 +160,9 @@ function google; { elinks "http://www.google.com/search?q=`url-encode "${(j: :)@
 function wiki; { elinks "http://www.wikipedia.org/search?q=`url-encode "${(j: :)@}"`" ;}
 
 
+export PROJECTS_DIR=~/Projects
+
+alias irssi='TERM=screen-256color irssi'
 
 # some key difs between my mac and kils
 if [[ $CPD_NAME == 'MAC' ]]; then
@@ -210,108 +202,6 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         fi
     }
 
-    function tmuxv
-    {
-        tmux send-keys -t ${1:=tmuxs:0} "vim -n ~/Dropbox/vimwiki/index.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Github.io\ Blog.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/Whisker.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/SWAP.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/pixel\ area\ distortions.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/strongcnn.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/LearnPSF.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":e ~/Dropbox/vimwiki/cluster-z.wiki" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":set swapfile" C-m
-        tmux send-keys -t ${1:=tmuxs:0} ":b1" C-m
-    }
-    function tmuxi
-    {
-        tmux send-keys -t ${1:=tmuxs} "kinit cpd@SLAC.STANFORD.EDU" C-m
-        tmux send-keys -t ${1:=tmuxs} ${INNOC_SLAC} C-m
-        tmux send-keys -t ${1:=tmuxs} "kinit cpd@stanford.edu" C-m
-        tmux send-keys -t ${1:=tmuxs} ${INNOC_SHERLOCK} C-m
-        # tmux send-keys -t ${1:=tmuxs} "kinit cpd@hopper.nersc.gov" C-m
-        # tmux send-keys -t ${1:=tmuxs} ${INNOC_NERSC} C-m
-    }
-
-    function tmuxss
-    {
-        tmux new-session -s tmuxs
-    }
-    function tmuxs
-    {
-        tmux start-server
-        tmux new-session -d -s tmuxs -n vim
-
-        # open up vim windows
-        tmux send-keys -t tmuxs:0 "cd /Users/cpd/Dropbox/vimwiki/" C-m
-        tmux send-keys -t tmuxs:0 "vim -S Session.vim" C-m
-
-        # send commands to windows
-        # tmux send-keys -t tmuxs "TERM=screen-256color irssi" C-m
-        # tmux split-window -v -t tmuxs
-        # tmux select-pane -t 1
-        # tmux send-keys -t tmuxs "ttytter" #C-m
-        # tmux split-window -t tmuxs
-        tmux new-window -t tmuxs -n notebook
-        tmux send-keys -t tmuxs "notebook" C-m
-        tmux split-window -h -t tmuxs
-        tmux send-keys -t tmuxs "easyaccess" C-m
-
-        # ssh
-        tmux new-window -t tmuxs -n ssh
-        tmux send-keys -t tmuxs "tmuxi tmuxs:2" C-m
-
-        # blog
-        tmux new-window -t tmuxs -n blog
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/cpadavis.github.io" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # clusterz
-        tmux new-window -t tmuxs -n cluster-z
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/cluster-z/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # wavefrontpsf
-        tmux new-window -t tmuxs -n WavefrontPSF
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/WavefrontPSF/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # swap
-        tmux new-window -t tmuxs -n SWAP
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/SpaceWarps/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # weak_sauce
-        tmux new-window -t tmuxs -n weak_sauce
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/weak_sauce/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # billy
-        tmux new-window -t tmuxs -n billy
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/billy/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # marmpy
-        tmux new-window -t tmuxs -n marmpy
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/marmpy/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # UCDavis slides
-        tmux new-window -t tmuxs -n UCDavis
-        tmux send-keys -t tmuxs "cd /Users/cpd/Dropbox/derp-ninja/Articles/cpd2016MayUCDavis/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # piff
-        tmux new-window -t tmuxs -n Piff
-        tmux send-keys -t tmuxs "cd /Users/cpd/Projects/DES/Piff/" C-m
-        tmux send-keys -t tmuxs "vim -S Session.vim" C-m
-
-        # go to the vim journal window
-        tmux select-window -t tmuxs:0
-        tmux attach-session -t tmuxs
-        # When we detach from it, kill the session
-        tmux kill-session -t tmuxs
-    }
 elif [[ $CPD_NAME == 'KILS' ]]; then
 
 
@@ -325,20 +215,6 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     alias bjoblr=bjobrl
     alias pipi="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user"
     alias pipu="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user --upgrade"
-    function tmuxs
-    {
-        tmux start-server
-        tmux new-session -d -s tmuxs -n notebook
-        tmux new-window -t tmuxs:2 -n workadirk
-
-        tmux send-keys -t tmuxs:1 "notebook" C-m
-        tmux split-window -v -t tmuxs:1
-        tmux select-pane -t 1
-        tmux send-keys -t tmuxs:1 "cd $SWAP/mongo/; mongod --dbpath ." C-m
-
-        tmux select-window -t tmuxs:2
-        tmux attach-session -t tmuxs
-    }
     function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
     alias gopen='gnome-open'
     alias pdf='evince'
@@ -351,13 +227,6 @@ else
     function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
-    function tmuxs
-    {
-        tmux start-server
-        tmux new-session -d -s tmuxs -n workadir
-
-        tmux attach-session -t tmuxs
-    }
 fi
 
 alias thisroot=". bin/thisroot.sh"
@@ -389,8 +258,8 @@ function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 # function downsherlock() { scp -r cpd@sherlock.stanford.edu:${1} ${2} ;}
 # function upnersc() { scp -r ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
 # universally better:
-function downslac() { rsync -rav ${@:3} cpd@ki-ls.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${1} ${2} ;}
-function upslac() { rsync -rav ${@:3} ${1} cpd@ki-ls.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${2} ;}
+function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${1} ${2} ;}
+function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${2} ;}
 function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:/home/cpd/${1} ${2} ;}
 function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
 
@@ -398,10 +267,16 @@ function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:/global/homes/c
 function chpwd(){ ls; }
 
 # markdown macro
-function markdown() {
-    # don't call the .md, just the name before that
-    perl ~/.dotfiles/Markdown.pl ${1}.md > ${1}.html ;
+
+function tmuxss
+{
+    tmux new-session -s tmuxs
 }
+# tmux sharing
+alias tmuxa="tmux -u attach-session -t tmuxs:1"
+
+# kick off other terminals
+alias detach='tmux detach -a'
 
 function tmuxk() {
     # Kill defunct sessions first
@@ -470,3 +345,5 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     # activate cpd environment
     source activate cpd;
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

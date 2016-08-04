@@ -112,7 +112,7 @@ nmap <leader>Rs :set lines=60 columns=85<CR>
 
 " Toggle the tasklist
 " and add other notes
-let g:tlTokenList = ["NOTE", "FIXME", "TODO", "XXX", "WARNING", "ERROR"]
+let g:tlTokenList = ["NOTE", "FIXME", "TODO", "XXX", "WARNING", "ERROR", "red{"]
 map <leader>td <Plug>TaskList
 
 " Make h and l go to beginning and end of line
@@ -315,11 +315,11 @@ if has("gui_running")
     endif
 else
     " set t_Co=256
-    " set term=xterm-256color
     set term=screen-256color
-    " se t_co=256
+    " set term=xterm-256color
     " let g:solarized_termcolors=256
-    colorscheme solarized "default
+    " colorscheme solarized "default
+    colorscheme lucius "default
     set background=light
     "set nocursorline
     set colorcolumn=80
@@ -335,9 +335,13 @@ set termencoding=utf-8
 function! ChangeColorScheme()
     if exists("g:colors_name")
         if g:colors_name == 'lucius'
-            if g:lucius_style == 'dark'
-                LuciusLight
-            elseif g:lucius_style == 'light'
+            if exists("g:lucius_style")
+                if g:lucius_style == 'dark'
+                    LuciusLight
+                elseif g:lucius_style == 'light'
+                    LuciusDark
+                endif
+            else
                 LuciusDark
             endif
         elseif g:colors_name == 'solarized'
@@ -738,14 +742,17 @@ endfunction
 
 " let g:tex_fast = "M"
 
+nnoremap <silent> <leader>lS :VimtexCompileSS!<CR>
 nnoremap <silent> <leader>lL :call CompileLatex()<CR>
 nnoremap <silent> <leader>lO :! open %:r.pdf<CR><CR>
 nnoremap <silent> <leader>lF :silent make! %<CR>
 nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 
 let g:vimtex_enabled = 1
-let g:tex_flavor = 'latex'
+let g:tex_flavor = 'latex'  " change to pdflatex?
+let g:tex_flavor = 'pdflatex'  " change to pdflatex?
 let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_quickfix_open_on_warning = 1
 
 " ===========================================================
 " FileType specific changes

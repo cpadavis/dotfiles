@@ -17,11 +17,6 @@ c = get_config()
 # Execute the given command string.  c.InteractiveShellApp.code_to_run = ''
 
 # lines of code to run at IPython startup.
-cpd_computer = os.getenv('CPD_NAME', 'NONE')
-if cpd_computer == 'MAC':
-    print('setting ipython terminal app gui to qt')
-    c.TerminalIPythonApp.gui = 'qt'
-
 activate_lines = [
     "%load_ext Cython",
     "%load_ext autoreload",
@@ -46,6 +41,11 @@ activate_lines = [
     # "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
     'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, fits, fitsio, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
 
+cpd_computer = os.getenv('CPD_NAME', 'NONE')
+if cpd_computer == 'MAC':
+    activate_lines = ['print("setting ipython terminal app gui to qt")',
+                      '%matplotlib qt'] + activate_lines
+    # c.TerminalIPythonApp.gui = 'qt'
 c.InteractiveShellApp.exec_lines = activate_lines
 
 c.TerminalIPythonApp.verbose_crash = True # False
