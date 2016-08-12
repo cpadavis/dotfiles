@@ -44,6 +44,9 @@ d=~/.dircolors
 if [[ $CPD_NAME == 'MAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
+elif [[ $CPD_NAME == 'OLDMAC' ]]; then
+    eval "$(gdircolors $d)";
+    alias ls='gls -hFa --color'
 elif [[ $CPD_NAME == 'KILS' ]]; then
     eval "$(dircolors $d)";
     alias ls='ls -hFaG --color'
@@ -60,7 +63,7 @@ source ~/.dotfiles/promptline/promptline.sh
 # method for quick change directories. Add this to your ~/.zshrc, then just
 # enter “cd …./dir”
 rationalise-dot() {
-  if [[ $LBUFFER = *.. ]]; then
+  if [[ $LBUFFER == *.. ]]; then
     LBUFFER+=/..
   else
     LBUFFER+=.
