@@ -1,0 +1,135 @@
+PATH="/Users/cpd/.local/bin:/usr/local/bin:${PATH}"
+export PATH
+
+export CPD_NAME="MAC"
+export INNOC_SLAC="JFKwsoFt22nd!"
+export INNOC_SLAC="ascf2p,aDw."
+export INNOC_SHERLOCK="JFKwsoFt22nd!"
+export INNOC_NERSC="NERSCISacc4deswl.."
+
+## # this all makes me very angry
+## export DYLD_FALLBACK_LIBRARY_PATH=/sw/lib:$DYLD_FALLBACK_LIBRARY_PATH
+## # root
+## export ROOTSYS=/usr/local
+## export PYTHONPATH=$ROOTSYS/lib/root:$PYTHONPATH
+## export LD_LIBRARY_PATH=/usr/local/lib/root/:$PYTHONDIR/lib:$LD_LIBRARY_PATH
+## #export LD_LIBRARY_PATH=/usr/local/lib/root/:$LD_LIBRARY_PATH
+## #export DYLD_LIBRARY_PATH=/usr/local/lib/root/:$PYTHONDIR/lib:$DYLD_LIBRARY_PATH
+## export DYLD_LIBRARY_PATH=/usr/local/lib/root/:$DYLD_LIBRARY_PATH
+export ROOTSYS=/Users/cpd/Dropbox/derp-ninja/root
+export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
+export PYTHONPATH=$ROOTSYS/lib:$PYTHONPATH
+
+# CUDA and caffe
+export PATH=/usr/local/cuda/bin:$PATH
+export DYLD_LIBRARY_PATH=/usr/local/cuda/lib:$DYLD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib:$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=/usr/local/cuda:$DYLD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/cuda:$LD_LIBRARY_PATH
+
+## Coreutils
+# If you really need to use these commands with their normal names, you
+#     can add a "gnubin" directory to your PATH from your bashrc like:
+# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# Additionally, you can access their man pages with normal names if you add
+# the "gnuman" directory to your MANPATH from your bashrc as well:
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+# MKL_NUM_THREADS=8
+# export MKL_NUM_THREADS
+
+export PATH=$PATH:/Users/cpd/.local/bin
+
+# HEALPIX
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Users/cpd/Dropbox/derp-ninja/DES-STANFORD/Healpix_3.00/lib
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Users/cpd/Dropbox/derp-ninja/DES-STANFORD/Healpix_3.00/lib
+
+# oracle
+# source /Users/cpd/.local/lib/des_oracle/setup.sh
+export PATH="$PATH:/Users/cpd/LOCAL_ORACLE/instantclient_11_2"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/Users/cpd/LOCAL_ORACLE/instantclient_11_2"
+export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:/Users/cpd/LOCAL_ORACLE/instantclient_11_2"
+export ORACLE_BASE=/Users/cpd/LOCAL_ORACLE/instantclient_11_2
+export ORACLE_HOME=/Users/cpd/LOCAL_ORACLE/instantclient_11_2
+export ORACLE_LIB_DIR=/Users/cpd/LOCAL_ORACLE/instantclient_11_2
+export ORACLE_INC_DIR=/Users/cpd/LOCAL_ORACLE/instantclient_11_2/sdk/include
+
+# # for all desdb commands that are actually python scripts you need to write the
+# # results of desdb in front so that you can execute it using the right version
+# # of python thanks a lot apple you are really irritating
+# function desdb(){ echo "python /usr/local/bin/" ;}
+
+# desdb
+export DESDATA=/Users/cpd/DESDATA
+export DESREMOTE=https://desar2.cosmology.illinois.edu/DESFiles/desardata
+export DESPROJ=OPS
+
+# nethack!
+export PATH=/usr/local/games/bin:$PATH
+export NETHACKOPTIONS=~/.nethackrc
+
+# dwarf fortress!
+export PATH=/Users/cpd/.local/games/df_osx/:$PATH
+
+## # I had to do this for glib to find gettext (for installing irssi)
+## export CFLAGS="-I/usr/local/include -L/usr/local/lib"
+## export CPPFLAGS="-I/usr/local/include"
+## export LDFLAGS="-L/usr/local/lib"
+
+# brew
+export PATH="/usr/local/sbin:$PATH"
+
+# modifications by HEALPixAutoConf 3.00
+[ -r /Users/cpd/.healpix/3_00_Darwin/config ] && . /Users/cpd/.healpix/3_00_Darwin/config
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Users/cpd/Projects/WavefrontPSF/code/donutlib
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Users/cpd/Projects/WavefrontPSF/code/donutlib
+
+# python
+
+export PROJECTS_DIR=/Users/cpd/Projects
+# WavefrontPSF
+export PYTHONPATH=${PROJECTS_DIR}/WavefrontPSF/code:$PYTHONPATH
+# SpaceWarps
+export PATH=$PATH:${PROJECTS_DIR}/SpaceWarps/analysis
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
+# cluster-z
+export CLUSTERZ_DIR=${PROJECTS_DIR}/cluster-z
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code/clustershift
+# strongcnn
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
+# weak_sauce
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
+# learnpsf
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
+
+# billy
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/billy/code
+
+# caffe
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/caffe/python
+export PATH=$PATH:${PROJECTS_DIR}/caffe/build/tools
+
+# tensorflow
+
+# piff
+export PYTHONPATH="${PROJECTS_DIR}/DES/Piff:$PYTHONPATH"
+
+# preliminize
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/preliminize
+
+# bpz
+export BPZPATH=${PROJECTS_DIR}/DES/bpz-1.99.3
+export PYTHONPATH=$PYTHONPATH:${BPZPATH}
+export NUMERIX=numpy
+alias bpz='python $BPZPATH/bpz.py'
+
+# keras model zoo
+export PYTHONPATH=$PYTHONPATH:/Users/cpd/Projects/misc/keras-model-zoo
+
+# gems
+export GEM_HOME="$HOME/.gem"
+export GEM_PATH="$HOME/.gem"
+export PATH="$HOME/.gem/bin:$PATH"
+# export PATH=$(brew --prefix ruby)/bin:$PATH

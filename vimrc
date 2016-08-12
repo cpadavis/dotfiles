@@ -318,8 +318,8 @@ else
     set term=screen-256color
     " set term=xterm-256color
     " let g:solarized_termcolors=256
-    " colorscheme solarized "default
-    colorscheme lucius "default
+    colorscheme solarized "default
+    " colorscheme lucius "default
     set background=light
     "set nocursorline
     set colorcolumn=80
@@ -668,6 +668,9 @@ let g:rainbow_conf = {
 \   'separately': {
 \       '*': {},
 \       'tex': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/'],
+\       },
+\       'bib': {
 \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/'],
 \       },
 \       'lisp': {
