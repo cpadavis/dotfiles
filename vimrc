@@ -31,6 +31,7 @@
 " calendar.vim
 " ctrlp.vim
 " fugitive
+" gitgutter
 " gundo
 " jedi-vim
 " markdown
@@ -70,6 +71,9 @@ imap jk <esc>
 set ttimeout
 set ttimeoutlen=100
 set timeoutlen=500
+
+" set update time to 250 ms
+set updatetime=250
 
 fu! SplitScroll()
     :wincmd v
@@ -552,13 +556,21 @@ nmap <leader>Cy :Calendar -position=topleft -width=40 -view=year<CR>
 " ==========================================================
 nnoremap <leader>Gs :Gstatus<CR>
 nnoremap <leader>Go :Gread<CR>
-nnoremap <leader>Gc :Gcommit -a<CR>
+nnoremap <leader>Gc :Gcommit<CR>
 nnoremap <leader>Gd :Gdiff<CR>
 nnoremap <leader>Gb :Gblame<CR>
 nnoremap <leader>GB :Gbrowse<CR>
 nnoremap <leader>Gp :Git! push<CR>
 nnoremap <leader>GP :Git! pull<CR>
 
+" ===========================================================
+" gitgutter
+" ============================================================
+
+let g:gitgutter_map_keys = 1
+nmap <Leader>Gt <Plug>GitGutterStageHunk
+nmap <Leader>Gu <Plug>GitGutterUndoHunk
+nmap <Leader>Gr <Plug>GitGutterPreviewHunk
 
 " ==========================================================
 " vim airline
