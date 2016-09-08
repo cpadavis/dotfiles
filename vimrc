@@ -556,7 +556,7 @@ nmap <leader>Cy :Calendar -position=topleft -width=40 -view=year<CR>
 " ==========================================================
 nnoremap <leader>Gs :Gstatus<CR>
 nnoremap <leader>Go :Gread<CR>
-nnoremap <leader>Gc :Gcommit<CR>
+nnoremap <leader>Gc :Gcommit %<CR>
 nnoremap <leader>Gd :Gdiff<CR>
 nnoremap <leader>Gb :Gblame<CR>
 nnoremap <leader>GB :Gbrowse<CR>
