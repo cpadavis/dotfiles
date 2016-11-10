@@ -1,0 +1,39 @@
+# NAME
+export CPD_NAME=SHERLOCK
+
+# makes things go smoother...
+if [ ! -d "$SCRATCH" ]; then
+    mkdir $SCRATCH
+fi
+if [ ! -d "$LOCAL_SCRATCH" ]; then
+    mkdir $LOCAL_SCRATCH
+fi
+
+export LD_LIBRARY_PATH=/home/cpd/.local/lib:${LD_LIBRARY_PATH}
+
+# set up local values
+export PATH=/home/cpd/.local/bin:$PATH
+
+alias pythonpurge='export PYTHONPATH='
+
+# load up the right python etc. loading caffe does that automatically
+function myml() {
+    ml purge;
+    pythonpurge;
+    # ml load caffe;
+    ml load theano
+    ml load py-scikit-image
+    ml load keras
+    export PYTHONPATH=$PYTHONPATH:~/.local/lib/python2.7/site-packages
+    #export PYTHONPATH=$PYTHONPATH:/share/sw/free/caffe/rc/python/caffe
+    export PYTHONPATH=$PYTHONPATH:/home/cpd/Projects/billy/code/
+    promptline nogit
+}
+alias gpu='srun -N 1 -p gpu --qos=gpu --gres=gpu:1 --pty bash'
+alias tmuxx='tmux -S /home/cpd/tmux_sockets/asdf'
+
+function ssstat() {
+    sstat --format JobID,NTasks,nodelist,MaxRSS,MaxVMSize,AveRSS,AveVMSize ${1}
+}
+alias acct='sacct --format JobID,jobname,NTasks,nodelist,MaxRSS,MaxVMSize,AveRSS,AveVMSize,CPUTime,End,State,ExitCode,DerivedExitcode,Comment | less'
+alias queue='squeue | less'
