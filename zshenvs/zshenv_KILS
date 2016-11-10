@@ -1,0 +1,205 @@
+# aaron's stuff
+export ROOTSYS=/nfs/slac/g/ki/ki06/roodman/root_v5.34.09
+export PATH=/u/ec/roodman/Astrophysics/Code/scripts:/afs/slac/g/ki/software/swig/2.0.4/bin:${PATH}
+#export PYTHONPATH "${ROOTSYS}/lib:/nfs/slac/g/ki/ki06/roodman/python/lib/python2.7/site-packages:/u/ec/roodman/Astrophysics/Code:/u/ec/roodman/Astrophysics/Code/donut:/u/ec/roodman/Astrophysics/Code/zernike:/u/ec/roodman/Astrophysics/Code/scripts:${PYTHONPATH}"
+export LD_LIBRARY_PATH=${ROOTSYS}/lib:${LD_LIBRARY_PATH}
+
+# # from the cshrc
+# eval `/usr/local/bin/environ /afs/slac.stanford.edu/u/ki/cpd/.local/bin/zsh -i${+prompt} -e emacs:vi`
+
+# needed to install this for libffi which was needed for python securities pip install 'requests[security]'
+export PKG_CONFIG=/nfs/slac/g/ki/ki18/cpd/.local/lib/libffi-3.2.1:${PKG_CONFIG}
+export LD_LIBRARY_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib/libffi-3.2.1:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib/libffi-3.2.1/.libs:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib64:${LD_LIBRARY_PATH}
+export LIBRARY_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib:${LIBRARY_PATH}
+export LIBRARY_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib64:${LIBRARY_PATH}
+# export LIBFFI_LIBS="-L/nfs/slac/g/ki/k18/cpd/.local/lib/libffi-3.2.1 -lffi"
+export LIBFFI_LIBS="-L/nfs/slac/g/ki/k18/cpd/.local/lib/libffi-3.2.1/.libs -lffi"
+export FFI_LIBS="-L/nfs/slac/g/ki/k18/cpd/.local/lib/libffi-3.2.1/.libs -lffi"
+# export LIBFFI_LIBS="-L/nfs/slac/g/ki/k18/cpd/.local/lib -lffi"
+export CPATH=/nfs/slac/g/ki/ki18/cpd/.local/lib/libffi-3.2.1/include:${CPATH}
+export C_INCLUDE_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib/libffi-3.2.1/include:${C_INCLUDE_PATH}
+export CPLUS_INCLUDE_PATH=/nfs/slac/g/ki/ki18/cpd/.local/lib/libffi-3.2.1/include:${CPLUS_INCLUDE_PATH}
+
+
+
+export CPD_NAME="KILS"
+export IPYTHON_NOTEBOOK_DIR='/nfs/slac/g/ki/ki18/cpd/code/'
+
+# Set up python code
+
+export SOFTWARE_BASE=/afs/slac/g/ki/software
+
+# ELIMINATE PYTHON PATH RAWR!!!!!!!
+export PYTHONPATH
+export PYTHON_VERSION=2.7.3
+export PYTHON_MAJOR_VERSION=2.7
+
+export PATH="/afs/slac.stanford.edu/u/ki/cpd/.local/bin:$PATH"
+# export PATH "${SOFTWARE_BASE}/python/${PYTHON_VERSION}/bin:$PATH"
+#
+# if ($?LD_LIBRARY_PATH == 0) then
+# 	export LD_LIBRARY_PATH "/afs/slac/g/ki/software/python/${PYTHON_VERSION}/lib"
+# else
+# 	export LD_LIBRARY_PATH "/afs/slac/g/ki/software/python/${PYTHON_VERSION}/lib::$LD_LIBRARY_PATH"
+# endif
+#
+# some sourcings
+#set file=/afs/slac.stanford.edu/g/ki/software/etc/csh.login.xray$
+#if ( -r "$file" ) source $file$
+#unset file$
+
+
+
+
+
+# Roodman Python Stuffs
+
+export ROOTSYS=/nfs/slac/g/ki/ki06/roodman/root_v5.34.09
+export PATH=/u/ec/roodman/Astrophysics/Code/scripts:/afs/slac/g/ki/software/swig/2.0.4/bin:${PATH}
+# export PYTHONPATH ${ROOTSYS}/lib:/nfs/slac/g/ki/ki06/roodman/python/lib/python2.7/site-packages:/u/ec/roodman/Astrophysics/Code:/u/ec/roodman/Astrophysics/Code/donut:/u/ec/roodman/Astrophysics/Code/zernike:/u/ec/roodman/Astrophysics/Code/scripts:${PYTHONPATH}
+export PYTHONPATH=${ROOTSYS}/lib:/u/ec/roodman/Astrophysics/Code:/u/ec/roodman/Astrophysics/Code/donut:/u/ec/roodman/Astrophysics/Code/zernike:/u/ec/roodman/Astrophysics/Code/scripts:${PYTHONPATH}
+export LD_LIBRARY_PATH=${ROOTSYS}/lib:/afs/slac/g/ki/software/fftw/3.3.2/lib:${LD_LIBRARY_PATH}:/afs/slac/g/ki/lib:/nfs/slac/g/ki/ki06/roodman/local
+export PATH=${PATH}:${ROOTSYS}/bin:/usr/local/bin
+export LD_LIBRARY_PATH=${ROOTSYS}/lib:${LD_LIBRARY_PATH}
+
+export MPLCONFIGDIR="/afs/slac.stanford.edu/u/ki/cpd/.matplotlib"
+
+
+# Add sextractor
+# and its libraries
+# export LD_LIBRARY_PATH "/afs/slac/g/ki/software/plplot/5.9.9/lib:/afs/slac/g/ki/software/atlas/3.8.4/lib:$LD_LIBRARY_PATH"
+# CHANGED PYTHON VERSION IF THIS BREAKS REVERT
+# export LD_LIBRARY_PATH="/nfs/slac/g/ki/ki06/roodman/root_v5.34.09/lib:/afs/slac/g/ki/software/heasoft/6.13/@sys/heasoft/x86_64-unknown-linux-gnu-libc2.12/lib:/afs/slac/g/ki/software/plplot/5.9.9/lib:/afs/slac/g/ki/software/atlas/3.8.4/lib:/nfs/slac/g/ki/ki06/roodman/root_v5.34.09/lib:/afs/slac/g/ki/software/fftw/3.3.2/lib:/afs/slac/g/ki/software/python/2.7.3/lib::/usr/lib64/openmpi/lib:/afs/slac/g/ki/lib:/nfs/slac/g/ki/ki06/roodman/local:/afs/slac/g/ki/software/pgplot/5.2/@sys:/afs/slac/g/ki/software/starlink/kapuahi/i386_rhel60/lib:/afs/slac/g/ki/software/starlink/kapuahi/i386_rhel60/starjava/lib/i386:/afs/slac/g/ki/software/local/lib:$LD_LIBRARY_PATH"
+# export LD_LIBRARY_PATH="/nfs/slac/g/ki/ki06/roodman/root_v5.34.09/lib:/afs/slac/g/ki/software/heasoft/6.13/@sys/heasoft/x86_64-unknown-linux-gnu-libc2.12/lib:/afs/slac/g/ki/software/plplot/5.9.9/lib:/afs/slac/g/ki/software/atlas/3.8.4/lib:/nfs/slac/g/ki/ki06/roodman/root_v5.34.09/lib:/afs/slac/g/ki/software/fftw/3.3.2/lib:/afs/slac/g/ki/software/python/2.7.9/lib::/usr/lib64/openmpi/lib:/afs/slac/g/ki/lib:/nfs/slac/g/ki/ki06/roodman/local:/afs/slac/g/ki/software/pgplot/5.2/@sys:/afs/slac/g/ki/software/starlink/kapuahi/i386_rhel60/lib:/afs/slac/g/ki/software/starlink/kapuahi/i386_rhel60/starjava/lib/i386:/afs/slac/g/ki/software/local/lib:$LD_LIBRARY_PATH"
+# CPD 25.01.16: ELIMINATED AARON'S PYTHON INFO IN THIS PATH. IF THIS BREAKS, REVERT TO ONE DIRECTLY ABOVE
+export LD_LIBRARY_PATH="/nfs/slac/g/ki/ki06/roodman/root_v5.34.09/lib:/afs/slac/g/ki/software/heasoft/6.13/@sys/heasoft/x86_64-unknown-linux-gnu-libc2.12/lib:/afs/slac/g/ki/software/plplot/5.9.9/lib:/afs/slac/g/ki/software/atlas/3.8.4/lib:/nfs/slac/g/ki/ki06/roodman/root_v5.34.09/lib:/afs/slac/g/ki/software/fftw/3.3.2/lib:/usr/lib64/openmpi/lib:/afs/slac/g/ki/lib:/nfs/slac/g/ki/ki06/roodman/local:/afs/slac/g/ki/software/pgplot/5.2/@sys:/afs/slac/g/ki/software/starlink/kapuahi/i386_rhel60/lib:/afs/slac/g/ki/software/starlink/kapuahi/i386_rhel60/starjava/lib/i386:$LD_LIBRARY_PATH"
+# sextractor -- now locally installed
+# export PATH="/u/ki/erykoff/bin/terapix/@sys/bin:$PATH"
+# Add ds9
+export PATH="/afs/slac/g/ki/software/ds9/7.1/@sys/:$PATH"
+
+
+# my python stuffs
+# note that PYLIB is actually a link to PYLIB_NFS
+export PYLIB_NFS=/nfs/slac/g/ki/ki18/cpd/.local
+export PYLIB=/afs/slac.stanford.edu/u/ki/cpd/.local
+export IKERNEL=/afs/slac.stanford.edu/u/ki/cpd/.config/ipython/profile_nbserver/security/
+export PYTHONPATH=${PYLIB}:${PYTHONPATH}
+export PATH=${PYLIB}/bin:${PYLIB_NFS}/bin:${PATH}
+export LD_LIBRARY_PATH="${PYLIB}/lib:${PYLIB_NFS}/lib:${LD_LIBRARY_PATH}"
+
+export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
+# WavefrontPSF BANISHED
+export PYTHONPATH=${PROJECTS_DIR}/WavefrontPSF/code:$PYTHONPATH
+# SpaceWarps
+export PATH=$PATH:${PROJECTS_DIR}/SpaceWarps/analysis
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
+# cluster-z
+export CLUSTERZ_DIR=${PROJECTS_DIR}/cluster-z
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code/clustershift
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
+# wizard
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/wizard/
+export PATH=$PATH:${PROJECTS_DIR}/wizard/scripts
+# strongcnn
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
+# weak_sauce
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
+# learnpsf
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
+# preliminize
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/preliminize
+# piff
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/Piff
+export PATH=$PATH:${PROJECTS_DIR}/DES/Piff/scripts
+# cosmosis
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/
+# zbc
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/zbc/
+
+
+# bpz
+export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
+export PYTHONPATH=$PYTHONPATH:${BPZPATH}
+export NUMERIX=numpy
+alias bpz='python $BPZPATH/bpz.py'
+
+
+
+# other useful commands
+export DES=/nfs/slac/g/ki/ki18/des/cpd/
+export CPD=/nfs/slac/g/ki/ki18/cpd/
+export CODE=/nfs/slac/g/ki/ki18/cpd/Projects/
+export SWAP=/nfs/slac/g/ki/ki18/cpd/swap/
+export SWAPPY=/nfs/slac/g/ki/ki18/cpd/Projects/SpaceWarps/analysis/SWAP.py
+export SVA=${DES}/psfex_catalogs/SVA1_FINALCUT/
+export AARONCODE=/u/ec/roodman/Astrophysics/Code/scripts/
+
+export DESDATA=/nfs/slac/g/ki/ki21/cosmo/beckermr/DES/DESDATA
+export DESDATA=${DES}/DESDATA
+export DESREMOTE=https://desar2.cosmology.illinois.edu/DESFiles/desardata
+export DESPROJ=OPS
+
+# do blas etc
+export ATLAS=/afs/slac/g/ki/software/atlas/lib/libtatlas.so
+
+# hdf5
+export HDF5_DIR=/afs/slac/g/ki/software/hdf5/1.8.9/amd64_rhel60
+# this seemed to work...
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HDF5_DIR}/lib
+
+
+## # modifications by HEALPixAutoConf 3.00
+## if ( -e /u/ki/cpd/.healpix/3_00_Linux/config ) source /u/ki/cpd/.healpix/3_00_Linux/config
+
+
+# for tmux
+export TERM=xterm-256color
+# this lets me imgcat, but it might mess with the vim settings...
+export TERM=screen-256color
+export TERMINFO=/usr/share/terminfo
+# # set server location
+# export TMUX_TMPDIR=/u/ki/cpd/.tmux_tmpdir
+# fix the DISPLAY problem!
+if tmux info &> /dev/null; then
+    for name in `tmux ls -F '#{session_name}'`; do
+        tmux setenv -g -t $name DISPLAY $DISPLAY #set display for all sessions
+    done
+fi
+
+# blocking this for now
+#source /u/ki/cpd/.desdm_eups_setup.zsh
+# oracle stuff
+export PATH="$PATH:/u/ki/cpd/LOCAL_ORACLE/instantclient_11_2"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/u/ki/cpd/LOCAL_ORACLE/instantclient_11_2"
+export ORACLE_BASE=/u/ki/cpd/LOCAL_ORACLE/instantclient_11_2
+export ORACLE_HOME=/u/ki/cpd/LOCAL_ORACLE/instantclient_11_2
+export ORACLE_LIB_DIR=/u/ki/cpd/LOCAL_ORACLE/instantclient_11_2
+export ORACLE_INC_DIR=/u/ki/cpd/LOCAL_ORACLE/instantclient_11_2/sdk/include
+
+# cuda
+# taken from: http://stackoverflow.com/questions/2829613/how-do-you-tell-if-a-string-contains-another-string-in-unix-shell-scripting
+contains() {
+    string="$1"
+    substring="$2"
+    if test "${string#*$substring}" != "$string"
+    then
+        return 0    # $substring is in $string
+    else
+        return 1    # $substring is not in $string
+    fi
+}
+if contains $HOST 'ki-gpu'
+then
+    export PATH=${PATH}:/opt/cuda-6.0/bin:/opt/cuda-6.0
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/afs/slac/g/ki/software/fftw/3.2.1-shared/lib:/opt/cuda-6.0/lib64
+fi
+# get my local libs in there...
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/u/ki/cpd/.local/lib"
+
+# dropbox uploader is super useful
+alias dropbox="/nfs/slac/g/ki/ki18/cpd/Projects/Dropbox-Uploader/dropbox_uploader.sh"
+

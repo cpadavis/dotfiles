@@ -44,7 +44,7 @@ activate_lines = [
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
 if cpd_computer == 'MAC':
     activate_lines = ['print("setting ipython terminal app gui to qt")',
-                      '%matplotlib qt'] + activate_lines
+                      '%matplotlib qt5'] + activate_lines
     # c.TerminalIPythonApp.gui = 'qt'
 c.InteractiveShellApp.exec_lines = activate_lines
 
