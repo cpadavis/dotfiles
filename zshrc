@@ -47,6 +47,10 @@ if [[ $CPD_NAME == 'MAC' ]]; then
 elif [[ $CPD_NAME == 'KILS' ]]; then
     eval "$(dircolors $d)";
     alias ls='ls -hFaG --color'
+elif [[ $CPD_NAME == 'SHERLOCK' ]]; then
+    eval "$(dircolors $d)";
+    alias ls='ls -hFaG --color'
+    alias vim='vim -c "colorscheme lucius|set background=dark"'
 else
     alias ls='ls -hFaG'
 fi
