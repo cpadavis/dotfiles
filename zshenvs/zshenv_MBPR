@@ -97,12 +97,19 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
 export CLUSTERZ_DIR=${PROJECTS_DIR}/cluster-z
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code/clustershift
+# wizard
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/wizard
+export PATH=$PATH:${PROJECTS_DIR}/wizard/scripts
 # strongcnn
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 # weak_sauce
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 # learnpsf
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
+
+# cpz
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cpz
+export PATH=$PATH:${PROJECTS_DIR}/cpz/scripts
 
 # billy
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/billy/code
@@ -127,9 +134,10 @@ alias bpz='python $BPZPATH/bpz.py'
 
 # keras model zoo
 export PYTHONPATH=$PYTHONPATH:/Users/cpd/Projects/misc/keras-model-zoo
-
 # gems
 export GEM_HOME="$HOME/.gem"
 export GEM_PATH="$HOME/.gem"
 export PATH="$HOME/.gem/bin:$PATH"
 # export PATH=$(brew --prefix ruby)/bin:$PATH
+
+alias ds9='/Applications/SAOImage\ DS9.app/Contents/MacOS/ds9'

@@ -13,7 +13,7 @@
 " <leader>f - ctrlp
 " <leader>cc - quickfix
 " <leader>cl - location list
-" <leader>C - Calendar
+" <leader>Ct - Calendar
 " K on word in command mode - help
 
 " ==========================================================
@@ -73,7 +73,7 @@ set ttimeoutlen=100
 set timeoutlen=500
 
 " set update time to 250 ms
-set updatetime=250
+set updatetime=750
 
 fu! SplitScroll()
     :wincmd v
@@ -322,8 +322,8 @@ else
     set term=screen-256color
     " set term=xterm-256color
     " let g:solarized_termcolors=256
-    colorscheme solarized "default
-    " colorscheme lucius "default
+    " colorscheme solarized "default
+    colorscheme lucius "default
     set background=light
     "set nocursorline
     set colorcolumn=80
@@ -458,7 +458,7 @@ let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql'
 let wiki = {}
 let wiki.path = '~/Dropbox/vimwiki/'
 let wiki.nested_syntaxes = vimwiki_nested_syntaxes
-let wiki.syntax = 'default'
+" let wiki.syntax = 'default'
 "'markdown'
 "let wiki.ext = '.wiki'
 

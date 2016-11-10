@@ -306,7 +306,6 @@ sub show
 			set M to S div 60
 			set S to S mod 60
 			set S to S div 1
-			if M < 10 then set M to "0" & M
 			if S < 10 then set S to "0" & S
 			-- set CurrentTime to (H as text) & ":" & M & ":" & S
 			set this_time to M & ":" & S

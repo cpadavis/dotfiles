@@ -97,7 +97,8 @@ function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/p
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
     # if we have mvim then we also want to set the colorscheme to solarized
-    alias vim='mvim -v --servername VIM'
+    # alias vim='mvim -v --servername VIM -c "colorscheme solarized" -c "set background=dark"'
+    alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
 else
 fi
 alias vims='vim -S Session.vim'
@@ -123,16 +124,19 @@ function kint(){
 function rye(){
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
-    ssh -KY -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ; }
+    # ssh -KY -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ; }
+    ssh -KY cpd@rye${1}.stanford.edu ; }
 function corn(){
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
-    ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
+    # ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
+    ssh -KY cpd@corn${1}.stanford.edu ; }
 
 function sherlock(){
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
-    ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
+    # ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
+    ssh -KY cpd@sherlock.stanford.edu ; }
 function slac(){
     kswitch -p cpd@SLAC.STANFORD.EDU ;
     kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU ;
@@ -211,7 +215,6 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
 
 
     function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
-
     alias bjob="bjobs -w | less"
     alias bjobl="bjobs -l | less"
     # alias bjobr='bjobs | awk '\''{if($3 != "PEND") print ;}'\'' | less'
@@ -228,8 +231,6 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
 else
 
     export PROJECTS_DIR=~/Projects
-
-    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
 fi
@@ -354,3 +355,6 @@ if [[ $CPD_NAME == 'MAC' ]]; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# added by travis gem
+[ -f /Users/cpd/.travis/travis.sh ] && source /Users/cpd/.travis/travis.sh
