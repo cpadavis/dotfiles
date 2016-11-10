@@ -90,8 +90,7 @@ else
 fi
 
 # http://kipac.stanford.edu/collab/computing/docs/afs
-alias kint='/usr/local/bin/kinit --afslog --renewable'
-alias kren='/usr/local/bin/kinit --afslog --renew'
+alias kint='kinit --afslog --renewable --renew'
 
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 
@@ -117,8 +116,6 @@ function CompileLatex()
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
 alias edison='ssh -Y cpd@edison.nersc.gov'  # NB: hopper is now shut down
-# function slac(){ ssh -Y cpd@ki-ls${1:=08}.slac.stanford.edu ;}
-# function slacany(){ ssh -Y cpd@ki-ls.slac.stanford.edu ;}
 # function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
 function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ;}
 function corn(){ ssh -Y -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ;}
@@ -189,14 +186,17 @@ if [[ $CPD_NAME == 'MAC' ]]; then
     export CPD=/Users/cpd/
 
     function slac(){
-        if [ -z "$TMUX" ]; then
-            ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
-        else
-            tmux send-keys "tmux attach" C-m ;
-            tmux send-keys "kinit --afslog --renewable cpd@SLAC.STANFORD.EDU" C-m ;
-            tmux send-keys ${INNOC_SLAC} C-m ;
-            ssh -Y cpd@ki-ls${1}.slac.stanford.edu ;
-        fi
+        kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU
+        ssh -KY cpd@ki-ls${1}.slac.stanford.edu ;
+        # if [ -z "$TMUX" ]; then
+        #     kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU
+        #     ssh -KY cpd@ki-ls${1}.slac.stanford.edu ;
+        # else
+        #     tmux send-keys "tmux attach" C-m ;
+        #     tmux send-keys "kinit --afslog --renewable cpd@SLAC.STANFORD.EDU" C-m ;
+        #     tmux send-keys ${INNOC_SLAC} C-m ;
+        #     ssh -KY cpd@ki-ls${1}.slac.stanford.edu ;
+        # fi
     }
 
 elif [[ $CPD_NAME == 'KILS' ]]; then
@@ -221,7 +221,6 @@ else
 
     export PROJECTS_DIR=~/Projects
 
-    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
 fi
