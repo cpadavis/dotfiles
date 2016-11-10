@@ -44,6 +44,9 @@ d=~/.dircolors
 if [[ $CPD_NAME == 'MAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
+elif [[ $CPD_NAME == 'OLDMAC' ]]; then
+    eval "$(gdircolors $d)";
+    alias ls='gls -hFa --color'
 elif [[ $CPD_NAME == 'KILS' ]]; then
     eval "$(dircolors $d)";
     alias ls='ls -hFaG --color'
@@ -60,7 +63,7 @@ source ~/.dotfiles/promptline/promptline.sh
 # method for quick change directories. Add this to your ~/.zshrc, then just
 # enter “cd …./dir”
 rationalise-dot() {
-  if [[ $LBUFFER = *.. ]]; then
+  if [[ $LBUFFER == *.. ]]; then
     LBUFFER+=/..
   else
     LBUFFER+=.
@@ -90,13 +93,12 @@ else
 fi
 
 # http://kipac.stanford.edu/collab/computing/docs/afs
-alias kint='kinit --afslog --renewable --renew'
-
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 
 # check if we have mvim else just stick to vim
 if hash mvim 2>/dev/null; then
     # if we have mvim then we also want to set the colorscheme to solarized
+    # alias vim='mvim -v --servername VIM -c "colorscheme solarized" -c "set background=dark"'
     alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
 else
 fi
@@ -116,10 +118,31 @@ function CompileLatex()
 alias myslac='ssh -Y cpd@ki-rh29.slac.stanford.edu'
 alias nersc='ssh -Y cpd@cori.nersc.gov'  # NB: hopper is now shut down
 alias edison='ssh -Y cpd@edison.nersc.gov'  # NB: hopper is now shut down
-# function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1:=01}.stanford.edu ;}
-function rye(){ ssh -Y -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ;}
-function corn(){ ssh -Y -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ;}
-alias sherlock='kinit cpd@stanford.edu; ssh -X cpd@sherlock.stanford.edu'
+function kint(){
+    kinit --afslog --renewable cpd@stanford.edu ;
+    kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ;
+}
+function rye(){
+    kswitch -p cpd@stanford.edu ;
+    kinit --afslog --renewable --renew cpd@stanford.edu ;
+    # ssh -KY -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ; }
+    ssh -KY cpd@rye${1}.stanford.edu ; }
+function corn(){
+    kswitch -p cpd@stanford.edu ;
+    kinit --afslog --renewable --renew cpd@stanford.edu ;
+    # ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
+    ssh -KY cpd@corn${1}.stanford.edu ; }
+
+function sherlock(){
+    kswitch -p cpd@stanford.edu ;
+    kinit --afslog --renewable --renew cpd@stanford.edu ;
+    # ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
+    ssh -KY cpd@sherlock.stanford.edu ; }
+function slac(){
+    kswitch -p cpd@SLAC.STANFORD.EDU ;
+    kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU ;
+    # kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ;
+    ssh -KY cpd@ki-ls${1}.slac.stanford.edu ; }
 
 alias trivialAccess='echo "You should use easyaccess!"'
 # alias trivialAccess='trivialAccess \-u cpd \-p cpd70chips -d dessci'
@@ -156,6 +179,7 @@ function wiki; { elinks "http://www.wikipedia.org/search?q=`url-encode "${(j: :)
 
 export PROJECTS_DIR=~/Projects
 
+# the cd is to change the color scheme
 alias irssi='TERM=screen-256color irssi'
 
 # some key difs between my mac and kils
@@ -198,12 +222,13 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         #     ssh -KY cpd@ki-ls${1}.slac.stanford.edu ;
         # fi
     }
+    # googler is a useful search command
+    alias goo='googler'
 
 elif [[ $CPD_NAME == 'KILS' ]]; then
 
 
     function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
-
     alias bjob="bjobs -w | less"
     alias bjobl="bjobs -l | less"
     # alias bjobr='bjobs | awk '\''{if($3 != "PEND") print ;}'\'' | less'
@@ -220,7 +245,6 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
 else
 
     export PROJECTS_DIR=~/Projects
-
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"
 fi
@@ -254,17 +278,19 @@ function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 # function downsherlock() { scp -r cpd@sherlock.stanford.edu:${1} ${2} ;}
 # function upnersc() { scp -r ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
 # universally better:
-function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${1} ${2} ;}
-function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:/nfs/slac/g/ki/ki18/cpd/${2} ;}
-function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:/home/cpd/${1} ${2} ;}
-function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:/global/homes/c/cpd/${2} ;}
+function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:${1} ${2} ;}
+function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:${2} ;}
+function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:${1} ${2} ;}
+function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
+function downnersc() { rsync -rav ${@:3} cpd@carver.nersc.gov:${1} ${2} ;}
+function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:${2} ;}
 
 # every time a directory changes; zsh checks if chpwd is defined and runs it
 function chpwd(){ ls; }
 
 # markdown macro
 
-function tmuxss
+function tmuxs
 {
     tmux new-session -s tmuxs
 }
@@ -343,3 +369,6 @@ if [[ $CPD_NAME == 'MAC' ]]; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# added by travis gem
+[ -f /Users/cpd/.travis/travis.sh ] && source /Users/cpd/.travis/travis.sh

@@ -13,7 +13,7 @@
 " <leader>f - ctrlp
 " <leader>cc - quickfix
 " <leader>cl - location list
-" <leader>C - Calendar
+" <leader>Ct - Calendar
 " K on word in command mode - help
 
 " ==========================================================
@@ -31,6 +31,7 @@
 " calendar.vim
 " ctrlp.vim
 " fugitive
+" gitgutter
 " gundo
 " jedi-vim
 " markdown
@@ -70,6 +71,9 @@ imap jk <esc>
 set ttimeout
 set ttimeoutlen=100
 set timeoutlen=500
+
+" set update time to 250 ms
+set updatetime=750
 
 fu! SplitScroll()
     :wincmd v
@@ -454,7 +458,7 @@ let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql'
 let wiki = {}
 let wiki.path = '~/Dropbox/vimwiki/'
 let wiki.nested_syntaxes = vimwiki_nested_syntaxes
-let wiki.syntax = 'default'
+" let wiki.syntax = 'default'
 "'markdown'
 "let wiki.ext = '.wiki'
 
@@ -552,13 +556,21 @@ nmap <leader>Cy :Calendar -position=topleft -width=40 -view=year<CR>
 " ==========================================================
 nnoremap <leader>Gs :Gstatus<CR>
 nnoremap <leader>Go :Gread<CR>
-nnoremap <leader>Gc :Gcommit -a<CR>
+nnoremap <leader>Gc :Gcommit %<CR>
 nnoremap <leader>Gd :Gdiff<CR>
 nnoremap <leader>Gb :Gblame<CR>
 nnoremap <leader>GB :Gbrowse<CR>
 nnoremap <leader>Gp :Git! push<CR>
 nnoremap <leader>GP :Git! pull<CR>
 
+" ===========================================================
+" gitgutter
+" ============================================================
+
+let g:gitgutter_map_keys = 1
+nmap <Leader>Gt <Plug>GitGutterStageHunk
+nmap <Leader>Gu <Plug>GitGutterUndoHunk
+nmap <Leader>Gr <Plug>GitGutterPreviewHunk
 
 " ==========================================================
 " vim airline
@@ -668,6 +680,9 @@ let g:rainbow_conf = {
 \   'separately': {
 \       '*': {},
 \       'tex': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/'],
+\       },
+\       'bib': {
 \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/'],
 \       },
 \       'lisp': {

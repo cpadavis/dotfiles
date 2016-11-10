@@ -100,12 +100,12 @@ abstracts = {
   ##
 
   # highlighted nick/host is printed (joins)
-  channick_hilight = "%G$*%n";
-  chanhost_hilight = "{nickhost %g$*%n}";
+  channick_hilight = "%C$*%n";
+  chanhost_hilight = "{nickhost %c$*%n}";
 
   # nick/host is printed (parts, quits, etc.)
-  channick = "%B$*%n";
-  chanhost = "{nickhost %b$*%n}";
+  channick = "%c$*%n";
+  chanhost = "{nickhost $*}";
 
   # highlighted channel name is printed
   channelhilight = "%c$*%n";
@@ -118,7 +118,7 @@ abstracts = {
   ##
 
   # the basic styling of how to print message, $0 = nick mode, $1 = nick
-  msgnick = "%g<$0%n$1-%g>%n %|";
+  msgnick = "%K<%n$0$1-%K>%n %|";
 
   # message from you is printed. "msgownnick" specifies the styling of the
   # nick ($0 part in msgnick) and "ownmsgnick" specifies the styling of the
@@ -138,15 +138,17 @@ abstracts = {
 
   # $0 = nick mode, $1 = nick
   ownmsgnick = "{msgnick $0 $1-}";
-  ownnick = "%r$*%n";
+  ownnick = "%b%_$*%n";
 
   # public message in channel, $0 = nick mode, $1 = nick
   pubmsgnick = "{msgnick $0 $1-}";
-  pubnick = "%c$*%n";
+  # pubnick = "%N$*%n";
+  pubnick = "%b$*%n";
 
   # public message in channel meant for me, $0 = nick mode, $1 = nick
   pubmsgmenick = "{msgnick $0 $1-}";
-  menick = "%Y$*%n";
+  # menick = "%Y$*%n";
+  menick = "%M$*%n";
 
   # public highlighted message in channel
   # $0 = highlight color, $1 = nick mode, $2 = nick
@@ -163,23 +165,23 @@ abstracts = {
 
   # own private message in query
   ownprivmsgnick = "{msgnick  $*}";
-  ownprivnick = "%r$*%n";
+  ownprivnick = "%_$*%n";
 
   # private message in query
-  privmsgnick = "{msgnick  %c$*%n}";
+  privmsgnick = "{msgnick  %R$*%n}";
 
   ##
   ## Actions (/ME stuff)
   ##
 
   # used internally by this theme
-  action_core = "%g * $*%n";
+  action_core = "%_ * %b$*%n";
 
   # generic one that's used by most actions
-  action = "{action_core %c$*%n} ";
+  action = "{action_core $*} ";
 
   # own action, both private/public
-  ownaction = "{action %r$*%n}";
+  ownaction = "{action $*}";
 
   # own action with target, both private/public
   ownaction_target = "{action_core $0}%K:%c$1%n ";
@@ -250,7 +252,8 @@ abstracts = {
 
   # default background for all statusbars. You can also give
   # the default foreground color for statusbar items.
-  sb_background = "%4%w";
+  # sb_background = "%4%w";
+  sb_background = "%4%W";
 
   # default backround for "default" statusbar group
   #sb_default_bg = "%4";
@@ -273,20 +276,20 @@ abstracts = {
 
   prompt = "[$*] ";
 
-  sb = " %n[%n$*%n]%n";
+  sb = " %r[%n$*%r]%n";
   sbmode = "(%r+%n$*)";
-  sbaway = " (%GzZzZ%n)";
+  sbaway = " (%RzZzZ%n)";
   sbservertag = ":$0 (change with ^X)";
   sbnickmode = "$0";
 
   # activity in statusbar
 
   # ',' separator
-  sb_act_sep = "%c$*";
+  sb_act_sep = "%R$*";
   # normal text
-  sb_act_text = "%w$*";
+  sb_act_text = "%W$*";
   # public message
-  sb_act_msg = "%C$*";
+  sb_act_msg = "%W$*";
   # hilight
   sb_act_hilight = "%M$*";
   # hilight with specified color, $0 = color, $1 = text
