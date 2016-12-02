@@ -103,6 +103,8 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code/clustershift
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cluster-z/code
 # wizard
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/wizard/
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/wz_configs/
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/wz_configs/wz_config_runner
 export PATH=$PATH:${PROJECTS_DIR}/wizard/scripts
 # strongcnn
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
