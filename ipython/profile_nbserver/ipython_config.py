@@ -18,18 +18,16 @@ c = get_config()
 
 # lines of code to run at IPython startup.
 activate_lines = [
-    "%load_ext Cython",
-    "%load_ext autoreload",
-    "%autoreload 1",
+    # "%load_ext Cython",
+    # "%load_ext autoreload",
+    # "%autoreload 1",
     # "%pdb",
     "from __future__ import print_function, division",
     'import numpy as np',
-    'import matplotlib.pyplot as plt',
-    'plt.ion()',  # turn on interactive mode
     'from astropy.io import fits',
     'import fitsio',
     'import pandas as pd',
-    "import matplotlib",
+    "import matplotlib, matplotlib.cm",
     # "palette = matplotlib.cm.gray_r",
     "palette = matplotlib.cm.RdBu_r",
     "palette.set_bad(color='g', alpha=0.75)",
@@ -38,7 +36,9 @@ activate_lines = [
     "matplotlib.cm.register_cmap(name='my_map', cmap=palette)",
     # "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
     "matplotlib.rc('image', interpolation='none', cmap = 'my_map')",
-    # "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
+    'import matplotlib.pyplot as plt',
+    'plt.ion()',  # turn on interactive mode
+    "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
     'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, fits, fitsio, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
@@ -46,6 +46,9 @@ if cpd_computer == 'MAC':
     activate_lines = ['print("setting ipython terminal app gui to qt")',
                       '%matplotlib qt5'] + activate_lines
     # c.TerminalIPythonApp.gui = 'qt'
+elif cpd_computer == 'KILS':
+    activate_lines = ['print("setting ipython terminal app gui to use agg")',
+                      'import matplotlib', "matplotlib.use('Agg')"] + activate_lines
 c.InteractiveShellApp.exec_lines = activate_lines
 
 c.TerminalIPythonApp.verbose_crash = True # False

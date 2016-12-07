@@ -239,8 +239,10 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     alias bjobr="bjobs -wr | less"
     alias bjobrl="bjobs -rl | less"
     alias bjoblr=bjobrl
-    alias pipi="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user"
-    alias pipu="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user --upgrade"
+    # alias pipi="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user"
+    # alias pipu="pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org --user --upgrade"
+    alias pipi="pip install"
+    alias pipu="pip install --upgrade"
     function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
     alias gopen='gnome-open'
     alias pdf='evince'
