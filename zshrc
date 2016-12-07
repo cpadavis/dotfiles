@@ -44,6 +44,9 @@ d=~/.dircolors
 if [[ $CPD_NAME == 'MAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
+elif [[ $CPD_NAME == 'MB' ]]; then
+    eval "$(gdircolors $d)";
+    alias ls='gls -hFa --color'
 elif [[ $CPD_NAME == 'OLDMAC' ]]; then
     eval "$(gdircolors $d)";
     alias ls='gls -hFa --color'
@@ -86,6 +89,10 @@ elif [ -z "$SSH_CONNECTION" ]; then
     if [[ $CPD_NAME == 'KILS' ]]; then
         # thanks jupyter for removing profiles
         alias notebook="ipython notebook"
+        alias iconsole='ipython console --existing'
+    elif [[ $CPD_NAME == 'MB' ]]; then
+        # thanks jupyter for removing profiles
+        alias notebook="jupyter notebook"
         alias iconsole='ipython console --existing'
     else
         alias notebook="ipython notebook --profile=nbserver"
@@ -365,12 +372,17 @@ function tmx() {
 # using the PROJECTS_DIR from above, define some variables
 export IPYTHON_NOTEBOOK_DIR=$PROJECTS_DIR
 
-# miniconda
-if [[ $CPD_NAME == 'MAC' ]]; then
-    export PATH="/Users/cpd/miniconda2/bin:$PATH";
-    # activate cpd environment
-    source activate cpd;
-fi
+# play crawl over the internet!
+function crawl() {
+    # check if the ssh key exists
+    if [[ ! -a ~/.ssh/cao_key ]]; then
+        wget -O ~/.ssh/cao_key http://crawl.akrasiac.org/cao_key
+        chmod 400 ~/.ssh/cao_key
+    fi
+
+    # ssh command
+    ssh -C -i ~/.ssh/cao_key -l joshua crawl.akrasiac.org
+}
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 

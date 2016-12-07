@@ -7,6 +7,11 @@ export INNOC_SLAC="ascf2p,aDw."
 export INNOC_SHERLOCK="JFKwsoFt22nd!"
 export INNOC_NERSC="NERSCISacc4deswl.."
 
+# miniconda
+export PATH="/Users/cpd/miniconda2/bin:$PATH";
+# activate cpd environment
+source activate cpd;
+
 ## # this all makes me very angry
 ## export DYLD_FALLBACK_LIBRARY_PATH=/sw/lib:$DYLD_FALLBACK_LIBRARY_PATH
 ## # root
