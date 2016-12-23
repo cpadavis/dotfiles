@@ -186,7 +186,8 @@ function url-encode; {
 # export VIEW=/usr/bin/elinks
 function google; { elinks "http://www.google.com/search?q=`url-encode "${(j: :)@}"`" ;}
 function wiki; { elinks "http://www.wikipedia.org/search?q=`url-encode "${(j: :)@}"`" ;}
-
+# googler is a useful search command
+alias goo='googler'
 
 export PROJECTS_DIR=~/Projects
 
@@ -233,8 +234,6 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         #     ssh -KY cpd@ki-ls${1}.slac.stanford.edu ;
         # fi
     }
-    # googler is a useful search command
-    alias goo='googler'
 
 elif [[ $CPD_NAME == 'KILS' ]]; then
 

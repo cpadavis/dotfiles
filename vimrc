@@ -95,20 +95,6 @@ nmap <leader>sb :call SplitScroll()<CR>
 " redraw on command
 nmap <leader>lR :redraw!<CR>
 
-" set vsplit to double the size of your window
-function! VSplit()
-    let &columns = 2*&columns
-    vsplit
-endfunction
-nmap <leader>sv :call VSplit()<CR>
-function! HSplit(size)
-    split
-    resize hsize a:size
-endfunction
-nmap <leader>sh :call HSplit(15)<CR>
-
-" resize back to defaults
-nmap <leader>Rs :set lines=60 columns=85<CR>
 "<CR><C-w>l<C-f>:set scrollbind<CR>
 
 " sudo write this
@@ -297,6 +283,7 @@ syntax enable
 set mouse=a
 " vital for mouse working in terminal
 set ttymouse=xterm2
+" TODO: Check below for actually running correctly
 if has("gui_running")
     colorscheme solarized
     set background=light
@@ -313,10 +300,24 @@ if has("gui_running")
         set guioptions-=m
         " Remove toolbar
         set guioptions-=T
+    endif
     set lines=60
     set columns=85
 
-    endif
+    " set vsplit to double the size of your window
+    function! VSplit()
+        let &columns = 2*&columns
+        vsplit
+    endfunction
+    function! HSplit(size)
+        split
+        resize hsize a:size
+    endfunction
+    nmap <leader>sv :call VSplit()<CR>
+    nmap <leader>sh :call HSplit(15)<CR>
+    " resize back to defaults
+    nmap <leader>Rs :set lines=60 columns=85<CR>
+
 else
     " set t_Co=256
     set term=screen-256color
@@ -438,7 +439,6 @@ autocmd InsertLeave * :setlocal number relativenumber
 nmap <leader>tb :Tagbar<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
-
 
 " ==========================================================
 " Obsess shortcut to encourage me to use it!
@@ -673,8 +673,8 @@ nmap <leader>Lr :LinediffReset<CR>
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 let g:rainbow_conf = {
-\   'guifgs': ['darkred', 'darkblue', 'darkyellow', 'darkgreen'],
-\   'ctermfgs': ['DarkRed', 'DarkBlue', 'DarkYellow', 'DarkGreen'],
+\   'guifgs': ['darkred', 'lightred', 'darkyellow', 'lightyellow', 'darkgreen', 'lightgreen', 'darkblue', 'lightblue'],
+\   'ctermfgs': ['DarkRed', 'LightRed', 'DarkYellow', 'LightYellow', 'DarkGreen', 'LightGreen', 'DarkBlue', 'LightBlue'],
 \   'operators': '_,_',
 \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {
@@ -723,6 +723,8 @@ let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 1
 let g:jedi#use_splits_not_buffers = "top"
 let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = 2
+let g:jedi#smart_auto_mappings = 0
 
 " some bindings
 let g:jedi#goto_command = "<leader>jg"
