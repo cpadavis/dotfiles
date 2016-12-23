@@ -43,12 +43,12 @@ activate_lines = [
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
 if cpd_computer == 'MAC':
-    activate_lines = ['print("setting ipython terminal app gui to qt")',
+    activate_lines = ['print("setting ipython terminal app gui to qt5")',
                       '%matplotlib qt5'] + activate_lines
     # c.TerminalIPythonApp.gui = 'qt'
 elif cpd_computer == 'KILS':
-    activate_lines = ['print("setting ipython terminal app gui to use agg")',
-                      'import matplotlib', "matplotlib.use('Agg')"] + activate_lines
+    activate_lines = ['print("setting ipython terminal app gui to use qt4")',
+                      '%matplotlib qt'] + activate_lines
 c.InteractiveShellApp.exec_lines = activate_lines
 
 c.TerminalIPythonApp.verbose_crash = True # False
