@@ -673,8 +673,8 @@ nmap <leader>Lr :LinediffReset<CR>
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 let g:rainbow_conf = {
-\   'guifgs': ['darkred', 'lightred', 'darkyellow', 'lightyellow', 'darkgreen', 'lightgreen', 'darkblue', 'lightblue'],
-\   'ctermfgs': ['DarkRed', 'LightRed', 'DarkYellow', 'LightYellow', 'DarkGreen', 'LightGreen', 'DarkBlue', 'LightBlue'],
+\   'guifgs': ['darkred', 'darkyellow', 'lightyellow', 'darkgreen', 'lightgreen', 'darkblue', 'lightblue', 'lightred', 'lightyellow'],
+\   'ctermfgs': ['DarkRed', 'DarkYellow', 'DarkGreen', 'LightGreen', 'DarkBlue', 'LightBlue', 'LightRed', 'LightYellow'],
 \   'operators': '_,_',
 \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {

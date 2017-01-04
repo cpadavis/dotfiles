@@ -254,6 +254,11 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     alias pdf='evince'
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }
 
+elif [[ $CPD_NAME == 'MB' ]]; then
+    export PROJECTS_DIR=~/Projects
+    alias pipi="pip install"
+    alias pipu="pip install --upgrade"
+
 else
 
     export PROJECTS_DIR=~/Projects
