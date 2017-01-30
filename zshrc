@@ -186,7 +186,8 @@ function url-encode; {
 # export VIEW=/usr/bin/elinks
 function google; { elinks "http://www.google.com/search?q=`url-encode "${(j: :)@}"`" ;}
 function wiki; { elinks "http://www.wikipedia.org/search?q=`url-encode "${(j: :)@}"`" ;}
-
+# googler is a useful search command
+alias goo='googler'
 
 export PROJECTS_DIR=~/Projects
 
@@ -233,8 +234,6 @@ if [[ $CPD_NAME == 'MAC' ]]; then
         #     ssh -KY cpd@ki-ls${1}.slac.stanford.edu ;
         # fi
     }
-    # googler is a useful search command
-    alias goo='googler'
 
 elif [[ $CPD_NAME == 'KILS' ]]; then
 
@@ -254,6 +253,11 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     alias gopen='gnome-open'
     alias pdf='evince'
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }
+
+elif [[ $CPD_NAME == 'MB' ]]; then
+    export PROJECTS_DIR=~/Projects
+    alias pipi="pip install"
+    alias pipu="pip install --upgrade"
 
 else
 

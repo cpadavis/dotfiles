@@ -1,0 +1,34 @@
+# if paths get messed up, this can help
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+
+# NAME
+export CPD_NAME=MB
+
+# brew
+# In order to use this build of zsh as your login shell,
+# it must be added to /etc/shells.
+# Add the following to your zshrc to access the online help:
+unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
+
+# anaconda
+# source activate root;
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
+export PATH="/Users/cpd/anaconda/bin:$PATH";
+export PATH="/Users/cpd/.local/bin:$PATH";
+
+# add anaconda to pythonpath
+export PYTHONPATH="/Users/cpd/anaconda/lib/python2.7/site-packages:$PYTHONPATH"
+
+# add dwarf fortress to path
+function df(){
+    sh /Users/cpd/df_43_05_osx/df
+}
+
+# projects
+# wizard
+export PYTHONPATH="/Users/cpd/Projects/wizard:$PYTHONPATH"
+export PATH="/Users/cpd/Projects/wizard/scripts:$PATH"
