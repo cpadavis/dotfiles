@@ -673,8 +673,8 @@ nmap <leader>Lr :LinediffReset<CR>
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 let g:rainbow_conf = {
-\   'guifgs': ['darkred', 'darkyellow', 'lightyellow', 'darkgreen', 'lightgreen', 'darkblue', 'lightblue', 'lightred', 'lightyellow'],
-\   'ctermfgs': ['DarkRed', 'DarkYellow', 'DarkGreen', 'LightGreen', 'DarkBlue', 'LightBlue', 'LightRed', 'LightYellow'],
+\   'guifgs': ['darkred', 'darkyellow', 'darkgreen', 'darkblue', 'lightblue'],
+\   'ctermfgs': ['DarkRed', 'DarkYellow', 'DarkGreen', 'DarkBlue', 'LightBlue'],
 \   'operators': '_,_',
 \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {
@@ -684,9 +684,6 @@ let g:rainbow_conf = {
 \       },
 \       'bib': {
 \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/'],
-\       },
-\       'lisp': {
-\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
 \       },
 \       'vim': {
 \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
