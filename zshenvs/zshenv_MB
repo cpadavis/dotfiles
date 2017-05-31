@@ -32,3 +32,5 @@ function df(){
 # wizard
 export PYTHONPATH="/Users/cpd/Projects/wizard:$PYTHONPATH"
 export PATH="/Users/cpd/Projects/wizard/scripts:$PATH"
+# lifegames
+export PYTHONPATH="/Users/cpd/Projects/lifegames:$PYTHONPATH"

@@ -299,8 +299,8 @@ function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:${1}
 function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:${2} ;}
 function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:${1} ${2} ;}
 function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
-function downnersc() { rsync -rav ${@:3} cpd@carver.nersc.gov:${1} ${2} ;}
-function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:${2} ;}
+function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
+function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
 
 # every time a directory changes; zsh checks if chpwd is defined and runs it
 function chpwd(){ ls; }
