@@ -764,9 +764,7 @@ nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 
 let g:vimtex_enabled = 1
 let g:tex_flavor = 'latex'  " change to pdflatex?
-let g:tex_flavor = 'pdflatex'  " change to pdflatex?
 let g:vimtex_quickfix_open_on_warning = 0
-let g:vimtex_quickfix_open_on_warning = 1
 
 " ===========================================================
 " FileType specific changes
