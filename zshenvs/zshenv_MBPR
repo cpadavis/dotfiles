@@ -1,12 +1,13 @@
 PATH="/Users/cpd/.local/bin:/usr/local/bin:${PATH}"
 export PATH
 
-export CPD_NAME="MAC"
-export INNOC_SLAC="JFKwsoFt22nd!"
-export INNOC_SLAC="ascf2p,aDw."
-export INNOC_SHERLOCK="JFKwsoFt22nd!"
-export INNOC_NERSC="NERSCISacc4deswl.."
+export CPD_NAME="MBPR"
 
+# not sure why I had this in zshrc
+PERL_MB_OPT="--install_base \"/Users/cpd/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/cpd/perl5"; export PERL_MM_OPT;
+
+# TODO: does this need to still be here?
 # miniconda
 export PATH="/Users/cpd/miniconda2/bin:$PATH";
 # activate cpd environment
