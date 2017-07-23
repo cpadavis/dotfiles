@@ -75,3 +75,6 @@ ipython/Crash_report_ipython.txt
 # some links that we can config based on computer
 promptline.sh
 tmuxline.conf
+
+# ipython can get corrupted histories UGH
+ipython/*/history-corrupt*

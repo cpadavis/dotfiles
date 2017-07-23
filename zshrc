@@ -268,6 +268,11 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     alias pdf='evince'
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }
 
+elif [[ $CPD_NAME == 'MB' ]]; then
+    export PROJECTS_DIR=~/Projects
+    alias pipi="pip install"
+    alias pipu="pip install --upgrade"
+
 else
 
     export PROJECTS_DIR=~/Projects
@@ -288,8 +293,8 @@ function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:${1}
 function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:${2} ;}
 function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:${1} ${2} ;}
 function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
-function downnersc() { rsync -rav ${@:3} cpd@carver.nersc.gov:${1} ${2} ;}
-function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:${2} ;}
+function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
+function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
 
 # every time a directory changes; zsh checks if chpwd is defined and runs it
 function chpwd(){ ls; }
