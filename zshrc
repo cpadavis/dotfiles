@@ -79,6 +79,12 @@ rationalise-dot() {
 zle -N rationalise-dot
 bindkey . rationalise-dot
 
+#####
+# iterm2 functions: common things I like doing with special terminal settings
+# for setting color profiles, use it2setcolor. Might want to limit this only to things with iterm. I think I can do that with it2check
+#####
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # Aliases
 alias pylab='ipython --profile=nbserver'
 if [[ $CPD_NAME == 'MAC' ]]; then
@@ -133,23 +139,31 @@ function kint(){
     kinit --afslog --renewable cpd@stanford.edu ;
     kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ;
 }
+function nersc(){
+    if it2check ; then it2setcolor preset 'Pastel'; fi
+    ssh -Y cpd@cori.nersc.gov
+}
 function rye(){
+    if it2check ; then it2setcolor preset 'Pastel'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ; }
     ssh -KY cpd@rye${1}.stanford.edu ; }
 function corn(){
+    if it2check ; then it2setcolor preset 'Pastel'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
     ssh -KY cpd@corn${1}.stanford.edu ; }
 
 function sherlock(){
+    if it2check ; then it2setcolor preset 'LuciusDark'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
     ssh -KY cpd@sherlock.stanford.edu ; }
 function slac(){
+    if it2check ; then it2setcolor preset 'LuciusLight'; fi
     kswitch -p cpd@SLAC.STANFORD.EDU ;
     kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU ;
     # kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ;
@@ -261,26 +275,6 @@ else
     alias pipu="pip install --user --upgrade"
 fi
 
-alias thisroot=". bin/thisroot.sh"
-
-function slacvim(){ mvim scp://cpd@ki-ls${2}.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/${1} ;}
-
-function qtconsole() { ipython qtconsole ${1} ;}
-function slacbook() {
-
-        host=$1
-        kernel=$2
-        profile=nbserver
-
-        tempfile=`mktemp /tmp/ipyssh-XXXXXXXXXX`
-
-        ssh cpd@ki-ls${host}.slac.stanford.edu "cat ~/.config/ipython/profile_$profile/security/$kernel" >! $tempfile
-
-        ipython qtconsole --ssh cpd@ki-ls${host}.slac.stanford.edu --existing $tempfile
-
-        rm -f $tempfile
-    }
-
 function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 
 
@@ -300,10 +294,13 @@ function upnersc() { rsync -rav ${@:3} ${1} cpd@carver.nersc.gov:${2} ;}
 # every time a directory changes; zsh checks if chpwd is defined and runs it
 function chpwd(){ ls; }
 
-# markdown macro
+# using the PROJECTS_DIR from above, define some variables
+export IPYTHON_NOTEBOOK_DIR=$PROJECTS_DIR
 
 function tmuxs
 {
+    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
+    if it2check ; then it2setcolor preset 'Solarized Light'; fi
     tmux new-session -s tmuxs
 }
 # tmux sharing
@@ -345,6 +342,9 @@ function tmx() {
         exit
     fi
 
+    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
+    if it2check ; then it2setcolor preset 'Solarized Light'; fi
+
     base_session=tmuxs
     if [[ -z "$TMUX" ]]; then
         # Kill defunct sessions first
@@ -370,22 +370,56 @@ function tmx() {
     fi
 }
 
-# using the PROJECTS_DIR from above, define some variables
-export IPYTHON_NOTEBOOK_DIR=$PROJECTS_DIR
-
-# play crawl over the internet!
-function crawl() {
-    # check if the ssh key exists
-    if [[ ! -a ~/.ssh/cao_key ]]; then
-        wget -O ~/.ssh/cao_key http://crawl.akrasiac.org/cao_key
-        chmod 400 ~/.ssh/cao_key
-    fi
-
-    # ssh command
-    ssh -C -i ~/.ssh/cao_key -l joshua crawl.akrasiac.org
+function irssi() {
+    if it2check ; then it2setcolor preset 'Spacedust'; fi
+    cd ${HOME}/.irssi
+    irssi
 }
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+function vimwiki() {
+    if it2check ; then it2setcolor preset 'Solarized Light'; fi
+    cd ${HOME}/Projects/vimwiki
+    vims
+}
+
+function ipy() {
+    if it2check ; then it2setcolor preset 'GithubMod'; fi
+    cd ${HOME}/.dotfiles
+    ipython --profile=nbserver
+}
+
+function jpy() {
+    if it2check ; then it2setcolor preset 'GithubMod'; fi
+    cd ${HOME}/.dotfiles
+    notebook
+}
+
+# play crawl over the internet!
+function sshcrawl() {
+    # check if the ssh key exists
+    if [[ ! -a ${HOME}/.ssh/cao_key ]]; then
+        wget -O ${HOME}/.ssh/cao_key http://crawl.akrasiac.org/cao_key
+        chmod 400 ${HOME}/.ssh/cao_key
+    fi
+
+    if it2check ; then it2setcolor preset 'Tango Dark'; fi
+
+    # ssh command
+    ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
+}
+
+function dwarfort() {
+    if it2check ; then it2setcolor preset 'Tango Dark'; fi
+    ${HOME}/.local/games/df_osx/dwarfort
+}
+function nethack() {
+    if it2check ; then it2setcolor preset 'Tango Dark'; fi
+    /usr/local/bin/nethack
+}
+function crawl() {
+    if it2check ; then it2setcolor preset 'Tango Dark'; fi
+    /Applications/Games/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/Resources/crawl
+}
 
 # added by travis gem
 [ -f /Users/cpd/.travis/travis.sh ] && source /Users/cpd/.travis/travis.sh

@@ -70,11 +70,7 @@ export DESREMOTE=https://desar2.cosmology.illinois.edu/DESFiles/desardata
 export DESPROJ=OPS
 
 # nethack!
-export PATH=/usr/local/games/bin:$PATH
 export NETHACKOPTIONS=~/.nethackrc
-
-# dwarf fortress!
-export PATH=/Users/cpd/.local/games/df_osx/:$PATH
 
 ## # I had to do this for glib to find gettext (for installing irssi)
 ## export CFLAGS="-I/usr/local/include -L/usr/local/lib"
