@@ -148,10 +148,6 @@ function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
 function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
 function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
 
-# every time a directory changes; zsh checks if chpwd is defined and runs it
-function chpwd(){ ls; }
-
-
 function tmuxs
 {
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
@@ -336,4 +332,6 @@ else
     alias pipu="pip install --user --upgrade"
 fi
 
+# every time a directory changes; zsh checks if chpwd is defined and runs it
+function chpwd(){ ls; }
 
