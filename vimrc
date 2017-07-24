@@ -584,10 +584,17 @@ let g:airline_section_x='%{airline#util#wrap(airline#extensions#tagbar#currentta
 let g:airline_section_y='%{airline#util#wrap(airline#parts#filetype(),0)}'
 " add buffer number in front of percentage
 let g:airline_section_z='%3n : %p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v'
+" add buffer number in front of percentage
 
+let g:airline_skip_empty_sections = 1
+
+let g:airline#extensions#whitespace#enabled = 1
+" remove trailing whitespace
+let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#vimtex#enabled = 1
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
