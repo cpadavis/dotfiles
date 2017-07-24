@@ -589,8 +589,8 @@ let g:airline_section_z='%3n : %p%% %{g:airline_symbols.linenr}%#__accent_bold#%
 let g:airline_skip_empty_sections = 1
 
 let g:airline#extensions#whitespace#enabled = 1
-" remove trailing whitespace
-let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
+" only care about long lines
+let g:airline#extensions#whitespace#checks = [ 'long' ]
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
@@ -653,6 +653,18 @@ nmap <leader>F :CtrlPMixed<CR>
 nmap <leader>f :CtrlPBuffer<CR>
 
 " ==========================================================
+" Limelight -- useful for focus!
+" ==========================================================
+" !! is toggle version of command
+nmap <leader>ll :Limelight!!<CR>
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+
+" ==========================================================
 " Ack shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>A :Ack 
@@ -662,14 +674,6 @@ nmap <leader>A :Ack
 " ==========================================================
 " reset linediff
 nmap <leader>Lr :LinediffReset<CR>
-
-" ==========================================================
-" Unite.vim
-" ==========================================================
-" let g:unite_source_grep_command = 'ack-grep'
-" let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-" let g:unite_source_grep_recursive_opt = ''
-" nmap <leader>a :Unite grep:$buffers::<C-r><C-w><CR>
 
 " ==========================================================
 " Rainbow Parentheses
