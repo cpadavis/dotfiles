@@ -13,7 +13,8 @@
 " <leader>f - ctrlp
 " <leader>cc - quickfix
 " <leader>cl - location list
-" <leader>Ct - Calendar
+" <leader>[C,c]t - Calendar
+" <leader>[C,c]d - Calendar day on left
 " K on word in command mode - help
 
 " ==========================================================
@@ -119,7 +120,6 @@ nmap <leader>cl :lopen<CR>
 nmap <leader>cC :cclose<CR>
 nmap <leader>cL :lclose<CR>
 nmap <leader>cP :pclose<CR>
-" nmap <leader>cc :cclose<CR>
 
 " for when we forget to use sudo to open/edit a file
 " cmap w!! w !sudo tee % >/dev/null
@@ -545,11 +545,8 @@ nmap <Leader>si :SyntasticInfo<CR>
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
 let g:calendar_time_zone = '-08:00'
-nmap <leader>Ct :tab Calendar<CR>
-nmap <leader>Cd :Calendar -position=topleft -width=40 -view=day<CR>
-nmap <leader>Cw :Calendar -position=topleft -width=40 -view=week<CR>
-nmap <leader>Cm :Calendar -position=topleft -width=40 -view=month<CR>
-nmap <leader>Cy :Calendar -position=topleft -width=40 -view=year<CR>
+nmap <leader>ct :tab Calendar<CR>
+nmap <leader>cd :Calendar -position=topleft -width=40 -view=day<CR>
 
 " ==========================================================
 " Fugitive
