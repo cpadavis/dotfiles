@@ -584,7 +584,6 @@ let g:airline_section_x='%{airline#util#wrap(airline#extensions#tagbar#currentta
 let g:airline_section_y='%{airline#util#wrap(airline#parts#filetype(),0)}'
 " add buffer number in front of percentage
 let g:airline_section_z='%3n : %p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v'
-" add buffer number in front of percentage
 
 let g:airline_skip_empty_sections = 1
 

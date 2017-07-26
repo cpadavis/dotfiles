@@ -284,7 +284,7 @@ function tmx() {
     fi
 }
 
-function irssi() {
+function irc() {
     if it2check ; then it2setcolor preset 'Spacedust'; fi
     cd ${HOME}/.irssi
     TERM=screen-256color irssi
