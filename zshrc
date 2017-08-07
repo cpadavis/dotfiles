@@ -69,6 +69,69 @@ export PROJECTS_DIR=${HOME}/Projects
 export IPYTHON_NOTEBOOK_DIR=$PROJECTS_DIR
 
 #####
+# define commands based on CPD_NAME
+#####
+if [[ $CPD_NAME == 'MBPR' ]]; then
+    eval "$(gdircolors ${HOME}/.dircolors)";
+    alias ls='gls -hFa --color'
+    alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
+    alias notebook="jupyter notebook"
+    alias pipi='pip install'
+    alias pipu='pip install --upgrade'
+
+    # googler is a useful search command
+    alias goo='googler'
+elif [[ $CPD_NAME == 'MB' ]]; then
+    eval "$(gdircolors ${HOME}/.dircolors)";
+    alias ls='gls -hFa --color'
+    alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
+    alias notebook="jupyter notebook"
+    alias pipi='pip install'
+    alias pipu='pip install --upgrade'
+elif [[ $CPD_NAME == 'MBP08' ]]; then
+    eval "$(gdircolors ${HOME}/.dircolors)";
+    alias ls='gls -hFa --color'
+    alias notebook="jupyter notebook"
+    alias pipi='pip install'
+    alias pipu='pip install --upgrade'
+elif [[ $CPD_NAME == 'KILS' ]]; then
+    eval "$(dircolors ${HOME}/.dircolors)";
+    alias ls='ls -hFaG --color'
+    alias vim='vim -c "colorscheme lucius|set background=light"'
+    export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
+    alias notebook="jupyter notebook --ip=${IPYNOTEBOOKIP} --port=8008"
+    alias pipi="pip install --user"
+    alias pipu="pip install --user --upgrade"
+
+    # overwrite slac to just be simple ssh
+    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
+    alias bjob="bjobs -w | less"
+    alias bjobl="bjobs -l | less"
+    alias bjobr="bjobs -wr | less"
+    alias bjobrl="bjobs -rl | less"
+    alias bjoblr=bjobrl
+    alias gopen='gnome-open'
+    alias pdf='evince'
+    function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }
+elif [[ $CPD_NAME == 'SHERLOCK' ]]; then
+    eval "$(dircolors ${HOME}/.dircolors)";
+    alias ls='ls -hFaG --color'
+    alias vim='vim -c "colorscheme lucius|set background=dark"'
+    alias notebook="jupyter notebook"
+    alias pipi="pip install --user"
+    alias pipu="pip install --user --upgrade"
+else
+    alias ls='ls -hFaG'
+    alias notebook="jupyter notebook"
+    alias pipi="pip install --user"
+    alias pipu="pip install --user --upgrade"
+fi
+
+
+# every time a directory changes; zsh checks if chpwd is defined and runs it 
+function chpwd(){ ls; }
+
+#####
 # Aliases
 #####
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
@@ -90,26 +153,21 @@ function kint(){
     kinit --afslog --renewable cpd@stanford.edu ;
     kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ; }
 function nersc(){
-    if it2check ; then it2setcolor preset 'Pastel'; fi
+    if it2check ; then it2setcolor preset 'Spacedust'; fi
     ssh -Y cpd@cori.nersc.gov }
-function rye(){
-    if it2check ; then it2setcolor preset 'Pastel'; fi
-    kswitch -p cpd@stanford.edu ;
-    kinit --afslog --renewable --renew cpd@stanford.edu ;
-    # ssh -KY -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ; }
-    ssh -KY cpd@rye${1}.stanford.edu ; }
-function corn(){
-    if it2check ; then it2setcolor preset 'Pastel'; fi
+function stanford(){
+    # cardinal = small, interactive, corn = more intense interactive, barley = submit, rye = gpu
+    if it2check ; then it2setcolor preset 'AtomOneLight'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
-    ssh -KY cpd@corn${1}.stanford.edu ; }
+    ssh -KY cpd@${1=cardinal}${2}.stanford.edu ; }
 function sherlock(){
     if it2check ; then it2setcolor preset 'LuciusDark'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
-    ssh -KY cpd@sherlock.stanford.edu ; }
+    ssh -KY cpd@login.sherlock.stanford.edu ; }
 function slac(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     kswitch -p cpd@SLAC.STANFORD.EDU ;
@@ -147,10 +205,6 @@ function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:${1} ${2} 
 function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
 function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
 function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
-
-# every time a directory changes; zsh checks if chpwd is defined and runs it
-function chpwd(){ ls; }
-
 
 function tmuxs
 {
@@ -225,7 +279,7 @@ function tmx() {
     fi
 }
 
-function irssi() {
+function irc() {
     if it2check ; then it2setcolor preset 'Spacedust'; fi
     cd ${HOME}/.irssi
     TERM=screen-256color irssi
@@ -276,64 +330,5 @@ function crawl() {
 
 function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
-
-#####
-# define commands based on CPD_NAME
-#####
-if [[ $CPD_NAME == 'MBPR' ]]; then
-    eval "$(gdircolors ${HOME}/.dircolors)";
-    alias ls='gls -hFa --color'
-    alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
-    alias notebook="jupyter notebook"
-    alias pipi='pip install'
-    alias pipu='pip install --upgrade'
-
-    # googler is a useful search command
-    alias goo='googler'
-elif [[ $CPD_NAME == 'MB' ]]; then
-    eval "$(gdircolors ${HOME}/.dircolors)";
-    alias ls='gls -hFa --color'
-    alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
-    alias notebook="jupyter notebook"
-    alias pipi='pip install'
-    alias pipu='pip install --upgrade'
-elif [[ $CPD_NAME == 'MBP08' ]]; then
-    eval "$(gdircolors ${HOME}/.dircolors)";
-    alias ls='gls -hFa --color'
-    alias notebook="jupyter notebook"
-    alias pipi='pip install'
-    alias pipu='pip install --upgrade'
-elif [[ $CPD_NAME == 'KILS' ]]; then
-    eval "$(dircolors ${HOME}/.dircolors)";
-    alias ls='ls -hFaG --color'
-    alias vim='vim -c "colorscheme lucius|set background=light"'
-    export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
-    alias notebook="jupyter notebook --ip=${IPYNOTEBOOKIP} --port=8008"
-    alias pipi="pip install --user"
-    alias pipu="pip install --user --upgrade"
-
-    # overwrite slac to just be simple ssh
-    function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
-    alias bjob="bjobs -w | less"
-    alias bjobl="bjobs -l | less"
-    alias bjobr="bjobs -wr | less"
-    alias bjobrl="bjobs -rl | less"
-    alias bjoblr=bjobrl
-    alias gopen='gnome-open'
-    alias pdf='evince'
-    function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }
-elif [[ $CPD_NAME == 'SHERLOCK' ]]; then
-    eval "$(dircolors ${HOME}/.dircolors)";
-    alias ls='ls -hFaG --color'
-    alias vim='vim -c "colorscheme lucius|set background=dark"'
-    alias notebook="jupyter notebook"
-    alias pipi="pip install --user"
-    alias pipu="pip install --user --upgrade"
-else
-    alias ls='ls -hFaG'
-    alias notebook="jupyter notebook"
-    alias pipi="pip install --user"
-    alias pipu="pip install --user --upgrade"
-fi
 
 

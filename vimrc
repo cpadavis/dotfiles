@@ -13,7 +13,8 @@
 " <leader>f - ctrlp
 " <leader>cc - quickfix
 " <leader>cl - location list
-" <leader>Ct - Calendar
+" <leader>[C,c]t - Calendar
+" <leader>[C,c]d - Calendar day on left
 " K on word in command mode - help
 
 " ==========================================================
@@ -119,7 +120,6 @@ nmap <leader>cl :lopen<CR>
 nmap <leader>cC :cclose<CR>
 nmap <leader>cL :lclose<CR>
 nmap <leader>cP :pclose<CR>
-" nmap <leader>cc :cclose<CR>
 
 " for when we forget to use sudo to open/edit a file
 " cmap w!! w !sudo tee % >/dev/null
@@ -545,11 +545,8 @@ nmap <Leader>si :SyntasticInfo<CR>
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
 let g:calendar_time_zone = '-08:00'
-nmap <leader>Ct :tab Calendar<CR>
-nmap <leader>Cd :Calendar -position=topleft -width=40 -view=day<CR>
-nmap <leader>Cw :Calendar -position=topleft -width=40 -view=week<CR>
-nmap <leader>Cm :Calendar -position=topleft -width=40 -view=month<CR>
-nmap <leader>Cy :Calendar -position=topleft -width=40 -view=year<CR>
+nmap <leader>ct :tab Calendar<CR>
+nmap <leader>cd :Calendar -position=topleft -width=40 -view=day<CR>
 
 " ==========================================================
 " Fugitive
@@ -588,9 +585,15 @@ let g:airline_section_y='%{airline#util#wrap(airline#parts#filetype(),0)}'
 " add buffer number in front of percentage
 let g:airline_section_z='%3n : %p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v'
 
+let g:airline_skip_empty_sections = 1
+
+let g:airline#extensions#whitespace#enabled = 1
+" only care about long lines
+let g:airline#extensions#whitespace#checks = [ 'long' ]
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#vimtex#enabled = 1
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
@@ -649,6 +652,18 @@ nmap <leader>F :CtrlPMixed<CR>
 nmap <leader>f :CtrlPBuffer<CR>
 
 " ==========================================================
+" Limelight -- useful for focus!
+" ==========================================================
+" !! is toggle version of command
+nmap <leader>ll :Limelight!!<CR>
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+
+" ==========================================================
 " Ack shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>A :Ack 
@@ -659,14 +674,6 @@ nmap <leader>A :Ack
 " reset linediff
 nmap <leader>lr :LinediffReset<CR>
 vmap <leader>ld :Linediff<CR>
-
-" ==========================================================
-" Unite.vim
-" ==========================================================
-" let g:unite_source_grep_command = 'ack-grep'
-" let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-" let g:unite_source_grep_recursive_opt = ''
-" nmap <leader>a :Unite grep:$buffers::<C-r><C-w><CR>
 
 " ==========================================================
 " Rainbow Parentheses
@@ -755,10 +762,17 @@ function! CompileLatex()
     " :silent ! rm %:r.log
 endfunction
 
+function! CompileLatexDiff(...)
+    " very simple: just do git-latexdiff
+    :! git-latexdiff HEAD -- --main %:r.tex --quiet -b -o %:r_diff.pdf
+    :! open %:r_diff.pdf
+endfunction
+
 " let g:tex_fast = "M"
 
 nnoremap <silent> <leader>lS :VimtexCompileSS!<CR>
 nnoremap <silent> <leader>lL :call CompileLatex()<CR>
+nnoremap <silent> <leader>lD :call CompileLatexDiff()<CR>
 nnoremap <silent> <leader>lO :! open %:r.pdf<CR><CR>
 nnoremap <silent> <leader>lF :silent make! %<CR>
 nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
