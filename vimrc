@@ -657,7 +657,8 @@ nmap <leader>A :Ack
 " Linediff shortcut to encourage me to use it!
 " ==========================================================
 " reset linediff
-nmap <leader>Lr :LinediffReset<CR>
+nmap <leader>lr :LinediffReset<CR>
+vmap <leader>ld :Linediff<CR>
 
 " ==========================================================
 " Unite.vim
@@ -729,7 +730,7 @@ let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
-let g:jedi#completions_command = "<leader>j,"
+let g:jedi#completions_command = "<leader>jj"
 let g:jedi#rename_command = "<leader>jr"
 
 " ===========================================================
