@@ -761,10 +761,17 @@ function! CompileLatex()
     " :silent ! rm %:r.log
 endfunction
 
+function! CompileLatexDiff(...)
+    " very simple: just do git-latexdiff
+    :! git-latexdiff HEAD -- --main %:r.tex --quiet -b -o %:r_diff.pdf
+    :! open %:r_diff.pdf
+endfunction
+
 " let g:tex_fast = "M"
 
 nnoremap <silent> <leader>lS :VimtexCompileSS!<CR>
 nnoremap <silent> <leader>lL :call CompileLatex()<CR>
+nnoremap <silent> <leader>lD :call CompileLatexDiff()<CR>
 nnoremap <silent> <leader>lO :! open %:r.pdf<CR><CR>
 nnoremap <silent> <leader>lF :silent make! %<CR>
 nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
