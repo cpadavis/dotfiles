@@ -154,26 +154,21 @@ function kint(){
     kinit --afslog --renewable cpd@stanford.edu ;
     kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ; }
 function nersc(){
-    if it2check ; then it2setcolor preset 'Pastel'; fi
+    if it2check ; then it2setcolor preset 'Spacedust'; fi
     ssh -Y cpd@cori.nersc.gov }
-function rye(){
-    if it2check ; then it2setcolor preset 'Pastel'; fi
-    kswitch -p cpd@stanford.edu ;
-    kinit --afslog --renewable --renew cpd@stanford.edu ;
-    # ssh -KY -o GSSAPIKeyExchange=no cpd@rye${1}.stanford.edu ; }
-    ssh -KY cpd@rye${1}.stanford.edu ; }
-function corn(){
-    if it2check ; then it2setcolor preset 'Pastel'; fi
+function stanford(){
+    # cardinal = small, interactive, corn = more intense interactive, barley = submit, rye = gpu
+    if it2check ; then it2setcolor preset 'AtomOneLight'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
-    ssh -KY cpd@corn${1}.stanford.edu ; }
+    ssh -KY cpd@${1=cardinal}${2}.stanford.edu ; }
 function sherlock(){
     if it2check ; then it2setcolor preset 'LuciusDark'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
-    ssh -KY cpd@sherlock.stanford.edu ; }
+    ssh -KY cpd@login.sherlock.stanford.edu ; }
 function slac(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     kswitch -p cpd@SLAC.STANFORD.EDU ;
