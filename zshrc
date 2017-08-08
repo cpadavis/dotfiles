@@ -76,8 +76,8 @@ if [[ $CPD_NAME == 'MBPR' ]]; then
     alias ls='gls -hFa --color'
     alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
     alias notebook="jupyter notebook"
-    alias pipi='pip install'
-    alias pipu='pip install --upgrade'
+    alias pipi='sudo pip install'
+    alias pipu='sudo pip install --upgrade'
 
     # googler is a useful search command
     alias goo='googler'
@@ -122,6 +122,7 @@ elif [[ $CPD_NAME == 'SHERLOCK' ]]; then
     alias pipu="pip install --user --upgrade"
 else
     alias ls='ls -hFaG'
+    alias vim='vim -c "colorscheme lucius|set background=light"'
     alias notebook="jupyter notebook"
     alias pipi="pip install --user"
     alias pipu="pip install --user --upgrade"

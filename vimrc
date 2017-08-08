@@ -655,7 +655,7 @@ nmap <leader>f :CtrlPBuffer<CR>
 " Limelight -- useful for focus!
 " ==========================================================
 " !! is toggle version of command
-nmap <leader>ll :Limelight!!<CR>
+nmap <leader>lL :Limelight!!<CR>
 
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
@@ -672,7 +672,8 @@ nmap <leader>A :Ack
 " Linediff shortcut to encourage me to use it!
 " ==========================================================
 " reset linediff
-nmap <leader>Lr :LinediffReset<CR>
+nmap <leader>lr :LinediffReset<CR>
+vmap <leader>ld :Linediff<CR>
 
 " ==========================================================
 " Rainbow Parentheses
@@ -764,7 +765,7 @@ endfunction
 " let g:tex_fast = "M"
 
 nnoremap <silent> <leader>lS :VimtexCompileSS!<CR>
-nnoremap <silent> <leader>lL :call CompileLatex()<CR>
+" nnoremap <silent> <leader>lL :call CompileLatex()<CR>
 nnoremap <silent> <leader>lO :! open %:r.pdf<CR><CR>
 nnoremap <silent> <leader>lF :silent make! %<CR>
 nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
