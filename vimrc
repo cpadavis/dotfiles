@@ -282,7 +282,12 @@ set incsearch               " Incrementally search while typing a /regex
 syntax enable
 set mouse=a
 " vital for mouse working in terminal
-set ttymouse=xterm2
+if has("mouse_sgr")
+    " fixes the mouse not recognized past 220 column
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
 " TODO: Check below for actually running correctly
 if has("gui_running")
     colorscheme solarized
