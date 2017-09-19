@@ -17,43 +17,6 @@
 " <leader>[C,c]d - Calendar day on left
 " K on word in command mode - help
 
-" ==========================================================
-" Plugins but not yet made submodules
-" ==========================================================
-" previewmarkdown
-" swift.vim
-" vim-javascript
-
-" ==========================================================
-" Plugins included
-" ==========================================================
-" Tagbar
-" ack.vim
-" calendar.vim
-" ctrlp.vim
-" fugitive
-" gitgutter
-" gundo
-" jedi-vim
-" markdown
-" misc
-" nerdtree
-" netrw.vim
-" promptline.vim
-" rainbow
-" syntastic
-" tasklist
-" tlib
-" tmuxline.vim
-" vim-addon-mw-utils
-" vim-airline
-" vim-bbye
-" vim-colors-solarized
-" vim-commentary
-" vim-obsession
-" vimtex
-" vimwiki
-
 
 " ==========================================================
 " Shortcuts
@@ -717,13 +680,13 @@ cnoreabbrev <expr> h getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : '
 " ==========================================================
 " Complete options
 " ==========================================================
-set completeopt=menu,preview,menuone,longest
-" set complete=.,w,b,u,t " -=i if things get slow
+set completeopt=preview,menuone,longest
+set complete=.,w,b,u,t " -=i if things get slow
 set pumheight=6             " Keep a small completion window
 " load complete menu to C-space. This doesn't work?
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-Space>
-" also from leader leader or ,,
+" also from leader, or ,,
 inoremap <leader>, <C-x><C-o>
 
 " ==========================================================
@@ -733,8 +696,10 @@ let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 1
 let g:jedi#use_splits_not_buffers = "top"
 let g:jedi#popup_on_dot = 0
-let g:jedi#show_call_signatures = 2
+let g:jedi#show_call_signatures = 0  " 0 disable, 1 popup, 2 commandline
 let g:jedi#smart_auto_mappings = 0
+
+let g:jedi#completions_enabled = 1
 
 " some bindings
 let g:jedi#goto_command = "<leader>jg"

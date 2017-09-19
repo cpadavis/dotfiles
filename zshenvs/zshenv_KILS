@@ -49,12 +49,18 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/zbc/
 # 2point
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/2point/
+# cpz
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cpz/
 
 # bpz
-export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
-export PYTHONPATH=$PYTHONPATH:${BPZPATH}
-export NUMERIX=numpy
-alias bpz='python $BPZPATH/bpz.py'
+# export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
+# export PYTHONPATH=$PYTHONPATH:${BPZPATH}
+# export NUMERIX=numpy
+# alias bpz='python $BPZPATH/bpz.py'
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/bpz/python
+export SED_DIR=${PROJECTS_DIR}/DES/bpz/etc/SED_DIR
+export AB_DIR=${PROJECTS_DIR}/DES/bpz/etc/AB_Y3
+export PATH=$PATH:${PROJECTS_DIR}/DES/bpz/bin
 
 
 # ds9
@@ -74,6 +80,11 @@ export DESDATA=/nfs/slac/g/ki/ki21/cosmo/beckermr/DES/DESDATA
 export DESDATA=${DES}/DESDATA
 export DESREMOTE=https://desar2.cosmology.illinois.edu/DESFiles/desardata
 export DESPROJ=OPS
+
+# add psfex, sextractor, fpack, funpack
+export PATH=${PATH}:/nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/sextractor/2.20.2+0/bin
+export PATH=${PATH}:/nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin
+export PATH=${PATH}:/afs/slac.stanford.edu/g/ki/software/cfitsio/3.41/bin
 
 # # do blas etc
 # export ATLAS=/afs/slac/g/ki/software/atlas/lib/libtatlas.so
