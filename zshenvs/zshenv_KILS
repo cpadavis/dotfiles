@@ -12,7 +12,8 @@ export PATH=${PYLIB_NFS}/bin:$PATH
 
 export PROJECTS_DIR=/nfs/slac/g/ki/ki18/cpd/Projects/
 # WavefrontPSF BANISHED
-export PYTHONPATH=${PROJECTS_DIR}/WavefrontPSF/code:$PYTHONPATH
+# export PYTHONPATH=${PROJECTS_DIR}/WavefrontPSF/code:$PYTHONPATH
+export PYTHONPATH=${PROJECTS_DIR}/DES/Donut
 # SpaceWarps
 # export PATH=$PATH:${PROJECTS_DIR}/SpaceWarps/analysis
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/SpaceWarps/analysis
@@ -36,7 +37,7 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/strongcnn/code
 # weak_sauce
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/weak_sauce/code
 # learnpsf
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF/code
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/LearnPSF
 # preliminize
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/preliminize
 # piff
@@ -51,6 +52,10 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/zbc/
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/2point/
 # cpz
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cpz/
+# gmmpy
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/gmmpy/
+# sompy
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/sompy/
 
 # bpz
 # export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
@@ -109,6 +114,6 @@ if tmux info &> /dev/null; then
     done
 fi
 
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$PYLIB_NFS/lib
+# export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$PYLIB_NFS/lib
 # added by Anaconda2 4.2.0 installer
-export PATH="/nfs/slac/g/ki/ki18/cpd/anaconda2/bin:$PATH"
+# export PATH="/nfs/slac/g/ki/ki18/cpd/anaconda2/bin:$PATH"
