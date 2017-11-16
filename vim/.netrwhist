@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/nfs/slac/g/ki/ki19/des/cpd/wizard/refREDMAGICY1FLOCK_unkFLOCK/compare_redmagic'
 let g:netrw_dirhist_2='/nfs/slac/g/ki/ki18/cpd/Projects/wz_configs/refREDMAPPERSV_unkBENCHMARK'
 let g:netrw_dirhist_3='/Users/cpd/Projects/wz_configs/refREDMAGICY1_unkLSSMOF'
@@ -7,3 +7,5 @@ let g:netrw_dirhist_4='/nfs/slac/g/ki/ki19/des/cpd/wizard/refREDMAGICY1FLOCK_unk
 let g:netrw_dirhist_5='/afs/slac.stanford.edu/u/ki/cpd/Projects'
 let g:netrw_dirhist_6='/nfs/slac/g/ki/ki18/cpd/Projects/wz_configs/Y1Analyses_may04_finalIhope'
 let g:netrw_dirhist_7='/Users/cpd/Dropbox/vimwiki/diary'
+let g:netrw_dirhist_8='/Users/cpd/.iterm2'
+let g:netrw_dirhist_9='/Users/cpd/.dotfiles'
