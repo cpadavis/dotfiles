@@ -17,11 +17,8 @@ HELPDIR=/usr/local/share/zsh/help
 # anaconda
 # source activate root;
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
-export PATH="/Users/cpd/anaconda/bin:$PATH";
+export PATH="/Users/cpd/anaconda3/bin:$PATH";
 export PATH="/Users/cpd/.local/bin:$PATH";
-
-# add anaconda to pythonpath
-export PYTHONPATH="/Users/cpd/anaconda/lib/python2.7/site-packages:$PYTHONPATH"
 
 # add dwarf fortress to path
 function df(){
@@ -34,3 +31,9 @@ export PYTHONPATH="/Users/cpd/Projects/wizard:$PYTHONPATH"
 export PATH="/Users/cpd/Projects/wizard/scripts:$PATH"
 # lifegames
 export PYTHONPATH="/Users/cpd/Projects/lifegames:$PYTHONPATH"
+# pymarlade
+export PYTHONPATH="/Users/cpd/Projects/pymarlade:$PYTHONPATH"
+export PATH="/Users/cpd/Projects/pymarlade/scripts:$PATH"
+# gmmpy
+export PYTHONPATH="/Users/cpd/Projects/gmmpy:$PYTHONPATH"
+export PATH="/Users/cpd/Projects/gmmpy/scripts:$PATH"
