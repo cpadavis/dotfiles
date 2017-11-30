@@ -8,6 +8,7 @@
 " ==========================================================
 " <leader>T - regular tags with ctrlp
 " <leader>t - buffer tags with ctrlp
+" <leader>b - buffer tags with tagbar
 " <leader>f - buffer switching with ctrlp
 " <leader>F - recent file switching with ctrlp
 " <leader>n - nerdtree
@@ -68,6 +69,8 @@ nmap <leader>lR :redraw!<CR>
 " Make h and l go to beginning and end of line
 map <leader>h ^
 map <leader>l $
+" since leader>l% is often used
+map <leader>ll $
 
 " Reload Vimrc
 map <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
@@ -599,6 +602,13 @@ let g:promptline_preset = {
 "         \'warn' : [ promptline#slices#last_exit_code() ]}
 " !rm ~/.dotfiles/promptline/promptline.sh
 " PromptlineSnapshot ~/.dotfiles/promptline/promptline.sh
+
+" ==========================================================
+" tagbar -- lets you see your functions. super useful!
+" ==========================================================
+nmap <leader>b :Tagbar<CR>
+let g:tagbar_autofocus = 0
+let g:tagbar_autoclose = 0
 
 " ==========================================================
 " CtrlP
