@@ -348,6 +348,7 @@ function fetch(){
     for remote in `git branch -r`; do git branch --track ${remote#origin/} $remote; done
     git fetch --all
     git pull --all
+}
 # function that does all the requisite testing for jekyll blogging
 function blog() {
     if it2check ; then it2setcolor preset 'Spacedust'; fi
