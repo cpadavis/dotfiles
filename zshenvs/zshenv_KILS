@@ -114,6 +114,6 @@ if tmux info &> /dev/null; then
     done
 fi
 
-# export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$PYLIB_NFS/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$PYLIB_NFS/lib
 # added by Anaconda2 4.2.0 installer
-# export PATH="/nfs/slac/g/ki/ki18/cpd/anaconda2/bin:$PATH"
+export PATH="/nfs/slac/g/ki/ki18/cpd/anaconda2/bin:$PATH"

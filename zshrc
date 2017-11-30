@@ -1,5 +1,5 @@
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+HISTFILE=${HOME}/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
@@ -24,7 +24,7 @@ unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename ~/.zshrc
+zstyle :compinstall filename ${HOME}/.zshrc
 
 autoload -Uz compinit
 compinit
@@ -38,11 +38,11 @@ bindkey -M vicmd -s ",h" "^"
 bindkey -M vicmd -s ",l" "$"
 
 #parses .dircolors and makes env var for GNU ls
-directory_colors=~/.dircolors
+directory_colors=${HOME}/.dircolors
 
 # and now we will ignore that and source promptline
 source ${HOME}/.dotfiles/promptline/promptline.sh
-# method for quick change directories. Add this to your ~/.zshrc, then just
+# method for quick change directories. Add this to your ${HOME}/.zshrc, then just
 # enter “cd …./dir”
 rationalise-dot() {
   if [[ $LBUFFER == *.. ]]; then
@@ -112,7 +112,8 @@ elif [[ $CPD_NAME == 'KILS' ]]; then
     alias bjoblr=bjobrl
     alias gopen='gnome-open'
     alias pdf='evince'
-    alias devmode='scl enable devtoolset-4 zsh'
+    alias devmode4='scl enable devtoolset-4 zsh'  # creates new shell. Exit to exit devmode
+    alias devmode='scl enable devtoolset-6 zsh'  # creates new shell. Exit to exit devmode
     function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }
 elif [[ $CPD_NAME == 'SHERLOCK' ]]; then
     eval "$(dircolors ${HOME}/.dircolors)";
@@ -235,7 +236,7 @@ function tmx() {
     # and then from:
     #     https://mutelight.org/practical-tmux
     #
-    # Store it to `~/bin/tmx` and issue `chmod +x`.
+    # Store it to `${HOME}/bin/tmx` and issue `chmod +x`.
     #
 
     # Works because bash automatically trims by assigning to variables and by
@@ -339,4 +340,12 @@ function limgcat() {
         echo $x;
         imgcat $x;
     done
+}
+
+# a useful command for fetching all git branches in a repo
+function fetch(){
+    # git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+    for remote in `git branch -r`; do git branch --track ${remote#origin/} $remote; done
+    git fetch --all
+    git pull --all
 }

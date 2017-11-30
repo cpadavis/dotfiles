@@ -1,0 +1,1 @@
+../ipython/profile_nbserver/ipython_qtconsole_config.py
