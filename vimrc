@@ -508,6 +508,8 @@ let g:calendar_google_task = 0
 let g:calendar_time_zone = '-08:00'
 nmap <leader>ct :tab Calendar<CR>
 nmap <leader>cd :Calendar -position=topleft -width=40 -view=day<CR>
+nmap <leader>cm :Calendar -position=topleft -width=40 -view=month<CR>
+nmap <leader>cy :Calendar -position=topleft -width=40 -view=year<CR>
 
 " ==========================================================
 " Fugitive
