@@ -6,11 +6,13 @@
 " ==========================================================
 " Shortcuts to windows that pop up on side
 " ==========================================================
-" <leader>td - Todo tasklist
-" <leader>tb - Tagbar
+" <leader>T - regular tags with ctrlp
+" <leader>t - buffer tags with ctrlp
+" <leader>b - buffer tags with tagbar
+" <leader>f - buffer switching with ctrlp
+" <leader>F - recent file switching with ctrlp
 " <leader>n - nerdtree
 " <leader>g - gundo
-" <leader>f - ctrlp
 " <leader>cc - quickfix
 " <leader>cl - location list
 " <leader>[C,c]t - Calendar
@@ -64,14 +66,11 @@ nmap <leader>lR :redraw!<CR>
 " sudo write this
 " cmap W! w !sudo tee % >/dev/null
 
-" Toggle the tasklist
-" and add other notes
-let g:tlTokenList = ["NOTE", "FIXME", "TODO", "XXX", "WARNING", "ERROR", "red{"]
-map <leader>td <Plug>TaskList
-
 " Make h and l go to beginning and end of line
 map <leader>h ^
 map <leader>l $
+" since leader>l% is often used
+map <leader>ll $
 
 " Reload Vimrc
 map <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
@@ -402,13 +401,6 @@ autocmd InsertEnter * :setlocal number norelativenumber
 autocmd InsertLeave * :setlocal number relativenumber
 
 " ==========================================================
-" tagbar -- lets you see your functions. super useful!
-" ==========================================================
-nmap <leader>tb :Tagbar<CR>
-let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
-
-" ==========================================================
 " Obsess shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>O :Obsess
@@ -424,17 +416,18 @@ nmap <leader>md :call PreviewMarkdown()<CR>
 " ==========================================================
 let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql': 'sql'}
 let wiki = {}
-let wiki.path = '~/Dropbox/vimwiki/'
+let wiki.path = $HOME.'/Dropbox/vimwiki/'
 let wiki.nested_syntaxes = vimwiki_nested_syntaxes
-" let wiki.syntax = 'default'
+let wiki.syntax = 'markdown'
 "'markdown'
+"'default'
 "let wiki.ext = '.wiki'
 
 " protected-ish
 let wiki_personal = {}
-let wiki_personal.path = '~/Documents/vimwiki/'
+let wiki_personal.path = $HOME.'/Documents/vimwiki/'
 let wiki_personal.nested_syntaxes = vimwiki_nested_syntaxes
-let wiki_personal.syntax = 'default'
+let wiki_personal.syntax = 'markdown'
 
 let g:vimwiki_list = [wiki, wiki_personal]
 
@@ -515,6 +508,8 @@ let g:calendar_google_task = 0
 let g:calendar_time_zone = '-08:00'
 nmap <leader>ct :tab Calendar<CR>
 nmap <leader>cd :Calendar -position=topleft -width=40 -view=day<CR>
+nmap <leader>cm :Calendar -position=topleft -width=40 -view=month<CR>
+nmap <leader>cy :Calendar -position=topleft -width=40 -view=year<CR>
 
 " ==========================================================
 " Fugitive
@@ -611,6 +606,13 @@ let g:promptline_preset = {
 " PromptlineSnapshot ~/.dotfiles/promptline/promptline.sh
 
 " ==========================================================
+" tagbar -- lets you see your functions. super useful!
+" ==========================================================
+nmap <leader>b :Tagbar<CR>
+let g:tagbar_autofocus = 0
+let g:tagbar_autoclose = 0
+
+" ==========================================================
 " CtrlP
 " http://kien.github.io/ctrlp.vim/
 " ==========================================================
@@ -618,6 +620,9 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 " f for find
 nmap <leader>F :CtrlPMixed<CR>
 nmap <leader>f :CtrlPBuffer<CR>
+" t for tag
+nmap <leader>t :CtrlPBufTagAll<CR>
+nmap <leader>T :CtrlPTag<CR>
 
 " ==========================================================
 " Limelight -- useful for focus!
@@ -750,6 +755,8 @@ nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 let g:vimtex_enabled = 1
 let g:tex_flavor = 'latex'  " change to pdflatex?
 let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_latexmk_options = '-pdf -xelatex -f -shell-escape --quiet'
+" latexmk -pdf -xelatex -f -shell-escape --quiet
 
 " ===========================================================
 " FileType specific changes
