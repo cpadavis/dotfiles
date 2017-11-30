@@ -20,6 +20,9 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/
 export PATH="/Users/cpd/anaconda3/bin:$PATH";
 export PATH="/Users/cpd/.local/bin:$PATH";
 
+# repace pip with anaconda pip
+alias pip="/Users/cpd/anaconda3/bin/pip"
+
 # add dwarf fortress to path
 function df(){
     sh /Users/cpd/df_43_05_osx/df
