@@ -475,7 +475,7 @@ let g:syntastic_mode_map = { 'mode': 'active'}
 let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
 " let's use flake8.
 " pylint is a little annoying in its ability to handle numpy
-let g:syntastic_python_checkers=['flake8'] " , 'pylint']
+let g:syntastic_python_checkers=['pyflakes', 'pep8'] " , 'pylint']
 " aggregate errors
 
 " show warnings and errors
