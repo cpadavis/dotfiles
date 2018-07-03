@@ -349,6 +349,10 @@ function fetch(){
     git fetch --all
     git pull --all
 }
+# function to update all submodules in repo
+function subupdate(){
+    git pull --recurse-submodules && git submodule update --recursive
+}
 # function that does all the requisite testing for jekyll blogging
 function blog() {
     if it2check ; then it2setcolor preset 'Spacedust'; fi
@@ -356,4 +360,11 @@ function blog() {
     bundle update
     bundle exec jekyll build
     bundle exec jekyll serve
+}
+
+function ksw() {
+    for X in p o
+    do
+        rm .*.sw$X
+    done
 }

@@ -21,7 +21,7 @@ def main():
 
     if len(args.id) == 2:
         # get all job ids
-        job_str = check_output(['bjobs']).split('\n')[1:-1]
+        job_str = check_output(['bjobs', '-w']).split('\n')[1:-1]
         ids = [int(string.split(' ')[0]) for string in job_str]
         # kill all in range
         ids_to_kill = [id for id in ids if (id >= int(args.id[0])) * (id <= int(args.id[1]))]
