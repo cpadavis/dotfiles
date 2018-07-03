@@ -724,9 +724,9 @@ function! CompileLatex()
     :silent make! %
     :silent make! %
     "silent Clean
+    " :silent ! rm %:r.bbl
     :silent ! rm %:r.blg
     :silent ! rm %:r.aux
-    :silent ! rm %:r.bbl
     :silent ! rm %:r.bcf
     :silent ! rm %:r.out
     :silent ! rm %:r.run.xml
@@ -755,7 +755,7 @@ nnoremap <leader>gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
 let g:vimtex_enabled = 1
 let g:tex_flavor = 'latex'  " change to pdflatex?
 let g:vimtex_quickfix_open_on_warning = 0
-let g:vimtex_latexmk_options = '-pdf -xelatex -f -shell-escape --quiet'
+let g:vimtex_latexmk_options = '-pdf -xelatex -f -shell-escape --quiet -biber'
 " latexmk -pdf -xelatex -f -shell-escape --quiet
 
 " ===========================================================
