@@ -469,14 +469,13 @@ endfunction " }}}
 " Syntastic
 " ==========================================================
 " set syntastic to active
-" let g:syntastic_mode_map = { 'mode': 'passive'}
-let g:syntastic_mode_map = { 'mode': 'active'}
+let g:syntastic_mode_map = { 'mode': 'passive'}
+" let g:syntastic_mode_map = { 'mode': 'active'}
 " also set syntastic to muffle style stuff unless I explicitly want it
 let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
-" let's use flake8.
-" pylint is a little annoying in its ability to handle numpy
-let g:syntastic_python_checkers=['pyflakes', 'pep8'] " , 'pylint']
-" aggregate errors
+let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
 
 " show warnings and errors
 let g:syntastic_error_symbol = 'E>'
@@ -535,28 +534,38 @@ nmap <Leader>Gr <Plug>GitGutterPreviewHunk
 " ==========================================================
 " vim airline
 " ==========================================================
-" note that this overrides statusline customized above!
-let g:airline_left_sep = ' '
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = ' '
-let g:airline_right_alt_sep = '|'
 
-" move filetype from section_x to section_y; remove the encoding since I never
-" actually use that
-let g:airline_section_x='%{airline#util#wrap(airline#extensions#tagbar#currenttag(),0)}'
-let g:airline_section_y='%{airline#util#wrap(airline#parts#filetype(),0)}'
-" add buffer number in front of percentage
-let g:airline_section_z='%3n : %p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v'
+" let g:airline_skip_empty_sections = 1
 
-let g:airline_skip_empty_sections = 1
+" disable auto loading of airline extensions
+let g:airline#extensions#disable_rtp_load = 0
 
+let g:airline_extensions = ['ctrlp', 'tagbar', 'vimtex', 'obsession', 'tabline', 'syntastic', 'whitespace']  " no hunks, branch, promptline, tmuxline
+
+" gitgutter
+" enable/disable showing a summary of changed hunks under source control. >
+let g:airline#extensions#hunks#enabled = 0
+" show branch indicator
+let g:airline#extensions#branch#enabled = 0
+
+let g:airline#extensions#ctrlp#enabled = 1
+
+let g:airline#extensions#syntastic#enabled = 1
+" try backwards and see what happens
+let g:airline#extensions#syntastic#error_symbol = 'Err'
+let g:airline#extensions#syntastic#warning_symbol = 'Warn'
+
+" enable tagbar
+let g:airline#extensions#tagbar#enabled = 1
+
+" enable vimtex
+let g:airline#extensions#vimtex#enabled = 1
+
+" detect whitespace errors
 let g:airline#extensions#whitespace#enabled = 1
 " only care about long lines
 let g:airline#extensions#whitespace#checks = [ 'long' ]
-let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#vimtex#enabled = 1
+
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
@@ -570,6 +579,26 @@ let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
+" enable obsession
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = '$asdf'
+
+let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#promptline#enabled = 1
+
+" note that this overrides statusline customized above!
+let g:airline_left_sep = ' '
+let g:airline_left_alt_sep = '|'
+let g:airline_right_sep = ' '
+let g:airline_right_alt_sep = '|'
+
+" move filetype from section_x to section_y; remove the encoding since I never
+" actually use that
+let g:airline_section_x='%{airline#util#wrap(airline#extensions#tagbar#currenttag(),0)}'
+let g:airline_section_y='%{airline#util#wrap(airline#parts#filetype(),0)}'
+" add buffer number in front of percentage
+let g:airline_section_z='%3n : %p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v'
+
 " ==========================================================
 " tmuxline
 " ==========================================================
@@ -577,7 +606,6 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_theme = 'airline'
 let g:tmuxline_preset = 'powerline'
-let g:airline#extensions#tmuxline#enabled = 0
 
 " ==========================================================
 " promptline
@@ -611,6 +639,7 @@ let g:promptline_preset = {
 nmap <leader>b :Tagbar<CR>
 let g:tagbar_autofocus = 0
 let g:tagbar_autoclose = 0
+let g:tagbar_show_linenumbers = 1 " show line numbers
 
 " ==========================================================
 " CtrlP
@@ -757,6 +786,21 @@ let g:tex_flavor = 'latex'  " change to pdflatex?
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_latexmk_options = '-pdf -xelatex -f -shell-escape --quiet'
 " latexmk -pdf -xelatex -f -shell-escape --quiet
+
+" ===========================================================
+" Profile commands
+" ============================================================
+function! StartProfile()
+    :profile start profile.log
+    :profile func *
+    :profile file *
+endfunction
+
+function! EndProfile()
+    " warning! quits!
+    :profile pause
+    :noautocmd qall!
+endfunction
 
 " ===========================================================
 " FileType specific changes

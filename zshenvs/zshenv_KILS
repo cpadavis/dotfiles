@@ -44,6 +44,7 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/preliminize
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/Piff
 export PATH=$PATH:${PROJECTS_DIR}/DES/Piff/scripts
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/piff_des
+export PATH=$PATH:${PROJECTS_DIR}/piff_des/scripts
 # cosmosis
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/
 # zbc
@@ -55,7 +56,9 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/cpz/
 # gmmpy
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/gmmpy/
 # sompy
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/sompy/
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/sompz/
+# pixmappy
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/pixmappy/
 
 # bpz
 # export BPZPATH=${PROJECTS_DIR}/bpz-1.99.3
