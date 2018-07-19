@@ -334,14 +334,6 @@ function crawl() {
 function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
 function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
 
-# function that displays names and then shows the plot. Relies on imgcat
-function limgcat() {
-    for x in "${@}"; do
-        echo $x;
-        imgcat $x;
-    done
-}
-
 # a useful command for fetching all git branches in a repo
 function fetch(){
     # git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
