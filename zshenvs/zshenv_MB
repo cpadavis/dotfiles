@@ -17,12 +17,13 @@ HELPDIR=/usr/local/share/zsh/help
 # anaconda
 # you may need to type the following line in order to use anaconda for a given task:
 # source activate root
+# conda activate galsim for a working install of galsim
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
 export PATH="/Users/cpd/anaconda3/bin:$PATH";
 export PATH="/Users/cpd/.local/bin:$PATH";
 
 # repace pip with anaconda pip
-alias pip="/Users/cpd/anaconda3/bin/pip"
+# alias pip="/Users/cpd/anaconda3/bin/pip"
 
 # add dwarf fortress to path
 function df(){
@@ -30,9 +31,9 @@ function df(){
 }
 
 # projects
-# wizard
-export PYTHONPATH="/Users/cpd/Projects/wizard:$PYTHONPATH"
-export PATH="/Users/cpd/Projects/wizard/scripts:$PATH"
+# # wizard
+# export PYTHONPATH="/Users/cpd/Projects/wizard:$PYTHONPATH"
+# export PATH="/Users/cpd/Projects/wizard/scripts:$PATH"
 # lifegames
 export PYTHONPATH="/Users/cpd/Projects/lifegames:$PYTHONPATH"
 # pymarlade
