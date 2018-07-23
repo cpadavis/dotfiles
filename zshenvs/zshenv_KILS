@@ -43,8 +43,8 @@ export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/preliminize
 # piff
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/Piff
 export PATH=$PATH:${PROJECTS_DIR}/DES/Piff/scripts
-export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/piff_des
-export PATH=$PATH:${PROJECTS_DIR}/piff_des/scripts
+export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/piff_des
+export PATH=$PATH:${PROJECTS_DIR}/DES/piff_des/scripts
 # cosmosis
 export PYTHONPATH=$PYTHONPATH:${PROJECTS_DIR}/DES/
 # zbc
