@@ -69,8 +69,6 @@ nmap <leader>lR :redraw!<CR>
 " Make h and l go to beginning and end of line
 map <leader>h ^
 map <leader>l $
-" since leader>l% is often used
-map <leader>ll $
 
 " Reload Vimrc
 map <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
@@ -250,7 +248,6 @@ if has("mouse_sgr")
 else
     set ttymouse=xterm2
 end
-" TODO: Check below for actually running correctly
 if has("gui_running")
     colorscheme solarized
     set background=light
@@ -258,8 +255,7 @@ if has("gui_running")
     if has("gui_macvim")
         """ Full screen options
         set fuoptions=maxvert,maxhorz,background:Normal
-        set colorcolumn=80
-        "elseif os == 'Linux'
+        " set colorcolumn=80
         set guifont=Menlo:h12.00
     else
         set guifont=DejaVu\ Sans\ Mono\ 10.00
@@ -294,7 +290,7 @@ else
     colorscheme lucius "default
     set background=light
     "set nocursorline
-    set colorcolumn=80
+    " set colorcolumn=80
     set cursorline
     "set lines=60 columns=85
 endif
@@ -540,7 +536,7 @@ nmap <Leader>Gr <Plug>GitGutterPreviewHunk
 " disable auto loading of airline extensions
 let g:airline#extensions#disable_rtp_load = 0
 
-let g:airline_extensions = ['ctrlp', 'tagbar', 'vimtex', 'obsession', 'tabline', 'syntastic', 'whitespace']  " no hunks, branch, promptline, tmuxline
+let g:airline_extensions = ['ctrlp', 'tagbar', 'vimtex', 'obsession', 'tabline', 'syntastic', 'whitespace', 'gutentags']  " no hunks, branch, promptline, tmuxline
 
 " gitgutter
 " enable/disable showing a summary of changed hunks under source control. >
@@ -560,6 +556,9 @@ let g:airline#extensions#tagbar#enabled = 1
 
 " enable vimtex
 let g:airline#extensions#vimtex#enabled = 1
+
+" enable gutentags
+let g:airline#extensions#gutentags#enabled = 1
 
 " detect whitespace errors
 let g:airline#extensions#whitespace#enabled = 1
@@ -654,10 +653,15 @@ nmap <leader>t :CtrlPBufTagAll<CR>
 nmap <leader>T :CtrlPTag<CR>
 
 " ==========================================================
+" gutentags -- tag management
+" ==========================================================
+
+
+" ==========================================================
 " Limelight -- useful for focus!
 " ==========================================================
 " !! is toggle version of command
-nmap <leader>lL :Limelight!!<CR>
+nmap <leader>LL :Limelight!!<CR>
 
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
@@ -674,8 +678,8 @@ nmap <leader>A :Ack
 " Linediff shortcut to encourage me to use it!
 " ==========================================================
 " reset linediff
-nmap <leader>lr :LinediffReset<CR>
-vmap <leader>ld :Linediff<CR>
+nmap <leader>Lr :LinediffReset<CR>
+vmap <leader>Ld :Linediff<CR>
 
 " ==========================================================
 " Rainbow Parentheses
