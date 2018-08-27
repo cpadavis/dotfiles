@@ -22,6 +22,9 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/
 export PATH="/Users/cpd/anaconda3/bin:$PATH";
 export PATH="/Users/cpd/.local/bin:$PATH";
 
+# set ipython notebook
+export IPYTHON_NOTEBOOK_DIR="Projects/ipynbs"
+
 # repace pip with anaconda pip
 # alias pip="/Users/cpd/anaconda3/bin/pip"
 

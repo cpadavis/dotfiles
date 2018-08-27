@@ -2,7 +2,8 @@
 
 # tmux requires unrecognized OSC sequences to be wrapped with DCS tmux;
 # <sequence> ST, and for all ESCs in <sequence> to be replaced with ESC ESC. It
-# only accepts ESC backslash for ST.
+# only accepts ESC backslash for ST. We use TERM instead of TMUX because TERM
+# gets passed through ssh.
 function print_osc() {
     if [[ $TERM == screen* ]] ; then
         printf "\033Ptmux;\033\033]"
@@ -45,7 +46,7 @@ function print_image() {
     printf "%s" "$3" | base64 $BASE64ARG | wc -c | awk '{printf "size=%d",$1}'
     printf ";inline=$2"
     if [[ -n "$5" ]]; then
-      printf ";width=$5"
+        printf ";width=$5"
     fi
     printf ":"
     printf "%s" "$3"
@@ -65,6 +66,13 @@ function show_help() {
     echo "   or: cat filename | imgcat" 1>& 2
 }
 
+function check_dependency() {
+  if ! (builtin command -V "$1" > /dev/null 2>& 1); then
+    echo "imgcat: missing dependency: can't find $1" 1>& 2
+    exit 1
+  fi
+}
+
 ## Main
 
 if [ -t 0 ]; then
@@ -79,8 +87,13 @@ if [ $has_stdin = f -a $# -eq 0 ]; then
     exit
 fi
 
+check_dependency awk
+check_dependency base64
+check_dependency wc
+
 # Look for command line flags.
 # while [ $# -gt 0 ]; do
+#     case "$1" in
 for i in "$@"; do
     case "$i" in
     -h|--h|--help)
@@ -93,17 +106,27 @@ for i in "$@"; do
     -w=*|--w=*|--width=*)
         width="${i#*=}"
         ;;
+    -u|--u|--url)
+        check_dependency curl
+        encoded_image=$(curl -s "$2" | base64) || (error "No such file or url $2"; exit 2)
+        has_stdin=f
+        print_image "$2" 1 "$encoded_image" "$print_filename"
+        set -- ${@:1:1} "-u" ${@:3}
+        if [ "$#" -eq 2 ]; then
+            exit
+        fi
+        ;;
     -*)
-        error "Unknown option flag: $i"
+        error "Unknown option flag: $1"
         show_help
-        exit i
+        exit 1
       ;;
     *)
-        if [ -r "$i" ] ; then
+        if [ -r "$1" ] ; then
             has_stdin=f
-            print_image "$i" 1 "$(base64 < "$i")" "$print_filename" "$width"
+            print_image "$1" 1 "$(base64 < "$1")" "$print_filename" "$width"
         else
-            error "imgcat: $i: No such file or directory"
+            error "imgcat: $1: No such file or directory"
             exit 2
         fi
         ;;
