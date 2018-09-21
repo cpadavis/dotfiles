@@ -120,3 +120,25 @@ fi
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$PYLIB_NFS/lib
 # added by Anaconda2 4.2.0 installer
 export PATH="/nfs/slac/g/ki/ki18/cpd/anaconda2/bin:$PATH"
+
+
+eval "$(dircolors ${HOME}/.dircolors)";
+alias ls='ls -hFaG --color'
+alias vim='vim -c "colorscheme lucius|set background=light"'
+export IPYNOTEBOOKIP=`echo $SSH_CONNECTION | awk '{print $3}'`
+alias notebook="jupyter notebook --ip=${IPYNOTEBOOKIP} --port=8008"
+alias pipi="pip install --user"
+alias pipu="pip install --user --upgrade"
+
+# overwrite slac to just be simple ssh
+function slac(){ ssh -Y cpd@ki-ls${1}.slac.stanford.edu ; }
+alias bjob="bjobs -w | less"
+alias bjobl="bjobs -l | less"
+alias bjobr="bjobs -wr | less"
+alias bjobrl="bjobs -rl | less"
+alias bjoblr=bjobrl
+alias gopen='gnome-open'
+alias pdf='evince'
+alias devmode4='scl enable devtoolset-4 zsh'  # creates new shell. Exit to exit devmode
+alias devmode='scl enable devtoolset-6 zsh'  # creates new shell. Exit to exit devmode
+function roopsfex() { /nfs/slac/g/ki/ki22/roodman/EUPS_DESDM/eups/packages/Linux64/psfex/3.17.3+0/bin/psfex ${1} -c /nfs/slac/g/ki/ki18/cpd/Projects/WavefrontPSF/code/DeconvolvePSF/cluster/desdm-plus_cpd_16_02_02.psfex -OUTCAT_NAME ${2} ; }

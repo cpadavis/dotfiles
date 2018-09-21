@@ -37,3 +37,10 @@ function ssstat() {
 }
 alias acct='sacct --format JobID,jobname,NTasks,nodelist,MaxRSS,MaxVMSize,AveRSS,AveVMSize,CPUTime,End,State,ExitCode,DerivedExitcode,Comment | less'
 alias queue='squeue | less'
+
+eval "$(dircolors ${HOME}/.dircolors)";
+alias ls='ls -hFaG --color'
+alias vim='vim -c "colorscheme lucius|set background=dark"'
+alias notebook="jupyter notebook"
+alias pipi="pip install --user"
+alias pipu="pip install --user --upgrade"

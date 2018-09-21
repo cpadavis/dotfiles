@@ -12,17 +12,17 @@ ln -s ~/.dotfiles/zshrc ~/.zshrc
 # tmux
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/.dotfiles/tmux ~/.tmux
-# irssi
-ln -s ~/.dotfiles/irssi ~/.irssi
-# ipython
-ln -s ~/.dotfiles/ipython ~/.ipython
-ln -s ~/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+# # irssi
+# ln -s ~/.dotfiles/irssi ~/.irssi
+# # ipython
+# ln -s ~/.dotfiles/ipython ~/.ipython
+# ln -s ~/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 # git
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 # directory colors
 ln -s ~/.dotfiles/dircolors-solarized/dircolors.ansi-universal ~/.dircolors
 # promptline and tmuxline defaults
-ln -s ~/.dotfiles/promptline/promptline_SolarizedLightVIM_inspirational.sh ~/.dotfiles/promptline/promptline.sh
+ln -s ~/.dotfiles/promptline/promptline_SolarizedLightVIM.sh ~/.dotfiles/promptline/promptline.sh
 ln -s ~/.dotfiles/tmuxline/tmuxline_SolarizedLightVIM.conf ~/.dotfiles/tmuxline/tmuxline.conf
 
 # iterm2 with my modifications

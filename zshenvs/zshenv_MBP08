@@ -1,1 +1,6 @@
 export CPD_NAME=MBP08
+eval "$(gdircolors ${HOME}/.dircolors)";
+alias ls='gls -hFa --color'
+alias notebook="jupyter notebook"
+alias pipi='pip install'
+alias pipu='pip install --upgrade'

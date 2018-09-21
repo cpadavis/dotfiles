@@ -45,3 +45,10 @@ export PATH="/Users/cpd/Projects/pymarlade/scripts:$PATH"
 # gmmpy
 export PYTHONPATH="/Users/cpd/Projects/gmmpy:$PYTHONPATH"
 export PATH="/Users/cpd/Projects/gmmpy/scripts:$PATH"
+
+
+eval "$(gdircolors ${HOME}/.dircolors)";
+alias ls='gls -hFa --color'
+alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
+alias pipi='pip install'
+alias pipu='pip install --upgrade'

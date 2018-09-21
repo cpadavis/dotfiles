@@ -78,3 +78,5 @@ tmuxline.conf
 
 # ipython can get corrupted histories UGH
 ipython/*/history-corrupt*
+
+tags

@@ -1,0 +1,12 @@
+# if paths get messed up, this can help
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+
+# NAME
+export CPD_NAME=DESCARTES
+eval "$(gdircolors ${HOME}/.dircolors)";
+alias ls='gls -hFa --color'
+
+# set ipython notebook
+export IPYTHON_NOTEBOOK_DIR="Projects/ipynbs"

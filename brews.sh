@@ -1,11 +1,11 @@
 brew doctor
-brew tap homebrew/dupes
-brew install findutils --default-names
-brew install gnu-sed --default-names
-brew install gnu-tar --default-names
-brew install gnu-which --default-names
-brew install gnutls --default-names
-brew install grep --default-names
+brew install vim
+brew install findutils --with-default-names
+brew install gnu-sed --with-default-names
+brew install gnu-tar --with-default-names
+brew install gnu-which --with-default-names
+brew install gnutls --with-default-names
+brew install grep --with-default-names
 brew install ack
 brew install coreutils
 brew install binutils
@@ -17,3 +17,4 @@ brew install wget
 brew install nmap
 brew install gpg
 brew install htop
+brew install ctags
