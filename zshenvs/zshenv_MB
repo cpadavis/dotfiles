@@ -52,3 +52,5 @@ alias ls='gls -hFa --color'
 alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
 alias pipi='pip install'
 alias pipu='pip install --upgrade'
+
+source ${HOME}/.dotfiles/promptline/promptline_SolarizedDarkVIM.sh

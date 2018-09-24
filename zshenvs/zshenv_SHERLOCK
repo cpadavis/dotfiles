@@ -44,3 +44,4 @@ alias vim='vim -c "colorscheme lucius|set background=dark"'
 alias notebook="jupyter notebook"
 alias pipi="pip install --user"
 alias pipu="pip install --user --upgrade"
+source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh

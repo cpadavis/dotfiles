@@ -156,3 +156,4 @@ alias pipu='sudo pip install --upgrade'
 
 # googler is a useful search command
 alias goo='googler'
+source ${HOME}/.dotfiles/promptline/promptline_SolarizedLightVIM.sh

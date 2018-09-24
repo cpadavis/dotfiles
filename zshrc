@@ -40,8 +40,6 @@ bindkey -M vicmd -s ",l" "$"
 #parses .dircolors and makes env var for GNU ls
 directory_colors=${HOME}/.dircolors
 
-# and now we will ignore that and source promptline
-source ${HOME}/.dotfiles/promptline/promptline.sh
 # method for quick change directories. Add this to your ${HOME}/.zshrc, then just
 # enter “cd …./dir”
 rationalise-dot() {
@@ -78,6 +76,43 @@ function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/p
 alias vims='vim -S Session.vim'
 alias dua='du -h | sort -nr'
 
+function vimwiki() {
+    if it2check ; then it2setcolor preset 'Solarized Light'; fi
+    cd ${HOME}/Projects/vimwiki
+    vim -S Session.vim -c "colorscheme solarized"
+}
+
+function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
+
+# a useful command for fetching all git branches in a repo
+function fetch(){
+    # git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+    for remote in `git branch -r`; do git branch --track ${remote#origin/} $remote; done
+    git fetch --all
+    git pull --all
+}
+# function to update all submodules in repo
+function subupdate(){
+    git pull --recurse-submodules && git submodule update --recursive
+}
+# function that does all the requisite testing for jekyll blogging
+function blog() {
+    if it2check ; then it2setcolor preset 'Spacedust'; fi
+    cd ${HOME}/Projects/cpadavis.github.io
+    bundle update
+    bundle exec jekyll build
+    bundle exec jekyll serve
+}
+
+# kill swap files
+function ksw() {
+    for X in p o
+    do
+        rm .*.sw$X
+    done
+}
+
+
 # latex configs
 alias ltex='xelatex -file-line-error -interaction=nonstopmode *.tex'
 function CompileLatex()
@@ -87,6 +122,33 @@ function CompileLatex()
     xelatex -file-line-error -interaction=nonstopmode ${1}.tex
     xelatex -file-line-error -interaction=nonstopmode ${1}.tex
 }
+
+
+function tmuxline()
+{
+    # changes my promptline configs in case solarized looks like poop
+    # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
+    # note: still have to change the vim settings from within vim via
+    # <leader>cS and <leader>cs
+    tmux source ${HOME}/.dotfiles/tmuxline/tmuxline_${1:=LuciusLight}.conf
+    tmux send-keys "source ${HOME}/.dotfiles/promptline/promptline_${1:=LuciusLight}.sh" C-m
+}
+function promptline()
+{
+    # changes my promptline configs in case solarized looks like poop
+    # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
+    # note: still have to change the vim settings from within vim via
+    # <leader>cS and <leader>cs
+    source ${HOME}/.dotfiles/promptline/promptline_${1:=LuciusLight}.sh
+}
+
+# URL encode something and print it.
+function url-encode; {
+    echo "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}" }
+
+#####
+# various ssh things
+#####
 
 # alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
 function kint(){
@@ -114,37 +176,43 @@ function slac(){
     kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU ;
     # kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ;
     ssh -KY cpd@ki-ls${1}.slac.stanford.edu ; }
-
-alias trivialAccess='echo "You should use easyaccess!"'
-
-function tmuxline()
-{
-    # changes my promptline configs in case solarized looks like poop
-    # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
-    # note: still have to change the vim settings from within vim via
-    # <leader>cS and <leader>cs
-    tmux source ${HOME}/.dotfiles/tmuxline/tmuxline_${1:=LuciusLight}.conf
-    tmux send-keys "source ${HOME}/.dotfiles/promptline/promptline_${1:=LuciusLight}.sh" C-m
-}
-function promptline()
-{
-    # changes my promptline configs in case solarized looks like poop
-    # SolarizedLight, SolarizedDark, LuciusLight, LuciusDark
-    # note: still have to change the vim settings from within vim via
-    # <leader>cS and <leader>cs
-    source ${HOME}/.dotfiles/promptline/promptline_${1:=LuciusLight}.sh
-}
-
-# URL encode something and print it.
-function url-encode; {
-    echo "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}" }
-
 function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:${1} ${2} ;}
 function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:${2} ;}
 function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:${1} ${2} ;}
 function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
 function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
 function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
+
+# e.g. on local:
+# `alias gcp_dev8888='gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "kts-dev" --ssh-flag="-CY -L 8888:localhost:8888"'  # For Jupyterlab`
+# from VM, ssh with a terminal, then start jupyter lab (in a screen session) and point it to the specific port: `jupyter-lab --port 8888`
+# gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev"
+function sshdl(){
+    ssh -XY -i ~/.ssh/instance_key chris@${1}
+}
+
+function sshgcp(){
+    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev"
+    # ssh --zone "us-central1-c" "kts-dev" --ssh-flag="-CY -L 8888:localhost:8888"
+}
+
+# play crawl over the internet!
+function sshcrawl() {
+    # check if the ssh key exists
+    if [[ ! -a ${HOME}/.ssh/cao_key ]]; then
+        wget -O ${HOME}/.ssh/cao_key http://crawl.akrasiac.org/cao_key
+        chmod 400 ${HOME}/.ssh/cao_key
+    fi
+
+    if it2check ; then it2setcolor preset 'Tango Dark'; fi
+
+    # ssh command
+    ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
+}
+
+#####
+# tmux related
+#####
 
 function tmuxs
 {
@@ -217,83 +285,4 @@ function tmx() {
         # When we detach from it, kill the session
         tmux kill-session -t $session_id
     fi
-}
-
-function irc() {
-    if it2check ; then it2setcolor preset 'Spacedust'; fi
-    cd ${HOME}/.irssi
-    TERM=screen-256color irssi
-}
-
-function vimwiki() {
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
-    cd ${HOME}/Projects/vimwiki
-    vim -S Session.vim -c "colorscheme solarized"
-}
-
-function pylab() {
-    if it2check ; then it2setcolor preset 'GithubMod'; fi
-    ipython --profile=nbserver
-}
-
-function jpy() {
-    if it2check ; then it2setcolor preset 'GithubMod'; fi
-    jupyter notebook
-}
-
-# play crawl over the internet!
-function sshcrawl() {
-    # check if the ssh key exists
-    if [[ ! -a ${HOME}/.ssh/cao_key ]]; then
-        wget -O ${HOME}/.ssh/cao_key http://crawl.akrasiac.org/cao_key
-        chmod 400 ${HOME}/.ssh/cao_key
-    fi
-
-    if it2check ; then it2setcolor preset 'Tango Dark'; fi
-
-    # ssh command
-    ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
-}
-
-function dwarfort() {
-    if it2check ; then it2setcolor preset 'Tango Dark'; fi
-    ${HOME}/.local/games/df_osx/dwarfort
-}
-function nethack() {
-    if it2check ; then it2setcolor preset 'Tango Dark'; fi
-    /usr/local/bin/nethack
-}
-function crawl() {
-    if it2check ; then it2setcolor preset 'Tango Dark'; fi
-    /Applications/Games/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/Resources/crawl
-}
-
-function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
-function im() { python -c "import matplotlib.pyplot as plt; plt.imshow(plt.imread('${1}')); plt.show()" & ;}
-
-# a useful command for fetching all git branches in a repo
-function fetch(){
-    # git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
-    for remote in `git branch -r`; do git branch --track ${remote#origin/} $remote; done
-    git fetch --all
-    git pull --all
-}
-# function to update all submodules in repo
-function subupdate(){
-    git pull --recurse-submodules && git submodule update --recursive
-}
-# function that does all the requisite testing for jekyll blogging
-function blog() {
-    if it2check ; then it2setcolor preset 'Spacedust'; fi
-    cd ${HOME}/Projects/cpadavis.github.io
-    bundle update
-    bundle exec jekyll build
-    bundle exec jekyll serve
-}
-
-function ksw() {
-    for X in p o
-    do
-        rm .*.sw$X
-    done
 }

@@ -24,6 +24,9 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 # https://unix.stackexchange.com/questions/20396/make-cd-automatically-ls
 export CPD_NAME=GCLOUD
 
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 [ -z "$PS1" ] && return
 alias ls='ls -hFa --color'
 function cd {
@@ -31,5 +34,4 @@ function cd {
 }
 alias pylab='ipython --profile=nbserver'
 
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+source ${HOME}/.dotfiles/promptline/promptline_LuciusLight.sh
