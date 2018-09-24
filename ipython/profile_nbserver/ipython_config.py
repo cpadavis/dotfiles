@@ -24,10 +24,9 @@ activate_lines = [
     # "%pdb",
     "from __future__ import print_function, division",
     'import numpy as np',
-    'from astropy.io import fits',
-    'import fitsio',
     'import pandas as pd',
     "import matplotlib, matplotlib.cm",
+    "import descarteslabs as dl",
     # "palette = matplotlib.cm.gray_r",
     "palette = matplotlib.cm.RdBu_r",
     "palette.set_bad(color='g', alpha=0.75)",
@@ -39,7 +38,7 @@ activate_lines = [
     'import matplotlib.pyplot as plt',
     'plt.ion()',  # turn on interactive mode
     "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
-    'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, fits, fitsio, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
+    'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
 if cpd_computer == 'MAC':
