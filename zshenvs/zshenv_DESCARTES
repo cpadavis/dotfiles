@@ -10,3 +10,11 @@ alias ls='gls -hFa --color'
 
 # set ipython notebook
 export IPYTHON_NOTEBOOK_DIR="Projects/ipynbs"
+
+source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/cpd/Projects/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/cpd/Projects/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/cpd/Projects/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/cpd/Projects/google-cloud-sdk/completion.zsh.inc'; fi

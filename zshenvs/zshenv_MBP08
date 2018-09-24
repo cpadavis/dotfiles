@@ -4,3 +4,4 @@ alias ls='gls -hFa --color'
 alias notebook="jupyter notebook"
 alias pipi='pip install'
 alias pipu='pip install --upgrade'
+source ${HOME}/.dotfiles/promptline/promptline_SolarizedLightVIM.sh
