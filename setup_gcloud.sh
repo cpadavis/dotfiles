@@ -45,8 +45,7 @@ sudo apt-get install ctags
 pip3 install keras==2.2.2
 
 # install some python packages
-pip3 install cython ipython numba jedi jupyter matplotlib notebook numpy pandas pep8 pyflakes pylint scikit-learn scipy sympy yaml
-pip3 install easyaccess ipdb
+pip3 install cython ipython numba jedi jupyter matplotlib notebook numpy pandas pep8 pyflakes pylint scikit-learn scipy sympy easyaccess ipdb
 
 # do linking
 cd ~/.dotfiles
