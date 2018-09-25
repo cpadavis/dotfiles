@@ -270,8 +270,10 @@ function __promptline {
     local a_bg="${wrap}48;5;249${end_wrap}"
     local a_sep_fg="${wrap}38;5;249${end_wrap}"
   else
-    local a_fg="${wrap}38;5;188${end_wrap}"
-    local a_bg="${wrap}48;5;27${end_wrap}"
+    # local a_fg="${wrap}38;5;188${end_wrap}"
+    # local a_bg="${wrap}48;5;27${end_wrap}"
+    local a_fg="${wrap}38;5;236${end_wrap}"
+    local a_bg="${wrap}48;5;2${end_wrap}"
     local a_sep_fg="${wrap}38;5;27${end_wrap}"
   fi
   local b_fg="${wrap}38;5;250${end_wrap}"

@@ -79,7 +79,7 @@ alias dua='du -h | sort -nr'
 function vimwiki() {
     if it2check ; then it2setcolor preset 'Solarized Light'; fi
     cd ${HOME}/Projects/vimwiki
-    vim -S Session.vim -c "colorscheme solarized"
+    vim -S Session.vim -c "colorscheme solarized | set background=light"
 }
 
 function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
@@ -183,17 +183,18 @@ function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
 function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
 function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
 
-# e.g. on local:
-# `alias gcp_dev8888='gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "kts-dev" --ssh-flag="-CY -L 8888:localhost:8888"'  # For Jupyterlab`
-# from VM, ssh with a terminal, then start jupyter lab (in a screen session) and point it to the specific port: `jupyter-lab --port 8888`
-# gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev"
-function sshdl(){
+function gcloudip(){
+    if it2check ; then it2setcolor preset 'LuciusLight'; fi
     ssh -XY -i ~/.ssh/instance_key chris@${1}
 }
-
-function sshgcp(){
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev"
-    # ssh --zone "us-central1-c" "kts-dev" --ssh-flag="-CY -L 8888:localhost:8888"
+function gcp(){
+    if it2check ; then it2setcolor preset 'LuciusLight'; fi
+    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev" --ssh-flag="-CY"
+}
+function gcpdev(){
+    # same as gcp but connects ports as well for jupyter notebook. Not sure if it also adds extra problems
+    if it2check ; then it2setcolor preset 'LuciusLight'; fi
+    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev" --ssh-flag="-CY -L 8888:localhost:8888"
 }
 
 # play crawl over the internet!
@@ -221,7 +222,11 @@ function tmuxs
     tmux new-session -s tmuxs
 }
 # tmux sharing
-alias tmuxa="tmux -u attach-session -t tmuxs:1"
+function tmuxa
+{
+    if it2check ; then it2setcolor preset 'Solarized Light'; fi
+    tmux -u attach-session -t tmuxs:1
+}
 
 # kick off other terminals
 alias detach='tmux detach -a'
