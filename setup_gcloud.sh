@@ -40,18 +40,25 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY
 
 # ctags for vim
 sudo apt-get install ctags
+sudo apt-get install zsh
+sudo apt-get install ack-grep
 
 # install Keras
 pip3 install keras==2.2.2
 
 # install some python packages
-pip3 install cython ipython numba jedi jupyter matplotlib notebook numpy pandas pep8 pyflakes pylint scikit-learn scipy sympy yaml
-pip3 install easyaccess ipdb
+pip3 install cython ipython numba jedi jupyter matplotlib notebook numpy pandas pep8 pyflakes pylint scikit-learn scipy sympy ipdb
+
+# enable widgets with jupyter
+jupyter nbextension enable --py widgetsnbextension
 
 # do linking
 cd ~/.dotfiles
 # init the vim submodules
 git submodule update --init
+
+mkdir ~/ipynbs
+mkdir ~/.jupyter
 
 # vim
 ln -s ~/.dotfiles/vimrc ~/.vimrc
@@ -59,7 +66,7 @@ ln -s ~/.dotfiles/vim ~/.vim
 # tmux
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/.dotfiles/tmux ~/.tmux
-# ipythoan
+# ipython
 ln -s ~/.dotfiles/ipython ~/.ipython
 ln -s ~/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 # git
@@ -72,7 +79,12 @@ ln -s ~/.dotfiles/tmuxline/tmuxline_LuciusLight.conf ~/.dotfiles/tmuxline/tmuxli
 
 # iterm2 with my modifications
 ln -s ~/.dotfiles/iterm2/iterm2_shell_integration.bash ~/.iterm2_shell_integration.bash
+ln -s ~/.dotfiles/iterm2/iterm2_shell_integration.zsh ~/.iterm2_shell_integration.zsh
 ln -s ~/.dotfiles/iterm2 ~/.iterm2
 
 # bash profile
 ln -s ~/.dotfiles/zshenvs/profile_gcloud ~/.profile
+
+# link also zsh
+ln -s ~/.dotfiles/zshrc ~/.zshrc
+ln -s ~/.dotfiles/zshenvs/zshenv_GCLOUD ~/.zshenv

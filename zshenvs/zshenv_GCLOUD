@@ -1,0 +1,19 @@
+# if paths get messed up, this can help
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+
+export CPD_NAME=GCLOUD
+eval "$(dircolors ${HOME}/.dircolors)";
+alias ls='ls -hFa --color'
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+export IPYTHON_NOTEBOOK_DIR="$HOME/ipynbs"
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+alias pylab='ipython --profile=nbserver'
+alias notebook='jupyter notebook'
+
+source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
