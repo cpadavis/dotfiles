@@ -13,7 +13,7 @@ c.NotebookApp.password = u'sha1:0e146849b634:d74216e0146e100998abc9c88a5228ad645
 # For easier use of import, %run and %loadpy across notebooks, a <notebook-
 # name>.py script will be created next to any <notebook-name>.ipynb on each
 # save.  This can also be set with the short `--script` flag.
-c.NotebookManager.save_script = True
+# c.NotebookManager.save_script = True
 
 # The directory to use for notebooks.
 #c.NotebookManager.notebook_dir = '/Users/cpd/.ipython/notebooks'
