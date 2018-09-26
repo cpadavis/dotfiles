@@ -9,7 +9,10 @@ ln -s ~/.dotfiles/vimrc ~/.vimrc
 ln -s ~/.dotfiles/vim ~/.vim
 # zshell
 ln -s ~/.dotfiles/zshrc ~/.zshrc
-echo "Do not forget to link the right zshenv file!"
+read -p "Enter computer name for zshenv: " USER
+zshenv_file = ~/.dotfiles/zshenvs/zshenv_$USER
+echo "Linking $zshenv_file to ~/.zshenv"
+ln -s $zshenv_file ~/.zshenv
 echo "Also change your shell to zsh if it is not that already!"
 # tmux
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
