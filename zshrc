@@ -189,12 +189,12 @@ function gcloudip(){
 }
 function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev" --ssh-flag="-CY"
+    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@chris-dev" --ssh-flag="-CY"
 }
 function gcpdev(){
     # same as gcp but connects ports as well for jupyter notebook. Not sure if it also adds extra problems
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris-dev" --ssh-flag="-CY -L 8888:localhost:8888"
+    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@chris-dev" --ssh-flag="-CY -L 8888:localhost:8888"
 }
 
 # play crawl over the internet!
