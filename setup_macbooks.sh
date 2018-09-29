@@ -9,8 +9,8 @@ ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
 ln -s $HOME/.dotfiles/vim $HOME/.vim
 # zshell
 ln -s $HOME/.dotfiles/zshrc $HOME/.zshrc
-read -p "Enter computer name for zshenv: " USER
-zshenv_file = $HOME/.dotfiles/zshenvs/zshenv_$USER
+read -p "Enter computer name for zshenv: " usr
+zshenv_file=$HOME/.dotfiles/zshenvs/zshenv_$usr
 echo "Linking $zshenv_file to $HOME/.zshenv"
 ln -s $zshenv_file $HOME/.zshenv
 echo "Also change your shell to zsh if it is not that already!"
@@ -60,9 +60,19 @@ brew install nmap
 brew install gpg
 brew install htop
 brew install ctags
+brew install macvim
+# install jedi for vim, which uses the brew python
+pip3 install jedi
 
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh
 bash miniconda.sh
+source .bash_profile
+source activate
 # install conda
-conda install astropy cython ipython libevent jedi jupyter matplotlib notebook numpy pandas pep8 pip pyflakes pylint scikit-learn scipy scons sympy yaml keras
-pip3 install easyaccess emcee fitsio healpy chainconsumer ipdb astroquery
+conda install astropy cython ipython keras libevent jedi jupyter matplotlib notebook numpy pandas pep8 pip pyflakes pylint scikit-learn scikit-image scipy tensorflow yaml
+pip install chainconsumer descarteslabs emcee fitsio ipdb
+
+echo "changing shell to zsh. First activating sudo"
+sudo -s
+echo /usr/local/bin/zsh >> /etc/shells
+chsh -s /usr/local/bin/zsh
