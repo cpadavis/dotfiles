@@ -11,6 +11,12 @@ sudo apt-get install bc  # used with tmux
 sudo apt-get install vim
 sudo apt-get install ctags  # used with vim
 
+
+echo "changing shell to zsh. First activating sudo"
+sudo -s
+echo /usr/bin/zsh >> /etc/shells
+chsh -s /usr/bin/zsh
+
 # pip3 install things more todo with coding rather than running
 pip3 install ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
 
