@@ -52,6 +52,9 @@ c.InteractiveShellApp.exec_lines = activate_lines
 
 c.TerminalIPythonApp.verbose_crash = True # False
 c.TerminalInteractiveShell.colors = 'LightBG'
+c.TerminalInteractiveShell.editor = 'vi'
+c.TerminalInteractiveShell.editing_mode = 'vi'
+c.InteractiveShell.ast_node_interactivity = "all"
 
 # If true, an 'import *' is done from numpy and pylab, when using pylab
 # c.InteractiveShellApp.pylab_import_all = True

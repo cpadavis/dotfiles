@@ -7,6 +7,11 @@ export CPD_NAME=GCLOUD
 eval "$(dircolors ${HOME}/.dircolors)";
 alias ls='ls -hFa --color'
 
+export CPLUS_INCLUDE_PATH=/usr/include/gdal
+export C_INCLUDE_PATH=/usr/include/gdal
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 
@@ -17,3 +22,12 @@ alias pylab='ipython --profile=nbserver'
 alias notebook='jupyter notebook'
 
 source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
+
+
+# add DL specific
+export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/cv_utils/
+export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_utils/
+
+function pdal(){
+    sudo docker run -v /home/chris:/data pdal/pdal:1.7 pdal ${@}
+}

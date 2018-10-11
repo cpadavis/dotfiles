@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# I use this with Ubuntu 16.04.5, python 3.5 images
+
 sudo apt-get update
 sudo apt-get upgrade
 
@@ -34,57 +37,26 @@ rm libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
 rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
 rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 
-# also put in profile_gcloud
+# add cuda to path
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
-# ctags for vim
-sudo apt-get install ctags
-sudo apt-get install zsh
-sudo apt-get install ack-grep
 
 # install Keras
 pip3 install keras==2.2.2
 
 # install some python packages
-pip3 install cython ipython numba jedi jupyter matplotlib notebook numpy pandas pep8 pyflakes pylint scikit-learn scipy sympy ipdb
+pip3 install click cython numba matplotlib numpy pandas scikit-image scikit-learn scipy
 
-# enable widgets with jupyter
-jupyter nbextension enable --py widgetsnbextension
+# setup redis which was used for kstory building deploy
+sudo apt-get install redis-server
+pip3 install redis
 
-# do linking
-cd ~/.dotfiles
-# init the vim submodules
-git submodule update --init
 
-mkdir ~/ipynbs
-mkdir ~/.jupyter
+pip3 install "descarteslabs[complete]"
+# make sure cloudpickle is the right version for descarteslabs
+# not actually sure this will work if cloudpickle got itself installed earlier...
+pip3 install cloudpickle==0.4.0
 
-# vim
-ln -s ~/.dotfiles/vimrc ~/.vimrc
-ln -s ~/.dotfiles/vim ~/.vim
-# tmux
-ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
-ln -s ~/.dotfiles/tmux ~/.tmux
-# ipython
-ln -s ~/.dotfiles/ipython ~/.ipython
-ln -s ~/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-# git
-ln -s ~/.dotfiles/gitconfig ~/.gitconfig
-# directory colors
-ln -s ~/.dotfiles/dircolors-solarized/dircolors.ansi-universal ~/.dircolors
-# promptline and tmuxline defaults
-ln -s ~/.dotfiles/promptline/promptline_LuciusLight.sh ~/.dotfiles/promptline/promptline.sh
-ln -s ~/.dotfiles/tmuxline/tmuxline_LuciusLight.conf ~/.dotfiles/tmuxline/tmuxline.conf
-
-# iterm2 with my modifications
-ln -s ~/.dotfiles/iterm2/iterm2_shell_integration.bash ~/.iterm2_shell_integration.bash
-ln -s ~/.dotfiles/iterm2/iterm2_shell_integration.zsh ~/.iterm2_shell_integration.zsh
-ln -s ~/.dotfiles/iterm2 ~/.iterm2
-
-# bash profile
-ln -s ~/.dotfiles/zshenvs/profile_gcloud ~/.profile
-
-# link also zsh
-ln -s ~/.dotfiles/zshrc ~/.zshrc
-ln -s ~/.dotfiles/zshenvs/zshenv_GCLOUD ~/.zshenv
+echo "Run 'descarteslabs auth login' to login"
+# export DESCARTESLABS_CLIENT_ID=...
+# export DESCARTESLABS_CLIENT_SECRET=...

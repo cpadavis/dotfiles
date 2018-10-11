@@ -5,7 +5,6 @@
 	recentrepo = /Users/cpd/Dropbox/secret-adventure
 [credential]
 	helper = cache
-	helper = cache
 [push]
     default = simple
 [diff]
@@ -16,3 +15,5 @@
 	d = difftool
 [color]
 	ui = auto
+[core]
+	editor = vim

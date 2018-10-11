@@ -469,7 +469,8 @@ let g:syntastic_mode_map = { 'mode': 'passive'}
 " let g:syntastic_mode_map = { 'mode': 'active'}
 " also set syntastic to muffle style stuff unless I explicitly want it
 let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
-let g:syntastic_python_checkers=['pyflakes']
+" let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers=['flake8']
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 

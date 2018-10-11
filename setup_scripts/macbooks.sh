@@ -64,5 +64,5 @@ brew install ctags
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh
 bash miniconda.sh
 # install conda
-conda install astropy cython ipython libevent jedi jupyter matplotlib notebook numpy pandas pep8 pip pyflakes pylint scikit-learn scipy scons sympy yaml keras
-pip3 install easyaccess emcee fitsio healpy chainconsumer ipdb astroquery
+conda install astropy click cython ipython libevent jedi jupyter matplotlib notebook numba numpy pandas pep8 pip pyflakes pylint scikit-learn scipy scons sympy yaml keras
+pip install easyaccess emcee fitsio healpy chainconsumer ipdb astroquery
