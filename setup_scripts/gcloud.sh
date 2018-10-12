@@ -37,7 +37,7 @@ rm libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
 rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
 rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 
-# add cuda to path
+# add cuda to path. Also should add this to your .profile or other environment file if you log in
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
