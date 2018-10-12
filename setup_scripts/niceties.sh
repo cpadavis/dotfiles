@@ -4,18 +4,7 @@
 # note that they overlap with the macbook setup.
 
 # apt-get nice things
-sudo apt-get install zsh
-sudo apt-get install ack-grep
-sudo apt-get install tmux
-sudo apt-get install bc  # used with tmux
-sudo apt-get install vim
-sudo apt-get install ctags  # used with vim
-
-
-echo "changing shell to zsh. First activating sudo"
-sudo -s
-echo /usr/bin/zsh >> /etc/shells
-chsh -s /usr/bin/zsh
+sudo apt-get install zsh ack-grep tmux vim ctags bc
 
 # pip3 install things more todo with coding rather than running
 pip3 install ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
@@ -59,8 +48,15 @@ ln -s ${HOME}/.dotfiles/iterm2/iterm2_shell_integration.zsh ${HOME}/.iterm2_shel
 ln -s ${HOME}/.dotfiles/iterm2 ${HOME}/.iterm2
 
 # bash profile
+mv ${HOME}/.profile ${HOME}/.profile.bak
 ln -s ${HOME}/.dotfiles/zshenvs/profile_gcloud ${HOME}/.profile
 
 # link also zsh
 ln -s ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
 ln -s ${HOME}/.dotfiles/zshenvs/zshenv_GCLOUD ${HOME}/.zshenv
+
+
+echo "changing shell to zsh. First activating sudo"
+sudo -s
+echo /usr/bin/zsh >> /etc/shells
+chsh -s /usr/bin/zsh

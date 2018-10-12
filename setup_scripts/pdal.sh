@@ -27,8 +27,7 @@ sudo apt update
 sudo apt-get install gdal-bin python-gdal python3-gdal
 
 # also need laszip for pdal?
-sudo apt-get install cmake
-sudo apt-get install zip
+sudo apt-get install cmake zip
 git clone https://github.com/LASzip/LASzip.git
 cd LASzip
 git checkout 3.1.0
@@ -48,13 +47,11 @@ rm -rf LASzip
 rm -rf LAStools
 pip3 install laspy
 
+# and pdal
+sudo apt-get install pdal
+
 # clone the lidar repo
 git clone https://github.com/descarteslabs/lidar.git
 cd lidar
 git checkout deploy_cpd
 cd ..
-
-# and pdal
-sudo apt-get install pdal
-
-
