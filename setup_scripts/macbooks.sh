@@ -29,8 +29,7 @@ ln -s $HOME/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py $HOME/
 ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig
 # directory colors
 ln -s $HOME/.dotfiles/dircolors-solarized/dircolors.ansi-universal $HOME/.dircolors
-# promptline and tmuxline defaults
-ln -s $HOME/.dotfiles/promptline/promptline_SolarizedLight.sh $HOME/.dotfiles/promptline/promptline.sh
+# tmuxline. promptline is dealt with in zshenv
 ln -s $HOME/.dotfiles/tmuxline/tmuxline_SolarizedLight.conf $HOME/.dotfiles/tmuxline/tmuxline.conf
 
 # iterm2 with my modifications

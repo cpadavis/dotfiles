@@ -1,0 +1,13 @@
+
+# name
+export CPD_NAME=PI
+eval "$(dircolors ${HOME}/.dircolors)";
+alias ls='ls -hFaG --color'
+alias vim='vim -c "colorscheme solarized"'
+alias notebook="jupyter notebook"
+alias pipi="pip install --user"
+alias pipu="pip install --user --upgrade"
+
+export IPYTHON_NOTEBOOK_DIR="$HOME/Projects/ipynbs"
+
+source ${HOME}/.dotfiles/promptline/promptline_SolarizedDarkVIM.sh
