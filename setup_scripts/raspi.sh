@@ -50,3 +50,7 @@ ln -s ${HOME}/.dotfiles/zshenvs/zshenv_PI ${HOME}/.zshenv
 # chsh -s /usr/bin/zsh
 
 
+# iterm2 with my modifications
+ln -s ${HOME}/.dotfiles/iterm2/iterm2_shell_integration.bash ${HOME}/.iterm2_shell_integration.bash
+ln -s ${HOME}/.dotfiles/iterm2/iterm2_shell_integration.zsh ${HOME}/.iterm2_shell_integration.zsh
+ln -s ${HOME}/.dotfiles/iterm2 ${HOME}/.iterm2
