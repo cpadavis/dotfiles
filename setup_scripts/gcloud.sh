@@ -12,21 +12,44 @@ sudo apt-get purge libcudnn6-dev
 sudo apt-get purge libcudnn7
 sudo apt-get purge libcudnn7-dev
 
-# install CUDA toolkit 9.0 and CuDNN 7.2.1
+# # install CUDA toolkit 9.0 and CuDNN 7.2.1
+# wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+# wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
+# wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
+# wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl2_2.1.4-1+cuda9.0_amd64.deb
+# wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+# sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+# sudo dpkg -i libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
+# sudo dpkg -i libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
+# sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
+# sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+# sudo apt-get update
+# sudo apt-get install -y cuda=9.0.176-1
+# sudo apt-get install -y libcudnn7-dev
+# sudo apt-get install -y libnccl-dev
+
+# sudo apt-get install nvidia-cuda-toolkit  # for nvcc
+
 wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
 wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl2_2.1.4-1+cuda9.0_amd64.deb
 wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-sudo dpkg -i libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
-sudo dpkg -i libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 sudo apt-get update
 sudo apt-get install -y cuda=9.0.176-1
 sudo apt-get install -y libcudnn7-dev
 sudo apt-get install -y libnccl-dev
+
+rm cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+rm libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
+rm libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
+rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 
 # add cuda to path. Also should add this to your .profile or other environment file if you log in
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
