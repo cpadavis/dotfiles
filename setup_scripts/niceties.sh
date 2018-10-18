@@ -55,7 +55,4 @@ ln -s ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
 ln -s ${HOME}/.dotfiles/zshenvs/zshenv_GCLOUD ${HOME}/.zshenv
 
 
-echo "changing shell to zsh. First activating sudo"
-sudo -s
-echo /usr/bin/zsh >> /etc/shells
-chsh -s /usr/bin/zsh
+echo "change shell with chsh"
