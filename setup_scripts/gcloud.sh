@@ -45,7 +45,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY
 pip3 install keras==2.2.2
 
 # install some python packages
-pip3 install click cython numba matplotlib numpy pandas scikit-image scikit-learn scipy
+pip3 install cerberus click cython numba matplotlib numpy pandas scikit-image scikit-learn scipy
 
 # setup redis which was used for kstory building deploy
 sudo apt-get install redis-server
