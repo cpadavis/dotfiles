@@ -57,9 +57,15 @@ pip3 install "descarteslabs[complete]"
 # not actually sure this will work if cloudpickle got itself installed earlier...
 pip3 install cloudpickle==0.4.0
 
+# install appsci things
+cd
+mkdir Projects
+cd Projects
+git clone https://github.com/descarteslabs/appsci_utils.git
+git clone https://github.com/descarteslabs/appsci_projects.git
+cd
+
 echo "Run 'descarteslabs auth login' to login"
-# export DESCARTESLABS_CLIENT_ID=...
-# export DESCARTESLABS_CLIENT_SECRET=...
 
 # Check cuDNN version
 cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
