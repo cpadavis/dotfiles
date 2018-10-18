@@ -3,16 +3,6 @@
 # these are things that will make my dev experience nicer, but I don't think are necessary for running anything
 # note that they overlap with the macbook setup.
 
-# apt-get nice things
-sudo apt-get install -y zsh ack-grep tmux vim ctags bc
-
-# pip3 install things more todo with coding rather than running
-pip3 install ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
-
-
-# enable widgets with jupyter
-jupyter nbextension enable --py widgetsnbextension
-
 # clone dotfiles
 cd ${HOME}
 git clone https://github.com/cpadavis/dotfiles.git .dotfiles
@@ -53,6 +43,17 @@ ln -s ${HOME}/.dotfiles/zshenvs/profile_gcloud ${HOME}/.profile
 # link also zsh
 ln -s ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
 ln -s ${HOME}/.dotfiles/zshenvs/zshenv_GCLOUD ${HOME}/.zshenv
+
+
+# apt-get nice things
+sudo apt-get install -y zsh ack-grep tmux vim ctags bc
+
+# pip3 install things more todo with coding rather than running
+pip3 install ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
+
+
+# enable widgets with jupyter
+jupyter nbextension enable --py widgetsnbextension
 
 
 echo "change shell with chsh"
