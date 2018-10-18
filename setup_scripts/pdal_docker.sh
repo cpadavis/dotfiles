@@ -9,8 +9,8 @@ sudo apt update
 sudo apt-get install -y gdal-bin python-gdal python3-gdal
 
 # also need laszip for pdal?
-sudo apt-get install cmake
-sudo apt-get install zip
+sudo apt-get install -y cmake
+sudo apt-get install -y zip
 git clone https://github.com/LASzip/LASzip.git
 cd LASzip
 git checkout 3.1.0

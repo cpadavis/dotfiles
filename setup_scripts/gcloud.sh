@@ -6,7 +6,7 @@ sudo apt-get update
 sudo apt-get upgrade
 
 # get pip for python
-sudo apt-get install python3-pip
+sudo apt-get install -y python3-pip
 
 # install setuptools
 pip3 install setuptools==40.0.0
@@ -27,9 +27,9 @@ sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 sudo apt-get update
-sudo apt-get install cuda=9.0.176-1
-sudo apt-get install libcudnn7-dev
-sudo apt-get install libnccl-dev
+sudo apt-get install -y cuda=9.0.176-1
+sudo apt-get install -y libcudnn7-dev
+sudo apt-get install -y libnccl-dev
 
 rm cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
 rm libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
@@ -48,7 +48,7 @@ pip3 install keras==2.2.2
 pip3 install cerberus click cython numba matplotlib numpy pandas scikit-image scikit-learn scipy
 
 # setup redis which was used for kstory building deploy
-sudo apt-get install redis-server
+sudo apt-get install -y redis-server
 pip3 install redis
 
 
