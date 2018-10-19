@@ -4,7 +4,7 @@
 
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install python3-pip
+sudo apt-get install -y python3-pip
 
 # install setuptools
 pip3 install setuptools==40.0.0
@@ -24,10 +24,10 @@ echo "Run 'descarteslabs auth login' to login"
 
 sudo add-apt-repository -y ppa:ubuntugis/ppa
 sudo apt update
-sudo apt-get install gdal-bin python-gdal python3-gdal
+sudo apt-get install -y gdal-bin python-gdal python3-gdal
 
 # also need laszip for pdal?
-sudo apt-get install cmake zip
+sudo apt-get install -y cmake zip
 git clone https://github.com/LASzip/LASzip.git
 cd LASzip
 git checkout 3.1.0
@@ -48,7 +48,7 @@ rm -rf LAStools
 pip3 install laspy
 
 # and pdal
-sudo apt-get install pdal
+sudo apt-get install -y pdal
 
 # clone the lidar repo
 git clone https://github.com/descarteslabs/lidar.git
