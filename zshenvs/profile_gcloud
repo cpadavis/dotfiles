@@ -27,6 +27,8 @@ export CPD_NAME=GCLOUD
 export IPYTHON_NOTEBOOK_DIR="$HOME/Projects"
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 [ -z "$PS1" ] && return
 alias ls='ls -hFa --color'

@@ -189,12 +189,11 @@ function gcloudip(){
 }
 function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@chris-dev" --ssh-flag="-CY"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY"
 }
-function gcpdev(){
-    # same as gcp but connects ports as well for jupyter notebook. Not sure if it also adds extra problems
+function gcpjup(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@chris-dev" --ssh-flag="-CY -L 8888:localhost:8888"
+    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888 -L localhost:16006:localhost:6006"
 }
 function rpi(){
     if it2check ; then it2setcolor preset 'Solarized Dark'; fi
