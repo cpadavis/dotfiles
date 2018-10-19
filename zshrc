@@ -196,6 +196,10 @@ function gcpdev(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@chris-dev" --ssh-flag="-CY -L 8888:localhost:8888"
 }
+function rpi(){
+    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    ssh -Y pi@${1=192.168.1.128}
+}
 
 # play crawl over the internet!
 function sshcrawl() {
