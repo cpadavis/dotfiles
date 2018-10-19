@@ -20,22 +20,25 @@ pip3 install tensorflow-gpu==1.10
 # install Keras
 pip3 install keras==2.2.2
 
-# install some python packages. I think most required ones will be installed with appsci_utils
-pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard
+# install some python packages
+pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy
+
+# setup redis which was used for kstory building deploy
+apt-get install -y redis-server
+pip3 install redis
+
 pip3 install "descarteslabs[complete]"
 # make sure cloudpickle is the right version for descarteslabs
 # not actually sure this will work if cloudpickle got itself installed earlier...
 pip3 install cloudpickle==0.4.0
 
 # install appsci things
-cd ${HOME}
+cd
 mkdir Projects
 cd Projects
 git clone https://github.com/descarteslabs/appsci_utils.git
-cd appsci_utils
-pip3 install .
 git clone https://github.com/descarteslabs/appsci_projects.git
-cd ${HOME}
+cd
 
 
 # rustivus
@@ -44,7 +47,7 @@ cd ${HOME}
 # so I don't actually know if this will work or not.
 RUSTIVUS_VERSION=0.2.8
 
-cd ${HOME}/Projects
+cd ~/Projects
 git clone https://github.com/descarteslabs/rustivus.git
 
 # copy binaries over
@@ -125,7 +128,7 @@ ln -s ${HOME}/.dotfiles/zshenvs/zshenv_GCLOUD ${HOME}/.zshenv
 apt-get install -y zsh ack-grep tmux vim ctags bc htop
 
 # pip3 install things more todo with coding rather than running
-pip3 install flake8 ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
+pip3 install ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
 
 
 # enable widgets with jupyter
@@ -144,7 +147,5 @@ nvcc --version
 echo "Run 'descarteslabs auth login' to login"
 echo "change shell with chsh"
 
-echo "you might need to restart to get everything to work :( sorry"
-
 echo "starting rustivus..."
-/opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION} /festivus --service-account /opt/src/rustivus/dalhart-festivus-all.json &
+/opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION} /festivus --service-account /opt/src/rustivus/dalhart-festivus-all.json

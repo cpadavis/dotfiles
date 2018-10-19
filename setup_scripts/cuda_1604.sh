@@ -44,8 +44,7 @@ rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 echo "export PATH=/usr/local/cuda-9.0/bin\${PATH:+:\${PATH}}" >> ~/.profile
 echo "export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}" >> ~/.profile
 
-# wget gcloud and niceties
+# wget gcloud
 wget https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
-wget https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/niceties.sh
 
-echo "restart VM to use cuda"
+echo "restart VM to use cuda, then `sudo sh gcloud.sh`"

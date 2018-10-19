@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# script for pdal setup on ubuntu 18.04
+# script for pdal setup on ubuntu 18.04 from clean
 
 sudo apt-get update
 sudo apt-get upgrade
