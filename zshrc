@@ -262,26 +262,32 @@ function tmx() {
     fi
 
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
+    # if it2check ; then it2setcolor preset 'Solarized Light'; fi
 
     base_session=tmuxs
-    if [[ -z "$TMUX" ]]; then
-        # Kill defunct sessions first
-        old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
-        for old_session_id in $old_sessions; do
-            tmux kill-session -t $old_session_id
-        done
+    tmux_nb=$(trim `tmux ls | grep "^$base_session" | wc -l`)
+    if [[ "$tmux_nb" == "0" ]]; then
+        if it2check ; then it2setcolor preset 'Solarized Light'; fi
+        tmux new-session -s tmuxs
+    else
+        if [[ -z "$TMUX" ]]; then
+            # Kill defunct sessions first
+            old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+            for old_session_id in $old_sessions; do
+                tmux kill-session -t $old_session_id
+            done
 
-        echo "Launching copy of base session $base_session ..."
-        # Session is is date and time to prevent conflict
-        session_id=`date +%Y%m%d%H%M%S`
-        # Create a new session (without attaching it) and link to base session
-        # to share windows
-        tmux new-session -d -t $base_session -s $session_id
-        # Attach to the new session
-        tmux attach-session -t $session_id
-        # When we detach from it, kill the session
-        tmux kill-session -t $session_id
+            echo "Launching copy of base session $base_session ..."
+            # Session is is date and time to prevent conflict
+            session_id=`date +%Y%m%d%H%M%S`
+            # Create a new session (without attaching it) and link to base session
+            # to share windows
+            tmux new-session -d -t $base_session -s $session_id
+            # Attach to the new session
+            tmux attach-session -t $session_id
+            # When we detach from it, kill the session
+            tmux kill-session -t $session_id
+        fi
     fi
 }
 
