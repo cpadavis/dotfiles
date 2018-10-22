@@ -199,6 +199,10 @@ function gpu(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
+function rpi(){
+    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    ssh -Y pi@${1=192.168.1.128}
+}
 
 # play crawl over the internet!
 function sshcrawl() {
@@ -223,12 +227,6 @@ function tmuxs
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
     if it2check ; then it2setcolor preset 'Solarized Light'; fi
     tmux new-session -s tmuxs
-}
-# tmux sharing
-function tmuxa
-{
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
-    tmux -u attach-session -t tmuxs:1
 }
 
 # kick off other terminals
@@ -284,13 +282,40 @@ function tmx() {
         # Create a new session (without attaching it) and link to base session
         # to share windows
         tmux new-session -d -t $base_session -s $session_id
-        # Create a new window in that session
-        #tmux new-window
-        # focus session on vim journal window
-        tmux select-window -t $session_id:2
         # Attach to the new session
         tmux attach-session -t $session_id
         # When we detach from it, kill the session
         tmux kill-session -t $session_id
     fi
+}
+
+
+# tmux split and execute command
+function tmv() {
+    tmux split-window -vd "$*"
+}
+function tmh() {
+    tmux split-window -hd "$*"
+}
+
+function tgpu(){
+
+    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
+    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    base_session=tgpu
+    tmux start-server
+    tmux new-session -d -s $base_session
+
+    # make grid of 2 x 2 windows
+    tmux split-window -h
+    tmux split-window -v
+    tmux select-pane -t 0
+    tmux split-window -v
+
+    # tmux send-keys -t $base_session:0.0 "echo train" C-m
+    # tmux send-keys -t $base_session:0.1 "echo analyze" C-m
+    tmux send-keys -t $base_session:0.2 "htop" C-m
+    tmux send-keys -t $base_session:0.3 "watch nvidia-smi" C-m
+    tmux attach-session -t $base_session
+
 }

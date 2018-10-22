@@ -3,7 +3,7 @@
 # things I think you need to do to get rustivus installed.
 # this is compiled from a more um free-form session
 # so I don't actually know if this will work or not.
-VERSION=0.2.8
+RUSTIVUS_VERSION=0.2.8
 
 cd ~/Projects
 git clone https://github.com/descarteslabs/rustivus.git
@@ -11,8 +11,8 @@ git clone https://github.com/descarteslabs/rustivus.git
 # copy binaries over
 sudo mkdir /opt/src/rustivus
 sudo cp rustivus/dalhart-festivus-all.json /opt/src/rustivus/dalhart-festivus-all.json
-sudo gsutil cp gs://dl-dev-binaries/rustivus/rustivus-v${VERSION} /opt/src/rustivus/rustivus-v${VERSION}
-sudo chmod a+x /opt/src/rustivus/rustivus-v${VERSION}
+sudo gsutil cp gs://dl-dev-binaries/rustivus/rustivus-v${RUSTIVUS_VERSION} /opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION}
+sudo chmod a+x /opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION}
 
 # make and own /festivus
 sudo mkdir /festivus
@@ -24,7 +24,7 @@ sudo cat >/lib/systemd/system/rustivus.service <<EOL
 Description=Rustivus service for FUSE leveraging GCS
 
 [Service]
-ExecStart=/opt/src/rustivus/rustivus-v${VERSION} /festivus --io-threads 4 --service-account /opt/src/rustivus/dalhart-festivus-all.json
+ExecStart=/opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION} /festivus --io-threads 4 --service-account /opt/src/rustivus/dalhart-festivus-all.json
 Restart=always
 RestartSec=15
 StandardOutput=syslog
@@ -37,4 +37,4 @@ EOL
 
 sudo systemctl enable rustivus.service
 
-sudo /opt/src/rustivus/rustivus-v${VERSION} /festivus --service-account /opt/src/rustivus/dalhart-festivus-all.json
+sudo /opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION} /festivus --service-account /opt/src/rustivus/dalhart-festivus-all.json
