@@ -25,8 +25,7 @@ source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
 
 
 # add DL specific
-export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/cv_utils/
-export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_utils/
+# export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/cv_utils/
 
 function pdal(){
     sudo docker run -v /home/chris:/data pdal/pdal:1.7 pdal ${@}

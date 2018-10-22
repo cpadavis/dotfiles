@@ -191,9 +191,13 @@ function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY"
 }
-function gcpjup(){
+function jup(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888 -L localhost:16006:localhost:6006"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888"
+}
+function gpu(){
+    if it2check ; then it2setcolor preset 'LuciusLight'; fi
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function rpi(){
     if it2check ; then it2setcolor preset 'Solarized Dark'; fi
@@ -311,6 +315,7 @@ function tgpu(){
     # make grid of 2 x 2 windows
     tmux split-window -h
     tmux split-window -v
+    tmux split-window -v
     tmux select-pane -t 0
     tmux split-window -v
 
@@ -318,6 +323,7 @@ function tgpu(){
     # tmux send-keys -t $base_session:0.1 "echo analyze" C-m
     tmux send-keys -t $base_session:0.2 "htop" C-m
     tmux send-keys -t $base_session:0.3 "watch nvidia-smi" C-m
+    tmux send-keys -t $base_session:0.4 "tensorboard --logdir="
     tmux attach-session -t $base_session
 
 }
