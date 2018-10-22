@@ -191,9 +191,13 @@ function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY"
 }
-function gcpjup(){
+function jup(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888 -L localhost:16006:localhost:6006"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888"
+}
+function gpu(){
+    if it2check ; then it2setcolor preset 'LuciusLight'; fi
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 
 # play crawl over the internet!
