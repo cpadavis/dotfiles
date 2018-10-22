@@ -196,7 +196,7 @@ function jup(){
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888"
 }
 function gpu(){
-    if it2check ; then it2setcolor preset 'LuciusLight'; fi
+    if it2check ; then it2setcolor preset 'LuciusDark'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function rpi(){
@@ -222,15 +222,9 @@ function sshcrawl() {
 # tmux related
 #####
 
-function tmuxs
-{
-    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
-    tmux new-session -s tmuxs
-}
-
 # kick off other terminals
 alias detach='tmux detach -a'
+alias attach='tmux attach -d'
 
 function tmuxk() {
     # Kill defunct sessions first
@@ -265,9 +259,6 @@ function tmx() {
         exit
     fi
 
-    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
-
     base_session=tmuxs
     if [[ -z "$TMUX" ]]; then
         # Kill defunct sessions first
@@ -289,6 +280,12 @@ function tmx() {
     fi
 }
 
+function tmuxs
+{
+    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
+    if it2check ; then it2setcolor preset 'Solarized Light'; fi
+    tmx
+}
 
 # tmux split and execute command
 function tmv() {
