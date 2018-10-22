@@ -309,6 +309,7 @@ function tgpu(){
     # make grid of 2 x 2 windows
     tmux split-window -h
     tmux split-window -v
+    tmux split-window -v
     tmux select-pane -t 0
     tmux split-window -v
 
@@ -316,6 +317,7 @@ function tgpu(){
     # tmux send-keys -t $base_session:0.1 "echo analyze" C-m
     tmux send-keys -t $base_session:0.2 "htop" C-m
     tmux send-keys -t $base_session:0.3 "watch nvidia-smi" C-m
+    tmux send-keys -t $base_session:0.4 "tensorboard --logdir="
     tmux attach-session -t $base_session
 
 }
