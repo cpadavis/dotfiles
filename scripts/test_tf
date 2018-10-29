@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+"""
+Simple script to test a gpu device
+"""
+
+import tensorflow as tf
+import sys
+
+if len(sys.argv) == 2:
+    gpu_num = sys.argv[1]
+elif len(sys.argv) > 2:
+    raise ValueError('not sure what to do with {0}'.format(str(sys.argv)))
+else:
+    gpu_num = 0
+
+print('testing gpu at /gpu:{0}'.format(gpu_num))
+
+with tf.device('/gpu:{0}'.format(gpu_num)):
+    a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+    b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+    c = tf.matmul(a, b)
+
+with tf.Session() as sess:
+    for i in range(200):
+        if i == 0 or i == 199:
+            print (sess.run(c))
