@@ -27,6 +27,10 @@ source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
 # add DL specific
 # export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/cv_utils/
 
-function pdal(){
-    sudo docker run -v /home/chris:/data pdal/pdal:1.7 pdal ${@}
-}
+# deprecated. just use an ubuntu 18 instance for pdal
+# function pdal(){
+#     sudo docker run -v /home/chris:/data pdal/pdal:1.7 pdal ${@}
+# }
+
+# alias to check appsci utils
+alias check='flake8 && python3 -m "nose" --with-coverage --cover-package=appsci_utils && sphinx-build -b html docs/ docs/build'

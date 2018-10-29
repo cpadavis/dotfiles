@@ -125,7 +125,7 @@ ln -s ${HOME}/.dotfiles/zshenvs/zshenv_GCLOUD ${HOME}/.zshenv
 apt-get install -y zsh ack-grep tmux vim ctags bc htop
 
 # pip3 install things more todo with coding rather than running
-pip3 install flake8 ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
+pip3 install flake8 ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sphinx sphinxcontrib-fulltoc sympy
 
 
 # enable widgets with jupyter
