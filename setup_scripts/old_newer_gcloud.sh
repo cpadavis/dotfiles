@@ -1,3 +1,16 @@
+#!/bin/bash
+
+# I use this with Ubuntu 16.04.5, python 3.5 images
+# but I think you can also use it with 18.04.5 I think
+
+apt-get update
+apt-get upgrade
+
+apt-get install -y git
+# get pip and gdal for python
+apt-get install -y python3-pip
+apt-get install -y python3-gdal
+
 # install setuptools
 pip3 install setuptools==40.0.0
 
@@ -14,7 +27,57 @@ pip3 install "descarteslabs[complete]"
 # not actually sure this will work if cloudpickle got itself installed earlier...
 pip3 install cloudpickle==0.4.0
 
+# install appsci things
+cd ${HOME}
+mkdir Projects
+cd Projects
+git clone https://github.com/descarteslabs/appsci_utils.git
+cd appsci_utils
+pip3 install .
+git clone https://github.com/descarteslabs/appsci_projects.git
+cd ${HOME}
 
+
+# rustivus
+# things I think you need to do to get rustivus installed.
+# this is compiled from a more um free-form session
+# so I don't actually know if this will work or not.
+RUSTIVUS_VERSION=0.2.8
+
+cd ${HOME}/Projects
+git clone https://github.com/descarteslabs/rustivus.git
+
+# copy binaries over
+mkdir /opt/src/rustivus
+cp rustivus/dalhart-festivus-all.json /opt/src/rustivus/dalhart-festivus-all.json
+gsutil cp gs://dl-dev-binaries/rustivus/rustivus-v${RUSTIVUS_VERSION} /opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION}
+chmod a+x /opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION}
+
+# make and own /festivus
+mkdir /festivus
+chown ${USER}:${USER} /festivus
+
+# make rustivus service and enable so that it runs whenever we log in
+cat >/lib/systemd/system/rustivus.service <<EOL
+[Unit]
+Description=Rustivus service for FUSE leveraging GCS
+
+[Service]
+ExecStart=/opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION} /festivus --io-threads 4 --service-account /opt/src/rustivus/dalhart-festivus-all.json
+Restart=always
+RestartSec=15
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=Rustivus
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+systemctl enable rustivus.service
+
+# these are things that will make my dev experience nicer, but I don't think are necessary for running anything
+# note that they overlap with the macbook setup.
 
 # clone dotfiles
 cd ${HOME}
@@ -57,6 +120,10 @@ ln -s ${HOME}/.dotfiles/zshenvs/profile_gcloud ${HOME}/.profile
 ln -s ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
 ln -s ${HOME}/.dotfiles/zshenvs/zshenv_GCLOUD ${HOME}/.zshenv
 
+
+# apt-get nice things
+apt-get install -y zsh ack-grep tmux vim ctags bc htop
+
 # pip3 install things more todo with coding rather than running
 pip3 install flake8 ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
 
@@ -79,10 +146,5 @@ echo "change shell with chsh"
 
 echo "you might need to restart to get everything to work :( sorry"
 
-
-cd ${HOME}/Projects
-git clone https://github.com/descarteslabs/appsci_utils.git
-cd ${HOME}/Projects/appsci_utils
-pip3 install .
-git clone https://github.com/descarteslabs/appsci_projects.git
-cd ${HOME}
+echo "starting rustivus..."
+/opt/src/rustivus/rustivus-v${RUSTIVUS_VERSION} /festivus --service-account /opt/src/rustivus/dalhart-festivus-all.json &
