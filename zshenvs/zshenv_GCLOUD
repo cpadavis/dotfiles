@@ -33,4 +33,4 @@ source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
 # }
 
 # alias to check appsci utils
-alias check='flake8 && python3 -m "nose" --with-coverage --cover-package=appsci_utils && sphinx-build -b html docs/ docs/build'
+alias check='flake8 && python3 -m "nose" --with-coverage --cover-package=appsci_utils'

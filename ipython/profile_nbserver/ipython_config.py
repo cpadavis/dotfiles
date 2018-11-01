@@ -38,7 +38,9 @@ activate_lines = [
     'import matplotlib.pyplot as plt',
     'plt.ion()',  # turn on interactive mode
     "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
-    'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")']
+    'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")',
+    'print("Trying to import appsci_utils now")',
+    'import appsci_utils']
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
 if cpd_computer == 'MAC':
