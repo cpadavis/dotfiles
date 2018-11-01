@@ -18,13 +18,13 @@ sudo apt-get purge libnccl-dev
 sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
 
 wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
 wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl2_2.1.4-1+cuda9.0_amd64.deb
 wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-sudo dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
-sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 sudo apt-get update
@@ -35,8 +35,8 @@ sudo apt-get install libnccl2
 sudo apt-get install libnccl-dev
 
 rm cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-rm libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
-rm libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+rm libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
+rm libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
 rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
 rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 
@@ -45,6 +45,9 @@ echo "export PATH=/usr/local/cuda-9.0/bin\${PATH:+:\${PATH}}" >> ~/.profile
 echo "export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}" >> ~/.profile
 
 # wget gcloud
-wget https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
+if [ ! -e gcloud.sh ]
+then
+    wget https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
+fi
 
 echo "restart VM to use cuda, then `sudo sh gcloud.sh`"
