@@ -11,13 +11,13 @@ pip3 install "descarteslabs[complete]"
 pip3 install cloudpickle==0.4.0
 
 # install Keras (v2.2.2) and tensorflow (v1.10)
-pip3 install keras==2.2.2 tensorflow-gpu==1.10
+pip3 install keras==2.2.2 tensorflow=1.10 tensorflow-gpu==1.10
 # note: pip3 install . in appsci_utils overwrites tensorflow-gpu version??
 
 git clone https://github.com/descarteslabs/appsci_utils.git
 
 cd appsci_utils
-python setup.py install --user
+python3 setup.py install --user
 echo "Testing flake8"
 flake8
 echo "Running unit tests"
@@ -39,7 +39,7 @@ else:
 
 print('testing cpu at /cpu:0')
 
-with tf.device('/cpu:0')
+with tf.device('/cpu:0'):
     a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
     b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
     c = tf.matmul(a, b)
