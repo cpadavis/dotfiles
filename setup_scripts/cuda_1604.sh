@@ -49,7 +49,7 @@ echo "export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64\${LD_LIBRARY_PATH:+:\${LD
 
 if [ ! -e gcloud.sh ]
 then
-    wget https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
+    curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
 fi
 
 echo "run `sh gcloud.sh`"

@@ -49,7 +49,7 @@ sudo mkdir /rustivus
 
 if [ ! -e python.sh ]
 then
-    wget https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/python.sh
+    curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/python.sh
 fi
 
 
