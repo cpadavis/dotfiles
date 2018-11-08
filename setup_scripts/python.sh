@@ -5,25 +5,26 @@
 # make sure cloudpickle is the right version for descarteslabs
 # not actually sure this will work if cloudpickle got itself installed earlier...
 
-pip3 install --user cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" cloudpickle==0.4.0 keras==2.2.4 setuptools==40.5.0
 
-while true; do
-    read -p "Is this node a GPU?" yn
-    case $yn in
-        [Yy]* ) pip3 install tensorflow-gpu==1.11; break;;
-        [Nn]* ) pip3 install tensorflow==1.11; break;;
-        * ) echo "Please answer y or n.";;
-    esac
-done
+# through um MAGIC we make pip3 be the old system pip3 and pip a python3 pip. It's really great, guys. Really. Magically, it breaks pip3.
+# note that you still need to say python3 for everything. That can probably be resolved by putting a ln in ~/.local/bin
+# pip3 install --user pip
 
-# install Keras (v2.2.2) and tensorflow (v1.10)
-# pip3 install keras==2.2.2 tensorflow=1.10 
-# note: pip3 install . in appsci_utils overwrites tensorflow-gpu version??
+# # all the packages I'm installing below seem overkill, but I haven't yet figured out which will get included in the appsci_utils pip install, and which other useful ones are not...
+# while true; do
+#     read -p "Is this node a GPU? " yn
+#     case $yn in
+#         [Yy]* ) pip install --user cerberus click cython google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow-gpu==1.11; break;;
+#         [Nn]* ) pip install --user cerberus click cython google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow==1.11; break;;
+#         * ) echo "Please answer y or n.";;
+#     esac
+# done
 
 git clone https://github.com/descarteslabs/appsci_utils.git
 
 cd appsci_utils
-python3 setup.py install --user
+pip install --user -r requirements.txt
+pip install --user .
 echo "Testing flake8"
 flake8
 echo "Running unit tests"
@@ -74,6 +75,8 @@ python3 test_tf
 echo "Printing cuda version info"
 cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
 nvcc --version
+
+nvidia-smi
 
 echo "Testing rustivus ls"
 ls /rustivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5

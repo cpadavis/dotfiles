@@ -37,11 +37,11 @@ sudo apt-get install libcudnn7-dev
 sudo apt-get install libnccl2
 sudo apt-get install libnccl-dev
 
-rm cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-rm libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
-rm libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
-rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
-rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+# rm cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+# rm libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
+# rm libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
+# rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
+# rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
 
 # append profile info
 echo "export PATH=/usr/local/cuda-9.0/bin\${PATH:+:\${PATH}}" >> ~/.profile
@@ -53,3 +53,6 @@ then
 fi
 
 echo "run sh gcloud.sh"
+
+
+
