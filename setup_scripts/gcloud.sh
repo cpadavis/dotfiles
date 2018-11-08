@@ -4,6 +4,7 @@ sudo apt-get upgrade
 sudo add-apt-repository -y ppa:ubuntugis/ppa
 sudo apt update
 sudo apt-get install -y python-gdal python3-gdal gdal-bin python3-dev python3-pip
+# we're a civilized people, so we use tmux and vim
 sudo apt-get install -y zsh ack-grep tmux vim ctags bc htop
 
 
@@ -11,7 +12,7 @@ echo "Rustivus"
 cd $HOME
 gsutil cp gs://dl-dev-binaries/rustivus/rustivus-v0.2.8 $HOME/.
 sudo mkdir /opt/src/
-sudo mkdir /opt/src/rustivus/ # will print error if file already exists
+sudo mkdir /opt/src/rustivus/
 chmod a+x ./rustivus-v0.2.8
 sudo mv rustivus-v0.2.8 /opt/src/rustivus/.
 # Make rustivus start automatically
@@ -45,9 +46,14 @@ sudo systemctl enable rustivus.service
 sudo systemctl start rustivus
 
 sudo mkdir /rustivus
-# sudo /opt/src/rustivus/rustivus-v0.2.8 /rustivus --io-threads 4 --service-account /opt/src/rustivus/dalhart-festivus-all.json
 
+# through um MAGIC we make pip3 be the old system pip3 and pip a python3 pip. It's really great, guys. Really. Magically, it breaks pip3.
+# note that you still need to say python3 for everything. That can probably be resolved by putting a ln in ~/.local/bin
 pip3 install --user pip
+# install some python packages. I think most required ones will be installed with appsci_utils
+# make sure cloudpickle is the right version for descarteslabs
+# not actually sure this will work if cloudpickle got itself installed earlier...
+# all the packages I'm installing below seem overkill, but I haven't yet figured out which will get included in the appsci_utils pip install, and which other useful ones are not...
 while true; do
     read -p "Is this node a GPU? " yn
     case $yn in
