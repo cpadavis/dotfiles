@@ -5,7 +5,7 @@
 # make sure cloudpickle is the right version for descarteslabs
 # not actually sure this will work if cloudpickle got itself installed earlier...
 
-pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" cloudpickle==0.4.0 keras==2.2.2
+pip3 install --user cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" cloudpickle==0.4.0 keras==2.2.4 setuptools==40.5.0
 
 while true; do
     read -p "Is this node a GPU?" yn
