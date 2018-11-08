@@ -2,16 +2,13 @@
 # pip3 install setuptools==40.0.0
 
 # install some python packages. I think most required ones will be installed with appsci_utils
-pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard protobuf h5py
-# pip3 install things more todo with coding rather than running
-pip3 install coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy
-pip3 install "descarteslabs[complete]"
 # make sure cloudpickle is the right version for descarteslabs
 # not actually sure this will work if cloudpickle got itself installed earlier...
-pip3 install cloudpickle==0.4.0
+pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" cloudpickle==0.4.0
 
 # install Keras (v2.2.2) and tensorflow (v1.10)
-pip3 install keras==2.2.2 tensorflow=1.10 tensorflow-gpu==1.10
+# pip3 install keras==2.2.2 tensorflow=1.10 
+pip3 install tensorflow-gpu==1.10
 # note: pip3 install . in appsci_utils overwrites tensorflow-gpu version??
 
 git clone https://github.com/descarteslabs/appsci_utils.git
