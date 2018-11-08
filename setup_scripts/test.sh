@@ -21,6 +21,8 @@ with tf.Session() as sess:
     for i in range(200):
         if i == 0 or i == 199:
             print (sess.run(c))
+        else:
+            sess.run(c)
 
 print('===== if you got here, tensorflow at least runs on a cpu')
 
@@ -34,7 +36,9 @@ with tf.device('/gpu:{0}'.format(gpu_num)):
 with tf.Session() as sess:
     for i in range(200):
         if i == 0 or i == 199:
-            print (sess.run(c))" >> test_tf
+            print (sess.run(c))
+        else:
+            sess.run(c)" >> test_tf
 echo "Testing tensorflow gpu connection"
 python3 test_tf
 
