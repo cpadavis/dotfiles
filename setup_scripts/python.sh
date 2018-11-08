@@ -4,7 +4,17 @@
 # install some python packages. I think most required ones will be installed with appsci_utils
 # make sure cloudpickle is the right version for descarteslabs
 # not actually sure this will work if cloudpickle got itself installed earlier...
-pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" cloudpickle==0.4.0 keras==2.2.2 tensorflow-gpu==1.10
+
+pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" cloudpickle==0.4.0 keras==2.2.2
+
+while true; do
+    read -p "Is this node a GPU?" yn
+    case $yn in
+        [Yy]* ) pip3 install tensorflow-gpu==1.11; break;;
+        [Nn]* ) pip3 install tensorflow==1.11; break;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
 
 # install Keras (v2.2.2) and tensorflow (v1.10)
 # pip3 install keras==2.2.2 tensorflow=1.10 

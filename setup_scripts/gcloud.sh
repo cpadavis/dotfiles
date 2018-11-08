@@ -3,7 +3,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo add-apt-repository -y ppa:ubuntugis/ppa
 sudo apt update
-sudo apt-get install -y python-gdal python3-gdal gdal-bin python3-pip
+sudo apt-get install -y python-gdal python3-gdal gdal-bin python3-dev python3-pip
 sudo apt-get install -y zsh ack-grep tmux vim ctags bc htop
 
 
@@ -51,7 +51,6 @@ if [ ! -e python.sh ]
 then
     curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/python.sh
 fi
-
 
 echo "Log out and log back in"
 echo "then run sh python.sh"
