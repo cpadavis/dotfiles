@@ -52,4 +52,4 @@ then
     curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
 fi
 
-echo "run `sh gcloud.sh`"
+echo "run sh gcloud.sh"

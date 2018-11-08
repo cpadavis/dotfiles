@@ -54,4 +54,4 @@ fi
 
 
 echo "Log out and log back in"
-echo "then run `sh python.sh`"
+echo "then run sh python.sh"
