@@ -20,17 +20,6 @@
 #     esac
 # done
 
-git clone https://github.com/descarteslabs/appsci_utils.git
-
-cd appsci_utils
-pip install --user -r requirements.txt
-pip install --user .
-echo "Testing flake8"
-flake8
-echo "Running unit tests"
-python3 -m "nose" --with-coverage --cover-package=appsci_utils
-cd $HOME
-
 
 # and test TF
 echo "#!/usr/bin/python3
@@ -80,6 +69,26 @@ nvidia-smi
 
 echo "Testing rustivus ls"
 ls /rustivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5
+
+git clone https://github.com/descarteslabs/appsci_utils.git
+
+cd appsci_utils
+pip install --user -r requirements.txt
+pip install --user .
+echo "Testing flake8"
+flake8
+echo "Running unit tests"
+python3 -m "nose" --with-coverage --cover-package=appsci_utils
+cd $HOME
+
+echo "testing gpu again"
+python3 test_tf
+
+echo "Printing cuda version info"
+cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
+nvcc --version
+
+nvidia-smi
 
 echo "Run 'descarteslabs auth login' to login"
 echo "Run niceties.sh if you would like some niceties"
