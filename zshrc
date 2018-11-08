@@ -192,15 +192,15 @@ function gcp(){
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY"
 }
 function jup(){
-    if it2check ; then it2setcolor preset 'LuciusLight'; fi
+    if it2check ; then it2setcolor preset 'Chalkboard'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888"
 }
 function gpu(){
-    if it2check ; then it2setcolor preset 'LuciusDark'; fi
+    if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function rpi(){
-    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    if it2check ; then it2setcolor preset 'Solarized Dark Higher Contrast'; fi
     ssh -Y pi@${1=192.168.1.128}
 }
 
