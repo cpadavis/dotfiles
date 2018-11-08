@@ -48,7 +48,14 @@ sudo mkdir /rustivus
 # sudo /opt/src/rustivus/rustivus-v0.2.8 /rustivus --io-threads 4 --service-account /opt/src/rustivus/dalhart-festivus-all.json
 
 pip3 install --user pip
-pip install --user cerberus click cython google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow==1.11 tensorflow-gpu==1.11
+while true; do
+    read -p "Is this node a GPU? " yn
+    case $yn in
+        [Yy]* ) pip install --user cerberus click cython futures google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow-gpu==1.11; break;;
+        [Nn]* ) pip install --user cerberus click cython futures google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow==1.11; break;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
 
 
 if [ ! -e python.sh ]

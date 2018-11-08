@@ -45,7 +45,7 @@ with tf.Session() as sess:
         if i == 0 or i == 199:
             print (sess.run(c))
 
-print('if you got here, tensorflow at least runs on a cpu')
+print('===== if you got here, tensorflow at least runs on a cpu')
 
 print('testing gpu at /gpu:{0}'.format(gpu_num))
 
@@ -64,7 +64,6 @@ python3 test_tf
 echo "Printing cuda version info"
 cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
 nvcc --version
-
 nvidia-smi
 
 echo "Testing rustivus ls"
@@ -75,6 +74,14 @@ git clone https://github.com/descarteslabs/appsci_utils.git
 cd appsci_utils
 pip install --user -r requirements.txt
 pip install --user .
+while true; do
+    read -p "Is this node a GPU? " yn
+    case $yn in
+        [Yy]* ) pip uninstall tensorflow tensorflow-gpu; pip install --user tensorflow-gpu==1.11; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
 echo "Testing flake8"
 flake8
 echo "Running unit tests"
