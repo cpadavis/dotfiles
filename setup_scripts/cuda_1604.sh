@@ -51,3 +51,5 @@ if [ ! -e gcloud.sh ]
 then
     wget https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
 fi
+
+echo "run `sh gcloud.sh`"

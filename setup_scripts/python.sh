@@ -58,6 +58,8 @@ echo "Printing cuda version info"
 cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
 nvcc --version
 
+echo "Testing rustivus ls"
+ls /rustivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5
 
 echo "Run 'descarteslabs auth login' to login"
 echo "Run niceties.sh if you would like some niceties"

@@ -58,6 +58,6 @@ fi
 echo "Log out and log back in"
 echo "then try executing this line"
 echo "ls /rustivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5"
-echo "then execute python.sh"
+echo "then run `sh python.sh`"
 ## log out of this VM, log back in, and the following should (still) work:
 ## ls /rustivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5
