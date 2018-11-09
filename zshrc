@@ -217,6 +217,7 @@ function sshcrawl() {
     # ssh command
     ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
 }
+alias gcphttp='python3 -m http.server 8888'
 
 #####
 # tmux related
