@@ -27,6 +27,7 @@ activate_lines = [
     'import pandas as pd',
     "import matplotlib, matplotlib.cm",
     "import descarteslabs as dl",
+    "import tensorflow as tf",
     # "palette = matplotlib.cm.gray_r",
     "palette = matplotlib.cm.RdBu_r",
     "palette.set_bad(color='g', alpha=0.75)",

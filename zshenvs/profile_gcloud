@@ -55,6 +55,7 @@ alias tmuxa="tmux -u attach-session -t tmuxs:1"
 
 # kick off other terminals
 alias detach='tmux detach -a'
+alias attach='tmux attach -d'
 
 function tmuxk() {
     # Kill defunct sessions first
