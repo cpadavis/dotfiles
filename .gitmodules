@@ -152,3 +152,9 @@
 [submodule "vim/bundle/vim-rhubarb"]
 	path = vim/bundle/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb
+[submodule "zsh_plugins/zsh-autosuggestions"]
+	path = zsh_plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh_plugins/zsh-syntax-highlighting"]
+	path = zsh_plugins/zsh-syntax-highlighting
+	url = http://github.com/zsh-users/zsh-syntax-highlighting
