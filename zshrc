@@ -39,6 +39,14 @@ bindkey -M vicmd -s ",h" "^"
 bindkey -M vicmd -s ",l" "$"
 # note that / will let you search in command history, with n and N
 
+# useful renaming within zsh
+# example zmv command to replace all spaces in filenames with underscores:
+# zmv '* *' '$f:gs/ /_'
+autoload -Uz zmv
+
+# load up zcalc. E and PI are defined, and common math funcs
+autoload -Uz zcalc
+
 # command autosuggestions
 source ~/.dotfiles/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
