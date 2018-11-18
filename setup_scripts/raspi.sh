@@ -5,9 +5,6 @@
 sudo apt-get update
 sudo apt-get upgrade
 
-# for getting bluetooth to work (a real nice nicety)
-sudo apt-get install -y bluetooth bluez-utils blueman bluez python-gobject python-gobject-2
-
 # useful niceties
 sudo apt-get install -y zsh ack-grep tmux vim ctags bc
 
@@ -49,8 +46,10 @@ ln -s ${HOME}/.dotfiles/zshenvs/zshenv_PI ${HOME}/.zshenv
 # echo /usr/bin/zsh >> /etc/shells
 # chsh -s /usr/bin/zsh
 
-
 # iterm2 with my modifications
 ln -s ${HOME}/.dotfiles/iterm2/iterm2_shell_integration.bash ${HOME}/.iterm2_shell_integration.bash
 ln -s ${HOME}/.dotfiles/iterm2/iterm2_shell_integration.zsh ${HOME}/.iterm2_shell_integration.zsh
 ln -s ${HOME}/.dotfiles/iterm2 ${HOME}/.iterm2
+
+# for getting bluetooth to work (a real nice nicety)
+# sudo apt-get install -y bluetooth bluez-utils blueman bluez python-gobject python-gobject-2

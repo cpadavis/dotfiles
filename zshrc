@@ -21,6 +21,7 @@ setopt noclobber
 setopt SHARE_HISTORY
 # beeping is annoying
 unsetopt beep
+# be in vim mode
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -36,6 +37,29 @@ compinit
 bindkey -M viins jk vi-cmd-mode
 bindkey -M vicmd -s ",h" "^"
 bindkey -M vicmd -s ",l" "$"
+# note that / will let you search in command history, with n and N
+
+# useful renaming within zsh
+# example zmv command to replace all spaces in filenames with underscores:
+# zmv '* *' '$f:gs/ /_'
+autoload -Uz zmv
+
+# load up zcalc. E and PI are defined, and common math funcs
+autoload -Uz zcalc
+
+# command autosuggestions
+source ~/.dotfiles/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Set ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE to an integer value to disable
+# autosuggestion for large buffers. The default is unset, which means that
+# autosuggestion will be tried for any buffer size. Recommended value is 20.
+# This can be useful when pasting large amount of text in the terminal, to
+# avoid triggering autosuggestion for too long strings.
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+# accept the suggestion with double comma
+bindkey ',,' autosuggest-accept
+# set the color to something that will work with my dark background settings
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
 
 #parses .dircolors and makes env var for GNU ls
 directory_colors=${HOME}/.dircolors
@@ -189,12 +213,19 @@ function gcloudip(){
 }
 function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@chris-dev" --ssh-flag="-CY"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY"
 }
-function gcpdev(){
-    # same as gcp but connects ports as well for jupyter notebook. Not sure if it also adds extra problems
-    if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "us-central1-c" "chris@chris-dev" --ssh-flag="-CY -L 8888:localhost:8888"
+function jup(){
+    if it2check ; then it2setcolor preset 'Chalkboard'; fi
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888"
+}
+function gpu(){
+    if it2check ; then it2setcolor preset 'Belafonte Night'; fi
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
+}
+function rpi(){
+    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    ssh -Y pi@${1=192.168.1.128}
 }
 
 # play crawl over the internet!
@@ -210,26 +241,15 @@ function sshcrawl() {
     # ssh command
     ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
 }
+alias gcphttp='python3 -m http.server 8888'
 
 #####
 # tmux related
 #####
 
-function tmuxs
-{
-    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
-    tmux new-session -s tmuxs
-}
-# tmux sharing
-function tmuxa
-{
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
-    tmux -u attach-session -t tmuxs:1
-}
-
 # kick off other terminals
 alias detach='tmux detach -a'
+alias attach='tmux attach -d'
 
 function tmuxk() {
     # Kill defunct sessions first
@@ -264,30 +284,74 @@ function tmx() {
         exit
     fi
 
-    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    if it2check ; then it2setcolor preset 'Solarized Light'; fi
-
     base_session=tmuxs
-    if [[ -z "$TMUX" ]]; then
-        # Kill defunct sessions first
-        old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
-        for old_session_id in $old_sessions; do
-            tmux kill-session -t $old_session_id
-        done
+    tmux_nb=$(trim `tmux ls | grep "^$base_session" | wc -l`)
+    if [[ "$tmux_nb" == "0" ]]; then
+        if it2check ; then it2setcolor preset 'Solarized Light'; fi
+        tmux new-session -s tmuxs
+    else
+        if [[ -z "$TMUX" ]]; then
+            # Kill defunct sessions first
+            old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+            for old_session_id in $old_sessions; do
+                tmux kill-session -t $old_session_id
+            done
 
-        echo "Launching copy of base session $base_session ..."
-        # Session is is date and time to prevent conflict
-        session_id=`date +%Y%m%d%H%M%S`
-        # Create a new session (without attaching it) and link to base session
-        # to share windows
-        tmux new-session -d -t $base_session -s $session_id
-        # Create a new window in that session
-        #tmux new-window
-        # focus session on vim journal window
-        tmux select-window -t $session_id:2
-        # Attach to the new session
-        tmux attach-session -t $session_id
-        # When we detach from it, kill the session
-        tmux kill-session -t $session_id
+            echo "Launching copy of base session $base_session ..."
+            # Session is is date and time to prevent conflict
+            session_id=`date +%Y%m%d%H%M%S`
+            # Create a new session (without attaching it) and link to base session
+            # to share windows
+            tmux new-session -d -t $base_session -s $session_id
+            # Attach to the new session
+            tmux attach-session -t $session_id
+            # When we detach from it, kill the session
+            tmux kill-session -t $session_id
+        fi
     fi
 }
+
+function tmuxs
+{
+    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
+    if it2check ; then it2setcolor preset 'Solarized Light'; fi
+    tmx
+}
+
+# tmux split and execute command
+function tmv() {
+    tmux split-window -vd "$*"
+}
+function tmh() {
+    tmux split-window -hd "$*"
+}
+
+function tgpu(){
+
+    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
+    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    base_session=tgpu
+    tmux start-server
+    tmux new-session -d -s $base_session
+
+    # make grid of 2 x 2 windows
+    tmux split-window -h
+    tmux split-window -v
+    tmux split-window -v
+    tmux select-pane -t 0
+    tmux split-window -v
+
+    # tmux send-keys -t $base_session:0.0 "echo train" C-m
+    # tmux send-keys -t $base_session:0.1 "echo analyze" C-m
+    tmux send-keys -t $base_session:0.2 "htop" C-m
+    tmux send-keys -t $base_session:0.3 "watch nvidia-smi" C-m
+    tmux send-keys -t $base_session:0.4 "tensorboard --logdir="
+    tmux attach-session -t $base_session
+
+}
+
+# syntax highlighting. It has to go at the end of the file for Reasons
+source ~/.dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+# To have commands starting with `rm -rf` in red:
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')

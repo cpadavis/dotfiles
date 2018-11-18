@@ -1,62 +1,95 @@
-#!/bin/bash
-
-# I use this with Ubuntu 16.04.5, python 3.5 images
-
+# install useful gcloud things
 sudo apt-get update
 sudo apt-get upgrade
-
-# get pip for python
-sudo apt-get install python3-pip
-
-# install setuptools
-pip3 install setuptools==40.0.0
-
-# Install Tensorflow (v1.10)
-pip3 install tensorflow-gpu==1.10
-
-# Install Cuda 9.0
-# https://yangcha.github.io/CUDA90/
-wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl2_2.1.4-1+cuda9.0_amd64.deb
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-sudo dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
-sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
-sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
-sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
-sudo apt-get update
-sudo apt-get install cuda=9.0.176-1
-sudo apt-get install libcudnn7-dev
-sudo apt-get install libnccl-dev
-
-rm cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-rm libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
-rm libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
-rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
-rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
-
-# add cuda to path. Also should add this to your .profile or other environment file if you log in
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
-# install Keras
-pip3 install keras==2.2.2
-
-# install some python packages
-pip3 install click cython numba matplotlib numpy pandas scikit-image scikit-learn scipy
-
-# setup redis which was used for kstory building deploy
-sudo apt-get install redis-server
-pip3 install redis
+sudo add-apt-repository -y ppa:ubuntugis/ppa
+sudo apt update
+sudo apt-get install -y python-gdal python3-gdal gdal-bin python3-dev python3-pip
+# we're a civilized people, so we use tmux and vim
+sudo apt-get install -y zsh ack-grep tmux vim ctags bc htop
 
 
-pip3 install "descarteslabs[complete]"
+echo "Rustivus"
+cd $HOME
+gsutil cp gs://dl-dev-binaries/rustivus/rustivus-v0.2.8 $HOME/.
+sudo mkdir /opt/src/
+sudo mkdir /opt/src/rustivus/
+chmod a+x ./rustivus-v0.2.8
+sudo mv rustivus-v0.2.8 /opt/src/rustivus/.
+# Make rustivus start automatically
+git clone https://github.com/descarteslabs/rustivus.git
+sudo cp rustivus/dalhart-festivus-all.json /opt/src/rustivus/.
+
+echo "[Unit]
+Description=Rustivus service for FUSE leveraging GCS
+
+[Service]
+ExecStart=/opt/src/rustivus/rustivus-v0.2.8 /rustivus --io-threads 4 --service-account /opt/src/rustivus/dalhart-festivus-all.json
+Restart=always
+RestartSec=15
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=Rustivus
+
+[Install]
+WantedBy=multi-user.target" >> tmp.service
+sudo cp tmp.service /lib/systemd/system/rustivus.service
+sudo chmod u+x /lib/systemd/system/rustivus.service
+rm tmp.service
+
+sudo systemctl stop festivus
+sudo systemctl disable festivus.service
+sudo systemctl stop rustivus
+sudo systemctl disable rustivus.service
+sudo systemctl daemon-reload
+sudo systemctl enable rustivus.service
+
+sudo systemctl start rustivus
+
+sudo mkdir /rustivus
+
+# through um MAGIC we make pip3 be the old system pip3 and pip a python3 pip. It's really great, guys. Really. Magically, it breaks pip3.
+# note that you still need to say python3 for everything. That can probably be resolved by putting a ln in ~/.local/bin
+pip3 install --user pip
+# install some python packages. I think most required ones will be installed with appsci_utils
 # make sure cloudpickle is the right version for descarteslabs
 # not actually sure this will work if cloudpickle got itself installed earlier...
-pip3 install cloudpickle==0.4.0
+# all the packages I'm installing below seem overkill, but I haven't yet figured out which will get included in the appsci_utils pip install, and which other useful ones are not...
+while true; do
+    read -p "Is this node a GPU? " yn
+    case $yn in
+        [Yy]* ) pip install --user cerberus click cython futures google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow-gpu==1.11; break;;
+        [Nn]* ) pip install --user cerberus click cython futures google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow==1.11; break;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
 
-echo "Run 'descarteslabs auth login' to login"
-# export DESCARTESLABS_CLIENT_ID=...
-# export DESCARTESLABS_CLIENT_SECRET=...
+
+git clone https://github.com/descarteslabs/appsci_utils.git
+
+cd appsci_utils
+pip install --user -r requirements.txt
+pip install --user .
+while true; do
+    read -p "Is this node a GPU? " yn
+    case $yn in
+        [Yy]* ) pip uninstall tensorflow tensorflow-gpu; pip install --user tensorflow-gpu==1.11; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
+
+# also clone appsci_projects
+git clone https://github.com/descarteslabs/appsci_projects.git
+
+
+if [ ! -e test.sh ]
+then
+    curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/test.sh
+fi
+if [ ! -e niceties.sh ]
+then
+    curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/niceties.sh
+fi
+
+echo "Log out and log back in"
+echo "then run sh test.sh"
