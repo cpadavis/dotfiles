@@ -21,6 +21,7 @@ setopt noclobber
 setopt SHARE_HISTORY
 # beeping is annoying
 unsetopt beep
+# be in vim mode
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -36,6 +37,29 @@ compinit
 bindkey -M viins jk vi-cmd-mode
 bindkey -M vicmd -s ",h" "^"
 bindkey -M vicmd -s ",l" "$"
+# note that / will let you search in command history, with n and N
+
+# useful renaming within zsh
+# example zmv command to replace all spaces in filenames with underscores:
+# zmv '* *' '$f:gs/ /_'
+autoload -Uz zmv
+
+# load up zcalc. E and PI are defined, and common math funcs
+autoload -Uz zcalc
+
+# command autosuggestions
+source ~/.dotfiles/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Set ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE to an integer value to disable
+# autosuggestion for large buffers. The default is unset, which means that
+# autosuggestion will be tried for any buffer size. Recommended value is 20.
+# This can be useful when pasting large amount of text in the terminal, to
+# avoid triggering autosuggestion for too long strings.
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+# accept the suggestion with double comma
+bindkey ',,' autosuggest-accept
+# set the color to something that will work with my dark background settings
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
 
 #parses .dircolors and makes env var for GNU ls
 directory_colors=${HOME}/.dircolors
@@ -192,11 +216,11 @@ function gcp(){
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY"
 }
 function jup(){
-    if it2check ; then it2setcolor preset 'LuciusLight'; fi
+    if it2check ; then it2setcolor preset 'Chalkboard'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888"
 }
 function gpu(){
-    if it2check ; then it2setcolor preset 'LuciusDark'; fi
+    if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function rpi(){
@@ -217,6 +241,7 @@ function sshcrawl() {
     # ssh command
     ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
 }
+alias gcphttp='python3 -m http.server 8888'
 
 #####
 # tmux related
@@ -324,3 +349,9 @@ function tgpu(){
     tmux attach-session -t $base_session
 
 }
+
+# syntax highlighting. It has to go at the end of the file for Reasons
+source ~/.dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+# To have commands starting with `rm -rf` in red:
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')

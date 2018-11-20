@@ -1,88 +1,95 @@
-# install setuptools
-pip3 install setuptools==40.0.0
+# install useful gcloud things
+sudo apt-get update
+sudo apt-get upgrade
+sudo add-apt-repository -y ppa:ubuntugis/ppa
+sudo apt update
+sudo apt-get install -y python-gdal python3-gdal gdal-bin python3-dev python3-pip
+# we're a civilized people, so we use tmux and vim
+sudo apt-get install -y zsh ack-grep tmux vim ctags bc htop
 
-# Install Tensorflow (v1.10)
-pip3 install tensorflow-gpu==1.10
 
-# install Keras
-pip3 install keras==2.2.2
+echo "Rustivus"
+cd $HOME
+gsutil cp gs://dl-dev-binaries/rustivus/rustivus-v0.2.8 $HOME/.
+sudo mkdir /opt/src/
+sudo mkdir /opt/src/rustivus/
+chmod a+x ./rustivus-v0.2.8
+sudo mv rustivus-v0.2.8 /opt/src/rustivus/.
+# Make rustivus start automatically
+git clone https://github.com/descarteslabs/rustivus.git
+sudo cp rustivus/dalhart-festivus-all.json /opt/src/rustivus/.
 
+echo "[Unit]
+Description=Rustivus service for FUSE leveraging GCS
+
+[Service]
+ExecStart=/opt/src/rustivus/rustivus-v0.2.8 /rustivus --io-threads 4 --service-account /opt/src/rustivus/dalhart-festivus-all.json
+Restart=always
+RestartSec=15
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=Rustivus
+
+[Install]
+WantedBy=multi-user.target" >> tmp.service
+sudo cp tmp.service /lib/systemd/system/rustivus.service
+sudo chmod u+x /lib/systemd/system/rustivus.service
+rm tmp.service
+
+sudo systemctl stop festivus
+sudo systemctl disable festivus.service
+sudo systemctl stop rustivus
+sudo systemctl disable rustivus.service
+sudo systemctl daemon-reload
+sudo systemctl enable rustivus.service
+
+sudo systemctl start rustivus
+
+sudo mkdir /rustivus
+
+# through um MAGIC we make pip3 be the old system pip3 and pip a python3 pip. It's really great, guys. Really. Magically, it breaks pip3.
+# note that you still need to say python3 for everything. That can probably be resolved by putting a ln in ~/.local/bin
+pip3 install --user pip
 # install some python packages. I think most required ones will be installed with appsci_utils
-pip3 install cerberus click cython google-cloud numba matplotlib numpy pandas scikit-image scikit-learn scipy Tensorboard
-pip3 install "descarteslabs[complete]"
 # make sure cloudpickle is the right version for descarteslabs
 # not actually sure this will work if cloudpickle got itself installed earlier...
-pip3 install cloudpickle==0.4.0
+# all the packages I'm installing below seem overkill, but I haven't yet figured out which will get included in the appsci_utils pip install, and which other useful ones are not...
+while true; do
+    read -p "Is this node a GPU? " yn
+    case $yn in
+        [Yy]* ) pip install --user cerberus click cython futures google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow-gpu==1.11; break;;
+        [Nn]* ) pip install --user cerberus click cython futures google-cloud numba matplotlib pandas scikit-image scikit-learn scipy tensorboard==1.11.0 protobuf h5py coverage flake8 ipdb ipython jedi jupyter nose notebook pep8 pyflakes pylint sympy "descarteslabs[complete]" numpy==1.13.3 cloudpickle==0.4.0 keras==2.2.4 setuptools==39.1.0 pyasn1==0.4.4 tensorflow==1.11; break;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
 
 
-
-# clone dotfiles
-cd ${HOME}
-git clone https://github.com/cpadavis/dotfiles.git .dotfiles
-
-# do linking
-cd ${HOME}/.dotfiles
-# init the vim submodules
-git submodule update --init
-
-mkdir ${HOME}/ipynbs
-mkdir ${HOME}/.jupyter
-
-# vim
-ln -s ${HOME}/.dotfiles/vimrc ${HOME}/.vimrc
-ln -s ${HOME}/.dotfiles/vim ${HOME}/.vim
-# tmux
-ln -s ${HOME}/.dotfiles/tmux.conf ${HOME}/.tmux.conf
-ln -s ${HOME}/.dotfiles/tmux ${HOME}/.tmux
-# ipython
-ln -s ${HOME}/.dotfiles/ipython ${HOME}/.ipython
-ln -s ${HOME}/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ${HOME}/.jupyter/jupyter_notebook_config.py
-# git
-ln -s ${HOME}/.dotfiles/gitconfig ${HOME}/.gitconfig
-# directory colors
-ln -s ${HOME}/.dotfiles/dircolors-solarized/dircolors.ansi-universal ${HOME}/.dircolors
-# tmuxline default. promptline is dealt with in zshenv
-ln -s ${HOME}/.dotfiles/tmuxline/tmuxline_LuciusLight.conf ${HOME}/.dotfiles/tmuxline/tmuxline.conf
-
-# iterm2 with my modifications
-ln -s ${HOME}/.dotfiles/iterm2/iterm2_shell_integration.bash ${HOME}/.iterm2_shell_integration.bash
-ln -s ${HOME}/.dotfiles/iterm2/iterm2_shell_integration.zsh ${HOME}/.iterm2_shell_integration.zsh
-ln -s ${HOME}/.dotfiles/iterm2 ${HOME}/.iterm2
-
-# bash profile
-mv ${HOME}/.profile ${HOME}/.profile.bak
-ln -s ${HOME}/.dotfiles/zshenvs/profile_gcloud ${HOME}/.profile
-
-# link also zsh
-ln -s ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
-ln -s ${HOME}/.dotfiles/zshenvs/zshenv_GCLOUD ${HOME}/.zshenv
-
-# pip3 install things more todo with coding rather than running
-pip3 install flake8 ipdb ipython jedi jupyter notebook pep8 pyflakes pylint sympy
-
-
-# enable widgets with jupyter
-jupyter nbextension enable --py widgetsnbextension
-
-
-# print
-echo "-------------"
-echo ""
-
-# check cuda
-echo "Printing cuda version info"
-cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
-nvcc --version
-
-echo "Run 'descarteslabs auth login' to login"
-echo "change shell with chsh"
-
-echo "you might need to restart to get everything to work :( sorry"
-
-
-cd ${HOME}/Projects
 git clone https://github.com/descarteslabs/appsci_utils.git
-cd ${HOME}/Projects/appsci_utils
-pip3 install .
+
+cd appsci_utils
+pip install --user -r requirements.txt
+pip install --user .
+while true; do
+    read -p "Is this node a GPU? " yn
+    case $yn in
+        [Yy]* ) pip uninstall tensorflow tensorflow-gpu; pip install --user tensorflow-gpu==1.11; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
+
+# also clone appsci_projects
 git clone https://github.com/descarteslabs/appsci_projects.git
-cd ${HOME}
+
+
+if [ ! -e test.sh ]
+then
+    curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/test.sh
+fi
+if [ ! -e niceties.sh ]
+then
+    curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/niceties.sh
+fi
+
+echo "Log out and log back in"
+echo "then run sh test.sh"

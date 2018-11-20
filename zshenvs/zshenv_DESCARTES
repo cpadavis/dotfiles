@@ -18,6 +18,7 @@ HELPDIR=/usr/local/share/zsh/help
 eval "$(gdircolors ${HOME}/.dircolors)";
 alias ls='gls -hFa --color'
 alias vim='mvim -v --servername VIM -c "colorscheme lucius | set background=dark"'
+alias pylab='it2setcolor preset "GithubMod"; ipython --profile=nbserver; it2setcolor preset "LuciusDark"'
 source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh
 
 # set ipython notebook
