@@ -3,7 +3,7 @@
 export CPD_NAME=PI
 eval "$(dircolors ${HOME}/.dircolors)";
 alias ls='ls -hFaG --color'
-alias vim='vim -c "colorscheme solarized"'
+alias vim='vim -c "colorscheme solarized | set background=dark"'
 alias notebook="jupyter notebook"
 alias pipi="pip install --user"
 alias pipu="pip install --user --upgrade"

@@ -224,7 +224,7 @@ function gpu(){
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function rpi(){
-    if it2check ; then it2setcolor preset 'Solarized Dark Higher Contrast'; fi
+    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
     ssh -Y pi@${1=192.168.1.128}
 }
 
