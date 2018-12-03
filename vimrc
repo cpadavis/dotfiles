@@ -107,6 +107,10 @@ map <leader>n :NERDTreeToggle<CR>
 
 " Load the Gundo window
 map <leader>g :GundoToggle<CR>
+if has('python3')
+    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
+endif
+
 
 " function! ESlac()
 "     " :e scp://cpd@ki-ls.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/a:name
