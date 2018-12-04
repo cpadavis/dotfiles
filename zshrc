@@ -39,6 +39,14 @@ bindkey -M vicmd -s ",h" "^"
 bindkey -M vicmd -s ",l" "$"
 # note that / will let you search in command history, with n and N
 
+# useful renaming within zsh
+# example zmv command to replace all spaces in filenames with underscores:
+# zmv '* *' '$f:gs/ /_'
+autoload -Uz zmv
+
+# load up zcalc. E and PI are defined, and common math funcs
+autoload -Uz zcalc
+
 # command autosuggestions
 source ~/.dotfiles/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -216,7 +224,7 @@ function gpu(){
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function rpi(){
-    if it2check ; then it2setcolor preset 'Solarized Dark Higher Contrast'; fi
+    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
     ssh -Y pi@${1=192.168.1.128}
 }
 
