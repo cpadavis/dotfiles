@@ -10,13 +10,15 @@ args = sys.argv[1:]
 for arg in args:
     if 'festivus' in arg:
         gsarg = arg.replace('/festivus/', 'gs://')
+    elif 'rustivus' in arg:
+        gsarg = arg.replace('/rustivus/', 'gs://')
     else:
         directory = os.getcwd()
-        if 'festivus' not in directory:
+        if ('festivus' not in directory) and ('rustivus' not in directory):
             raise TypeError('Trying to gsutil ls at {0}/{1}?'.format(directory, arg))
         if arg == '.':
             arg = ''
-        gsarg = '{0}/{1}'.format(directory.replace('/festivus/', 'gs://'), arg)
+        gsarg = '{0}/{1}'.format(directory.replace('/festivus/', 'gs://').replace('/rustivus/', 'gs://'), arg)
 
     # print('{0} -> {1}'.format(arg, gsarg))
     cmd = 'gsutil ls {0}'.format(gsarg)
