@@ -43,7 +43,7 @@ activate_lines = [
     'import appsci_utils as au']
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
-if cpd_computer == 'MAC':
+if cpd_computer == 'MAC' or cpd_computer == 'MB':
     activate_lines = ['print("setting ipython terminal app gui to qt5")',
                       '%matplotlib qt5'] + activate_lines
     # c.TerminalIPythonApp.gui = 'qt'
