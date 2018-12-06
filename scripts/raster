@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+"""
+Download and show a raster
+"""
+
+import sys
+import matplotlib.pyplot as plt
+import descarteslabs as dl
+
+args = sys.argv[1].split(' ')
+ID = args[0]
+if len(args) == 1:
+    bands = ['red', 'blue', 'green']
+else:
+    bands = args[1:]
+
+print(ID)
+print(bands)
+
+arr, meta = dl.raster.ndarray(ID, bands=bands)
+fig, ax = plt.subplots()
+ax.set_title(ID)
+ax.imshow(arr)
+ax.axis('off')
+
+plt.show()
