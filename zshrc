@@ -329,7 +329,7 @@ function tmh() {
 function tgpu(){
 
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     base_session=tgpu
     tmux start-server
     tmux new-session -d -s $base_session
