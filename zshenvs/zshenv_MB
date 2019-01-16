@@ -52,3 +52,9 @@ if [ -f '/Users/cpd/Projects/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/cp
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/cpd/Projects/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/cpd/Projects/google-cloud-sdk/completion.zsh.inc'; fi
+
+function raster() {
+    # will need to run `source activate` beforehand
+    pythonw ~/.dotfiles/scripts/raster "$*"
+}
+

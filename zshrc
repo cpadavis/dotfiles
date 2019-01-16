@@ -227,11 +227,11 @@ function gcloudip(){
 }
 function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY"
 }
 function jup(){
     if it2check ; then it2setcolor preset 'Chalkboard'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev}" --ssh-flag="-CY -L 8888:localhost:8888"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L 8888:localhost:8888"
 }
 function gpu(){
     if it2check ; then it2setcolor preset 'Belafonte Night'; fi
@@ -362,7 +362,7 @@ function tmh() {
 function tgpu(){
 
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    if it2check ; then it2setcolor preset 'Solarized Dark'; fi
+    if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     base_session=tgpu
     tmux start-server
     tmux new-session -d -s $base_session
@@ -382,6 +382,9 @@ function tgpu(){
     tmux attach-session -t $base_session
 
 }
+
+# docs
+alias mksph='python3.6 setup.py install --user; cd docs; make html; cd ..'
 
 # syntax highlighting. It has to go at the end of the file for Reasons
 source ~/.dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

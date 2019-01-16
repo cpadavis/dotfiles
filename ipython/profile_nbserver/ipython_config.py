@@ -27,6 +27,7 @@ activate_lines = [
     'import pandas as pd',
     "import matplotlib, matplotlib.cm",
     "import descarteslabs as dl",
+    "import tensorflow as tf",
     # "palette = matplotlib.cm.gray_r",
     "palette = matplotlib.cm.RdBu_r",
     "palette.set_bad(color='g', alpha=0.75)",
@@ -43,7 +44,7 @@ activate_lines = [
     'import appsci_utils as au']
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
-if cpd_computer == 'MAC':
+if cpd_computer == 'MAC' or cpd_computer == 'MB':
     activate_lines = ['print("setting ipython terminal app gui to qt5")',
                       '%matplotlib qt5'] + activate_lines
     # c.TerminalIPythonApp.gui = 'qt'
