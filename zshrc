@@ -350,6 +350,9 @@ function tgpu(){
 
 }
 
+# docs
+alias mksph='python3.6 setup.py install --user; cd docs; make html; cd ..'
+
 # syntax highlighting. It has to go at the end of the file for Reasons
 source ~/.dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)

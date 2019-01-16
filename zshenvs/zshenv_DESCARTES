@@ -38,5 +38,7 @@ if [ -f '/Users/chris/Projects/google-cloud-sdk/completion.zsh.inc' ]; then sour
 
 function raster() {
     # will need to run `source activate` beforehand
-    pythonw ~/.dotfiles/scripts/raster "$*"
+    python ~/.dotfiles/scripts/raster "$*"
 }
+
+export PATH="$PATH:/Users/chris/.local/bin"
