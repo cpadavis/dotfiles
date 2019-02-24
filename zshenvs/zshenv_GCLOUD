@@ -33,4 +33,5 @@ source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
 # }
 
 # alias to check appsci utils
-alias check='flake8 && python3 -m "nose" --with-coverage --cover-package=appsci_utils'
+alias checkau='flake8 ~/Projects/appsci_utils && python3 -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
+alias installau='pip3 install --user ~/Projects/appsci_utils'

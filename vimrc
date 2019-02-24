@@ -353,6 +353,8 @@ map <S-F5> :call SwitchLucius()<CR>
 nnoremap <leader>cS :call SwitchLucius()<CR>
 nnoremap <leader>cs :call ChangeColorScheme()<CR>
 
+" set pastetoggle to <leader>P
+set pastetoggle=<leader>P
 " Paste from clipboard
 map <leader>p "+p
 " yank to clipboard

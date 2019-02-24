@@ -1,5 +1,9 @@
+#!/bin/bash
+
+# Maintainer: Chris Davis
+
 # test TF
-echo "#!/usr/bin/python3
+echo "
 import tensorflow as tf
 import sys
 
@@ -8,7 +12,7 @@ if len(sys.argv) == 2:
 elif len(sys.argv) > 2:
     raise ValueError('not sure what to do with {0}'.format(str(sys.argv)))
 else:
-    gpu_num = 0
+    gpu_num = -1
 
 print('testing cpu at /cpu:0')
 
@@ -26,6 +30,10 @@ with tf.Session() as sess:
 
 print('===== if you got here, tensorflow at least runs on a cpu')
 
+if gpu_num == -1:
+    print('skipping gpu')
+    sys.exit()
+
 print('testing gpu at /gpu:{0}'.format(gpu_num))
 
 with tf.device('/gpu:{0}'.format(gpu_num)):
@@ -38,45 +46,26 @@ with tf.Session() as sess:
         if i == 0 or i == 199:
             print (sess.run(c))
         else:
-            sess.run(c)" >> test_tf
-echo "Testing tensorflow gpu connection"
-python3 test_tf
+            sess.run(c)
+" >> test_tf.py
 
-echo "Printing cuda version info"
-cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
-nvcc --version
-nvidia-smi
+if [ "$GPU" ]
+then
+    echo "Testing tensorflow gpu connection"
+    python3 test_tf.py 0
+
+    echo "Printing cuda version info"
+    cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
+    nvcc --version
+    nvidia-smi
+else
+    echo "Testing tensorflow cpu connection, assuming no gpu"
+    python3 test_tf.py
+fi
 
 echo "Testing rustivus ls"
-ls /rustivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5
+ls /festivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5
 
-git clone https://github.com/descarteslabs/appsci_utils.git
-
-cd appsci_utils
-pip install --user -r requirements.txt
-pip install --user .
-while true; do
-    read -p "Is this node a GPU? " yn
-    case $yn in
-        [Yy]* ) pip uninstall tensorflow tensorflow-gpu; pip install --user tensorflow-gpu==1.11; break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer y or n.";;
-    esac
-done
-echo "Testing flake8"
-flake8
-echo "Running unit tests"
-python3 -m "nose" --with-coverage --cover-package=appsci_utils
-cd $HOME
-
-echo "testing gpu again"
-python3 test_tf
-
-echo "Printing cuda version info"
-cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
-nvcc --version
-
-nvidia-smi
-
-echo "Run 'descarteslabs auth login' to login"
-echo "Run niceties.sh if you would like some niceties"
+# TODO: cd to appsci_utils and run test commands
+# flake8
+# python3 -m "nose" --with-coverage --cover-package=appsci_utils

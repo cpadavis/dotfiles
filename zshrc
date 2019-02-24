@@ -1,8 +1,4 @@
 # Lines configured by zsh-newuser-install
-HISTFILE=${HOME}/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-
 # type directory name to auto cd there ie /bin instead of /bin
 setopt autocd
 # do not overwrite history, append
@@ -17,8 +13,6 @@ setopt notify
 setopt correct
 # do not clobber automatically. overwrite with !
 setopt noclobber
-# Killer: share history between multiple shells
-setopt SHARE_HISTORY
 # beeping is annoying
 unsetopt beep
 # be in vim mode
@@ -30,6 +24,26 @@ zstyle :compinstall filename ${HOME}/.zshrc
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+
+# history options
+HISTFILE=${HOME}/.histfile
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+# Killer: share history between multiple shells
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 # my zshrc
 # configure jk to go into normal mode
@@ -50,15 +64,15 @@ autoload -Uz zcalc
 # command autosuggestions
 source ~/.dotfiles/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# accept the suggestion with double comma
+bindkey ',,' autosuggest-accept
 # Set ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE to an integer value to disable
 # autosuggestion for large buffers. The default is unset, which means that
 # autosuggestion will be tried for any buffer size. Recommended value is 20.
 # This can be useful when pasting large amount of text in the terminal, to
 # avoid triggering autosuggestion for too long strings.
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-# accept the suggestion with double comma
-bindkey ',,' autosuggest-accept
-# set the color to something that will work with my dark background settings
+# set the color to something that will work with both my light and dark background settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
 
 #parses .dircolors and makes env var for GNU ls
@@ -255,6 +269,7 @@ function tmuxk() {
     # Kill defunct sessions first
     old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
     for old_session_id in ${old_sessions[*]}; do
+        echo killing $old_session_id
         tmux kill-session -t $old_session_id ;
     done
 }
@@ -287,26 +302,32 @@ function tmx() {
     base_session=tmuxs
     tmux_nb=$(trim `tmux ls | grep "^$base_session" | wc -l`)
     if [[ "$tmux_nb" == "0" ]]; then
-        if it2check ; then it2setcolor preset 'Solarized Light'; fi
-        tmux new-session -s tmuxs
+        tmuxs
     else
         if [[ -z "$TMUX" ]]; then
-            # Kill defunct sessions first
-            old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
-            for old_session_id in $old_sessions; do
-                tmux kill-session -t $old_session_id
-            done
+            tmux has-session -t $base_session 2>/dev/null
+            if [ "$?" -eq 1 ] ; then
+                tmuxs
+            else
+                # Kill defunct sessions first
+                old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+                for old_session_id in $old_sessions; do
+                    tmux kill-session -t $old_session_id
+                done
 
-            echo "Launching copy of base session $base_session ..."
-            # Session is is date and time to prevent conflict
-            session_id=`date +%Y%m%d%H%M%S`
-            # Create a new session (without attaching it) and link to base session
-            # to share windows
-            tmux new-session -d -t $base_session -s $session_id
-            # Attach to the new session
-            tmux attach-session -t $session_id
-            # When we detach from it, kill the session
-            tmux kill-session -t $session_id
+                echo "Launching copy of base session $base_session ..."
+                # Session is is date and time to prevent conflict
+                session_id=`date +%Y%m%d%H%M%S`
+                # Create a new session (without attaching it) and link to base session
+                # to share windows
+                tmux new-session -d -t $base_session -s $session_id
+                # Attach to the new session
+                tmux attach-session -t $session_id
+                # When we detach from it, kill the session
+                tmux kill-session -t $session_id
+            fi
+        else
+            echo 'Already in a tmux session.'
         fi
     fi
 }
@@ -315,7 +336,19 @@ function tmuxs
 {
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
     if it2check ; then it2setcolor preset 'Solarized Light'; fi
-    tmx
+
+    tmux start-server
+    tmux new-session -d -s tmuxs
+
+    # create notebook in window 0
+    tmux rename-window notebook
+    tmux send-keys "notebook" C-m
+
+    # create new window. with no -d flag, this is automatically chosen
+    tmux new-window
+
+    # start session
+    tmux attach-session -t tmuxs
 }
 
 # tmux split and execute command
@@ -349,6 +382,9 @@ function tgpu(){
     tmux attach-session -t $base_session
 
 }
+
+# docs
+alias mksph='python3.6 setup.py install --user; cd docs; make html; cd ..'
 
 # syntax highlighting. It has to go at the end of the file for Reasons
 source ~/.dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
