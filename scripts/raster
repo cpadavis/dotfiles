@@ -10,7 +10,7 @@ import descarteslabs as dl
 args = sys.argv[1].split(' ')
 ID = args[0]
 if len(args) == 1:
-    bands = ['red', 'blue', 'green']
+    bands = ['red', 'green', 'blue']
 else:
     bands = args[1:]
 
