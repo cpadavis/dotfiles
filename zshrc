@@ -237,6 +237,10 @@ function gpu(){
     if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
+function cargill() {
+    if it2check ; then it2setcolor preset 'Belafonte Day'; fi
+    gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-c" "cg-analysis1604-01"
+}
 function rpi(){
     if it2check ; then it2setcolor preset 'Solarized Dark'; fi
     ssh -Y pi@${1=192.168.1.128}
@@ -343,6 +347,11 @@ function tmuxs
     # create notebook in window 0
     tmux rename-window notebook
     tmux send-keys "notebook" C-m
+
+    if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
+        tmux new-sindow
+        tmux send-keys "vimwiki" C-m
+    fi
 
     # create new window. with no -d flag, this is automatically chosen
     tmux new-window
