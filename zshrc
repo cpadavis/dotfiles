@@ -349,7 +349,7 @@ function tmuxs
     tmux send-keys "notebook" C-m
 
     if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
-        tmux new-sindow
+        tmux new-window
         tmux send-keys "vimwiki" C-m
     fi
 
