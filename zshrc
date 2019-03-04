@@ -350,6 +350,7 @@ function tmuxs
 
     if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
         tmux new-window
+        tmux rename-window vimwiki
         tmux send-keys "vimwiki" C-m
     fi
 
