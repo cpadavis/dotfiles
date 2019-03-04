@@ -12,7 +12,7 @@ print(args)
 print(sys.argv)
 ID = args[0]
 if len(args) == 1:
-    bands = ['red', 'blue', 'green']
+    bands = ['red', 'green', 'blue']
 else:
     bands = args[1:]
 
