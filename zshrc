@@ -310,7 +310,7 @@ function tmx() {
                 tmuxs
             else
                 # Kill defunct sessions first
-                old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+                old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}" | cut -f 1 -d:))
                 for old_session_id in $old_sessions; do
                     tmux kill-session -t $old_session_id
                 done
