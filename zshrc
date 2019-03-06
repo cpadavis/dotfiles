@@ -239,7 +239,7 @@ function gpu(){
 }
 function cargill() {
     if it2check ; then it2setcolor preset 'Belafonte Day'; fi
-    gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-c" "cg-analysis1604-01"
+    gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris-dev"
 }
 function rpi(){
     if it2check ; then it2setcolor preset 'Solarized Dark'; fi
