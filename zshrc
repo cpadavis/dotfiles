@@ -229,6 +229,12 @@ function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY"
 }
+function gscpd(){
+    gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" "chris@${3:=chris-dev-1804-2}:${1}" ${2}
+}
+function gscpu(){
+    gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" ${1} "chris@${3:=chris-dev-1804-2}:${2}"
+}
 function jup(){
     if it2check ; then it2setcolor preset 'Chalkboard'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L 8888:localhost:8888"
