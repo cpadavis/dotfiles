@@ -260,7 +260,7 @@ if has("gui_running")
         """ Full screen options
         set fuoptions=maxvert,maxhorz,background:Normal
         " set colorcolumn=80
-        set guifont=Menlo:h12.00
+        set guifont=Menlo:h16.00
     else
         set guifont=DejaVu\ Sans\ Mono\ 10.00
         " Remove menu bar

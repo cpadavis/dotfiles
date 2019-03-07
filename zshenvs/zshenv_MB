@@ -22,6 +22,7 @@ eval "$(gdircolors ${HOME}/.dircolors)";
 alias ls='gls -hFa --color'
 alias vim='mvim -v -c "colorscheme lucius | set background=dark"'
 alias pylab='it2setcolor preset "GithubMod"; ipython --profile=nbserver; it2setcolor preset "LuciusDark"'
+alias notebook='jupyter notebook --port=8889'
 source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh
 
 # projects
