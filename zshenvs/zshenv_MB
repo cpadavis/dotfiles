@@ -14,16 +14,15 @@ unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
 
-# set ipython notebook
-export IPYTHON_NOTEBOOK_DIR="$HOME/Projects/ipynbs"
-
 # repace pip with anaconda pip
 # alias pip="/Users/cpd/anaconda3/bin/pip"
+alias py='python3.6'
 
 eval "$(gdircolors ${HOME}/.dircolors)";
 alias ls='gls -hFa --color'
 alias vim='mvim -v -c "colorscheme lucius | set background=dark"'
 alias pylab='it2setcolor preset "GithubMod"; ipython --profile=nbserver; it2setcolor preset "LuciusDark"'
+alias notebook='jupyter notebook --port=8889'
 source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh
 
 # projects
@@ -53,8 +52,12 @@ if [ -f '/Users/cpd/Projects/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/cp
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/cpd/Projects/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/cpd/Projects/google-cloud-sdk/completion.zsh.inc'; fi
 
+# DL
 function raster() {
     # will need to run `source activate` beforehand
     pythonw ~/.dotfiles/scripts/raster "$*"
 }
 
+alias checkau='flake8 ~/Projects/appsci_utils && python3.6 -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
+alias installau='pip3.6 install --user ~/Projects/appsci_utils'
+alias cg='gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-c" "cg-analysis1604-01"'

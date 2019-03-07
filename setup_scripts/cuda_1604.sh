@@ -1,22 +1,23 @@
 #!/bin/bash
 
-# I use this with Ubuntu 16.04.5, python 3.5 images
-# run this before all other setup scripts
+# Maintainer: Chris Davis
 
-sudo apt-get update
-sudo apt-get upgrade
+# I use this with Ubuntu 16.04.5, python 3.5 images
+sudo apt-get update -y
+sudo apt-get upgrade -y
 sudo add-apt-repository -y ppa:ubuntugis/ppa
-sudo apt update
+sudo apt update -y
+sudo apt-get upgrade -y
 
 # https://yangcha.github.io/CUDA90/
 
-sudo apt-get purge cuda
-sudo apt-get purge libcudnn6
-sudo apt-get purge libcudnn6-dev
-sudo apt-get purge libcudnn7
-sudo apt-get purge libcudnn7-dev
-sudo apt-get purge libnccl2
-sudo apt-get purge libnccl-dev
+sudo apt-get -y purge cuda
+sudo apt-get -y purge libcudnn6
+sudo apt-get -y purge libcudnn6-dev
+sudo apt-get -y purge libcudnn7
+sudo apt-get -y purge libcudnn7-dev
+sudo apt-get -y purge libnccl2
+sudo apt-get -y purge libnccl-dev
 
 sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
 
@@ -30,29 +31,17 @@ sudo dpkg -i libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
 sudo dpkg -i libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
 sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
-sudo apt-get update
-sudo apt-get install cuda=9.0.176-1
-sudo apt-get install libcudnn7
-sudo apt-get install libcudnn7-dev
-sudo apt-get install libnccl2
-sudo apt-get install libnccl-dev
 
-# rm cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-# rm libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
-# rm libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
-# rm libnccl2_2.1.4-1+cuda9.0_amd64.deb
-# rm libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+sudo apt-get -y update
+
+sudo apt-get -y install cuda=9.0.176-1
+sudo apt-get -y install libcudnn7
+sudo apt-get -y install libcudnn7-dev
+sudo apt-get -y install libnccl2
+sudo apt-get -y install libnccl-dev
 
 # append profile info
 echo "export PATH=/usr/local/cuda-9.0/bin\${PATH:+:\${PATH}}" >> ~/.profile
 echo "export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}" >> ~/.profile
 
-if [ ! -e gcloud.sh ]
-then
-    curl -O https://raw.githubusercontent.com/cpadavis/dotfiles/master/setup_scripts/gcloud.sh
-fi
-
-echo "run sh gcloud.sh"
-
-
-
+export GPU=True

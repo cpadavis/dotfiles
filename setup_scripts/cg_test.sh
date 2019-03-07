@@ -49,23 +49,9 @@ with tf.Session() as sess:
             sess.run(c)
 " >> test_tf.py
 
-if [ "$GPU" ]
-then
-    echo "Testing tensorflow gpu connection"
-    python3 test_tf.py 0
+python3 test_tf.py 0
 
-    echo "Printing cuda version info"
-    cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
-    nvcc --version
-    nvidia-smi
-else
-    echo "Testing tensorflow cpu connection, assuming no gpu"
-    python3 test_tf.py
-fi
-
-echo "Testing rustivus ls"
-ls /festivus/dl-kstory/buildings/models/buildings_usa_airbus_20171101.hdf5
-
-# TODO: cd to appsci_utils and run test commands
-# flake8
-# python3 -m "nose" --with-coverage --cover-package=appsci_utils
+echo "Printing cuda version info"
+cat /usr/include/cudnn.h | grep CUDNN_MAJOR -A 2
+nvcc --version
+nvidia-smi

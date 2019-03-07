@@ -229,6 +229,12 @@ function gcp(){
     if it2check ; then it2setcolor preset 'LuciusLight'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY"
 }
+function gscpd(){
+    gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" "chris@${3:=chris-dev-1804-2}:${1}" ${2}
+}
+function gscpu(){
+    gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" ${1} "chris@${3:=chris-dev-1804-2}:${2}"
+}
 function jup(){
     if it2check ; then it2setcolor preset 'Chalkboard'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L 8888:localhost:8888"
@@ -236,6 +242,10 @@ function jup(){
 function gpu(){
     if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
+}
+function cargill() {
+    if it2check ; then it2setcolor preset 'Belafonte Day'; fi
+    gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris-dev"
 }
 function rpi(){
     if it2check ; then it2setcolor preset 'Solarized Dark'; fi
@@ -343,6 +353,12 @@ function tmuxs
     # create notebook in window 0
     tmux rename-window notebook
     tmux send-keys "notebook" C-m
+
+    if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
+        tmux new-window
+        tmux rename-window vimwiki
+        tmux send-keys "vimwiki" C-m
+    fi
 
     # create new window. with no -d flag, this is automatically chosen
     tmux new-window
