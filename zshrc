@@ -234,6 +234,11 @@ function gcpstart(){
 }
 function gcpstop(){
     gcloud compute instances stop --project "dl-security-test" --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}"
+function gscpd(){
+    gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" "chris@${3:=chris-dev-1804-2}:${1}" ${2}
+}
+function gscpu(){
+    gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" ${1} "chris@${3:=chris-dev-1804-2}:${2}"
 }
 function jup(){
     if it2check ; then it2setcolor preset 'Chalkboard'; fi
@@ -324,7 +329,7 @@ function tmx() {
                 tmuxs
             else
                 # Kill defunct sessions first
-                old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+                old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}" | cut -f 1 -d:))
                 for old_session_id in $old_sessions; do
                     tmux kill-session -t $old_session_id
                 done
