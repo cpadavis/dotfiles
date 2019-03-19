@@ -234,6 +234,7 @@ function gcpstart(){
 }
 function gcpstop(){
     gcloud compute instances stop --project "dl-security-test" --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}"
+}
 function gscpd(){
     gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" "chris@${3:=chris-dev-1804-2}:${1}" ${2}
 }
