@@ -251,7 +251,7 @@ function gpu(){
 }
 function cargill() {
     if it2check ; then it2setcolor preset 'Belafonte Day'; fi
-    gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris-dev"
+    gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris@chris-dev"
 }
 function mcargill() {
     if it2check ; then it2setcolor preset 'Belafonte Night'; fi
