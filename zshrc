@@ -247,7 +247,7 @@ function jup(){
 }
 function gpu(){
     if it2check ; then it2setcolor preset 'Belafonte Night'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1604-gpu}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function cargill() {
     if it2check ; then it2setcolor preset 'Belafonte Day'; fi
@@ -256,6 +256,9 @@ function cargill() {
 function mcargill() {
     if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     gcloud compute --project "dl-security-test" ssh --zone us-central1-b chris@manuel-dev --ssh-flag="-CY -L 8080:localhost:8080"
+}
+function mdown() {
+    gcloud compute --project "dl-security-test" scp --zone us-central1-b "chris@manuel-dev:${1}" ${2}
 }
 function rpi(){
     if it2check ; then it2setcolor preset 'Solarized Dark'; fi
@@ -417,3 +420,8 @@ source ~/.dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # To have commands starting with `rm -rf` in red:
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
+
+# I do not understand why this works in .zshrc but not in .zshenv
+if [[ "$CPD_NAME" == "DESCARTES" ]]; then
+    source activate
+fi
