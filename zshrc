@@ -243,7 +243,7 @@ function gscpu(){
 }
 function jup(){
     if it2check ; then it2setcolor preset 'Chalkboard'; fi
-    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L 8888:localhost:8888"
+    gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "chris@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:8888:localhost:8888"
 }
 function gpu(){
     if it2check ; then it2setcolor preset 'Belafonte Night'; fi
@@ -320,6 +320,9 @@ function tmx() {
     if [[ "$1" == "ls" ]]; then
         tmux ls
         exit
+    fi
+    if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
+        if it2check ; then it2setcolor preset 'Solarized Light'; fi
     fi
 
     base_session=tmuxs
