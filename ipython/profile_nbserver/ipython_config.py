@@ -18,35 +18,18 @@ c = get_config()
 
 # lines of code to run at IPython startup.
 activate_lines = [
-    # "%load_ext Cython",
-    # "%load_ext autoreload",
-    # "%autoreload 1",
-    # "%pdb",
-    "from __future__ import print_function, division",
     'import numpy as np',
     'import pandas as pd',
-    "import matplotlib, matplotlib.cm",
     "import descarteslabs as dl",
-    "import tensorflow as tf",
-    # "palette = matplotlib.cm.gray_r",
-    "palette = matplotlib.cm.RdBu_r",
-    "palette.set_bad(color='g', alpha=0.75)",
-    "palette.set_over(color='m', alpha=0.75)",
-    "palette.set_under(color='c', alpha=0.75)",
-    "matplotlib.cm.register_cmap(name='my_map', cmap=palette)",
-    # "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
-    "matplotlib.rc('image', interpolation='none', cmap = 'my_map')",
+    # "import tensorflow as tf",
     'import matplotlib.pyplot as plt',
-    'plt.ion()',  # turn on interactive mode
-    "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
-    'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")',
-    'print("Trying to import appsci_utils now")',
-    'import appsci_utils as au']
+    'print("Importing numpy, matplotlib.pyplot, and pandas!")',
+    ]
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
-if cpd_computer == 'MAC' or cpd_computer == 'MB':
-    activate_lines = ['print("setting ipython terminal app gui to qt5")',
-                      '%matplotlib qt5'] + activate_lines
+# if cpd_computer == 'MAC' or cpd_computer == 'MB':
+#     activate_lines = ['print("setting ipython terminal app gui to qt5")',
+#                       '%matplotlib qt5'] + activate_lines
     # c.TerminalIPythonApp.gui = 'qt'
 # elif cpd_computer == 'KILS':
 #     activate_lines = ['print("setting ipython terminal app gui to use qt4")',
