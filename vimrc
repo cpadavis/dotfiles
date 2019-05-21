@@ -658,6 +658,8 @@ nmap <leader>f :CtrlPBuffer<CR>
 " t for tag
 nmap <leader>t :CtrlPBufTagAll<CR>
 nmap <leader>T :CtrlPTag<CR>
+" Search from current directory instead of project root
+let g:ctrlp_working_path_mode = 0
 
 " ==========================================================
 " gutentags -- tag management
@@ -739,7 +741,7 @@ inoremap <leader>, <C-x><C-o>
 " ==========================================================
 let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 1
-let g:jedi#use_splits_not_buffers = "top"
+let g:jedi#use_splits_not_buffers = ""
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 0  " 0 disable, 1 popup, 2 commandline
 let g:jedi#smart_auto_mappings = 0
