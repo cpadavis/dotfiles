@@ -415,6 +415,8 @@ function tgpu(){
 
 }
 
+alias closeport='lsof -ti:8888 | xargs kill -9'
+
 # docs
 alias mksph='python3.6 setup.py install --user; cd docs; make html; cd ..'
 
