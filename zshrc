@@ -112,7 +112,7 @@ function chpwd(){ ls; }
 #####
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 alias vims='vim -S Session.vim'
-alias dua='du -h | sort -nr'
+alias dua='du -h | sort -hr'
 
 function vimwiki() {
     if it2check ; then it2setcolor preset 'Solarized Light'; fi
@@ -415,7 +415,7 @@ function tgpu(){
 
 }
 
-alias closeport='lsof -ti:8888 | xargs kill -9'
+alias closeport='lsof -ti:${1:=8888} | xargs kill -9'
 
 # docs
 alias mksph='python3.6 setup.py install --user; cd docs; make html; cd ..'
