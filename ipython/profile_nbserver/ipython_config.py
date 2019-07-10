@@ -27,9 +27,9 @@ activate_lines = [
     ]
 
 cpd_computer = os.getenv('CPD_NAME', 'NONE')
-# if cpd_computer == 'MAC' or cpd_computer == 'MB':
-#     activate_lines = ['print("setting ipython terminal app gui to qt5")',
-#                       '%matplotlib qt5'] + activate_lines
+if cpd_computer == 'MAC' or cpd_computer == 'MB':
+    activate_lines = ['print("setting ipython terminal app gui to qt5")',
+                      '%matplotlib qt5'] + activate_lines
     # c.TerminalIPythonApp.gui = 'qt'
 # elif cpd_computer == 'KILS':
 #     activate_lines = ['print("setting ipython terminal app gui to use qt4")',
