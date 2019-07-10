@@ -112,7 +112,7 @@ function chpwd(){ ls; }
 #####
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 alias vims='vim -S Session.vim'
-alias dua='du -h | sort -nr'
+alias dua='du -h | sort -hr'
 
 function vimwiki() {
     if it2check ; then it2setcolor preset 'Solarized Light'; fi
