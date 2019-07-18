@@ -9,10 +9,11 @@ alias ls='ls -hFa --color'
 
 export CPLUS_INCLUDE_PATH=/usr/include/gdal
 export C_INCLUDE_PATH=/usr/include/gdal
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+# export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+# export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -26,6 +27,8 @@ source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
 export PATH=${PATH}
 
 # add DL specific
+export PYTHONPATH=${PYTHONPATH}:/home/chris/.local/lib/python3.6/site-packages
+export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/viewer_links
 export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/2dto3d_internal_2019
 export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/buildings_internal_2018
 export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/change_internal_2019
@@ -34,3 +37,6 @@ export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/bu
 # alias to check appsci utils
 alias checkau='flake8 ~/Projects/appsci_utils && python3 -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
 alias installau='pip3 install --user ~/Projects/appsci_utils'
+
+
+alias rustivus='/opt/src/rustivus/rustivus-v0.2.8 /festivus --service-account /opt/src/rustivus/dalhart-festivus-all.json'
