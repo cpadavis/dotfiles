@@ -4,9 +4,11 @@
 function __promptline_host {
   local only_if_ssh="1"
 
-  if [ ! $only_if_ssh -o -n "${SSH_CLIENT}" ]; then
-    if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
-  fi
+  # remove the only if ssh posthoc
+  if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
+  # if [ ! $only_if_ssh -o -n "${SSH_CLIENT}" ]; then
+  #   if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
+  # fi
 }
 
 function __promptline_last_exit_code {
