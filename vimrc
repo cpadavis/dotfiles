@@ -755,7 +755,7 @@ let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
-let g:jedi#completions_command = "<leader>jj"
+let g:jedi#completions_command = "<leader>jc"
 let g:jedi#rename_command = "<leader>jr"
 
 " ===========================================================
