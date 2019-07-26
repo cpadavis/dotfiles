@@ -620,11 +620,12 @@ let g:tmuxline_preset = 'powerline'
 let g:promptline_theme = 'airline'
 let g:promptline_powerline_symbols = 0
 " sections (a, b, c, x, y, z, warn) are optional
+" section a is replaced with the vicmd stuff. also replaced symbols
 let g:promptline_preset = {
-        \'a' : [ promptline#slices#user() ],
-        \'b' : [ promptline#slices#cwd() ],
-        \'c' : [ ],
-        \'x' : [ promptline#slices#jobs() ],
+        \'a' : [ ],
+        \'b' : [ promptline#slices#user() ],
+        \'c' : [ promptline#slices#cwd() ],
+        \'x' : [ promptline#slices#jobs(), promptline#slices#conda_env(), promptline#slices#python_virtualenv()],
         \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
         \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
         \'warn' : [ promptline#slices#last_exit_code() ]}
@@ -754,7 +755,7 @@ let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
-let g:jedi#completions_command = "<leader>jj"
+let g:jedi#completions_command = "<leader>jc"
 let g:jedi#rename_command = "<leader>jr"
 
 " ===========================================================
