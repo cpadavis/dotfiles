@@ -25,7 +25,8 @@ alias vim='mvim -v'
 # alias pylab='it2setcolor preset "GithubMod"; ipython --profile=nbserver; it2setcolor preset "LuciusDark"'
 alias pylab='ipython --profile=nbserver'
 alias notebook='jupyter lab --port=8889'
-source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh
+# source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
 
 # projects
 # # wizard

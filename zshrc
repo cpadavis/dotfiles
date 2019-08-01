@@ -439,6 +439,7 @@ if [[ "$CPD_NAME" == "DESCARTES" ]]; then
 fi
 
 if [[ "$CPD_NAME" == "MB" ]]; then
+    # this fails in tmux tho??
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/Users/cpd/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
