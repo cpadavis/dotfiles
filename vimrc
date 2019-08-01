@@ -253,8 +253,8 @@ else
     set ttymouse=xterm2
 end
 if has("gui_running")
-    colorscheme solarized
-    set background=light
+    " colorscheme solarized
+    " set background=light
     set cursorline
     if has("gui_macvim")
         """ Full screen options
@@ -293,7 +293,8 @@ else
     " colorscheme solarized "default
     " colorscheme lucius "default
     " set background=light
-    colorscheme base16-default-dark
+    " set background=dark
+    " colorscheme base16-default-dark
     "set nocursorline
     " set colorcolumn=80
     set cursorline
@@ -302,6 +303,9 @@ endif
 set encoding=utf-8
 set termencoding=utf-8
 
+set background=dark
+" base16 only seems to work in gui, but not in terminal
+colorscheme base16-default-dark
 
 
 " commands for changing the colors around
@@ -501,7 +505,6 @@ nmap <Leader>sC :call SynCheckNoStyle()<CR>
 nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
-
 
 " ==========================================================
 " Black
