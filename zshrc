@@ -372,6 +372,11 @@ function tmuxs
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
     # if it2check ; then it2setcolor preset 'Solarized Light'; fi
 
+    if [[ "$CPD_NAME" == "MB" ]]; then
+        # TODO: might need this for DESCARTES
+        conda deactivate
+    fi
+
     tmux start-server
     tmux new-session -d -s tmuxs
 
@@ -439,7 +444,7 @@ if [[ "$CPD_NAME" == "DESCARTES" ]]; then
 fi
 
 if [[ "$CPD_NAME" == "MB" ]]; then
-    # this fails in tmux tho??
+    # source activate
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/Users/cpd/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -447,9 +452,9 @@ if [[ "$CPD_NAME" == "MB" ]]; then
         eval "$__conda_setup"
     else
         if [ -f "/Users/cpd/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/Users/cpd/anaconda3/etc/profile.d/conda.sh"
+# . "/Users/cpd/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
         else
-            export PATH="/Users/cpd/anaconda3/bin:$PATH"
+# export PATH="/Users/cpd/anaconda3/bin:$PATH"  # commented out by conda initialize
         fi
     fi
     unset __conda_setup
