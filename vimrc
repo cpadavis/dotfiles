@@ -472,8 +472,8 @@ endfunction " }}}
 " Syntastic
 " ==========================================================
 " set syntastic to active
-let g:syntastic_mode_map = { 'mode': 'passive'}
-" let g:syntastic_mode_map = { 'mode': 'active'}
+" let g:syntastic_mode_map = { 'mode': 'passive'}
+let g:syntastic_mode_map = { 'mode': 'active'}
 " also set syntastic to muffle style stuff unless I explicitly want it
 let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
 " let g:syntastic_python_checkers=['pyflakes']
@@ -502,6 +502,12 @@ nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
 
+
+" ==========================================================
+" Black
+" ==========================================================
+" run black on save with python files
+autocmd BufWritePre *.py execute ':Black'
 
 " ==========================================================
 " Calendar stuff
