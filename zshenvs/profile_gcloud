@@ -36,9 +36,10 @@ function cd {
     builtin cd "$@" && ls -F
 }
 alias pylab='ipython --profile=nbserver'
-alias notebook='jupyter notebook'
+alias notebook='jupyter lab'
 
-source ${HOME}/.dotfiles/promptline/promptline_LuciusLight.sh
+# source ${HOME}/.dotfiles/promptline/promptline_LuciusLight.sh
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
 
 #####
 # tmux related
@@ -53,6 +54,10 @@ function tmuxs()
     # create notebook in window 0
     tmux rename-window notebook
     tmux send-keys "notebook" C-m
+
+    tmux split-window -v
+    tmux select-pane -t 1
+    tmux send-keys "rustivus" C-m
 
     # create new window. with no -d flag, this is automatically chosen
     tmux new-window

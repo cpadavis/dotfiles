@@ -149,7 +149,8 @@ alias ds9='/Applications/SAOImage\ DS9.app/Contents/MacOS/ds9'
 
 eval "$(gdircolors ${HOME}/.dircolors)";
 alias ls='gls -hFa --color'
-alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
+# alias vim='mvim -v --servername VIM -c "colorscheme solarized"'
+alias vim='mvim -v --servername VIM'
 alias notebook="jupyter notebook"
 alias pipi='sudo pip install'
 alias pipu='sudo pip install --upgrade'

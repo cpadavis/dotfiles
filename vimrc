@@ -291,8 +291,9 @@ else
     " set term=xterm-256color
     " let g:solarized_termcolors=256
     " colorscheme solarized "default
-    colorscheme lucius "default
-    set background=light
+    " colorscheme lucius "default
+    " set background=light
+    colorscheme base16-default-dark
     "set nocursorline
     " set colorcolumn=80
     set cursorline

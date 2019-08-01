@@ -20,9 +20,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 export IPYTHON_NOTEBOOK_DIR="$HOME/ipynbs"
 alias pylab='ipython --profile=nbserver'
-alias notebook='jupyter notebook'
+alias notebook='jupyter lab'
 
-source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
+source ${HOME}/.dotfiles/promptline/promptline_base16.sh
 
 export PATH=${PATH}
 
