@@ -437,3 +437,20 @@ ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 if [[ "$CPD_NAME" == "DESCARTES" ]]; then
     source activate
 fi
+
+if [[ "$CPD_NAME" == "MB" ]]; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/Users/cpd/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/cpd/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/Users/cpd/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/Users/cpd/anaconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+fi
