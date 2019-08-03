@@ -243,19 +243,19 @@ function gscpu(){
     gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" ${1} "chris@${3:=chris-dev-1804-2}:${2}"
 }
 function jup(){
-    # if it2check ; then it2setcolor preset 'Chalkboard'; fi
+    if it2check ; then it2setcolor preset '3024 Day'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "${3:=chris}@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:8888:localhost:8888"
 }
 function gpu(){
-    # if it2check ; then it2setcolor preset 'Belafonte Night'; fi
+    if it2check ; then it2setcolor preset 'Belafonte Day'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "${3:=chris}@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
 function cargill() {
-    # if it2check ; then it2setcolor preset 'Belafonte Day'; fi
+    if it2check ; then it2setcolor preset 'Belafonte Day'; fi
     gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris@chris-dev"
 }
 function mcargill() {
-    # if it2check ; then it2setcolor preset 'Belafonte Night'; fi
+    if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     gcloud compute --project "dl-security-test" ssh --zone us-central1-b chris@manuel-dev --ssh-flag="-CY -L 8080:localhost:8080"
 }
 function mdown() {
