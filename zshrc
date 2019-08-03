@@ -113,6 +113,7 @@ function chpwd(){ ls; }
 function pdfmerge() { gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=$@ ; }
 alias vims='vim -S Session.vim'
 alias dua='du -h | sort -hr'
+alias grep='grep --color'
 
 function vimwiki() {
     # if it2check ; then it2setcolor preset 'Solarized Light'; fi
@@ -250,14 +251,14 @@ function gpu(){
     if it2check ; then it2setcolor preset 'Belafonte Day'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "${3:=chris}@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
-function cargill() {
-    if it2check ; then it2setcolor preset 'Belafonte Day'; fi
-    gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris@chris-dev"
-}
-function mcargill() {
-    if it2check ; then it2setcolor preset 'Belafonte Night'; fi
-    gcloud compute --project "dl-security-test" ssh --zone us-central1-b chris@manuel-dev --ssh-flag="-CY -L 8080:localhost:8080"
-}
+# function cargill() {
+#     # if it2check ; then it2setcolor preset 'Belafonte Day'; fi
+#     gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris@chris-dev"
+# }
+# function mcargill() {
+#     # if it2check ; then it2setcolor preset 'Belafonte Night'; fi
+#     gcloud compute --project "dl-security-test" ssh --zone us-central1-b chris@manuel-dev --ssh-flag="-CY -L 8080:localhost:8080"
+# }
 function mdown() {
     gcloud compute --project "dl-security-test" scp --zone us-central1-b "chris@manuel-dev:${1}" ${2}
 }
