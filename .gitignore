@@ -12,6 +12,9 @@ core.*
 *.swm
 .*.sw*
 
+vim/.netrwhist
+vim/black
+
 # latex
 *.pdf
 *.bcf
