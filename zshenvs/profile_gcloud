@@ -25,10 +25,6 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 export CPD_NAME=GCLOUD
 
 export IPYTHON_NOTEBOOK_DIR="$HOME/Projects"
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 [ -z "$PS1" ] && return
 alias ls='ls -hFa --color'
@@ -37,6 +33,7 @@ function cd {
 }
 alias pylab='ipython --profile=nbserver'
 alias notebook='jupyter lab'
+alias tmux='tmux -2'
 
 # source ${HOME}/.dotfiles/promptline/promptline_LuciusLight.sh
 source ${HOME}/.dotfiles/promptline/promptline_base16.sh

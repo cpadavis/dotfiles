@@ -21,6 +21,8 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export IPYTHON_NOTEBOOK_DIR="$HOME/ipynbs"
 alias pylab='ipython --profile=nbserver'
 alias notebook='jupyter lab'
+# force tmux to assume 256 color
+alias tmux='tmux -2'
 
 source ${HOME}/.dotfiles/promptline/promptline_base16.sh
 

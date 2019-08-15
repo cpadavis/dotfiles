@@ -80,3 +80,6 @@ tmuxline.conf
 ipython/*/history-corrupt*
 
 tags
+
+# jupyter lab ignore workspaces
+jupyter/lab/workspaces/*
