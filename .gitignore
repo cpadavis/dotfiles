@@ -12,6 +12,9 @@ core.*
 *.swm
 .*.sw*
 
+vim/.netrwhist
+vim/black
+
 # latex
 *.pdf
 *.bcf
@@ -80,3 +83,6 @@ tmuxline.conf
 ipython/*/history-corrupt*
 
 tags
+
+# jupyter lab ignore workspaces
+jupyter/lab/workspaces/*

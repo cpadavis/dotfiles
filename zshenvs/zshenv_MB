@@ -61,6 +61,6 @@ function raster() {
     pythonw ~/.dotfiles/scripts/raster "$*"
 }
 
-alias checkau='flake8 ~/Projects/appsci_utils && python3.6 -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
-alias installau='pip3.6 install --user ~/Projects/appsci_utils'
+alias checkau='flake8 ~/Projects/appsci_utils && python -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
+alias installau='pip install --user ~/Projects/appsci_utils'
 alias cg='gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-c" "cg-analysis1604-01"'
