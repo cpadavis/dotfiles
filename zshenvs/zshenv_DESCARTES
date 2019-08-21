@@ -10,7 +10,9 @@ export CPD_NAME=DESCARTES
 # In order to use this build of zsh as your login shell,
 # it must be added to /etc/shells.
 # Add the following to your zshrc to access the online help:
-unalias run-help
+
+# not sure, but is this breaking stuff???
+# unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
 
@@ -39,11 +41,13 @@ function raster() {
     python ~/.dotfiles/scripts/raster "$*"
 }
 
-export PATH="$PATH:/Users/chris/.local/bin"
+# some different export PATH="$PATH:/Users/chris/.local/bin"
 
-alias checkau='flake8 ~/Projects/appsci_utils && python3.6 -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
+alias checkau='flake8 ~/Projects/appsci_utils && python -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
 alias installau='pip install --user ~/Projects/appsci_utils'
 alias py='python3.6'
+
+export PATH="/Users/chris/.local/bin:$PATH"
 
 # added by Miniconda3 installer
 export PATH="/Users/chris/miniconda3/bin:$PATH"
