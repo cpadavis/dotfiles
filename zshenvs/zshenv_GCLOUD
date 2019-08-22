@@ -37,7 +37,8 @@ export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/ch
 export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/buildings-pipeline_bp_2019
 
 # alias to check appsci utils
-alias checkau='flake8 ~/Projects/appsci_utils && python3 -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
+alias py='python3'
+alias checkau='flake8 ~/Projects/appsci_utils && py -m "pytest" --cov=appsci_utils ~/Projects/appsci_utils'
 alias installau='pip3 install --user ~/Projects/appsci_utils'
 
 

@@ -41,9 +41,9 @@ function raster() {
 
 export PATH="$PATH:/Users/chris/.local/bin"
 
-alias checkau='flake8 ~/Projects/appsci_utils && python3.6 -m "nose" --with-coverage --cover-package=appsci_utils ~/Projects/appsci_utils'
+alias py='python'
+alias checkau='flake8 ~/Projects/appsci_utils && py -m "pytest" --cov=appsci_utils ~/Projects/appsci_utils'
 alias installau='pip install --user ~/Projects/appsci_utils'
-alias py='python3.6'
 
 # added by Miniconda3 installer
 export PATH="/Users/chris/miniconda3/bin:$PATH"

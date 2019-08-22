@@ -383,7 +383,7 @@ function tmuxs
 
     # create notebook in window 0
     tmux rename-window notebook
-    tmux send-keys "jupyter lab" C-m
+    tmux send-keys "notebook" C-m
 
     if [[ "$CPD_NAME" == "GCLOUD" ]]; then
         tmux split-window -v
