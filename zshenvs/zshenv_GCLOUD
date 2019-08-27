@@ -24,7 +24,7 @@ alias notebook='jupyter lab'
 # force tmux to assume 256 color
 alias tmux='tmux -2'
 
-source ${HOME}/.dotfiles/promptline/promptline_base16.sh
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
 
 export PATH=${PATH}
 
