@@ -314,28 +314,28 @@ function! ChangeColorScheme(cscheme, bground)
     if a:cscheme == 'lucius'
         colorscheme lucius
         if &background == 'light'
-            silent ! it2setcolor preset LuciusLight
+            silent ! ${HOME}/.iterm2/it2setcolor preset LuciusLight
         elseif &background == 'dark'
-            silent ! it2setcolor preset LuciusDark
+            silent ! ${HOME}/.iterm2/it2setcolor preset LuciusDark
         endif
         AirlineTheme lucius
         Tmuxline
     elseif a:cscheme == 'solarized'
         colorscheme solarized
         if &background == 'light'
-            silent ! it2setcolor preset "Solarized Light"
+            silent ! ${HOME}/.iterm2/it2setcolor preset "Solarized Light"
         elseif &background == 'dark'
-            silent ! it2setcolor preset "Solarized Dark"
+            silent ! ${HOME}/.iterm2/it2setcolor preset "Solarized Dark"
         endif
         AirlineTheme solarized
         Tmuxline
     elseif a:cscheme == 'base16'
         if &background == 'light'
             colorscheme base16-github
-            silent ! it2setcolor preset base16-github.light
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-github.light
         elseif &background == 'dark'
             colorscheme base16-default-dark
-            silent ! it2setcolor preset base16-default.dark.mod
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-default.dark.mod
         endif
         AirlineTheme base16
         Tmuxline
