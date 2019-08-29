@@ -86,3 +86,4 @@ tags
 
 # jupyter lab ignore workspaces
 jupyter/lab/workspaces/*
+jupyter/lab/workspaces/lab*

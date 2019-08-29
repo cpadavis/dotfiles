@@ -309,54 +309,58 @@ colorscheme base16-default-dark
 
 
 " commands for changing the colors around
-function! ChangeColorScheme()
-    if exists("g:colors_name")
-        if g:colors_name == 'lucius'
-            if exists("g:lucius_style")
-                if g:lucius_style == 'dark'
-                    LuciusLight
-                elseif g:lucius_style == 'light'
-                    LuciusDark
-                endif
-            else
-                LuciusDark
-            endif
-        elseif g:colors_name == 'solarized'
-            let &background = ( &background == "dark"? "light" : "dark" )
-        else
-            let &background = ( &background == "dark"? "light" : "dark" )
+function! ChangeColorScheme(cscheme, bground)
+    let &background = a:bground
+    if a:cscheme == 'lucius'
+        colorscheme lucius
+        if &background == 'light'
+            silent ! ${HOME}/.iterm2/it2setcolor preset LuciusLight
+        elseif &background == 'dark'
+            silent ! ${HOME}/.iterm2/it2setcolor preset LuciusDark
         endif
-    else
-        " escape
+        AirlineTheme lucius
+        Tmuxline
+    elseif a:cscheme == 'solarized'
         colorscheme solarized
-        set background=light
+        if &background == 'light'
+            silent ! ${HOME}/.iterm2/it2setcolor preset "Solarized Light"
+        elseif &background == 'dark'
+            silent ! ${HOME}/.iterm2/it2setcolor preset "Solarized Dark"
+        endif
+        AirlineTheme solarized
+        Tmuxline
+    elseif a:cscheme == 'base16'
+        if &background == 'light'
+            colorscheme base16-github
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-github.light
+        elseif &background == 'dark'
+            colorscheme base16-default-dark
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-default.dark.mod
+        endif
+        AirlineTheme base16
+        Tmuxline
     endif
 endfunction
-function! SwitchLucius()
-    if exists("g:colors_name")
-        if g:colors_name == 'solarized'
-            colorscheme lucius
-            LuciusLight
-            AirlineTheme lucius
-        elseif g:colors_name == 'lucius'
-            colorscheme solarized
-            set background=light
-            AirlineTheme solarized
-            "call togglebg#map("<F5>")
-        else
-            " escape!
-            colorscheme solarized
-            set background=light
+function! AlternateColorScheme()
+    if g:colors_name == 'solarized'
+        if &background == 'light'
+            call ChangeColorScheme('solarized', 'dark')
+        elseif &background == 'dark'
+            call ChangeColorScheme('base16', 'light')
+        endif
+    elseif g:colors_name =~ 'base16'
+        if &background == 'light'
+            call ChangeColorScheme('base16', 'dark')
+        elseif &background == 'dark'
+            call ChangeColorScheme('solarized', 'light')
         endif
     else
-        colorscheme solarized
-        set background=light
+        " escape!
+        call ChangeColorScheme('base16', 'dark')
     endif
 endfunction
-map <F5> :call ChangeColorScheme()<CR>
-map <S-F5> :call SwitchLucius()<CR>
-nnoremap <leader>cS :call SwitchLucius()<CR>
-nnoremap <leader>cs :call ChangeColorScheme()<CR>
+map <F5> :call AlternateColorScheme()<CR>
+nnoremap <leader>cs :call AlternateColorScheme()<CR>
 
 " set pastetoggle to <leader>P
 set pastetoggle=<leader>P

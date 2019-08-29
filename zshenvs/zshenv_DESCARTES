@@ -10,7 +10,9 @@ export CPD_NAME=DESCARTES
 # In order to use this build of zsh as your login shell,
 # it must be added to /etc/shells.
 # Add the following to your zshrc to access the online help:
-unalias run-help
+
+# not sure, but is this breaking stuff???
+# unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
 
@@ -23,7 +25,7 @@ alias vim='mvim -v --servername VIM'
 alias pylab='ipython --profile=nbserver'
 alias notebook='jupyter lab --port=8889'
 # source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh
-source ${HOME}/.dotfiles/promptline/promptline_base16.sh
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
 
 # set ipython notebook
 export IPYTHON_NOTEBOOK_DIR="$HOME/Projects/ipynbs"
@@ -39,11 +41,13 @@ function raster() {
     python ~/.dotfiles/scripts/raster "$*"
 }
 
-export PATH="$PATH:/Users/chris/.local/bin"
+# some different export PATH="$PATH:/Users/chris/.local/bin"
 
 alias py='python'
 alias checkau='flake8 ~/Projects/appsci_utils && py -m "pytest" --cov=appsci_utils ~/Projects/appsci_utils'
 alias installau='pip install --user ~/Projects/appsci_utils'
+
+export PATH="/Users/chris/.local/bin:$PATH"
 
 # added by Miniconda3 installer
 export PATH="/Users/chris/miniconda3/bin:$PATH"
