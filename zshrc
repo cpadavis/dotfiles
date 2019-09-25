@@ -117,7 +117,6 @@ alias dua='du -h | sort -hr'
 alias grep='grep --color'
 
 function vimwiki() {
-    # if it2check ; then it2setcolor preset 'Solarized Light'; fi
     cd ${HOME}/Projects/vimwiki
     # vim -S Session.vim -c "colorscheme solarized | set background=light"
     vim -S Session.vim
@@ -138,7 +137,6 @@ function subupdate(){
 }
 # function that does all the requisite testing for jekyll blogging
 function blog() {
-    # if it2check ; then it2setcolor preset 'Spacedust'; fi
     cd ${HOME}/Projects/cpadavis.github.io
     bundle update
     bundle exec jekyll build
@@ -196,23 +194,19 @@ function kint(){
     kinit --afslog --renewable cpd@stanford.edu ;
     kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ; }
 function nersc(){
-    # if it2check ; then it2setcolor preset 'Spacedust'; fi
     ssh -Y cpd@cori.nersc.gov }
 function stanford(){
     # cardinal = small, interactive, corn = more intense interactive, barley = submit, rye = gpu
-    # if it2check ; then it2setcolor preset 'AtomOneLight'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
     ssh -KY cpd@${1=cardinal}${2}.stanford.edu ; }
 function sherlock(){
-    # if it2check ; then it2setcolor preset 'LuciusDark'; fi
     kswitch -p cpd@stanford.edu ;
     kinit --afslog --renewable --renew cpd@stanford.edu ;
     # ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
     ssh -KY cpd@login.sherlock.stanford.edu ; }
 function slac(){
-    # if it2check ; then it2setcolor preset 'LuciusLight'; fi
     kswitch -p cpd@SLAC.STANFORD.EDU ;
     kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU ;
     # kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ;
@@ -225,11 +219,9 @@ function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
 function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
 
 function gcloudip(){
-    # if it2check ; then it2setcolor preset 'LuciusLight'; fi
     ssh -XY -i ~/.ssh/instance_key chris@${1}
 }
 function gcp(){
-    # if it2check ; then it2setcolor preset 'LuciusLight'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "${3:=chris}@${1:=chris-dev-1804-2}" --ssh-flag="-CY"
 }
 function gcpstart(){
@@ -245,26 +237,17 @@ function gscpu(){
     gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" ${1} "chris@${3:=chris-dev-1804-2}:${2}"
 }
 function jup(){
-    if it2check ; then it2setcolor preset '3024 Day'; fi
+    if it2check ; then it2setcolor preset "base16-github.light"; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "${3:=chris}@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:8888:localhost:8888"
 }
 function gpu(){
-    if it2check ; then it2setcolor preset 'Belafonte Day'; fi
+    if it2check ; then it2setcolor preset 'base16-solarized.dark'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "${3:=chris}@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
-# function cargill() {
-#     # if it2check ; then it2setcolor preset 'Belafonte Day'; fi
-#     gcloud compute --project "platinum-form-120315" ssh --zone "us-central1-b" "chris@chris-dev"
-# }
-# function mcargill() {
-#     # if it2check ; then it2setcolor preset 'Belafonte Night'; fi
-#     gcloud compute --project "dl-security-test" ssh --zone us-central1-b chris@manuel-dev --ssh-flag="-CY -L 8080:localhost:8080"
-# }
 function mdown() {
     gcloud compute --project "dl-security-test" scp --zone us-central1-b "chris@manuel-dev:${1}" ${2}
 }
 function rpi(){
-    # if it2check ; then it2setcolor preset 'Solarized Dark'; fi
     ssh -Y pi@${1=192.168.1.128}
 }
 
@@ -324,9 +307,6 @@ function tmx() {
         tmux ls
         exit
     fi
-    # if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
-    #     if it2check ; then it2setcolor preset 'Solarized Light'; fi
-    # fi
 
     base_session=tmuxs
     tmux_nb=$(trim `tmux ls | grep "^$base_session" | wc -l`)
@@ -372,7 +352,6 @@ function tmh() {
 function tmuxs
 {
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    # if it2check ; then it2setcolor preset 'Solarized Light'; fi
 
     if [[ "$CPD_NAME" == "MB" ]]; then
         # TODO: might need this for DESCARTES
@@ -408,7 +387,6 @@ function tmuxs
 function tgpu(){
 
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    # if it2check ; then it2setcolor preset 'Belafonte Night'; fi
     base_session=tgpu
     tmux start-server
     tmux new-session -d -s $base_session
