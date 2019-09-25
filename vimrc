@@ -317,6 +317,17 @@ function! ChangeColorScheme(cscheme, bground)
         endif
         AirlineTheme solarized
         Tmuxline
+    elseif a:cscheme == 'base16-solarized'
+        if &background == 'light'
+            colorscheme base16-solarized-light
+            " this is silly but it works
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-solarizedlight.dark
+        elseif &background == 'dark'
+            colorscheme base16-solarized-dark
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-solarized.dark
+        endif
+        AirlineTheme base16
+        Tmuxline
     elseif a:cscheme == 'base16'
         if &background == 'light'
             colorscheme base16-github
@@ -330,24 +341,17 @@ function! ChangeColorScheme(cscheme, bground)
     endif
 endfunction
 function! AlternateColorScheme()
-    if g:colors_name =~ 'base16'
+    if g:colors_name =~ 'base16-solarized'
+        if &background == 'light'
+            call ChangeColorScheme('base16-solarized', 'dark')
+        elseif &background == 'dark'
+            call ChangeColorScheme('base16', 'dark')
+        endif
+    elseif g:colors_name =~ 'base16'
         if &background == 'dark'
             call ChangeColorScheme('base16', 'light')
         elseif &background == 'light'
-            call ChangeColorScheme('solarized', 'light')
-        endif
-    elseif g:colors_name == 'solarized'
-        if &background == 'light'
-            call ChangeColorScheme('solarized', 'dark')
-        elseif &background == 'dark'
-            " call ChangeColorScheme('lucius', 'light')
-            call ChangeColorScheme('base16', 'dark')
-        endif
-    elseif g:colors_name == 'lucius'
-        if &background == 'light'
-            call ChangeColorScheme('lucius', 'dark')
-        elseif &background == 'dark'
-            call ChangeColorScheme('base16', 'dark')
+            call ChangeColorScheme('base16-solarized', 'light')
         endif
     else
         " escape!

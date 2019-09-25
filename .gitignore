@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 
+*.DS_Store
+
 # junk
 core.*
 
@@ -86,3 +88,4 @@ tags
 
 # jupyter lab ignore workspaces
 jupyter/lab/workspaces/*
+jupyter/lab/workspaces/lab*

@@ -43,9 +43,9 @@ function raster() {
 
 # some different export PATH="$PATH:/Users/chris/.local/bin"
 
-alias checkau='flake8 ~/Projects/appsci_utils && python -m "pytest" ~/Projects/appsci_utils' --ignore "appsci_utils/vector_utils/cython_test"
+alias py='python'
+alias checkau='flake8 ~/Projects/appsci_utils && py -m "pytest" --cov=appsci_utils ~/Projects/appsci_utils'
 alias installau='pip install --user ~/Projects/appsci_utils'
-alias py='python3.6'
 
 export PATH="/Users/chris/.local/bin:$PATH"
 
