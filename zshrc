@@ -94,6 +94,7 @@ bindkey . rationalise-dot
 # iterm2 functions: common things I like doing with special terminal settings
 # for setting color profiles, use it2setcolor. Might want to limit this only to things with iterm. I think I can do that with it2check
 #####
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # added by travis gem
