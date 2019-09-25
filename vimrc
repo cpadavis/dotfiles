@@ -286,25 +286,13 @@ if has("gui_running")
     nmap <leader>Rs :set lines=60 columns=85<CR>
 
 else
-    " set t_Co=256
     set term=screen-256color
-    " set term=xterm-256color
-    " let g:solarized_termcolors=256
-    " colorscheme solarized "default
-    " colorscheme lucius "default
-    " set background=light
-    " set background=dark
-    " colorscheme base16-default-dark
-    "set nocursorline
-    " set colorcolumn=80
     set cursorline
-    "set lines=60 columns=85
 endif
 set encoding=utf-8
 set termencoding=utf-8
 
 set background=dark
-" base16 only seems to work in gui, but not in terminal
 colorscheme base16-default-dark
 
 
@@ -342,17 +330,24 @@ function! ChangeColorScheme(cscheme, bground)
     endif
 endfunction
 function! AlternateColorScheme()
-    if g:colors_name == 'solarized'
+    if g:colors_name =~ 'base16'
+        if &background == 'dark'
+            call ChangeColorScheme('base16', 'light')
+        elseif &background == 'light'
+            call ChangeColorScheme('solarized', 'light')
+        endif
+    elseif g:colors_name == 'solarized'
         if &background == 'light'
             call ChangeColorScheme('solarized', 'dark')
         elseif &background == 'dark'
-            call ChangeColorScheme('base16', 'light')
-        endif
-    elseif g:colors_name =~ 'base16'
-        if &background == 'light'
+            " call ChangeColorScheme('lucius', 'light')
             call ChangeColorScheme('base16', 'dark')
+        endif
+    elseif g:colors_name == 'lucius'
+        if &background == 'light'
+            call ChangeColorScheme('lucius', 'dark')
         elseif &background == 'dark'
-            call ChangeColorScheme('solarized', 'light')
+            call ChangeColorScheme('base16', 'dark')
         endif
     else
         " escape!
