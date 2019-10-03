@@ -294,6 +294,8 @@ set termencoding=utf-8
 
 set background=dark
 colorscheme base16-default-dark
+" for exploring with jupyterlab, where base16 colorscheme looks awful
+" colorscheme monokai-chris
 
 
 " commands for changing the colors around
@@ -338,10 +340,19 @@ function! ChangeColorScheme(cscheme, bground)
         endif
         AirlineTheme base16
         Tmuxline
+    elseif a:cscheme == 'monokai-chris'
+        colorscheme monokai-chris
+        silent ! ${HOME}/.iterm2/it2setcolor preset monokai.mod
+        AirlineTheme molokai
+        Tmuxline
     endif
+    echo "cscheme: " . a:cscheme
+    echo "background: " . &background
 endfunction
 function! AlternateColorScheme()
-    if g:colors_name =~ 'base16-solarized'
+    if g:colors_name == 'monokai-chris'
+        call ChangeColorScheme('base16-solarized', 'light')
+    elseif g:colors_name =~ 'base16-solarized'
         if &background == 'light'
             call ChangeColorScheme('base16-solarized', 'dark')
         elseif &background == 'dark'
@@ -351,7 +362,8 @@ function! AlternateColorScheme()
         if &background == 'dark'
             call ChangeColorScheme('base16', 'light')
         elseif &background == 'light'
-            call ChangeColorScheme('base16-solarized', 'light')
+            " call ChangeColorScheme('base16-solarized', 'light')
+            call ChangeColorScheme('monokai-chris', 'light')
         endif
     else
         " escape!

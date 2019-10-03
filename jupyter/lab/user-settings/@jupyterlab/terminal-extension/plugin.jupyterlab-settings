@@ -4,8 +4,11 @@
     // Terminal settings.
     // *************************************
 
+    // Font size
+    // The font size used to render text.
+    "fontSize": 16,
+
     // Theme
     // The theme for the terminal.
-    "theme": "inherit",
-    "fontSize": 16
+    "theme": "dark"
 }
