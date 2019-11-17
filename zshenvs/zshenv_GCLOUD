@@ -17,6 +17,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+alias vimc="vim +'colorscheme monokai-chris'"
 
 export IPYTHON_NOTEBOOK_DIR="$HOME/ipynbs"
 alias pylab='ipython --profile=nbserver'

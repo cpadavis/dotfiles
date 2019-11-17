@@ -6,5 +6,5 @@
 
     // Save Jupyter widget state in notebooks
     // Automatically save Jupyter widget state when a notebook is saved.
-    "saveState": true
+    "saveState": false
 }

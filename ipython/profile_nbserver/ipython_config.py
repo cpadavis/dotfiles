@@ -23,16 +23,17 @@ activate_lines = [
     "import descarteslabs as dl",
     # "import pandas as pd",
     # "import tensorflow as tf",
+    "import yaml",
+    "import json",
     "import matplotlib.pyplot as plt",
-    'print("Importing numpy, matplotlib.pyplot, and descarteslabs!")',
 ]
 
 cpd_computer = os.getenv("CPD_NAME", "NONE")
 if cpd_computer == "MAC" or cpd_computer == "MB":
-    activate_lines = [
-        'print("setting ipython terminal app gui to qt5")',
-        "%matplotlib qt5",
-    ] + activate_lines
+    activate_lines = ["%matplotlib qt5"] + activate_lines
+
+print("Running:")
+print(activate_lines)
 # c.TerminalIPythonApp.gui = 'qt'
 # elif cpd_computer == 'KILS':
 #     activate_lines = ['print("setting ipython terminal app gui to use qt4")',
