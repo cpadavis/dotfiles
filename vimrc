@@ -784,6 +784,12 @@ let g:jedi#completions_command = "<leader>jc"
 let g:jedi#rename_command = "<leader>jr"
 
 " ===========================================================
+" Scratch
+" ============================================================
+" Just remember that :Scratch and :Sscratch are available for handy scratch
+" window
+
+" ===========================================================
 " Handy Latex Bindings and vimtex
 " ============================================================
 function! CompileLatex()
