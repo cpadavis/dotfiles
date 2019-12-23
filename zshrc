@@ -122,8 +122,6 @@ function vimwiki() {
     vim -S Session.vim
 }
 
-function ds() { ds9 ${1} -scalemode zscale -cmap grey -cmap invert yes & ;}
-
 # a useful command for fetching all git branches in a repo
 function fetch(){
     # git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
@@ -152,17 +150,6 @@ function ksw() {
 }
 
 
-# latex configs
-alias ltex='xelatex -file-line-error -interaction=nonstopmode *.tex'
-function CompileLatex()
-{
-    xelatex -file-line-error -interaction=nonstopmode ${1}.tex
-    bibtex8 ${1}.aux
-    xelatex -file-line-error -interaction=nonstopmode ${1}.tex
-    xelatex -file-line-error -interaction=nonstopmode ${1}.tex
-}
-
-
 function tmuxline()
 {
     # changes my promptline configs in case solarized looks like poop
@@ -187,37 +174,8 @@ function url-encode; {
 
 #####
 # various ssh things
+# TODO: set default
 #####
-
-# alias slac='ssh -Y cpd@ki-ls.slac.stanford.edu'
-function kint(){
-    kinit --afslog --renewable cpd@stanford.edu ;
-    kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ; }
-function nersc(){
-    ssh -Y cpd@cori.nersc.gov }
-function stanford(){
-    # cardinal = small, interactive, corn = more intense interactive, barley = submit, rye = gpu
-    kswitch -p cpd@stanford.edu ;
-    kinit --afslog --renewable --renew cpd@stanford.edu ;
-    # ssh -KY -o GSSAPIKeyExchange=no cpd@corn${1}.stanford.edu ; }
-    ssh -KY cpd@${1=cardinal}${2}.stanford.edu ; }
-function sherlock(){
-    kswitch -p cpd@stanford.edu ;
-    kinit --afslog --renewable --renew cpd@stanford.edu ;
-    # ssh -KY -o GSSAPIKeyExchange=no cpd@sherlock.stanford.edu ; }
-    ssh -KY cpd@login.sherlock.stanford.edu ; }
-function slac(){
-    kswitch -p cpd@SLAC.STANFORD.EDU ;
-    kinit --afslog --renewable --renew cpd@SLAC.STANFORD.EDU ;
-    # kinit --afslog --renewable cpd@SLAC.STANFORD.EDU ;
-    ssh -KY cpd@ki-ls${1}.slac.stanford.edu ; }
-function downslac() { rsync -rav ${@:4} cpd@ki-ls${3:=08}.slac.stanford.edu:${1} ${2} ;}
-function upslac() { rsync -rav ${@:4} ${1} cpd@ki-ls${3:=08}.slac.stanford.edu:${2} ;}
-function downsherlock() { rsync -rav ${@:3} cpd@sherlock.stanford.edu:${1} ${2} ;}
-function upsherlock() { rsync -rav ${@:3} ${1} cpd@sherlock.stanford.edu:${2} ;}
-function downnersc() { rsync -rav ${@:3} cpd@cori.nersc.gov:${1} ${2} ;}
-function upnersc() { rsync -rav ${@:3} ${1} cpd@cori.nersc.gov:${2} ;}
-
 function gcloudip(){
     ssh -XY -i ~/.ssh/instance_key chris@${1}
 }
@@ -230,6 +188,7 @@ function gcpstart(){
 function gcpstop(){
     gcloud compute instances stop --project "dl-security-test" --zone "${2:=us-central1-c}" "${1:=chris-dev-1804-2}"
 }
+alias gcphttp='python3 -m http.server 8888'
 function gscpd(){
     gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" "chris@${3:=chris-dev-1804-2}:${1}" ${2}
 }
@@ -244,9 +203,9 @@ function gpu(){
     if it2check ; then it2setcolor preset 'base16-solarized.dark'; fi
     gcloud compute --project "dl-security-test" ssh --zone "${2:=us-central1-c}" "${3:=chris}@${1:=chris-dev-1804-2}" --ssh-flag="-CY -L localhost:16006:localhost:6006"
 }
-function mdown() {
-    gcloud compute --project "dl-security-test" scp --zone us-central1-b "chris@manuel-dev:${1}" ${2}
-}
+
+
+
 function rpi(){
     ssh -Y pi@${1=192.168.1.128}
 }
@@ -264,7 +223,6 @@ function sshcrawl() {
     # ssh command
     ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
 }
-alias gcphttp='python3 -m http.server 8888'
 
 #####
 # tmux related
@@ -353,7 +311,7 @@ function tmuxs
 {
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
 
-    if [[ "$CPD_NAME" == "MB" ]]; then
+    if [[ "$CPD_NAME" == "MB_PREMERGE" ]]; then
         # TODO: might need this for DESCARTES
         conda deactivate
     fi
@@ -363,7 +321,8 @@ function tmuxs
 
     # create notebook in window 0
     tmux rename-window notebook
-    tmux send-keys "notebook" C-m
+    # tmux send-keys "notebook" C-m
+    tmux send-keys "notebook"
 
     if [[ "$CPD_NAME" == "GCLOUD" ]]; then
         tmux split-window -v
@@ -384,6 +343,7 @@ function tmuxs
     tmux attach-session -t tmuxs
 }
 
+# TODO: revisit this
 function tgpu(){
 
     # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
@@ -409,9 +369,6 @@ function tgpu(){
 
 alias closeport='lsof -ti:${1:=8888} | xargs kill -9'
 
-# docs
-alias mksph='python3.6 setup.py install --user; cd docs; make html; cd ..'
-
 # syntax highlighting. It has to go at the end of the file for Reasons
 source ~/.dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
@@ -424,19 +381,20 @@ if [[ "$CPD_NAME" == "DESCARTES" ]]; then
 fi
 
 if [[ "$CPD_NAME" == "MB" ]]; then
-    # source activate
-    # >>> conda initialize >>>
+    # added by Anaconda3 2019.10 installer
+    # >>> conda init >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/Users/cpd/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    __conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/cpd/opt/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
     if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
+        \eval "$__conda_setup"
     else
-        if [ -f "/Users/cpd/anaconda3/etc/profile.d/conda.sh" ]; then
-# . "/Users/cpd/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
+        if [ -f "/Users/cpd/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/Users/cpd/opt/anaconda3/etc/profile.d/conda.sh"
+            CONDA_CHANGEPS1=false conda activate base
         else
-# export PATH="/Users/cpd/anaconda3/bin:$PATH"  # commented out by conda initialize
+            \export PATH="/Users/cpd/opt/anaconda3/bin:$PATH"
         fi
     fi
     unset __conda_setup
-    # <<< conda initialize <<<
+    # <<< conda init <<<
 fi
