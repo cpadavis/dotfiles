@@ -397,4 +397,5 @@ if [[ "$CPD_NAME" == "MB" ]]; then
     fi
     unset __conda_setup
     # <<< conda init <<<
+    conda activate py37
 fi
