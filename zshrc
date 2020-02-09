@@ -383,20 +383,24 @@ fi
 
 if [[ "$CPD_NAME" == "MB" ]]; then
     # added by Anaconda3 2019.10 installer
+    # and modified 2020.02.09 to use zsh
     # >>> conda init >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/cpd/opt/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+    # __conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/cpd/opt/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+    __conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/cpd/opt/anaconda3/bin/conda' shell.zsh hook 2> /dev/null)"
     if [ $? -eq 0 ]; then
+        # \echo "$__conda_setup"
         \eval "$__conda_setup"
     else
         if [ -f "/Users/cpd/opt/anaconda3/etc/profile.d/conda.sh" ]; then
             . "/Users/cpd/opt/anaconda3/etc/profile.d/conda.sh"
-            CONDA_CHANGEPS1=false conda activate base
+            CONDA_CHANGEPS1=false conda activate py37
         else
             \export PATH="/Users/cpd/opt/anaconda3/bin:$PATH"
         fi
     fi
     unset __conda_setup
     # <<< conda init <<<
+    # I want py37 by default!
     conda activate py37
 fi
