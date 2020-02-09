@@ -310,10 +310,10 @@ function tmh() {
 
 function tmuxs
 {
-    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-
-    if [[ "$CPD_NAME" == "MB_PREMERGE" ]]; then
-        # TODO: might need this for DESCARTES
+    # some weird conda behavior with the path if we don't have conda deactivated when we spawn
+    if [[ "$CPD_NAME" == "MB" ]]; then
+        # TODO: not sure why this is needed for MB but not for DESCARTES
+        # TODO: also not totally sure why I didn't need this for GCLOUD? (or do I need it?!)
         conda deactivate
     fi
 
@@ -322,7 +322,6 @@ function tmuxs
 
     # create notebook in window 0
     tmux rename-window notebook
-    # tmux send-keys "notebook" C-m
     tmux send-keys "notebook"
 
     if [[ "$CPD_NAME" == "GCLOUD" ]]; then
@@ -334,7 +333,7 @@ function tmuxs
     if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
         tmux new-window
         tmux rename-window vimwiki
-        tmux send-keys "vimwiki" C-m
+        tmux send-keys "vimwiki"
     fi
 
     # create new window. with no -d flag, this is automatically chosen
@@ -378,29 +377,32 @@ ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 
 # I do not understand why this works in .zshrc but not in .zshenv
 if [[ "$CPD_NAME" == "DESCARTES" ]]; then
+    # not sure why this is source, but MB is conda?
+    # also what about zsh?
     source activate
 fi
 
 if [[ "$CPD_NAME" == "MB" ]]; then
     # added by Anaconda3 2019.10 installer
-    # and modified 2020.02.09 to use zsh
+    # and modified 2020.02.09 to use zsh hook (in case that matters...)
     # >>> conda init >>>
     # !! Contents within this block are managed by 'conda init' !!
     # __conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/cpd/opt/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
     __conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/cpd/opt/anaconda3/bin/conda' shell.zsh hook 2> /dev/null)"
     if [ $? -eq 0 ]; then
         # \echo "$__conda_setup"
+        # echo "eval conda setup"
         \eval "$__conda_setup"
     else
         if [ -f "/Users/cpd/opt/anaconda3/etc/profile.d/conda.sh" ]; then
             . "/Users/cpd/opt/anaconda3/etc/profile.d/conda.sh"
-            CONDA_CHANGEPS1=false conda activate py37
+            # echo "doing conda activate py37"
+            CONDA_CHANGEPS1=false conda activate base
         else
+            # echo "doing export path"
             \export PATH="/Users/cpd/opt/anaconda3/bin:$PATH"
         fi
     fi
     unset __conda_setup
     # <<< conda init <<<
-    # I want py37 by default!
-    conda activate py37
 fi
