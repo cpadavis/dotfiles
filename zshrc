@@ -311,7 +311,7 @@ function tmh() {
 function tmuxs
 {
     # some weird conda behavior with the path if we don't have conda deactivated when we spawn
-    if [[ "$CPD_NAME" == "MB" ]]; then
+    if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
         # TODO: not sure why this is needed for MB but not for DESCARTES
         # TODO: also not totally sure why I didn't need this for GCLOUD? (or do I need it?!)
         conda deactivate
@@ -379,7 +379,11 @@ ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 if [[ "$CPD_NAME" == "DESCARTES" ]]; then
     # not sure why this is source, but MB is conda?
     # also what about zsh?
-    source activate
+    # source activate
+    __conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/chris/miniconda3/bin/conda' shell.zsh hook 2> /dev/null)"
+    # \echo "$__conda_setup"
+    \eval "$__conda_setup"
+    unset __conda_setup
 fi
 
 if [[ "$CPD_NAME" == "MB" ]]; then

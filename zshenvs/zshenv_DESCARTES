@@ -43,11 +43,10 @@ function raster() {
 
 # some different export PATH="$PATH:/Users/chris/.local/bin"
 
-alias py='python'
-alias checkau='flake8 ~/Projects/appsci_utils && py -m "pytest" --cov=appsci_utils ~/Projects/appsci_utils'
-alias installau='pip install --user ~/Projects/appsci_utils'
+alias checkau='flake8 ~/Projects/appsci_utils && python -m "pytest" --cov=appsci_utils ~/Projects/appsci_utils'
+alias installau='pip install ~/Projects/appsci_utils'
 
-export PATH="/Users/chris/.local/bin:$PATH"
+# export PATH="/Users/chris/.local/bin:$PATH"
 
 # added by Miniconda3 installer
-export PATH="/Users/chris/miniconda3/bin:$PATH"
+# export PATH="/Users/chris/miniconda3/bin:$PATH"
