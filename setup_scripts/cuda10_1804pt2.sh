@@ -11,11 +11,6 @@ sudo apt-get update && \
         && sudo apt-get update \
         && sudo apt-get install -y --no-install-recommends libnvinfer-dev=5.0.2-1+cuda10.0
 
-pip3 uninstall -y tensorflow
-pip3 install tensorflow-gpu --user
-
-# undo with:
-# pip3 uninstall -y tensorflow-gpu
-# pip3 install tensorflow==1.12.0 --user
-
-# Reboot and test
+pip uninstall -y tensorflow
+pip install tensorflow-gpu==2.0
+# Reboot again and test
