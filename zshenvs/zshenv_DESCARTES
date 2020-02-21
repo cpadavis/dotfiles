@@ -41,6 +41,8 @@ function raster() {
     python ~/.dotfiles/scripts/raster "$*"
 }
 
+export PYTHONPATH=${PYTHONPATH}:/Users/chris/Projects/appsci_projects/projects/transferlearning_internal_2020
+
 # some different export PATH="$PATH:/Users/chris/.local/bin"
 
 alias checkau='flake8 ~/Projects/appsci_utils && python -m "pytest" --cov=appsci_utils ~/Projects/appsci_utils'

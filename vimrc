@@ -370,7 +370,8 @@ function! AlternateColorScheme()
         call ChangeColorScheme('base16', 'dark')
     endif
 endfunction
-map <F5> :call AlternateColorScheme()<CR>
+" cycle colors but quietly
+map <silent> <F5> :silent call AlternateColorScheme()<CR>
 nnoremap <leader>cs :call AlternateColorScheme()<CR>
 
 " set pastetoggle to <leader>P
