@@ -1,27 +1,15 @@
--- hs.loadSpoon("WindowHalfsAndThirds")
-
--- spoon.WindowHalfsAndThirds:bindHotkeys(
---  {
---     left_half   = { {"ctrl", "alt", "cmd"}, "Left" },
---     right_half  = { {"ctrl", "alt", "cmd"}, "Right" },
---     third_left  = { {"ctrl", "alt", "cmd"}, "Up" },
---     third_right = { {"ctrl", "alt", "cmd"}, "Down" },
---     -- top_half    = { {"ctrl", "alt", "cmd"}, "Up" },
---     -- bottom_half = { {"ctrl", "alt", "cmd"}, "Down" },
---     -- third_up    = { {"ctrl", "alt", "cmd"}, "Up" },
---     -- third_down  = { {"ctrl", "alt", "cmd"}, "Down" },
---     -- top_left    = { {"ctrl",        "cmd"}, "1" },
---     -- top_right   = { {"ctrl",        "cmd"}, "2" },
---     -- bottom_left = { {"ctrl",        "cmd"}, "3" },
---     -- bottom_right= { {"ctrl",        "cmd"}, "4" },
---     max_toggle  = { {"ctrl", "alt", "cmd"}, "f" },
---     max         = { {"ctrl", "alt", "cmd", "shift"}, "Up" },
---     undo        = { {"ctrl", "alt", "cmd"}, "z" },
---     center      = { {"ctrl", "alt", "cmd"}, "c" },
---     larger      = { {"ctrl", "alt", "cmd", "shift"}, "Right" },
---     smaller     = { {"ctrl", "alt", "cmd", "shift"}, "Left" },
---  }
--- )
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
 
 logger = hs.logger.new('main')
 
@@ -93,9 +81,61 @@ hs.hotkey.bind({"ctrl", "alt", "cmd"}, "m", function()
 end)
 
 
--- Twothird left
--- Twothird center
--- Twothird right
+-- Toggle sound devices
+function cycle_audio_input()
+    logger.i(dump(hs.audiodevice.current(true)))  -- true for input
+    logger.i(dump(hs.audiodevice.allInputDevices()))
+    all_devices = hs.audiodevice.allInputDevices()
+    local index={}
+    local count = 0
+    for k,v in pairs(all_devices) do
+        index[v:name()] = k
+        count = count + 1
+    end
+    logger.i(dump(index))
+    local input_name = hs.audiodevice.defaultInputDevice():name()
+    logger.i("Audio Input is "..input_name)
+    if index[input_name] == count then
+        new_device = all_devices[1]
+    else
+        new_device = all_devices[index[input_name] + 1]
+    end
+
+    new_device:setDefaultInputDevice()
+    local input_name = hs.audiodevice.defaultInputDevice():name()
+    logger.i("Audio Input is now using "..input_name)
+    hs.notify.new({title="Hammerspoon", informativeText="Audio Input now is "..input_name}):send()
+end
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "[", function()
+    cycle_audio_input()
+end)
+function cycle_audio_output()
+    logger.i(dump(hs.audiodevice.current(true)))  -- true for output
+    logger.i(dump(hs.audiodevice.allOutputDevices()))
+    all_devices = hs.audiodevice.allOutputDevices()
+    local index={}
+    local count = 0
+    for k,v in pairs(all_devices) do
+        index[v:name()] = k
+        count = count + 1
+    end
+    logger.i(dump(index))
+    local output_name = hs.audiodevice.defaultOutputDevice():name()
+    logger.i("Audio Output is "..output_name)
+    if index[output_name] == count then
+        new_device = all_devices[1]
+    else
+        new_device = all_devices[index[output_name] + 1]
+    end
+
+    new_device:setDefaultOutputDevice()
+    local output_name = hs.audiodevice.defaultOutputDevice():name()
+    logger.i("Audio Output is now using "..output_name)
+    hs.notify.new({title="Hammerspoon", informativeText="Audio Output now is "..output_name}):send()
+end
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "]", function()
+    cycle_audio_output()
+end)
 
 -- hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
 --   hs.alert.show("Hello World!")
