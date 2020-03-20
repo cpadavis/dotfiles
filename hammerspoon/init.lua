@@ -25,6 +25,7 @@ _window_state_name_to_rect = {
     left_twothird     = {0.00,0.00,0.66,1.00},
     middle_twothird   = {0.175,0.00,0.66,1.00},
     right_twothird    = {0.34,0.00,0.66,1.00},
+    middle_threequart = {0.125,0.00,0.75,1.00},
     max               = {0.00,0.00,1.00,1.00},
 }
 
@@ -40,46 +41,41 @@ function adjust_current_window(window_state_name)
 end
 
 -- max
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "l", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "h", function()
     adjust_current_window("max")
 end)
 -- twothird left
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "y", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "n", function()
     adjust_current_window("left_twothird")
 end)
--- twothird center
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "u", function()
-    adjust_current_window("middle_twothird")
-end)
 -- twothird right
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "i", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "m", function()
     adjust_current_window("right_twothird")
 end)
 -- half left
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "h", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "u", function()
     adjust_current_window("left_half")
 end)
--- half center
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "j", function()
-    adjust_current_window("middle_half")
+-- middle three quarters
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "i", function()
+    adjust_current_window("middle_threequart")
 end)
 -- half right
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "k", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "o", function()
     adjust_current_window("right_half")
 end)
 -- third left
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "b", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "j", function()
     adjust_current_window("left_third")
 end)
 -- third center
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "n", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "k", function()
     adjust_current_window("middle_third")
 end)
 -- third right
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "m", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "l", function()
     adjust_current_window("right_third")
 end)
-
 
 -- Toggle sound devices
 function cycle_audio_input()
