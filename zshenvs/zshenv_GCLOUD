@@ -30,6 +30,9 @@ source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
 
 # add DL specific
 export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/viewer_links
+export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/dlquick
+export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/transferlearning_internal_2020
+export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/transferlearning_internal_2020/descarteslabs_tile
 # export PYTHONPATH=${PYTHONPATH}:/home/chris/.local/lib/python3.6/site-packages
 # export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/2dto3d_internal_2019
 # export PYTHONPATH=${PYTHONPATH}:/home/chris/Projects/appsci_projects/projects/buildings_internal_2018

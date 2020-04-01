@@ -50,11 +50,18 @@ function tmuxs()
 
     # create notebook in window 0
     tmux rename-window notebook
-    tmux send-keys "notebook" C-m
+    tmux send-keys "notebook"
 
-    tmux split-window -v
+    tmux split-window -p 75 -v
     tmux select-pane -t 1
-    tmux send-keys "rustivus" C-m
+    tmux send-keys "rustivus"
+
+    tmux split-window -p 50 -v
+    tmux select-pane -t 2
+    tmux send-keys "htop"
+    tmux split-window -p 25 -v
+    tmux select-pane -t 3
+    tmux send-keys "watch -d nvidia-smi"
 
     # create new window. with no -d flag, this is automatically chosen
     tmux new-window
