@@ -325,16 +325,18 @@ function tmuxs
     tmux send-keys "notebook"
 
     if [[ "$CPD_NAME" == "GCLOUD" ]]; then
-    tmux split-window -p 50 -h
-    tmux select-pane -t 1
-    tmux send-keys "rustivus"
-    tmux split-window -p 75 -v
-    tmux select-pane -t 2
-    tmux send-keys "htop"
-    tmux select-pane -t 0
-    tmux split-window -p 75 -v
-    tmux select-pane -t 1
-    tmux send-keys "watch -d nvidia-smi"
+        tmux split-window -p 80 -v
+        tmux select-pane -t 1
+        tmux split-window -p 50 -v
+        tmux select-pane -t 0
+        tmux split-window -p 50 -h
+
+        tmux select-pane -t 1
+        tmux send-keys "rustivus"
+        tmux select-pane -t 2
+        tmux send-keys "htop"
+        tmux select-pane -t 3
+        tmux send-keys "watch -d nvidia-smi"
     fi
 
     if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
