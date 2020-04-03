@@ -325,15 +325,16 @@ function tmuxs
     tmux send-keys "notebook"
 
     if [[ "$CPD_NAME" == "GCLOUD" ]]; then
-        tmux split-window -p 75 -v
-        tmux select-pane -t 1
-        tmux send-keys "rustivus"
-        tmux split-window -p 50 -v
-        tmux select-pane -t 2
-        tmux send-keys "htop"
-        tmux split-window -p 25 -v
-        tmux select-pane -t 3
-        tmux send-keys "watch -d nvidia-smi"
+    tmux split-window -p 50 -h
+    tmux select-pane -t 1
+    tmux send-keys "rustivus"
+    tmux split-window -p 75 -v
+    tmux select-pane -t 2
+    tmux send-keys "htop"
+    tmux select-pane -t 0
+    tmux split-window -p 75 -v
+    tmux select-pane -t 1
+    tmux send-keys "watch -d nvidia-smi"
     fi
 
     if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
@@ -347,30 +348,6 @@ function tmuxs
 
     # start session
     tmux attach-session -t tmuxs
-}
-
-# TODO: revisit this
-function tgpu(){
-
-    # I like my tmux to be in a certain color scheme. We can ensure that with iterm2
-    base_session=tgpu
-    tmux start-server
-    tmux new-session -d -s $base_session
-
-    # make grid of 2 x 2 windows
-    tmux split-window -h
-    tmux split-window -v
-    tmux split-window -v
-    tmux select-pane -t 0
-    tmux split-window -v
-
-    # tmux send-keys -t $base_session:0.0 "echo train" C-m
-    # tmux send-keys -t $base_session:0.1 "echo analyze" C-m
-    tmux send-keys -t $base_session:0.2 "htop" C-m
-    tmux send-keys -t $base_session:0.3 "watch nvidia-smi" C-m
-    tmux send-keys -t $base_session:0.4 "tensorboard --logdir="
-    tmux attach-session -t $base_session
-
 }
 
 alias closeport='lsof -ti:${1:=8888} | xargs kill -9'
