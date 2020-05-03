@@ -1,10 +1,11 @@
 # Configuration file for ipython.
 import os
+
 c = get_config()
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # InteractiveShellApp configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # A Mixin for applications that start InteractiveShell instances.
 #
@@ -18,45 +19,31 @@ c = get_config()
 
 # lines of code to run at IPython startup.
 activate_lines = [
-    # "%load_ext Cython",
-    # "%load_ext autoreload",
-    # "%autoreload 1",
-    # "%pdb",
-    "from __future__ import print_function, division",
-    'import numpy as np',
-    'import pandas as pd',
-    "import matplotlib, matplotlib.cm",
+    "import numpy as np",
     "import descarteslabs as dl",
-    "import tensorflow as tf",
-    # "palette = matplotlib.cm.gray_r",
-    "palette = matplotlib.cm.RdBu_r",
-    "palette.set_bad(color='g', alpha=0.75)",
-    "palette.set_over(color='m', alpha=0.75)",
-    "palette.set_under(color='c', alpha=0.75)",
-    "matplotlib.cm.register_cmap(name='my_map', cmap=palette)",
-    # "matplotlib.rc('image', interpolation='none', origin='lower', cmap = 'my_map')",
-    "matplotlib.rc('image', interpolation='none', cmap = 'my_map')",
-    'import matplotlib.pyplot as plt',
-    'plt.ion()',  # turn on interactive mode
-    "plt.rc('image', interpolation='none', origin='lower', cmap = 'RdBu_r')",
-    'print("Importing __future__.print_function and division, numpy, matplotlib.pyplot, and pandas! Turning interactive plotting on! Also setting the default colormap to no interpolation and RdBu_r with bad, over, under color settings.")',
-    'print("Trying to import appsci_utils now")',
-    'import appsci_utils as au']
+    # "import pandas as pd",
+    # "import tensorflow as tf",
+    "import yaml",
+    "import json",
+    "import matplotlib.pyplot as plt",
+]
 
-cpd_computer = os.getenv('CPD_NAME', 'NONE')
-if cpd_computer == 'MAC' or cpd_computer == 'MB':
-    activate_lines = ['print("setting ipython terminal app gui to qt5")',
-                      '%matplotlib qt5'] + activate_lines
-    # c.TerminalIPythonApp.gui = 'qt'
+cpd_computer = os.getenv("CPD_NAME", "NONE")
+if cpd_computer == "MAC" or cpd_computer == "MB":
+    activate_lines = ["%matplotlib qt5"] + activate_lines
+
+print("Running:")
+print(activate_lines)
+# c.TerminalIPythonApp.gui = 'qt'
 # elif cpd_computer == 'KILS':
 #     activate_lines = ['print("setting ipython terminal app gui to use qt4")',
 #                       '%matplotlib qt'] + activate_lines
 c.InteractiveShellApp.exec_lines = activate_lines
 
-c.TerminalIPythonApp.verbose_crash = True # False
-c.TerminalInteractiveShell.colors = 'LightBG'
-c.TerminalInteractiveShell.editor = 'vi'
-c.TerminalInteractiveShell.editing_mode = 'vi'
+c.TerminalIPythonApp.verbose_crash = True  # False
+c.TerminalInteractiveShell.colors = "Neutral"
+c.TerminalInteractiveShell.editor = "vi"
+c.TerminalInteractiveShell.editing_mode = "vi"
 c.InteractiveShell.ast_node_interactivity = "all"
 
 # If true, an 'import *' is done from numpy and pylab, when using pylab
@@ -73,9 +60,9 @@ c.InteractiveShell.ast_node_interactivity = "all"
 # A file to be run
 # c.InteractiveShellApp.file_to_run = ''
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # TerminalIPythonApp configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # TerminalIPythonApp will inherit config from: BaseIPythonApplication,
 # Application, InteractiveShellApp
@@ -145,9 +132,9 @@ c.InteractiveShell.ast_node_interactivity = "all"
 # A file to be run
 # c.TerminalIPythonApp.file_to_run = ''
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # TerminalInteractiveShell configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # TerminalInteractiveShell will inherit config from: InteractiveShell
 
@@ -294,9 +281,9 @@ c.InteractiveShell.ast_node_interactivity = "all"
 # Automatically call the pdb debugger after every exception.
 # c.TerminalInteractiveShell.pdb = False
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # PromptManager configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # This is the primary interface for producing IPython's prompts.
 
@@ -315,9 +302,9 @@ c.InteractiveShell.ast_node_interactivity = "all"
 #
 # c.PromptManager.color_scheme = 'Linux'
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # ProfileDir configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # An object to manage the profile directory and its resources.
 #
@@ -331,9 +318,9 @@ c.InteractiveShell.ast_node_interactivity = "all"
 # `profile` option.
 # c.ProfileDir.location = u''
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # PlainTextFormatter configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # The default pretty-printer.
 #
@@ -383,9 +370,9 @@ c.InteractiveShell.ast_node_interactivity = "all"
 #
 # c.PlainTextFormatter.singleton_printers = {}
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # IPCompleter configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # Extension of the completer class with IPython-specific features
 

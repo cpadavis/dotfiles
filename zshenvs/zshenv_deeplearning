@@ -1,0 +1,23 @@
+# if paths get messed up, this can help
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+
+export CPD_NAME=GCLOUD
+eval "$(dircolors ${HOME}/.dircolors)";
+alias ls='ls -hFa --color'
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+alias vimc="vim +'colorscheme monokai-chris'"
+
+export IPYTHON_NOTEBOOK_DIR="$HOME/ipynbs"
+alias pylab='ipython --profile=nbserver'
+alias notebook='jupyter lab'
+# force tmux to assume 256 color
+alias tmux='tmux -2'
+
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
+
+# note: need to install this to have it run
+alias rustivus='/opt/src/rustivus/rustivus-v0.2.8 /festivus --service-account /opt/src/rustivus/dalhart-festivus-all.json'

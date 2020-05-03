@@ -24,6 +24,7 @@ ln -s ${HOME}/.dotfiles/tmux ${HOME}/.tmux
 # ipython
 ln -s ${HOME}/.dotfiles/ipython ${HOME}/.ipython
 ln -s ${HOME}/.dotfiles/ipython/profile_nbserver/ipython_notebook_config.py ${HOME}/.jupyter/jupyter_notebook_config.py
+ln -s ${HOME}/.dotfiles/jupyter/lab ${HOME}/.jupyter/lab
 # git
 ln -s ${HOME}/.dotfiles/gitconfig ${HOME}/.gitconfig
 # directory colors

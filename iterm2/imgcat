@@ -92,8 +92,6 @@ check_dependency base64
 check_dependency wc
 
 # Look for command line flags.
-# while [ $# -gt 0 ]; do
-#     case "$1" in
 for i in "$@"; do
     case "$i" in
     -h|--h|--help)

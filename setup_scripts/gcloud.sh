@@ -45,7 +45,7 @@ sudo systemctl enable rustivus.service
 
 sudo systemctl start rustivus
 
-sudo mkdir /rustivus
+sudo mkdir /festivus
 
 # through um MAGIC we make pip3 be the old system pip3 and pip a python3 pip. It's really great, guys. Really. Magically, it breaks pip3.
 # note that you still need to say python3 for everything. That can probably be resolved by putting a ln in ~/.local/bin

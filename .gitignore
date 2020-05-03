@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 
+*.DS_Store
+
 # junk
 core.*
 
@@ -11,6 +13,9 @@ core.*
 *.swn
 *.swm
 .*.sw*
+
+vim/.netrwhist
+vim/black
 
 # latex
 *.pdf
@@ -80,3 +85,7 @@ tmuxline.conf
 ipython/*/history-corrupt*
 
 tags
+
+# jupyter lab ignore workspaces
+jupyter/lab/workspaces/*
+jupyter/lab/workspaces/lab*

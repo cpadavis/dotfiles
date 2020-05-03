@@ -253,14 +253,14 @@ else
     set ttymouse=xterm2
 end
 if has("gui_running")
-    colorscheme solarized
-    set background=light
+    " colorscheme solarized
+    " set background=light
     set cursorline
     if has("gui_macvim")
         """ Full screen options
         set fuoptions=maxvert,maxhorz,background:Normal
         " set colorcolumn=80
-        set guifont=Menlo:h12.00
+        set guifont=Menlo:h16.00
     else
         set guifont=DejaVu\ Sans\ Mono\ 10.00
         " Remove menu bar
@@ -286,73 +286,96 @@ if has("gui_running")
     nmap <leader>Rs :set lines=60 columns=85<CR>
 
 else
-    " set t_Co=256
     set term=screen-256color
-    " set term=xterm-256color
-    " let g:solarized_termcolors=256
-    " colorscheme solarized "default
-    colorscheme lucius "default
-    set background=light
-    "set nocursorline
-    " set colorcolumn=80
     set cursorline
-    "set lines=60 columns=85
 endif
 set encoding=utf-8
 set termencoding=utf-8
 
+set background=dark
+colorscheme base16-default-dark
+" for exploring with jupyterlab, where base16 colorscheme looks awful
+" colorscheme monokai-chris
 
 
 " commands for changing the colors around
-function! ChangeColorScheme()
-    if exists("g:colors_name")
-        if g:colors_name == 'lucius'
-            if exists("g:lucius_style")
-                if g:lucius_style == 'dark'
-                    LuciusLight
-                elseif g:lucius_style == 'light'
-                    LuciusDark
-                endif
-            else
-                LuciusDark
-            endif
-        elseif g:colors_name == 'solarized'
-            let &background = ( &background == "dark"? "light" : "dark" )
-        else
-            let &background = ( &background == "dark"? "light" : "dark" )
+function! ChangeColorScheme(cscheme, bground)
+    let &background = a:bground
+    if a:cscheme == 'lucius'
+        colorscheme lucius
+        if &background == 'light'
+            silent ! ${HOME}/.iterm2/it2setcolor preset LuciusLight
+        elseif &background == 'dark'
+            silent ! ${HOME}/.iterm2/it2setcolor preset LuciusDark
+        endif
+        AirlineTheme lucius
+        Tmuxline
+    elseif a:cscheme == 'solarized'
+        colorscheme solarized
+        if &background == 'light'
+            silent ! ${HOME}/.iterm2/it2setcolor preset "Solarized Light"
+        elseif &background == 'dark'
+            silent ! ${HOME}/.iterm2/it2setcolor preset "Solarized Dark"
+        endif
+        AirlineTheme solarized
+        Tmuxline
+    elseif a:cscheme == 'base16-solarized'
+        if &background == 'light'
+            colorscheme base16-solarized-light
+            " this is silly but it works
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-solarizedlight.dark
+        elseif &background == 'dark'
+            colorscheme base16-solarized-dark
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-solarized.dark
+        endif
+        AirlineTheme base16
+        Tmuxline
+    elseif a:cscheme == 'base16'
+        if &background == 'light'
+            colorscheme base16-github
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-github.light
+        elseif &background == 'dark'
+            colorscheme base16-default-dark
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-default.dark.mod
+        endif
+        AirlineTheme base16
+        Tmuxline
+    elseif a:cscheme == 'monokai-chris'
+        colorscheme monokai-chris
+        silent ! ${HOME}/.iterm2/it2setcolor preset monokai.mod
+        AirlineTheme molokai
+        Tmuxline
+    endif
+    echo "cscheme: " . a:cscheme
+    echo "background: " . &background
+endfunction
+function! AlternateColorScheme()
+    if g:colors_name == 'monokai-chris'
+        call ChangeColorScheme('base16-solarized', 'light')
+    elseif g:colors_name =~ 'base16-solarized'
+        if &background == 'light'
+            call ChangeColorScheme('base16-solarized', 'dark')
+        elseif &background == 'dark'
+            call ChangeColorScheme('base16', 'dark')
+        endif
+    elseif g:colors_name =~ 'base16'
+        if &background == 'dark'
+            call ChangeColorScheme('base16', 'light')
+        elseif &background == 'light'
+            " call ChangeColorScheme('base16-solarized', 'light')
+            call ChangeColorScheme('monokai-chris', 'light')
         endif
     else
-        " escape
-        colorscheme solarized
-        set background=light
+        " escape!
+        call ChangeColorScheme('base16', 'dark')
     endif
 endfunction
-function! SwitchLucius()
-    if exists("g:colors_name")
-        if g:colors_name == 'solarized'
-            colorscheme lucius
-            LuciusLight
-            AirlineTheme lucius
-        elseif g:colors_name == 'lucius'
-            colorscheme solarized
-            set background=light
-            AirlineTheme solarized
-            "call togglebg#map("<F5>")
-        else
-            " escape!
-            colorscheme solarized
-            set background=light
-        endif
-    else
-        colorscheme solarized
-        set background=light
-    endif
-endfunction
-map <F5> :call ChangeColorScheme()<CR>
-map <S-F5> :call SwitchLucius()<CR>
-nnoremap <leader>cS :call SwitchLucius()<CR>
-nnoremap <leader>cs :call ChangeColorScheme()<CR>
+" cycle colors but quietly
+map <silent> <F5> :silent call AlternateColorScheme()<CR>
+nnoremap <leader>cs :call AlternateColorScheme()<CR>
 
+" set pastetoggle to <leader>P
+set pastetoggle=<leader>P
 " Paste from clipboard
 map <leader>p "+p
 " yank to clipboard
@@ -469,8 +492,8 @@ endfunction " }}}
 " Syntastic
 " ==========================================================
 " set syntastic to active
-let g:syntastic_mode_map = { 'mode': 'passive'}
-" let g:syntastic_mode_map = { 'mode': 'active'}
+" let g:syntastic_mode_map = { 'mode': 'passive'}
+let g:syntastic_mode_map = { 'mode': 'active'}
 " also set syntastic to muffle style stuff unless I explicitly want it
 let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
 " let g:syntastic_python_checkers=['pyflakes']
@@ -499,17 +522,11 @@ nmap <Leader>se :Errors<CR>
 nmap <Leader>st :SyntasticToggleMode<CR>
 nmap <Leader>si :SyntasticInfo<CR>
 
-
 " ==========================================================
-" Calendar stuff
+" Black
 " ==========================================================
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 0
-let g:calendar_time_zone = '-08:00'
-nmap <leader>ct :tab Calendar<CR>
-nmap <leader>cd :Calendar -position=topleft -width=40 -view=day<CR>
-nmap <leader>cm :Calendar -position=topleft -width=40 -view=month<CR>
-nmap <leader>cy :Calendar -position=topleft -width=40 -view=year<CR>
+" run black on save with python files
+autocmd BufWritePre *.py execute ':Black'
 
 " ==========================================================
 " Fugitive
@@ -618,11 +635,12 @@ let g:tmuxline_preset = 'powerline'
 let g:promptline_theme = 'airline'
 let g:promptline_powerline_symbols = 0
 " sections (a, b, c, x, y, z, warn) are optional
+" section a is replaced with the vicmd stuff. also replaced symbols
 let g:promptline_preset = {
-        \'a' : [ promptline#slices#user() ],
-        \'b' : [ promptline#slices#cwd() ],
-        \'c' : [ ],
-        \'x' : [ promptline#slices#jobs() ],
+        \'a' : [ ],
+        \'b' : [ promptline#slices#user() ],
+        \'c' : [ promptline#slices#cwd() ],
+        \'x' : [ promptline#slices#jobs(), promptline#slices#conda_env(), promptline#slices#python_virtualenv()],
         \'y' : [ promptline#slices#git_status(), promptline#slices#vcs_branch() ],
         \'z' : [ promptline#slices#host({ 'only_if_ssh': 1 }) ],
         \'warn' : [ promptline#slices#last_exit_code() ]}
@@ -656,6 +674,8 @@ nmap <leader>f :CtrlPBuffer<CR>
 " t for tag
 nmap <leader>t :CtrlPBufTagAll<CR>
 nmap <leader>T :CtrlPTag<CR>
+" Search from current directory instead of project root
+let g:ctrlp_working_path_mode = 0
 
 " ==========================================================
 " gutentags -- tag management
@@ -737,7 +757,7 @@ inoremap <leader>, <C-x><C-o>
 " ==========================================================
 let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 1
-let g:jedi#use_splits_not_buffers = "top"
+let g:jedi#use_splits_not_buffers = ""
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 0  " 0 disable, 1 popup, 2 commandline
 let g:jedi#smart_auto_mappings = 0
@@ -750,8 +770,14 @@ let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>jn"
-let g:jedi#completions_command = "<leader>jj"
+let g:jedi#completions_command = "<leader>jc"  " difference between this and C-x C-o?
 let g:jedi#rename_command = "<leader>jr"
+
+" ===========================================================
+" Scratch
+" ============================================================
+" Just remember that :Scratch and :Sscratch are available for handy scratch
+" window
 
 " ===========================================================
 " Handy Latex Bindings and vimtex
