@@ -2,6 +2,9 @@
 
 # setup script for getting useful packages for your rasp pi
 
+# TODO: should this be
+# sudo apt update
+# sudo apt full-upgrade
 sudo apt-get update
 sudo apt-get upgrade
 
@@ -53,3 +56,5 @@ ln -s ${HOME}/.dotfiles/iterm2 ${HOME}/.iterm2
 
 # for getting bluetooth to work (a real nice nicety)
 # sudo apt-get install -y bluetooth bluez-utils blueman bluez python-gobject python-gobject-2
+
+# TODO: did I do anything special for wifi / connecting to rpi via ssh?

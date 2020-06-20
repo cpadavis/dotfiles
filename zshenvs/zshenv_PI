@@ -10,7 +10,7 @@ alias pipu="pip install --user --upgrade"
 
 export IPYTHON_NOTEBOOK_DIR="$HOME/Projects/ipynbs"
 
-source ${HOME}/.dotfiles/promptline/promptline_SolarizedDarkVIM.sh
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
 
 function tday {
     raspistill -o test.jpg -n -rot 270 -w 1944 -h 2592
