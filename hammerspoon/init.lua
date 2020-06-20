@@ -11,7 +11,7 @@ function dump(o)
    end
 end
 
-logger = hs.logger.new('main')
+logger = hs.logger.new('main', 'debug')
 
 -- `window_state_rects` are `{x,y,w,l}` `hs.geometry.unitrect` tables defining those states
 _window_state_name_to_rect = {
@@ -88,12 +88,16 @@ function cycle_audio_input()
         index[v:name()] = k
         count = count + 1
     end
+    logger.i("All devices")
+    logger.i(dump(all_devices))
+    logger.i("Index")
     logger.i(dump(index))
     local input_name = hs.audiodevice.defaultInputDevice():name()
     logger.i("Audio Input is "..input_name)
     if index[input_name] == count then
         new_device = all_devices[1]
     else
+    	logger.i(dump(index[input_name] + 1))
         new_device = all_devices[index[input_name] + 1]
     end
 
