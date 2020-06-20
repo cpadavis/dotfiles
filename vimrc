@@ -333,7 +333,7 @@ function! ChangeColorScheme(cscheme, bground)
     elseif a:cscheme == 'base16'
         if &background == 'light'
             colorscheme base16-github
-            silent ! ${HOME}/.iterm2/it2setcolor preset base16-github.light
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-github.dark
         elseif &background == 'dark'
             colorscheme base16-default-dark
             silent ! ${HOME}/.iterm2/it2setcolor preset base16-default.dark.mod

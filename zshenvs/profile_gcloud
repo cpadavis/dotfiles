@@ -112,7 +112,6 @@ function tmx() {
     fi
 
     base_session=tmuxs
-    base_session=0
     if [[ -z "$TMUX" ]]; then
         tmux has-session -t $base_session 2>/dev/null
         if [ "$?" -eq 1 ] ; then
