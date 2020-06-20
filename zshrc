@@ -193,12 +193,11 @@ function gscpu(){
     gcloud compute --project "dl-security-test" scp --zone "${4:=us-central1-c}" ${1} "chris@${3:=chris-dev-1804-2}:${2}"
 }
 function gcp(){
-    # if it2check ; then it2setcolor preset 'base16-default.dark.mod'; fi
-    if it2check ; then it2setcolor preset 'monokai.mod'; fi
+    if it2check ; then it2setcolor preset 'base16-monokai.dark'; fi
     gcloud compute --project "dl-security-test" ssh --zone us-central1-c chris@chris-dev-1804-2 --ssh-flag="-CY"
 }
 function jup(){
-    if it2check ; then it2setcolor preset "base16-github.light"; fi
+    if it2check ; then it2setcolor preset "base16-github.dark"; fi
     gcloud compute --project "dl-security-test" ssh --zone us-central1-c chris@chris-dev-1804-2 --ssh-flag="-CY -L localhost:8888:localhost:8888 -L localhost:16006:localhost:6006"
 }
 function dlvm(){
@@ -208,6 +207,7 @@ function dlvm(){
 
 
 function rpi(){
+    if it2check ; then it2setcolor preset 'base16-ocean.dark'; fi
     ssh -Y pi@${1=192.168.1.128}
 }
 
