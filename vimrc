@@ -356,14 +356,14 @@ function! AlternateColorScheme()
         if &background == 'light'
             call ChangeColorScheme('base16-solarized', 'dark')
         elseif &background == 'dark'
-            call ChangeColorScheme('base16', 'dark')
+            call ChangeColorScheme('base16', 'light')
         endif
     elseif g:colors_name =~ 'base16'
         if &background == 'dark'
-            call ChangeColorScheme('base16', 'light')
+            call ChangeColorScheme('monokai-chris', 'light')
         elseif &background == 'light'
             " call ChangeColorScheme('base16-solarized', 'light')
-            call ChangeColorScheme('monokai-chris', 'light')
+            call ChangeColorScheme('base16', 'dark')
         endif
     else
         " escape!
