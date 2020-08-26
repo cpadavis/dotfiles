@@ -6,5 +6,5 @@
 
     // Selected Theme
     // Application-level visual styling theme
-    "theme": "base16dark"
+    "theme": "JupyterLab Dark"
 }
