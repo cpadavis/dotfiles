@@ -297,6 +297,11 @@ colorscheme base16-default-dark
 " for exploring with jupyterlab, where base16 colorscheme looks awful
 " colorscheme monokai-chris
 
+if exists('+termguicolors')
+     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+     set termguicolors
+endif
 
 " commands for changing the colors around
 function! ChangeColorScheme(cscheme, bground)
