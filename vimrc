@@ -345,6 +345,16 @@ function! ChangeColorScheme(cscheme, bground)
         endif
         AirlineTheme base16
         Tmuxline
+    elseif a:cscheme == 'base16-gruvbox'
+        if &background == 'light'
+            colorscheme base16-gruvbox-soft
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-github.dark
+        elseif &background == 'dark'
+            colorscheme base16-gruvbox-pale
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-default.dark.mod
+        endif
+        AirlineTheme base16
+        Tmuxline
     elseif a:cscheme == 'monokai-chris'
         colorscheme monokai-chris
         silent ! ${HOME}/.iterm2/it2setcolor preset monokai.mod
@@ -355,6 +365,11 @@ function! ChangeColorScheme(cscheme, bground)
     echo "background: " . &background
 endfunction
 function! AlternateColorScheme()
+    " TODO: make this work :/
+    " let l:myordering = { 'monokai-chris': {'light': ['base16-solarized', 'light']}, 'base16-solarized': { 'light': ['base16-solarized', 'dark'], 'dark': ['base16', 'light'] }, 'base16': { 'light': ['base16', 'dark'], 'dark': ['monokai-chris', 'light'] } }
+    " let &l:newcolorscheme = l:myordering[g:colorsname][&background][0]
+    " let &l:newbackground = l:myordering[g:colorsname][&background][1]
+    " call ChangeColorScheme(&l:newcolorscheme, &l:newbackground)
     if g:colors_name == 'monokai-chris'
         call ChangeColorScheme('base16-solarized', 'light')
     elseif g:colors_name =~ 'base16-solarized'
