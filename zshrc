@@ -413,4 +413,5 @@ if [[ "$CPD_NAME" == "GCLOUD" ]]; then
     fi
     unset __conda_setup
     # <<< conda initialize <<<
+    conda activate py3.7
 fi

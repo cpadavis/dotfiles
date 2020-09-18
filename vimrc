@@ -345,6 +345,16 @@ function! ChangeColorScheme(cscheme, bground)
         endif
         AirlineTheme base16
         Tmuxline
+    elseif a:cscheme == 'base16-gruvbox'
+        if &background == 'light'
+            colorscheme base16-gruvbox-light-soft
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-github.dark
+        elseif &background == 'dark'
+            colorscheme base16-gruvbox-dark-pale
+            silent ! ${HOME}/.iterm2/it2setcolor preset base16-gruvbox-dark-pale
+        endif
+        AirlineTheme base16
+        Tmuxline
     elseif a:cscheme == 'monokai-chris'
         colorscheme monokai-chris
         silent ! ${HOME}/.iterm2/it2setcolor preset monokai.mod
@@ -356,7 +366,13 @@ function! ChangeColorScheme(cscheme, bground)
 endfunction
 function! AlternateColorScheme()
     if g:colors_name == 'monokai-chris'
-        call ChangeColorScheme('base16-solarized', 'light')
+        call ChangeColorScheme('base16-gruvbox', 'dark')
+    elseif g:colors_name =~ 'base16-gruvbox'
+        if &background == 'light'
+            call ChangeColorScheme('base16-gruvbox', 'dark')
+        elseif &background == 'dark'
+            call ChangeColorScheme('base16-solarized', 'light')
+        endif
     elseif g:colors_name =~ 'base16-solarized'
         if &background == 'light'
             call ChangeColorScheme('base16-solarized', 'dark')

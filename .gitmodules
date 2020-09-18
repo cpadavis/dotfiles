@@ -160,3 +160,6 @@
 [submodule "vim/bundle/black"]
 	path = vim/bundle/black
 	url = https://github.com/psf/black.git
+[submodule "vim/bundle/vim-dirdiff"]
+	path = vim/bundle/vim-dirdiff
+	url = https://github.com/will133/vim-dirdiff.git
