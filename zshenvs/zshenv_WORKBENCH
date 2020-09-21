@@ -1,0 +1,17 @@
+
+export CPD_NAME=WORKBENCH
+eval "$(dircolors ${HOME}/.dircolors)";
+alias ls='ls -hFa --color'
+alias tmux='tmux -2'
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+export IPYTHON_NOTEBOOK_DIR="$HOME/ipynbs"
+alias pylab='ipython --profile=nbserver'
+alias notebook='jupyter lab'
+
+# source ${HOME}/.dotfiles/promptline/promptline_LuciusLightVIM.sh
+source ${HOME}/.dotfiles/promptline/promptline_LuciusDarkVIM.sh
+
+
