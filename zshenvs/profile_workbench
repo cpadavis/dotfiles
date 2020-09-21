@@ -1,0 +1,132 @@
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin directories
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+export CPD_NAME=WORKBENCH
+
+export IPYTHON_NOTEBOOK_DIR="$HOME/Projects"
+
+# https://unix.stackexchange.com/questions/20396/make-cd-automatically-ls
+[ -z "$PS1" ] && return
+alias ls='ls -hFa --color'
+function cd {
+    builtin cd "$@" && ls -F
+}
+alias pylab='ipython --profile=nbserver'
+alias notebook='jupyter lab'
+alias tmux='tmux -2'
+
+# source ${HOME}/.dotfiles/promptline/promptline_LuciusLight.sh
+source ${HOME}/.dotfiles/promptline/promptline_LuciusDark.sh
+
+#####
+# tmux related
+# note that these do not change the colors, unlike the zsh ones
+#####
+
+function tmuxs()
+{
+    tmux start-server
+    tmux new-session -d -s tmuxs
+
+    # create notebook in window 0
+    tmux rename-window notebook
+    tmux send-keys "notebook" C-m
+
+    tmux split-window -v
+    tmux select-pane -t 1
+    tmux send-keys "rustivus" C-m
+
+    # create new window. with no -d flag, this is automatically chosen
+    tmux new-window
+
+    # start session
+    tmux attach-session -t tmuxs
+}
+# tmux sharing
+alias tmuxa="tmux -u attach-session -t tmuxs:1"
+
+# kick off other terminals
+alias detach='tmux detach -a'
+alias attach='tmux attach -d'
+
+function tmuxk() {
+    # Kill defunct sessions first
+    old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+    for old_session_id in ${old_sessions[*]}; do
+        tmux kill-session -t $old_session_id ;
+    done
+}
+
+function tmx() {
+    #
+    # Modified TMUX start script from:
+    #     http://forums.gentoo.org/viewtopic-t-836006-start-0.html
+    # and then from:
+    #     https://mutelight.org/practical-tmux
+    #
+    # Store it to `${HOME}/bin/tmx` and issue `chmod +x`.
+    #
+
+    # Works because bash automatically trims by assigning to variables and by
+    # passing arguments
+    trim() { echo $1; }
+
+    # if [[ -z "$1" ]]; then
+    #     echo "Specify session name as the first argument"
+    #     exit
+    # fi
+
+    # Only because I often issue `ls` to this script by accident
+    if [[ "$1" == "ls" ]]; then
+        tmux ls
+        exit
+    fi
+
+    base_session=tmuxs
+    base_session=0
+    if [[ -z "$TMUX" ]]; then
+        tmux has-session -t $base_session 2>/dev/null
+        if [ "$?" -eq 1 ] ; then
+            tmuxs
+        else
+            # Kill defunct sessions first
+            old_sessions=($(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:))
+            for old_session_id in $old_sessions; do
+                tmux kill-session -t $old_session_id
+            done
+
+            echo "Launching copy of base session $base_session ..."
+            # Session is is date and time to prevent conflict
+            session_id=`date +%Y%m%d%H%M%S`
+            # Create a new session (without attaching it) and link to base session
+            # to share windows
+            tmux new-session -d -t $base_session -s $session_id
+            # Attach to the new session
+            tmux attach-session -t $session_id
+            # When we detach from it, kill the session
+            tmux kill-session -t $session_id
+        fi
+    else
+        echo Already in a tmux session.
+    fi
+}
