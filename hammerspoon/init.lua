@@ -13,6 +13,9 @@ end
 
 logger = hs.logger.new('main', 'debug')
 
+hs.loadSpoon("SpoonInstall")
+Install=spoon.SpoonInstall
+
 -- `window_state_rects` are `{x,y,w,l}` `hs.geometry.unitrect` tables defining those states
 _window_state_name_to_rect = {
     -- two decimal places required for `window_state_rect_strings` to match
@@ -150,3 +153,9 @@ end)
 --   f.x = f.x - 10
 --   win:setFrame(f)
 -- end)
+
+Install:andUse("ToggleScreenRotation",
+               {
+                 hotkeys = { first = {{"ctrl", "alt", "cmd"}, "b"} }
+               }
+)
