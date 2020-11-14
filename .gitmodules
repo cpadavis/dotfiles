@@ -163,3 +163,9 @@
 [submodule "vim/bundle/vim-dirdiff"]
 	path = vim/bundle/vim-dirdiff
 	url = https://github.com/will133/vim-dirdiff.git
+[submodule "vim/bundle/vim-arduino"]
+	path = vim/bundle/vim-arduino
+	url = https://github.com/stevearc/vim-arduino
+[submodule "vim/bundle/vim-slime"]
+	path = vim/bundle/vim-slime
+	url = https://github.com/jpalardy/vim-slime

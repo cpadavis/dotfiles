@@ -117,7 +117,7 @@ endif
 "     :let name = input("What File? ")
 "     :exe 'e scp://cpd@ki-ls.slac.stanford.edu/'. name
 " endfunction
-" map <Leader>sd :call ESlac()<CR>
+" map <leader>sd :call ESlac()<CR>
 " " call with e.g. :call ESlac('makedonuts/analyze.py')
 " function! UpSlac()
 "     ":!scp %:p cpd@ki-ls.slac.stanford.edu:/afs/slac.stanford.edu/u/ki/cpd/{a:name}
@@ -125,7 +125,7 @@ endif
 "     :exe '!scp %:p cpd@ki-ls.slac.stanford.edu:' . name . '/%'
 " endfunction
 " " call with e.g. :call UpSlac() and enter 'makedonuts'
-" map <Leader>ss :call UpSlac()<CR>
+" map <leader>ss :call UpSlac()<CR>
 
 " ==========================================================
 " Pathogen - Allows us to organize our vim plugins
@@ -477,10 +477,10 @@ let g:vimwiki_list = [wiki, wiki_personal]
 
 " vimwiki keybindings
 
-" nmap <Leader>wf <Plug>VimwikiFollowLink
-" nmap <Leader>we <Plug>VimwikiSplitLink
-" nmap <Leader>wv <Plug>VimwikiVSplitLink
-nmap <Leader>wf <Plug>VimwikiTabnewLink
+" nmap <leader>wf <Plug>VimwikiFollowLink
+" nmap <leader>we <Plug>VimwikiSplitLink
+" nmap <leader>wv <Plug>VimwikiVSplitLink
+nmap <leader>wf <Plug>VimwikiTabnewLink
 
 " this function overrides the default and lets us use vfile to open things
 " within a vim session
@@ -536,12 +536,12 @@ function! SynCheckNoStyle()
     let g:syntastic_quiet_messages= {'type': 'style', 'level': 'warnings'}
     call SyntasticCheck()
 endfunction
-"nmap <Leader>sc :SyntasticCheck<CR>
-nmap <Leader>sc :call SynCheckStyle()<CR>
-nmap <Leader>sC :call SynCheckNoStyle()<CR>
-nmap <Leader>se :Errors<CR>
-nmap <Leader>st :SyntasticToggleMode<CR>
-nmap <Leader>si :SyntasticInfo<CR>
+"nmap <leader>sc :SyntasticCheck<CR>
+nmap <leader>sc :call SynCheckStyle()<CR>
+nmap <leader>sC :call SynCheckNoStyle()<CR>
+nmap <leader>se :Errors<CR>
+nmap <leader>st :SyntasticToggleMode<CR>
+nmap <leader>si :SyntasticInfo<CR>
 
 " ==========================================================
 " Black
@@ -566,9 +566,9 @@ nnoremap <leader>GP :Git! pull<CR>
 " ============================================================
 
 let g:gitgutter_map_keys = 1
-nmap <Leader>Gt <Plug>GitGutterStageHunk
-nmap <Leader>Gu <Plug>GitGutterUndoHunk
-nmap <Leader>Gr <Plug>GitGutterPreviewHunk
+nmap <leader>Gt <Plug>GitGutterStageHunk
+nmap <leader>Gu <Plug>GitGutterUndoHunk
+nmap <leader>Gr <Plug>GitGutterPreviewHunk
 
 " ==========================================================
 " vim airline
@@ -700,6 +700,7 @@ let g:ctrlp_working_path_mode = 0
 
 " ==========================================================
 " gutentags -- tag management
+" still not really sure what to do with this
 " ==========================================================
 
 
@@ -842,6 +843,38 @@ let g:tex_flavor = 'latex'  " change to pdflatex?
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_latexmk_options = '-pdf -xelatex -f -shell-escape --quiet -biber'
 " latexmk -pdf -xelatex -f -shell-escape --quiet
+
+" ===========================================================
+" Arduino
+" https://github.com/stevearc/vim-arduino
+" ============================================================
+nnoremap <buffer> <leader>av :ArduinoVerify<CR>
+nnoremap <buffer> <leader>au :ArduinoUpload<CR>
+nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
+nnoremap <buffer> <leader>as :ArduinoSerial<CR>
+let g:arduino_use_slime = 1
+" original serial command. Remember to exit with C-a k
+let g:arduino_serial_cmd = 'screen {port} {baud}'
+" try an alternative to screen
+" let g:arduino_serial_cmd = 'cu -l {port} -s {baud}'
+" I don't think you can set the baud with tmux :/
+" let g:arduino_serial_cmd = 'tmux {port}'
+let g:arduino_auto_baud = 1
+
+" ===========================================================
+" vim-slime
+" https://github.com/jpalardy/vim-slime
+" ============================================================
+let g:slime_target = "tmux"
+" to modify:
+" C-c v
+" to send:
+" C-c C-c
+"h:i.j"   means the tmux session where h is the session identifier
+"          (either session name or number), the ith window and the jth pane .
+"          empty == current (so :.1 sends to second pane)
+"          note the _absolute numbering_ system :(
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 
 " ===========================================================
 " Profile commands
