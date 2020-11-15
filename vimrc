@@ -860,6 +860,8 @@ let g:arduino_serial_cmd = 'screen {port} {baud}'
 " I don't think you can set the baud with tmux :/
 " let g:arduino_serial_cmd = 'tmux {port}'
 let g:arduino_auto_baud = 1
+let g:arduino_board = 'arduino:avr:uno'
+let g:arduino_programmer = 'arduino:usbtinyisp'
 
 " ===========================================================
 " vim-slime
