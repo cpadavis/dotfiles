@@ -312,6 +312,7 @@ function tmh() {
 function tmuxs
 {
     # some weird conda behavior with the path if we don't have conda deactivated when we spawn
+    # TODO: not sure if I need this for LYFT as well
     if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
         # TODO: not sure why this is needed for MB but not for DESCARTES
         # TODO: also not totally sure why I didn't need this for GCLOUD? (or do I need it?!)
@@ -340,7 +341,7 @@ function tmuxs
         tmux send-keys "watch -d nvidia-smi"
     fi
 
-    if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" ]]; then
+    if [[ "$CPD_NAME" == "MB" || "$CPD_NAME" == "DESCARTES" || "$CPD_NAME" == "LYFT" ]]; then
         tmux new-window
         tmux rename-window vimwiki
         tmux send-keys "vimwiki"

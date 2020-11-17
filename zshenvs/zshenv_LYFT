@@ -1,0 +1,22 @@
+
+# if paths get messed up, this can help
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+
+export CPD_NAME="LYFT"
+# PATH="/Users/cpd/.local/bin:/usr/local/bin:${PATH}"
+# export PATH
+
+
+eval "$(gdircolors ${HOME}/.dircolors)";
+alias ls='gls -hFa --color'
+alias pylab='ipython --profile=nbserver'
+alias notebook='jupyter lab'
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
+
+
+# not sure, but is this breaking stuff???
+# unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
