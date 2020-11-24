@@ -1,0 +1,55 @@
+
+# if paths get messed up, this can help
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+
+export CPD_NAME="ONEBOX"
+
+
+eval "$(dircolors ${HOME}/.dircolors)";
+alias ls='ls -hFa --color'
+alias pylab='ipython --profile=nbserver'
+alias notebook='jupyter lab'
+alias vim="/home/ubuntu/miniconda3/bin/vim +'colorscheme base16-gruvbox-dark-pale'"
+# force tmux to assume 256 color
+alias tmux='tmux -2'
+
+source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
+
+
+# not sure, but is this breaking stuff???
+# unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
+
+function container() {
+    if (( $# == 0 )); then
+        echo "Checking for existing container"
+        container_id=$(docker ps -q)
+        if [ -z "$container_id" ]
+        then
+            echo "Launching new container"
+            launch-container
+        else
+            # check if there are multiple containers
+            if [[ "$container_id" == *$'\n'* ]]
+            then
+                echo "Found multiple containers! Here they are:"
+                echo $container_id
+                echo "Not entering any containers!"
+                return
+            else
+                echo "Entering container $container_id"
+                docker exec -it $container_id bash
+            fi
+        fi
+    elif (( $# == 1 ))
+    then
+        echo "Entering container $1"
+        docker exec -it $1 bash
+    else
+        echo "Can't enter multiple containers in one shell"
+        return
+    fi
+}
