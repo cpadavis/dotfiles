@@ -458,7 +458,7 @@ nmap <leader>md :call PreviewMarkdown()<CR>
 " ==========================================================
 " vimwiki
 " ==========================================================
-let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql': 'sql'}
+let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql': 'sql', 'zsh': 'zsh'}
 let wiki = {}
 let wiki.path = $HOME.'/Dropbox/vimwiki/'
 let wiki.nested_syntaxes = vimwiki_nested_syntaxes

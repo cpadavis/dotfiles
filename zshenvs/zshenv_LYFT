@@ -15,12 +15,6 @@ alias pylab='ipython --profile=nbserver'
 alias notebook='jupyter lab'
 source ${HOME}/.dotfiles/promptline/promptline_base16VIM.sh
 
-# alias onebox='ssh -A ubuntu@l5-onebox-chrisdavis'
-function onebox(){
-    if it2check ; then it2setcolor preset 'base16-gruvbox-dark-pale'; fi
-    ssh -A ubuntu@l5-onebox-chrisdavis
-}
-
 # not sure, but is this breaking stuff???
 # unalias run-help
 autoload run-help

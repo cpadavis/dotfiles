@@ -226,6 +226,13 @@ function sshcrawl() {
     ssh -C -i ${HOME}/.ssh/cao_key -l joshua crawl.akrasiac.org
 }
 
+# note that you need to setup the ssh keys on your laptop for this to work
+# alias onebox='ssh -A ubuntu@l5-onebox-chrisdavis'
+function onebox(){
+    if it2check ; then it2setcolor preset 'base16-gruvbox-dark-pale'; fi
+    ssh -A ubuntu@l5-onebox-chrisdavis
+}
+
 #####
 # tmux related
 #####
