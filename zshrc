@@ -457,6 +457,10 @@ if [[ "$CPD_NAME" == "LYFT" ]]; then
     fi
     unset __conda_setup
     # <<< conda initialize <<<
+    # The next line updates PATH for the Google Cloud SDK.
+    if [ -f '/Users/chrisdavis/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chrisdavis/google-cloud-sdk/path.zsh.inc'; fi
+    # The next line enables shell command completion for gcloud.
+    if [ -f '/Users/chrisdavis/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/chrisdavis/google-cloud-sdk/completion.zsh.inc'; fi
 fi
 if [[ "$CPD_NAME" == "ONEBOX" ]]; then
     # >>> conda initialize >>>
