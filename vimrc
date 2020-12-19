@@ -566,9 +566,9 @@ nnoremap <leader>GP :Git! pull<CR>
 " ============================================================
 
 let g:gitgutter_map_keys = 1
-nmap <leader>Gt <Plug>GitGutterStageHunk
-nmap <leader>Gu <Plug>GitGutterUndoHunk
-nmap <leader>Gr <Plug>GitGutterPreviewHunk
+map <leader>Gt <Plug>(GitGutterStageHunk)
+map <leader>Gu <Plug>(GitGutterUndoHunk)
+map <leader>Gr <Plug>(GitGutterPreviewHunk)
 
 " ==========================================================
 " vim airline
