@@ -20,7 +20,7 @@ c = get_config()
 # lines of code to run at IPython startup.
 activate_lines = [
     "import numpy as np",
-    "import descarteslabs as dl",
+    # "import descarteslabs as dl",
     # "import pandas as pd",
     # "import tensorflow as tf",
     "import yaml",

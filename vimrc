@@ -848,10 +848,14 @@ let g:vimtex_latexmk_options = '-pdf -xelatex -f -shell-escape --quiet -biber'
 " Arduino
 " https://github.com/stevearc/vim-arduino
 " ============================================================
-nnoremap <buffer> <leader>av :ArduinoVerify<CR>
-nnoremap <buffer> <leader>au :ArduinoUpload<CR>
-nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
-nnoremap <buffer> <leader>as :ArduinoSerial<CR>
+" nnoremap <buffer> <leader>av :ArduinoVerify<CR>
+" nnoremap <buffer> <leader>au :ArduinoUpload<CR>
+" nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
+" nnoremap <buffer> <leader>as :ArduinoSerial<CR>
+nnoremap <leader>av :ArduinoVerify<CR>
+nnoremap <leader>au :ArduinoUpload<CR>
+nnoremap <leader>ad :ArduinoUploadAndSerial<CR>
+nnoremap <leader>as :ArduinoSerial<CR>
 let g:arduino_use_slime = 1
 " original serial command. Remember to exit with C-a k
 let g:arduino_serial_cmd = 'screen {port} {baud}'
