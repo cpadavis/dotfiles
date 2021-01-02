@@ -81,46 +81,60 @@ hs.hotkey.bind({"ctrl", "alt", "cmd"}, "l", function()
 end)
 
 -- Toggle sound devices
+function cycle_list(list, current_name, delta)
+    -- given list, cycle to next entry
+    local index={}
+    local count = 0
+    for k,v in ipairs(list) do
+        count = count + 1
+        logger.i(v:name(), k, count)
+        index[v:name()] = k
+    end
+    logger.i("List:")
+    logger.i(dump(list))
+    logger.i("Index:")
+    logger.i(dump(index))
+    logger.i("Count:")
+    logger.i(count)
+    logger.i("Entry is "..current_name)
+    local c = index[current_name]
+    logger.i("c, count")
+    logger.i(c, count)
+    if c+delta > count then
+        c = 1
+    else
+        c = c+delta
+    end
+    logger.i("next c, count")
+    logger.i(c, count)
+    logger.i("Selecting list entry:")
+    logger.i(c)
+    new_entry = list[c]
+    return new_entry
+end
 function cycle_audio_input()
     logger.i("***** Doing Audio Input Change *****")
     logger.i(dump(hs.audiodevice.current(true)))  -- true for input
     logger.i(dump(hs.audiodevice.allInputDevices()))
     all_devices = hs.audiodevice.allInputDevices()
-    local index={}
-    local count = 0
-    for k,v in pairs(all_devices) do
-        if v:name() ~= "ZoomAudioDevice" then
-            logger.i(v:name(), k, count)
-            -- index[v:name()] = k
-            -- use count, not k here
-            index[v:name()] = {count, k}
-            count = count + 1
-        end
-    end
-    logger.i("All devices")
-    logger.i(dump(all_devices))
-    logger.i("Index")
-    logger.i(dump(index))
-    logger.i("Count:")
-    logger.i(count)
     local input_name = hs.audiodevice.defaultInputDevice():name()
-    logger.i("Audio Input is "..input_name)
-    local c = index[input_name][1]
-    local k = index[input_name][2]
-    logger.i("c, k, count")
-    logger.i(c, k, count)
-    if c+1 == count then
-        k = 1
-    else
-        k = k + 1
-    end
-    logger.i("Selecting list entry:")
-    logger.i(k)
-    new_device = all_devices[k]
+    local device_name = input_name
+    logger.i("Current Audio Input is "..input_name)
 
-    new_device:setDefaultInputDevice()
-    local input_name = hs.audiodevice.defaultInputDevice():name()
-    logger.i("Audio Input is now using "..input_name)
+    local tries = 1
+    while((input_name == device_name) and (tries < 5))
+    do
+        if tries > 1 then
+            logger.i("***Trying attempt ..".. tries)
+        end
+        new_device = cycle_list(all_devices, device_name, tries)
+        logger.i("new device "..new_device:name())
+        new_device:setDefaultInputDevice()
+        device_name = hs.audiodevice.defaultInputDevice():name()
+        tries = tries + 1
+    end
+
+    logger.i("Audio Input is now using "..device_name)
     hs.notify.new({title="Hammerspoon", informativeText="Audio Input now is "..input_name}):send()
     logger.i("***** Ending Audio Input Change *****")
 end
@@ -132,41 +146,25 @@ function cycle_audio_output()
     logger.i(dump(hs.audiodevice.current(true)))  -- true for output
     logger.i(dump(hs.audiodevice.allOutputDevices()))
     all_devices = hs.audiodevice.allOutputDevices()
-    local index={}
-    local count = 0
-    for k,v in pairs(all_devices) do
-        if v:name() ~= "ZoomAudioDevice" then
-            logger.i(v:name(), k, count)
-            -- index[v:name()] = k
-            -- use count, not k here
-            index[v:name()] = {count, k}
-            count = count + 1
-        end
-    end
-    logger.i("All devices")
-    logger.i(dump(all_devices))
-    logger.i("Index")
-    logger.i(dump(index))
-    logger.i("Count:")
-    logger.i(count)
-    local input_name = hs.audiodevice.defaultOutputDevice():name()
-    logger.i("Audio Output is "..input_name)
-    local c = index[input_name][1]
-    local k = index[input_name][2]
-    logger.i("c, k, count")
-    logger.i(c, k, count)
-    if c+1 == count then
-        k = 1
-    else
-        k = k + 1
-    end
-    logger.i("Selecting list entry:")
-    logger.i(k)
-    new_device = all_devices[k]
 
-    new_device:setDefaultOutputDevice()
     local output_name = hs.audiodevice.defaultOutputDevice():name()
-    logger.i("Audio Output is now using "..output_name)
+    local device_name = output_name
+    logger.i("Current Audio Output is "..output_name)
+
+    local tries = 1
+    while((output_name == device_name) and (tries < 5))
+    do
+        if tries > 1 then
+            logger.i("***Trying attempt ..".. tries)
+        end
+        new_device = cycle_list(all_devices, device_name, tries)
+        logger.i("new device "..new_device:name())
+        new_device:setDefaultOutputDevice()
+        device_name = hs.audiodevice.defaultOutputDevice():name()
+        tries = tries + 1
+    end
+
+    logger.i("Audio Output is now using "..device_name)
     hs.notify.new({title="Hammerspoon", informativeText="Audio Output now is "..output_name}):send()
     logger.i("***** Ending Audio Output Change *****")
 end
