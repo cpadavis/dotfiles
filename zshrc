@@ -237,6 +237,10 @@ function onebox(){
 # tmux related
 #####
 
+# https://unix.stackexchange.com/a/171900
+[[ $TMUX != "" ]] && export TERM="screen-256color"
+
+
 # kick off other terminals
 alias detach='tmux detach -a'
 alias attach='tmux attach -d'

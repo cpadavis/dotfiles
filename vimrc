@@ -2,6 +2,7 @@
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
 
+" TODO: try https://github.com/dense-analysis/ale instead of syntastic
 
 " ==========================================================
 " Shortcuts to windows that pop up on side
@@ -41,6 +42,7 @@ set timeoutlen=500
 " set update time to 250 ms
 set updatetime=750
 
+" TODO: why does this exist
 fu! SplitScroll()
     :wincmd v
     :wincmd w
@@ -49,6 +51,7 @@ fu! SplitScroll()
     :wincmd w
     :set scrollbind
 endfu
+nmap <leader>sb :call SplitScroll()<CR>
 
 " z= loads up alternatives for spelling but is awful to type
 " so let's rebind it
@@ -56,7 +59,6 @@ nmap <leader>z z=
 " also enable spelling highlighting. I know it breaks my 'syntax' for <leader>s
 nmap <leader>sp :set spell!<CR>
 
-nmap <leader>sb :call SplitScroll()<CR>
 
 " redraw on command
 nmap <leader>lR :redraw!<CR>
@@ -97,21 +99,16 @@ se ww+=h
 "  happen as if in command mode )
 imap <C-W> <C-O><C-W>
 
-
+" I like these from emacs:
+" end of line
 inoremap <C-e> <C-o>$
+" beginning of line
 inoremap <C-a> <C-o>^
+" delete everything after this
 inoremap <C-k> <Esc>D<Esc>a
-" Open NerdTree
-map <leader>n :NERDTreeToggle<CR>
 
 
-" Load the Gundo window
-map <leader>g :GundoToggle<CR>
-if has('python3')
-    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
-endif
-
-
+" keeping this in here as an example for how to use scp
 " function! ESlac()
 "     " :e scp://cpd@ki-ls.slac.stanford.edu//afs/slac.stanford.edu/u/ki/cpd/a:name
 "     :let name = input("What File? ")
@@ -445,6 +442,21 @@ autocmd InsertEnter * :setlocal number norelativenumber
 autocmd InsertLeave * :setlocal number relativenumber
 
 " ==========================================================
+" Gundo
+" ==========================================================
+" Load the Gundo window
+map <leader>g :GundoToggle<CR>
+if has('python3')
+    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
+endif
+
+" ==========================================================
+" Nerdtree
+" ==========================================================
+" Open NerdTree
+map <leader>n :NERDTreeToggle<CR>
+
+" ==========================================================
 " Obsess shortcut to encourage me to use it!
 " ==========================================================
 nmap <leader>O :Obsess
@@ -546,6 +558,7 @@ nmap <leader>si :SyntasticInfo<CR>
 " ==========================================================
 " Black
 " ==========================================================
+"TODO: make it possible to skip loading black if it can't
 " run black on save with python files
 autocmd BufWritePre *.py execute ':Black'
 
@@ -731,6 +744,7 @@ vmap <leader>Ld :Linediff<CR>
 " ==========================================================
 " Rainbow Parentheses
 " ==========================================================
+" TODO: revise colors to be better with dark background. dark blue gone?
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 let g:rainbow_conf = {
@@ -844,6 +858,9 @@ let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_latexmk_options = '-pdf -xelatex -f -shell-escape --quiet -biber'
 " latexmk -pdf -xelatex -f -shell-escape --quiet
 
+" turn spelling on in latex
+au BufRead *.tex setlocal spell
+
 " ===========================================================
 " Arduino
 " https://github.com/stevearc/vim-arduino
@@ -906,29 +923,3 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 
 " Javascript
 au BufRead *.js setl makeprg=jslint\ %
-
-" Latex
-au BufRead *.tex setlocal spell
-
-" Python
-" au BufRead *.py compiler nose
-" au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-" au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-
-
-" Add the virtualenv's site-packages to vim path
-" py << EOF
-" import os.path
-" import sys
-" import vim
-" if 'VIRTUAL_ENV' in os.environ:
-"     project_base_dir = os.environ['VIRTUAL_ENV']
-"     sys.path.insert(0, project_base_dir)
-"     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"     execfile(activate_this, dict(__file__=activate_this))
-" EOF
-"
-" " Load up virtualenv's vimrc if it exists
-" if filereadable($VIRTUAL_ENV . '/.vimrc')
-"     source $VIRTUAL_ENV/.vimrc
-" endif
