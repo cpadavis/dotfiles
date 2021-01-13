@@ -1,0 +1,7 @@
+alias ls='ls -hFa --color'
+alias vim="vim +'colorscheme base16-gruvbox-dark-pale'"
+alias avnp="/code/avsoftware/avctl run --no-provision"
+alias avctl="/code/avsoftware/avctl"
+alias avsr="/code/avsoftware/avsr"
+alias clearcache="rm /home/ubuntu/.cache/lyftbags/*"
+alias check_aliases='echo YOU DID IT'
