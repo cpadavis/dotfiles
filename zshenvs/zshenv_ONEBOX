@@ -10,7 +10,7 @@ export CPD_NAME="ONEBOX"
 eval "$(dircolors ${HOME}/.dircolors)";
 alias ls='ls -hFa --color'
 alias pylab='ipython --profile=nbserver'
-alias notebook='jupyter lab'
+alias notebook='jupyter lab --ip=0.0.0.0 --port=5006'
 alias vim="/home/ubuntu/miniconda3/bin/vim +'colorscheme base16-gruvbox-dark-pale'"
 # force tmux to assume 256 color
 alias tmux='tmux -2'
@@ -52,4 +52,20 @@ function container() {
         echo "Can't enter multiple containers in one shell"
         return
     fi
+}
+
+function killcontainer() {
+    echo "Existing containers..."
+    container_id=$(docker ps -q)
+    container_id=${container_id//'\n'/$'\n'}
+    for id in $container_id
+    do
+        echo "$id"
+        docker stop $id
+        echo "killed!"
+    done
+}
+
+function gitadd() {
+    git add "*$1*"
 }
