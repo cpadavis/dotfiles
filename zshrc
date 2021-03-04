@@ -230,7 +230,7 @@ function sshcrawl() {
 # alias onebox='ssh -A ubuntu@l5-onebox-chrisdavis'
 function onebox(){
     if it2check ; then it2setcolor preset 'base16-gruvbox-dark-pale'; fi
-    ssh -A ubuntu@l5-onebox-chrisdavis
+    ssh -A -L localhost:5006:localhost:5006 ubuntu@l5-onebox-chrisdavis
 }
 
 #####

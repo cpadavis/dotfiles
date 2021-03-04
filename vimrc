@@ -470,7 +470,7 @@ nmap <leader>md :call PreviewMarkdown()<CR>
 " ==========================================================
 " vimwiki
 " ==========================================================
-let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'tex': 'tex', 'sql': 'sql', 'zsh': 'zsh'}
+let vimwiki_nested_syntaxes = {'python': 'python', 'c': 'c', 'cpp': 'cpp', 'tex': 'tex', 'sql': 'sql', 'zsh': 'zsh'}
 let wiki = {}
 let wiki.path = $HOME.'/Dropbox/vimwiki/'
 let wiki.nested_syntaxes = vimwiki_nested_syntaxes
@@ -560,7 +560,7 @@ nmap <leader>si :SyntasticInfo<CR>
 " ==========================================================
 "TODO: make it possible to skip loading black if it can't
 " run black on save with python files
-autocmd BufWritePre *.py execute ':Black'
+" autocmd BufWritePre *.py execute ':Black'
 
 " ==========================================================
 " Fugitive
@@ -716,7 +716,6 @@ let g:ctrlp_working_path_mode = 0
 " still not really sure what to do with this
 " ==========================================================
 
-
 " ==========================================================
 " Limelight -- useful for focus!
 " ==========================================================
@@ -748,8 +747,8 @@ vmap <leader>Ld :Linediff<CR>
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 let g:rainbow_conf = {
-\   'guifgs': ['darkred', 'darkyellow', 'darkgreen', 'darkblue', 'lightblue'],
-\   'ctermfgs': ['DarkRed', 'DarkYellow', 'DarkGreen', 'DarkBlue', 'LightBlue'],
+\   'guifgs': ['darkred', 'darkyellow', 'darkgreen', 'lightblue'],
+\   'ctermfgs': ['DarkRed', 'DarkYellow', 'DarkGreen', 'LightBlue'],
 \   'operators': '_,_',
 \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {
